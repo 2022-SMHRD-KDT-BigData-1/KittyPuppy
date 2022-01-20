@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body> 
+<body>
 <%
 Calendar date = Calendar.getInstance(); 
 SimpleDateFormat today = new SimpleDateFormat("yyyy년 mm월 dd일");
