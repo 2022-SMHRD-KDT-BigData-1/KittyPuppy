@@ -1,5 +1,5 @@
 package com.kittypuppy.service;
 
-public class LoginCon8 {
+public class LostAniCreateCon {
 
 }

@@ -1,5 +1,5 @@
 package com.kittypuppy.service;
 
-public class LoginCon5 {
+public class FeedCoCommentDeleteCon {
 
 }

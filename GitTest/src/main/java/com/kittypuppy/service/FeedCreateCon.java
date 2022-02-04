@@ -1,5 +1,5 @@
 package com.kittypuppy.service;
 
-public class FeedCon {
+public class FeedCreateCon {
 
 }

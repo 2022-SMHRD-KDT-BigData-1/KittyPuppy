@@ -5,13 +5,13 @@ public class LostAniDTO {
 	private String lostNo;
 	private String laType;
 	private String nick;
-	private String animalName;
-	private String animalPic;
+	private String aniName;
+	private String aniPic;
 	private String upKind;
 	private String kind;
 	private String sex;
 	private String color;
-	private String animalSize;
+	private String aniSize;
 	private String isTag;
 	private String feature;
 	private String content;
