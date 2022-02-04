@@ -61,4 +61,12 @@ public class FeedDAO {
 	public void feedDelete() {
 		
 	}
+	
+	public void feedSearchByNick() {
+		
+	}
+	
+	public void feedSearchByTag() {
+		
+	}
 }
