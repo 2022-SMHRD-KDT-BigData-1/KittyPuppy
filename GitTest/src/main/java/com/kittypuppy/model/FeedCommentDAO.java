@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FeedCommentDAO {
 	
@@ -42,19 +43,86 @@ public class FeedCommentDAO {
 		}
 	}
 	
-	public void feedCommentCreate() {
+	public int feedCommentCreate(FeedCommentDTO feedComment) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "insert into feed_comment values(feed_comment_fcno_seq.NEXTVAL,?,?,?,default,?)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, feedComment.getFeedNo());
+			psmt.setString(2, feedComment.getNick());
+			psmt.setString(3, feedComment.getContent());
+			psmt.setString(4, feedComment.getCoUpdate());
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 	
-	public void feedCommentShow() {
+	public ArrayList<FeedCommentDTO> feedCommentShow(String feedNo) {
+		
+		ArrayList<FeedCommentDTO> list = new ArrayList<FeedCommentDTO>();
+		FeedCommentDTO fc = null;
+		connect();
+		try {
+			String sql = "select * from feed_comment where feedno = ? order by codate desc";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, feedNo);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				fc = new FeedCommentDTO(rs.getString("fcno"),rs.getString("feedno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				list.add(fc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 		
 	}
 
-	public void feedCommentUpdate() {
+	public int feedCommentUpdate(String fcNo, String content) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "update feed_comment "
+					+ "set content = ?, coupdate = sysdate"
+					+ "where cono = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, content);
+			psmt.setString(2, fcNo);
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 	
-	public void feedCommentDelete() {
+	public int feedCommentDelete(String fcNo) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "delete from feed_comment where fcno = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, fcNo);
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 }

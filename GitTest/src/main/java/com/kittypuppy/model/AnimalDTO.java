@@ -10,7 +10,7 @@ public class AnimalDTO {
 	private String animalSex;
 	private String animalAge;
 	private String animalProfile;
-	
+
 	public AnimalDTO(String nick, String animalName, String animalPic, String upKind, String kind, String animalSex,
 			String animalAge, String animalProfile) {
 		super();
