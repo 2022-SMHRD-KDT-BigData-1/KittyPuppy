@@ -97,6 +97,7 @@ public class FeedDAO {
 		}
 		return feedList;
 	}
+	
 	// 특정인물 피드 보여주기
 	public  ArrayList<FeedDTO> feedSelect(String nick) {
 		
@@ -126,7 +127,7 @@ public class FeedDAO {
 		connect();
 		try {
 			String sql = "update feed "
-					+ "set picadress = ?, content = ?, tag = ?, feedupdate = sysdate openrange = ?"
+					+ "set picaddress = ?, content = ?, tag = ?, feedupdate = sysdate, openrange = ?"
 					+ "where feedno = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, feed.getPicAddress());

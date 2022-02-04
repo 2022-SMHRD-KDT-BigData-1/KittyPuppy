@@ -16,7 +16,6 @@ public class FeedUpdateCon implements iCommand{
 
 	FeedDTO feed = null;
 	FeedDAO dao = new FeedDAO();
-	MemberDTO member = null;
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,13 +27,12 @@ public class FeedUpdateCon implements iCommand{
 		String openRange = request.getParameter("openRange");
 		String picAddress = request.getParameter("picAddress");
 		
-		// 세션에서 로그인한 사용자 nick 가져오려고 선언
-		HttpSession session = request.getSession();
-		member = (MemberDTO)session.getAttribute("member");
-		
+		// 쿼리스트링에서 get 방식으로 게시물 번호를 받음
+		String feedNo = request.getParameter("feedNo");
+
 		// 수정을 선택한 게시물의 feedno 를 받을 수 있는 feedList
-		//int cnt = dao.feedUpdate(new FeedDTO(null, member.getNick(), picAddress, content, tag, null, null, openRange));
-		
+		int cnt = dao.feedUpdate(new FeedDTO(feedNo, null, picAddress, content, tag, null, null, openRange));
+		 
 		if ( cnt > 0 ) {
 			response.sendRedirect("mypage.jsp");
 		}else {

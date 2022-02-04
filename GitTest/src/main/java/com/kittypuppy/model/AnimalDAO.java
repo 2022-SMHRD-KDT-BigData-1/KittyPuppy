@@ -104,7 +104,7 @@ public class AnimalDAO {
 			String sql = "delete from animal where nick = ? and animalname = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, nick);
-			psmt.setString(1, animalName);
+			psmt.setString(2, animalName);
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e){
 			e.printStackTrace();

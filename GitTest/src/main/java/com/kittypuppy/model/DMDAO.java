@@ -90,7 +90,7 @@ public class DMDAO {
 		DMDTO dm = null;
 		connect();
 		try {
-			String sql = "select * from dm where (sendnick = ? and recieve nick = ?) or (sendnick = ? and recieve nick = ?) order by senddate";
+			String sql = "select * from dm where (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?) order by senddate";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, sendnick);
 			psmt.setString(2, receivenick);
@@ -115,7 +115,7 @@ public class DMDAO {
 		DMDTO dm = null;
 		connect();
 		try {
-			String sql = "select * from dm where (sendnick = ? and recieve nick = ?) or (sendnick = ? and recieve nick = ?) order by senddate desc";
+			String sql = "select * from dm where (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?) order by senddate desc";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, sendnick);
 			psmt.setString(2, receivenick);
@@ -157,7 +157,7 @@ public class DMDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "delete from dm where (sendnick = ? and recieve nick = ?) or (sendnick = ? and recieve nick = ?)";
+			String sql = "delete from dm where (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, sendnick);
 			psmt.setString(2, receivenick);
