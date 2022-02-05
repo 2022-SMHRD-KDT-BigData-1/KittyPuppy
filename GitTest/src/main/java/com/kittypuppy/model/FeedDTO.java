@@ -2,17 +2,17 @@ package com.kittypuppy.model;
 
 public class FeedDTO {
 
-	private String feedNo;
+	private int feedNo;
 	private String nick;
 	private String picAddress;
 	private String content;
 	private String tag;
 	private String feedDate;
 	private String feedUpate;
-	private String openRange;
+	private int openRange;
 	
-	public FeedDTO(String feedNo, String nick, String picAddress, String content, String tag, String feedDate,
-			String feedUpate, String openRange) {
+	public FeedDTO(int feedNo, String nick, String picAddress, String content, String tag, String feedDate,
+			String feedUpate, int openRange) {
 		super();
 		this.feedNo = feedNo;
 		this.nick = nick;
@@ -24,11 +24,11 @@ public class FeedDTO {
 		this.openRange = openRange;
 	}
 
-	public String getFeedNo() {
+	public int getFeedNo() {
 		return feedNo;
 	}
 
-	public void setFeedNo(String feedNo) {
+	public void setFeedNo(int feedNo) {
 		this.feedNo = feedNo;
 	}
 
@@ -80,11 +80,11 @@ public class FeedDTO {
 		this.feedUpate = feedUpate;
 	}
 
-	public String getOpenRange() {
+	public int getOpenRange() {
 		return openRange;
 	}
 
-	public void setOpenRange(String openRange) {
+	public void setOpenRange(int openRange) {
 		this.openRange = openRange;
 	}
 	

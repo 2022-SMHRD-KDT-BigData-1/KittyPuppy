@@ -98,7 +98,7 @@ public class DMDAO {
 			psmt.setString(4, sendnick);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				dm = new DMDTO(rs.getString("dmno"),rs.getString("sendnick"),rs.getString("receivenick"),rs.getString("content"),rs.getString("senddate"));
+				dm = new DMDTO(rs.getInt("dmno"),rs.getString("sendnick"),rs.getString("receivenick"),rs.getString("content"),rs.getString("senddate"));
 				dmList.add(dm);
 			}
 		} catch (SQLException e) {
@@ -123,7 +123,7 @@ public class DMDAO {
 			psmt.setString(4, sendnick);
 			rs =  psmt.executeQuery();
 			if (rs.next()) {
-				dm = new DMDTO(rs.getString("dmno"),rs.getString("sendnick"),rs.getString("receivenick"),rs.getString("content"),rs.getString("senddate"));
+				dm = new DMDTO(rs.getInt("dmno"),rs.getString("sendnick"),rs.getString("receivenick"),rs.getString("content"),rs.getString("senddate"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -134,14 +134,14 @@ public class DMDAO {
 		
 	}
 	// 메시지 하나 삭제
-	public int DMDelete(String dmNo) {
+	public int DMDelete(int dmNo) {
 
 		int cnt = 0;
 		connect();
 		try {
 			String sql = "delete from dm where dmno = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dmNo);
+			psmt.setInt(1, dmNo);
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e){
 			e.printStackTrace();

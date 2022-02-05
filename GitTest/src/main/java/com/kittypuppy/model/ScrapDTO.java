@@ -3,10 +3,10 @@ package com.kittypuppy.model;
 public class ScrapDTO {
 	
 	private String nick;
-	private String feedNo;
+	private int feedNo;
 	private String scrapDate;
 	
-	public ScrapDTO(String nick, String feedNo, String scrapDate) {
+	public ScrapDTO(String nick, int feedNo, String scrapDate) {
 		super();
 		this.nick = nick;
 		this.feedNo = feedNo;
@@ -21,11 +21,11 @@ public class ScrapDTO {
 		this.nick = nick;
 	}
 
-	public String getFeedNo() {
+	public int getFeedNo() {
 		return feedNo;
 	}
 
-	public void setFeedNo(String feedNo) {
+	public void setFeedNo(int feedNo) {
 		this.feedNo = feedNo;
 	}
 

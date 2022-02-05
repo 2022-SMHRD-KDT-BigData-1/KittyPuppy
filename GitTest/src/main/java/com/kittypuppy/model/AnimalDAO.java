@@ -56,7 +56,7 @@ public class AnimalDAO {
 			psmt.setString(4, animal.getUpKind());
 			psmt.setString(5, animal.getKind());
 			psmt.setString(6, animal.getAnimalSex());
-			psmt.setString(7, animal.getAnimalAge());
+			psmt.setInt(7, animal.getAnimalAge());
 			psmt.setString(8, animal.getAnimalProfile());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -82,7 +82,7 @@ public class AnimalDAO {
 			psmt.setString(3, animal.getUpKind());
 			psmt.setString(4, animal.getKind());
 			psmt.setString(5, animal.getAnimalSex());
-			psmt.setString(6, animal.getAnimalAge());
+			psmt.setInt(6, animal.getAnimalAge());
 			psmt.setString(7, animal.getAnimalProfile());
 			psmt.setString(8, nick);
 			psmt.setString(9, animalName);
@@ -132,7 +132,7 @@ public class AnimalDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getString("animalage"),rs.getString("animalprofile"));
+				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getInt("animalage"),rs.getString("animalprofile"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,7 +154,7 @@ public class AnimalDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getString("animalage"),rs.getString("animalprofile"));
+				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getInt("animalage"),rs.getString("animalprofile"));
 				aniList.add(animal);
 			}
 		} catch (SQLException e) {

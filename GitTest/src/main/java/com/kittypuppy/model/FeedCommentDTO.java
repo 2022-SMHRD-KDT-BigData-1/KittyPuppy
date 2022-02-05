@@ -2,14 +2,14 @@ package com.kittypuppy.model;
 
 public class FeedCommentDTO {
 	
-	private String fcNo;
-	private String feedNo;
+	private int fcNo;
+	private int feedNo;
 	private String nick;
 	private String content;
 	private String coDate;
 	private String coUpdate;
 	
-	public FeedCommentDTO(String fcNo, String feedNo, String nick, String content, String coDate, String coUpdate) {
+	public FeedCommentDTO(int fcNo, int feedNo, String nick, String content, String coDate, String coUpdate) {
 		super();
 		this.fcNo = fcNo;
 		this.feedNo = feedNo;
@@ -19,16 +19,16 @@ public class FeedCommentDTO {
 		this.coUpdate = coUpdate;
 	}
 	
-	public String getFcNo() {
+	public int getFcNo() {
 		return fcNo;
 	}
-	public void setFcNo(String fcNo) {
+	public void setFcNo(int fcNo) {
 		this.fcNo = fcNo;
 	}
-	public String getFeedNo() {
+	public int getFeedNo() {
 		return feedNo;
 	}
-	public void setFeedNo(String feedNo) {
+	public void setFeedNo(int feedNo) {
 		this.feedNo = feedNo;
 	}
 	public String getNick() {

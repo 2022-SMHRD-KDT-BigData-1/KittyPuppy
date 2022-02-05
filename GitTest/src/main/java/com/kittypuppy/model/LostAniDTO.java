@@ -2,7 +2,7 @@ package com.kittypuppy.model;
 
 public class LostAniDTO {
 	
-	private String lostNo;
+	private int lostNo;
 	private String laType;
 	private String nick;
 	private String aniName;
@@ -19,7 +19,7 @@ public class LostAniDTO {
 	private String laDate;
 	private String laUpdate;
 	
-	public LostAniDTO(String lostNo, String laType, String nick, String aniName, String aniPic, String upKind,
+	public LostAniDTO(int lostNo, String laType, String nick, String aniName, String aniPic, String upKind,
 			String kind, String sex, String color, String aniSize, String isTag, String feature, String content,
 			String place, String laDate, String laUpdate) {
 		super();
@@ -41,11 +41,11 @@ public class LostAniDTO {
 		this.laUpdate = laUpdate;
 	}
 
-	public String getLostNo() {
+	public int getLostNo() {
 		return lostNo;
 	}
 
-	public void setLostNo(String lostNo) {
+	public void setLostNo(int lostNo) {
 		this.lostNo = lostNo;
 	}
 

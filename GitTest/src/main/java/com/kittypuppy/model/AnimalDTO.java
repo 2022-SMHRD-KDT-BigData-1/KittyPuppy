@@ -8,11 +8,11 @@ public class AnimalDTO {
 	private String upKind;
 	private String kind;
 	private String animalSex;
-	private String animalAge;
+	private int animalAge;
 	private String animalProfile;
 
 	public AnimalDTO(String nick, String animalName, String animalPic, String upKind, String kind, String animalSex,
-			String animalAge, String animalProfile) {
+			int animalAge, String animalProfile) {
 		super();
 		this.nick = nick;
 		this.animalName = animalName;
@@ -72,11 +72,11 @@ public class AnimalDTO {
 		this.animalSex = animalSex;
 	}
 
-	public String getAnimalAge() {
+	public int getAnimalAge() {
 		return animalAge;
 	}
 
-	public void setAnimalAge(String animalAge) {
+	public void setAnimalAge(int animalAge) {
 		this.animalAge = animalAge;
 	}
 

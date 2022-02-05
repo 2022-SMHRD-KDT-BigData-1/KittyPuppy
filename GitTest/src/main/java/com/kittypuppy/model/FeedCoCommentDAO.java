@@ -50,7 +50,7 @@ public class FeedCoCommentDAO {
 		try {
 			String sql = "insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,?,?,?,default,?)";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, feedCoComment.getFcNo());
+			psmt.setInt(1, feedCoComment.getFcNo());
 			psmt.setString(2, feedCoComment.getNick());
 			psmt.setString(3, feedCoComment.getContent());
 			psmt.setString(4, feedCoComment.getCoUpdate());
@@ -64,7 +64,7 @@ public class FeedCoCommentDAO {
 		
 	}
 	
-	public ArrayList<FeedCoCommentDTO> feedCoCommentShow(String fcNo) {
+	public ArrayList<FeedCoCommentDTO> feedCoCommentShow(int fcNo) {
 		
 		ArrayList<FeedCoCommentDTO> list = new ArrayList<FeedCoCommentDTO>();
 		FeedCoCommentDTO fcc = null;
@@ -72,10 +72,10 @@ public class FeedCoCommentDAO {
 		try {
 			String sql = "select * from feed_cocomment where fcno = ? order by codate desc";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, fcNo);
+			psmt.setInt(1, fcNo);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				fcc = new FeedCoCommentDTO(rs.getString("cono"),rs.getString("fcno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				fcc = new FeedCoCommentDTO(rs.getInt("cono"),rs.getInt("fcno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
 				list.add(fcc);
 			}
 		} catch (SQLException e) {
@@ -87,7 +87,7 @@ public class FeedCoCommentDAO {
 		
 	}
 	
-	public int feedCoCommentUpdate(String coNo, String content) {
+	public int feedCoCommentUpdate(int coNo, String content) {
 		
 		int cnt = 0;
 		connect();
@@ -97,7 +97,7 @@ public class FeedCoCommentDAO {
 					+ "where cono = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, content);
-			psmt.setString(2, coNo);
+			psmt.setInt(2, coNo);
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,14 +107,14 @@ public class FeedCoCommentDAO {
 		return cnt;
 	}
 	
-	public int feedCoCommentDelete(String coNo) {
+	public int feedCoCommentDelete(int coNo) {
 		
 		int cnt = 0;
 		connect();
 		try {
 			String sql = "delete from feed_cocomment where cono = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, coNo);
+			psmt.setInt(1, coNo);
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e){
 			e.printStackTrace();

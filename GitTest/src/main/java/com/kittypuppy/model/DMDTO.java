@@ -2,13 +2,13 @@ package com.kittypuppy.model;
 
 public class DMDTO {
 	
-	private String dmNo;
+	private int dmNo;
 	private String sendNick;
 	private String receiveNick;
 	private String content;
 	private String sendDate;
 	
-	public DMDTO(String dmNo, String sendNick, String receiveNick, String content, String sendDate) {
+	public DMDTO(int dmNo, String sendNick, String receiveNick, String content, String sendDate) {
 		super();
 		this.dmNo = dmNo;
 		this.sendNick = sendNick;
@@ -17,11 +17,11 @@ public class DMDTO {
 		this.sendDate = sendDate;
 	}
 
-	public String getDmNo() {
+	public int getDmNo() {
 		return dmNo;
 	}
 
-	public void setDmNo(String dmNo) {
+	public void setDmNo(int dmNo) {
 		this.dmNo = dmNo;
 	}
 

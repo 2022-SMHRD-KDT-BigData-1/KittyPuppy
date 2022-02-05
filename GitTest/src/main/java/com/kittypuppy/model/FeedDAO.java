@@ -55,7 +55,7 @@ public class FeedDAO {
 			psmt.setString(3, feed.getContent());
 			psmt.setString(4, feed.getTag());
 			psmt.setString(5, feed.getFeedUpate());
-			psmt.setString(6, feed.getOpenRange());
+			psmt.setInt(6, feed.getOpenRange());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class FeedDAO {
 			}
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				feed = new FeedDTO(rs.getString("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getString("openrange"));
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
 				feedList.add(feed);
 			}
 		} catch (SQLException e) {
@@ -110,7 +110,7 @@ public class FeedDAO {
 			psmt.setString(1, nick);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				feed = new FeedDTO(rs.getString("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getString("openrange"));
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
 				feedList.add(feed);
 			}
 		} catch (SQLException e) {
@@ -133,8 +133,8 @@ public class FeedDAO {
 			psmt.setString(1, feed.getPicAddress());
 			psmt.setString(2, feed.getContent());
 			psmt.setString(3, feed.getTag());
-			psmt.setString(4, feed.getOpenRange());
-			psmt.setString(5, feed.getFeedNo());
+			psmt.setInt(4, feed.getOpenRange());
+			psmt.setInt(5, feed.getFeedNo());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,14 +145,14 @@ public class FeedDAO {
 		
 	}
 	
-	public int feedDelete(String feedNo) {
+	public int feedDelete(int feedNo) {
 		
 		int cnt = 0;
 		connect();
 		try {
 			String sql = "delete from feed where feedno = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, feedNo);
+			psmt.setInt(1, feedNo);
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -177,7 +177,7 @@ public class FeedDAO {
 			psmt.setString(1, "%"+tag+"%");
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				feed = new FeedDTO(rs.getString("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getString("openrange"));
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
 				feedList.add(feed);
 			}
 		} catch (SQLException e) {

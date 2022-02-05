@@ -2,14 +2,14 @@ package com.kittypuppy.model;
 
 public class LostCoCommentDTO {
 	
-	private String coNo;
-	private String locNo;
+	private int coNo;
+	private int locNo;
 	private String nick;
 	private String content;
 	private String coDate;
 	private String coUpdate;
 	
-	public LostCoCommentDTO(String coNo, String locNo, String nick, String content, String coDate, String coUpdate) {
+	public LostCoCommentDTO(int coNo, int locNo, String nick, String content, String coDate, String coUpdate) {
 		super();
 		this.coNo = coNo;
 		this.locNo = locNo;
@@ -19,19 +19,19 @@ public class LostCoCommentDTO {
 		this.coUpdate = coUpdate;
 	}
 
-	public String getCoNo() {
+	public int getCoNo() {
 		return coNo;
 	}
 
-	public void setCoNo(String coNo) {
+	public void setCoNo(int coNo) {
 		this.coNo = coNo;
 	}
 
-	public String getLocNo() {
+	public int getLocNo() {
 		return locNo;
 	}
 
-	public void setLocNo(String locNo) {
+	public void setLocNo(int locNo) {
 		this.locNo = locNo;
 	}
 

@@ -2,20 +2,20 @@ package com.kittypuppy.model;
 
 public class FeedLikeDTO {
 
-	private String feedNo;
+	private int feedNo;
 	private String nick;
 	
-	public FeedLikeDTO(String feedNo, String nick) {
+	public FeedLikeDTO(int feedNo, String nick) {
 		super();
 		this.feedNo = feedNo;
 		this.nick = nick;
 	}
 
-	public String getFeedNo() {
+	public int getFeedNo() {
 		return feedNo;
 	}
 
-	public void setFeedNo(String feedNo) {
+	public void setFeedNo(int feedNo) {
 		this.feedNo = feedNo;
 	}
 

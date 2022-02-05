@@ -7,12 +7,12 @@ public class MemberDTO {
 	private String picAdress;
 	private String nick;
 	private String sex;
-	private String age;
+	private String birth;
 	private String adress;
 	private String profile;
 	private String isAnimal;
 	
-	public MemberDTO(String id, String pw, String picAdress, String nick, String sex, String age, String adress,
+	public MemberDTO(String id, String pw, String picAdress, String nick, String sex, String birth, String adress,
 			String profile, String isAnimal) {
 		super();
 		this.id = id;
@@ -20,7 +20,7 @@ public class MemberDTO {
 		this.picAdress = picAdress;
 		this.nick = nick;
 		this.sex = sex;
-		this.age = age;
+		this.birth = birth;
 		this.adress = adress;
 		this.profile = profile;
 		this.isAnimal = isAnimal;
@@ -66,12 +66,12 @@ public class MemberDTO {
 		this.sex = sex;
 	}
 
-	public String getAge() {
-		return age;
+	public String getBirth() {
+		return birth;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setAge(String birth) {
+		this.birth = birth;
 	}
 
 	public String getAdress() {
