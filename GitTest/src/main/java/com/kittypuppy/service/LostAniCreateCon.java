@@ -29,7 +29,6 @@ public class LostAniCreateCon implements iCommand {
 		String aniSize = request.getParameter("aniSize");
 		String isTag = request.getParameter("isTag");
 		String feature = request.getParameter("feature");
-		String content = request.getParameter("content");
 		String place = request.getParameter("place");
 
 		// 세션에서 로그인한 사용자 nick 가져오려고 선언
@@ -38,7 +37,7 @@ public class LostAniCreateCon implements iCommand {
 		
 		// dto에 맞는 순서로 값을 배치
 		LostAniDAO dao = new LostAniDAO();
-		int cnt = dao.lostAniCreate(new LostAniDTO(null, laType, member.getNick(), aniName, aniPic, upKind, kind, sex,
+		int cnt = dao.lostAniCreate(new LostAniDTO(0, laType, member.getNick(), aniName, aniPic, upKind, kind, sex,
 				color, aniSize, isTag, feature, place, null, null));
 
 		if (cnt > 0) {

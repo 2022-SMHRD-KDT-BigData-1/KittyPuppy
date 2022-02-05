@@ -29,7 +29,6 @@ public class LostAniUpdateCon implements iCommand {
 		String aniSize = request.getParameter("aniSize");
 		String isTag = request.getParameter("isTag");
 		String feature = request.getParameter("feature");
-		String content = request.getParameter("content");
 		String place = request.getParameter("place");
 
 		// 쿼리스트링에서 get 방식으로 게시물 번호를 받음
