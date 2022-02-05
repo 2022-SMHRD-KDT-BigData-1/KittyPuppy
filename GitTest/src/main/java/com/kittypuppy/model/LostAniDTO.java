@@ -14,13 +14,12 @@ public class LostAniDTO {
 	private String aniSize;
 	private String isTag;
 	private String feature;
-	private String content;
 	private String place;
 	private String laDate;
 	private String laUpdate;
 	
 	public LostAniDTO(int lostNo, String laType, String nick, String aniName, String aniPic, String upKind,
-			String kind, String sex, String color, String aniSize, String isTag, String feature, String content,
+			String kind, String sex, String color, String aniSize, String isTag, String feature,
 			String place, String laDate, String laUpdate) {
 		super();
 		this.lostNo = lostNo;
@@ -35,7 +34,6 @@ public class LostAniDTO {
 		this.aniSize = aniSize;
 		this.isTag = isTag;
 		this.feature = feature;
-		this.content = content;
 		this.place = place;
 		this.laDate = laDate;
 		this.laUpdate = laUpdate;
