@@ -24,11 +24,11 @@ public class FeedUpdateCon implements iCommand{
 		request.setCharacterEncoding("utf-8");
 		String content = request.getParameter("content");
 		String tag = request.getParameter("tag");
-		String openRange = request.getParameter("openRange");
+		int openRange = Integer.parseInt(request.getParameter("openRange"));
 		String picAddress = request.getParameter("picAddress");
 		
 		// 쿼리스트링에서 get 방식으로 게시물 번호를 받음
-		String feedNo = request.getParameter("feedNo");
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 
 		// 수정을 선택한 게시물의 feedno 를 받을 수 있는 feedList
 		int cnt = dao.feedUpdate(new FeedDTO(feedNo, null, picAddress, content, tag, null, null, openRange));

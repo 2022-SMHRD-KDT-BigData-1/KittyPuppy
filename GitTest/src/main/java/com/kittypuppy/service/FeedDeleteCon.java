@@ -17,7 +17,7 @@ public class FeedDeleteCon implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 쿼리스트링에서 get 방식으로 게시물 번호를 받음
-		String feedNo = request.getParameter("feedNo");
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 		int cnt = dao.feedDelete(feedNo);
 
 		if (cnt > 0) {

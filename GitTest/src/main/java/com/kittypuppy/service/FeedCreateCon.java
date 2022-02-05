@@ -26,14 +26,14 @@ public class FeedCreateCon implements iCommand{
 		request.setCharacterEncoding("utf-8");
 		String content = request.getParameter("content");
 		String tag = request.getParameter("tag");
-		String openRange = request.getParameter("openRange");
+		int openRange = Integer.parseInt(request.getParameter("openRange"));
 		String picAddress = request.getParameter("picAddress");
 		
 		// 세션에서 로그인한 사용자 nick 가져오려고 선언
 		HttpSession session = request.getSession();
 		member = (MemberDTO)session.getAttribute("member");
 		
-		int cnt = dao.feedCreate(new FeedDTO(null, member.getNick(), picAddress, content, tag, null, null, openRange));
+		int cnt = dao.feedCreate(new FeedDTO(0, member.getNick(), picAddress, content, tag, null, null, openRange));
 		
 		if ( cnt > 0 ) {
 			response.sendRedirect("mypage.jsp");
