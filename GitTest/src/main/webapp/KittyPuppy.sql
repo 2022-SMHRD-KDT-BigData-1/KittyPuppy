@@ -10,6 +10,7 @@ DROP table dm cascade constraint;
 DROP table lost_animal cascade constraint;
 DROP table lost_comment cascade constraint;
 DROP table lost_cocomment cascade constraint;
+DROP view feed_scrap_view;
 
 DROP sequence feed_feedno_seq;
 DROP sequence feed_comment_fcno_seq;
@@ -38,8 +39,8 @@ CREATE table member(
 	picaddress VARCHAR2(100),
 	nick VARCHAR2(20) not null unique,
 	sex VARCHAR2(10) not null,
-	age INT not null,
-	adress VARCHAR2(50) not null,
+	birth VARCHAR2(10) not null,
+	address VARCHAR2(50) not null,
 	profile VARCHAR2(300),
 	isanimal VARCHAR2(10) not null,
 	constraint member_id_pk primary key(id),
@@ -178,6 +179,11 @@ CREATE table lost_cocomment(
 	constraint lcomment_locno_fk foreign key(locno) references lost_comment(locno),
 	constraint lcomment_nick_fk foreign key(nick) references member(nick)
 );
+
+CREATE view feed_scrap_view AS
+SELECT f.* FROM feed f, scrap s
+WHERE f.nick = s.nick
+AND f.feedno = s.feedno;
 
 CREATE sequence feed_feedno_seq
 start with 1

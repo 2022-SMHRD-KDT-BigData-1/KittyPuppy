@@ -48,12 +48,11 @@ public class FeedCommentDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into feed_comment values(feed_comment_fcno_seq.NEXTVAL,?,?,?,default,?)";
+			String sql = "insert into feed_comment values(feed_comment_fcno_seq.NEXTVAL,?,?,?,default,null)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, feedComment.getFeedNo());
 			psmt.setString(2, feedComment.getNick());
 			psmt.setString(3, feedComment.getContent());
-			psmt.setString(4, feedComment.getCoUpdate());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,7 +93,7 @@ public class FeedCommentDAO {
 		try {
 			String sql = "update feed_comment "
 					+ "set content = ?, coupdate = sysdate"
-					+ "where cono = ?";
+					+ "where fcno = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, content);
 			psmt.setInt(2, fcNo);

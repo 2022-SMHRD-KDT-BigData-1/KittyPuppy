@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ScrapDAO {
 	
@@ -42,19 +43,84 @@ public class ScrapDAO {
 		}
 	}
 	
-	public void scrap() {
+	public int scrap(ScrapDTO scrap) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "insert into scrap values(?,?,default)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, scrap.getNick());
+			psmt.setInt(2, scrap.getFeedNo());
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 	
-	public void scrapShow() {
+	// scrap한 feed 보여주기
+	public ArrayList<FeedDTO> scrapShow(String nick) {
 		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from feed_scrap_view where nick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
 	}
+	
 	// 스크랩한 게시물에 스크랩 했음을 표시
-	public void scrapMark() {
+	public boolean scrapMark(ScrapDTO scrap) {
+		
+		boolean isScrap = false;
+		connect();
+		try {
+			String sql = "select * from scrap where nick = ? and feedno = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, scrap.getNick());
+			psmt.setInt(2, scrap.getFeedNo());
+			rs =  psmt.executeQuery();
+			isScrap = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return isScrap;
 		
 	}
 	
-	public void scrapDelete() {
+	public int scrapDelete(ScrapDTO scrap) {
 		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "delete from scrap where nick = ? and feedno = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, scrap.getNick());
+			psmt.setInt(2, scrap.getFeedNo());
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
 }

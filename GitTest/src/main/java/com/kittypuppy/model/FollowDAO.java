@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FollowDAO {
 	
@@ -42,20 +43,84 @@ public class FollowDAO {
 		}
 	}
 	
-	public void follow() {
+	public int follow(FollowDTO follow) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "insert into follow values(?,?,default)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, follow.getNick());
+			psmt.setString(2, follow.getFollowerNick());
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 	
 	// follower 명단 보기 + 길이로 숫자 보여주기. 나를 팔로우하는 사람
-	public void followerShow() {
+	public ArrayList<String> followerShow(String nick) {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		connect();
+		try {
+			String sql = "select * from follow where followernick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs =  psmt.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString("nick"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 		
 	}
 	// 내가 팔로잉중인 명단
-	public void followingShow() {
+	public ArrayList<String> followingShow(String nick) {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		connect();
+		try {
+			String sql = "select * from follow where nick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs =  psmt.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString("followernick"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 		
 	}
 	
-	public void unFollow() {
+	public int unFollow(FollowDTO follow) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "delete from follow where nick = ? followernick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, follow.getNick());
+			psmt.setString(2, follow.getFollowerNick());
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 }

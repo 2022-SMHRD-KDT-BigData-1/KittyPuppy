@@ -48,13 +48,12 @@ public class FeedDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into feed values(feed_feedno_seq.NEXTVAL,?,?,?,?,default,?,?)";
+			String sql = "insert into feed values(feed_feedno_seq.NEXTVAL,?,?,?,?,default,null,?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, feed.getNick());
 			psmt.setString(2, feed.getPicAddress());
 			psmt.setString(3, feed.getContent());
 			psmt.setString(4, feed.getTag());
-			psmt.setString(5, feed.getFeedUpate());
 			psmt.setInt(6, feed.getOpenRange());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
