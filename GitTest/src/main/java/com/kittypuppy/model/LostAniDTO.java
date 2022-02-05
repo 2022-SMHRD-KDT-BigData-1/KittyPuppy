@@ -135,13 +135,6 @@ public class LostAniDTO {
 		this.feature = feature;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 	public String getPlace() {
 		return place;
