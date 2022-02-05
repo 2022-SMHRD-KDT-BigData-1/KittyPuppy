@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LostCoCommentDAO {
 	
@@ -42,19 +43,82 @@ public class LostCoCommentDAO {
 		}
 	}
 	
-	public void lostCoCommentCreate() {
+	public int lostCoCommentCreate(LostCoCommentDTO lcc) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL,?,?,?,default,null)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, lcc.getLocNo());
+			psmt.setString(2, lcc.getNick());
+			psmt.setString(3, lcc.getContent());
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
+	public ArrayList<LostCoCommentDTO> lostCoCommentShow(int locNo) {
+		
+		ArrayList<LostCoCommentDTO> list = new ArrayList<LostCoCommentDTO>();
+		LostCoCommentDTO lcc = null;
+		connect();
+		try {
+			String sql = "select * from lost_cocomment where locno = ? order by codate desc";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, locNo);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				list.add(lcc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	public int lostCoCommentUpdate(int coNo, String content) {
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "update lost_cocomment "
+					+ "set content = ?, coupdate = sysdate"
+					+ "where cono = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, content);
+			psmt.setInt(2, coNo);
+			cnt =  psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 		
 	}
 	
-	public void lostCoCommentShow() {
+	public int lostCoCommentDelete(int coNo) {
 		
-	}
-	
-	public void lostCoCommentUpdate() {
-		
-	}
-	
-	public void lostCoCommentDelete() {
-		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "delete from lost_cocomment where cono = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, coNo);
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
 }

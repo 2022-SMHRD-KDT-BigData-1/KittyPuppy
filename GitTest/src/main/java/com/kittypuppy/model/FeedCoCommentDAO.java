@@ -48,12 +48,11 @@ public class FeedCoCommentDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,?,?,?,default,?)";
+			String sql = "insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,?,?,?,default,null)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, feedCoComment.getFcNo());
 			psmt.setString(2, feedCoComment.getNick());
 			psmt.setString(3, feedCoComment.getContent());
-			psmt.setString(4, feedCoComment.getCoUpdate());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
