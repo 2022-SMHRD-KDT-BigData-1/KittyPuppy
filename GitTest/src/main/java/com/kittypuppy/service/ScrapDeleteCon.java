@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.ScrapDAO;
+import com.kittypuppy.model.ScrapDTO;
 
 public class ScrapDeleteCon implements iCommand {
 	ScrapDAO dao = new ScrapDAO();
@@ -18,7 +19,7 @@ public class ScrapDeleteCon implements iCommand {
 		String nick = request.getParameter("nick");
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 
-		int cnt = dao.scrapDelete();
+		int cnt = dao.scrapDelete(new ScrapDTO(nick, feedNo, null));
 
 		if (cnt > 0) {
 			response.sendRedirect("main.jsp");

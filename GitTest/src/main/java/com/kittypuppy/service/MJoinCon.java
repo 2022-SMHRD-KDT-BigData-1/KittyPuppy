@@ -33,7 +33,7 @@ public class MJoinCon implements iCommand{
 
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.memberJoin(new MemberDTO(id, pw, address, nick, sex, birth, picAddress,profile, address, isAnimal));
+		int cnt = dao.memberJoin(new MemberDTO(id, pw, picAddress, nick, sex, birth, address, profile, isAnimal));
 
 	
 		if (cnt > 0) { 

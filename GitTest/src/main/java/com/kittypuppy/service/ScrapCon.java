@@ -19,7 +19,7 @@ public class ScrapCon implements iCommand{
 		String nick = request.getParameter("nick");
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 		
-		int cnt = dao.scrap();
+		int cnt = dao.scrap(new ScrapDTO(nick, feedNo, null));
 		
 		if(cnt>0) {
 			response.sendRedirect("main.jsp");

@@ -18,8 +18,9 @@ public class MDeleteCon implements iCommand {
 
 		// Äõ¸® ½ºÆ®¸µÀ¸·Î ¹Ş¾Æ¿È
 		String id = request.getParameter("id"); 
+		String pw = request.getParameter("pw"); 
 
-		int cnt = dao.memberDelete(id);
+		int cnt = dao.memberDelete(id,pw);
 
 		if (cnt > 0) {
 			response.sendRedirect("mypage.jsp");
