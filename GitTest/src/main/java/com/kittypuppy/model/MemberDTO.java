@@ -4,24 +4,24 @@ public class MemberDTO {
 	
 	private String id;
 	private String pw;
-	private String picAdress;
+	private String picAddress;
 	private String nick;
 	private String sex;
 	private String birth;
-	private String adress;
+	private String address;
 	private String profile;
 	private String isAnimal;
 	
-	public MemberDTO(String id, String pw, String picAdress, String nick, String sex, String birth, String adress,
+	public MemberDTO(String id, String pw, String picAddress, String nick, String sex, String birth, String address,
 			String profile, String isAnimal) {
 		super();
 		this.id = id;
 		this.pw = pw;
-		this.picAdress = picAdress;
+		this.picAddress = picAddress;
 		this.nick = nick;
 		this.sex = sex;
 		this.birth = birth;
-		this.adress = adress;
+		this.address = address;
 		this.profile = profile;
 		this.isAnimal = isAnimal;
 	}
@@ -42,12 +42,12 @@ public class MemberDTO {
 		this.pw = pw;
 	}
 
-	public String getPicAdress() {
-		return picAdress;
+	public String getPicAddress() {
+		return picAddress;
 	}
 
-	public void setPicAdress(String picAdress) {
-		this.picAdress = picAdress;
+	public void setPicAdress(String picAddress) {
+		this.picAddress = picAddress;
 	}
 
 	public String getNick() {
@@ -74,12 +74,12 @@ public class MemberDTO {
 		this.birth = birth;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAdress(String address) {
+		this.address = address;
 	}
 
 	public String getProfile() {
