@@ -127,8 +127,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.kittypuppy.service.JoinCon" project="GitTest" 
-    file="/GitTest/src/main/java/com/kittypuppy/service/JoinCon.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="15" language="java" name="com.kittypuppy.service.MJoinCon" project="GitTest" 
+    file="/GitTest/src/main/java/com/kittypuppy/service/MJoinCon.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1283" y="742"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -136,8 +136,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="com.kittypuppy.service.LoginCon" project="GitTest" 
-    file="/GitTest/src/main/java/com/kittypuppy/service/LoginCon.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="com.kittypuppy.service.MLoginCon" project="GitTest" 
+    file="/GitTest/src/main/java/com/kittypuppy/service/MLoginCon.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1143" y="740"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -172,8 +172,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="com.kittypuppy.service.FeedCon" project="GitTest" 
-    file="/GitTest/src/main/java/com/kittypuppy/service/FeedCon.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="20" language="java" name="com.kittypuppy.service.FeedCreateCon" project="GitTest" 
+    file="/GitTest/src/main/java/com/kittypuppy/service/FeedCreateCon.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1571" y="747"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
