@@ -20,7 +20,7 @@ public class FeedLikeDeleteCon implements iCommand {
 
 		FeedLikeDAO dao = new FeedLikeDAO();
 
-		int cnt = dao.feedLike(new FeedLikeDTO(feedNo, nick, null));
+		int cnt = dao.feedLike(new FeedLikeDTO(feedNo, nick));
 
 		if (cnt > 0) {
 			response.sendRedirect("#"); // 수정 새로고침 안하는 상태

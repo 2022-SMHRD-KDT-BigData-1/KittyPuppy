@@ -11,6 +11,7 @@ public class FeedLikeDTO {
 		this.nick = nick;
 	}
 
+
 	public int getFeedNo() {
 		return feedNo;
 	}
