@@ -184,19 +184,41 @@ public class MemberDAO {
 
 	}
 
-	public Boolean memberLoginCheck(String id ,String nick) {
+	public Boolean memberIdCheck(String id) {
 
 		Boolean check = false;
 		connect();
 		try {
-			String sql = "select * from member where id = ? and nick = ?";
+			String sql = "select * from member where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
-			psmt.setString(2, nick);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				check = true;
-			}else {
+			} else {
+				check = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return check;
+	}
+
+
+	public Boolean memberNickCheck(String nick) {
+
+		Boolean check = false;
+		connect();
+		try {
+			String sql = "select * from member where nick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				check = true;
+			} else {
 				check = false;
 			}
 		} catch (SQLException e) {

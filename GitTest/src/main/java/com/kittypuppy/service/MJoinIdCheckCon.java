@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.MemberDAO;
 
-public class MJoinCheckCon implements iCommand {
+public class MJoinIdCheckCon implements iCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,11 +18,10 @@ public class MJoinCheckCon implements iCommand {
 
 		// 이메일, 비밀번호,전화번호,주소
 		String id = request.getParameter("id");
-		String nick = request.getParameter("nick");
 
 		MemberDAO dao = new MemberDAO();
 
-		boolean check = dao.memberLoginCheck(id,nick);
+		boolean check = dao.memberIdCheck(id);
 
 		PrintWriter out = response.getWriter();
 		out.print(check);
