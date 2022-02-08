@@ -82,10 +82,11 @@ html, body {
 				<div class="d-grid gap-0 col-12 mx-auto">
 
 					<h1>KittyPuppy</h1>
-					<br> <input type="email" class="form-control"
-						placeholder="이메일"><br> <input type="nick"
-						class="form-control" placeholder="닉네임"><br> <input
-						type="password" class="form-control" placeholder="비밀번호"><br>
+					<br> <input type="email" id="input_id" class="form-control"
+						placeholder="이메일"><br> 
+						<font id="checkId" size = "2"></font><br>
+					<input type="nick" class="form-control" placeholder="닉네임"><br>
+					<input type="password" class="form-control" placeholder="비밀번호"><br>
 					<input type="passwordck" class="form-control" placeholder="비밀번호 확인"><br>
 
 					<!-- 성별 -->
@@ -94,7 +95,10 @@ html, body {
 					<div class="mb-3">
 
 						<select id="disabledSelect" class="form-select">
+						
 							<option>성별</option>
+							<option>남자</option>
+							<option>여자</option>
 						</select>
 					</div>
 
@@ -115,9 +119,32 @@ html, body {
 
 			</div>
 		</form>
-
 	</div>
+	<script src="jquery-3.6.0.min.js"></script>
+	<script>
+			$('#input_id').focusout(function(){
+				let userId = $('#input_id').val();
+				
+				$.ajax({
+					url : "MJoinIdCheckCon",
+					type : "post",
+					data : {userId : userId},
+					dataType : 'json',
+					success : function(result){
+							if(result == 0){
+								$("#checkId").html('사용할수 없는 아이디입니다');
+								$("#checkId").attr('color','red');
+							}else{
+								$("#checkId").html('사용할수 있는 아이디입니다');
+								$("#checkId").attr('color','green');
+							}
+					},
+					error: function(){
+						alert("서버요청싶패")
+					}
+				})
+			}
+		</script>
 
 </body>
-
 </html>

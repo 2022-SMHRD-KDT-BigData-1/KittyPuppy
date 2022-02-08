@@ -21,9 +21,17 @@ public class MJoinNickCheckCon implements iCommand {
 
 		MemberDAO dao = new MemberDAO();
 
-		boolean check = dao.memberIdCheck(nick);
+		int check = dao.memberNickCheck(nick);
 
 		PrintWriter out = response.getWriter();
 		out.print(check);
+		
+		if(check == 0) {
+			System.out.println("이미 존재하는 닉네임입니다.");
+		}else {
+			System.out.println("사용 가능한 닉네임입니다.");
+
+		}
+		out.write(check + "");
 	}
 }

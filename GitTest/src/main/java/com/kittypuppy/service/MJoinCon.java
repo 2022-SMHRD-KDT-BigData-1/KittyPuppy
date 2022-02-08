@@ -33,7 +33,7 @@ public class MJoinCon implements iCommand{
 
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.memberJoin(new MemberDTO(id, pw, picAddress, nick, sex, birth, address, profile, isAnimal));
+		int cnt = dao.memberJoin(new MemberDTO(id, pw, null, nick, sex, birth, address, profile, null));
 
 	
 		if (cnt > 0) { 
@@ -49,7 +49,7 @@ public class MJoinCon implements iCommand{
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('회원가입 실패..!');");
-			out.print("location.href= 'main.jsp';");//수정
+			out.print("location.href= 'join.html';");//수정
 			out.print("</script>");
 		}
 		

@@ -21,9 +21,17 @@ public class MJoinIdCheckCon implements iCommand {
 
 		MemberDAO dao = new MemberDAO();
 
-		boolean check = dao.memberIdCheck(id);
+		int check = dao.memberIdCheck(id);
 
 		PrintWriter out = response.getWriter();
 		out.print(check);
+		if(check == 0) {
+			System.out.println("이미 존재하는 아이디입니다.");
+		}else {
+			System.out.println("사용 가능한 아이디입니다.");
+
+		}
+		out.write(check + "");
+	
 	}
 }

@@ -42,7 +42,7 @@ CREATE table member(
 	birth VARCHAR2(10) not null,
 	address VARCHAR2(50) not null,
 	profile VARCHAR2(300),
-	isanimal VARCHAR2(10) not null,
+	isanimal VARCHAR2(10) ,
 	constraint member_id_pk primary key(id),
 	constraint member_isanimal_ck check(isanimal IN('O','X'))
 );
@@ -219,3 +219,5 @@ CREATE sequence lost_cocomment_cono_seq
 start with 1
 increment by 1
 nocache;
+
+drop table member;

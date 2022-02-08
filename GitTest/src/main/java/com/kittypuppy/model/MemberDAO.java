@@ -184,19 +184,19 @@ public class MemberDAO {
 
 	}
 
-	public Boolean memberIdCheck(String id) {
+	public int memberIdCheck(String id) {
 
-		Boolean check = false;
+		int check = 0;
 		connect();
 		try {
 			String sql = "select * from member where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
-			if (rs.next()) {
-				check = true;
+			if (rs.next() || id.equals("")) {
+				check = 0;
 			} else {
-				check = false;
+				check = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -207,19 +207,19 @@ public class MemberDAO {
 	}
 
 
-	public Boolean memberNickCheck(String nick) {
+	public int memberNickCheck(String nick) {
 
-		Boolean check = false;
+		int check = 0;
 		connect();
 		try {
 			String sql = "select * from member where nick = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, nick);
 			rs = psmt.executeQuery();
-			if (rs.next()) {
-				check = true;
+			if (rs.next() || nick.equals("")) {
+				check = 0;
 			} else {
-				check = false;
+				check = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
