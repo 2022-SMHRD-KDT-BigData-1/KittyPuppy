@@ -26,4 +26,4 @@ modal.addEventListener("click", e => {
     if(evTarget.classList.contains("modal-overlay")) {
         modal.style.display = "none";
     }
-});
+}); 
