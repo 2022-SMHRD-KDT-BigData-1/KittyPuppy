@@ -7,23 +7,22 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<release>15</release>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
-			</plugin>
-
-		</plugins>
 
 		<pluginManagement>
+
 			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<release>15</release>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.3</version>
+				</plugin>
+
 				<!-- 서버 배포 셋팅 -->
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
@@ -38,6 +37,7 @@
 						<update>true</update>
 					</configuration>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
