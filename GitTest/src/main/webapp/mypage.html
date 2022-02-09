@@ -122,21 +122,36 @@
             color : white !important;
         }
 
-        .col.btn:hover{
-            background-color: #25aa8f7e !important;
+        .btn:hover{
+            /* background-color: #25aa8f7e !important; */
             color : white !important;
         }
 
         .btn{
             background-color: #25aa90;
-            color:white
+            color:white;
+            /* width:190px;
+            height: 38px;
+            padding-left:13px;
+            padding-right: 13px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border: 0px; */
         }
+
+        .btn.update, .btn.write{
+            width: 215px;
+        }
+
+        /* button{
+            align-items: stretch !important;
+        } */
 
         .row {
             align-items: center;
         }
 
-        .container{
+        .container.out{
             width: 100%;
             padding-left:15px;
             padding-right:15px;
@@ -146,6 +161,69 @@
             display:block;
             max-width: 470px;
         }
+
+        .container.profile{
+            /* Flex - 정렬을 위한 컨테이너 */
+            display: flex;
+            flex-wrap: wrap;
+            padding:0px;
+
+            /* 주축 방향 정렬 */
+            justify-content: center;
+
+            /* 교차축 방향 정렬 */
+            align-items: center;
+            text-align: center;
+        }
+
+        .container.profile-in{
+            display: flex;
+            
+            /* 주축 방향 정렬 */
+            justify-content: center;
+
+            /* 교차축 방향 정렬 */
+            align-items: center;
+
+            flex-wrap: wrap;
+            padding:0px;
+            flex-basis: 280px;
+        }
+
+        
+        /* Flexbox 안의 아이템 모바일 */
+        .item.img{
+            /* margin-right: 50px; */
+            flex-basis: 100px;
+            height:72px;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        .item.post{
+            flex-basis:25%;
+        }
+
+        .item.follower{
+            flex-basis:25%;
+        }
+
+        .item.following{
+            flex-basis:25%;
+        }
+
+        .item.nick{
+            flex-basis:100%;
+        }
+
+        .item.intro{
+            flex-basis:100%;
+        }
+
+        .item.update, .item.write{
+            flex-basis:220px;
+        }
+            
 
         /* 스크린 사이즈에 따라 썸네일, 컨테이너 max크기 지정 */
         .img-thumbnail{
@@ -159,8 +237,67 @@
                 max-height:150px;
             }
 
-            .container{
-                max-width:1200px;
+            .img-thumbnail.animal{
+                max-width: 90px;
+                max-height: 90px;
+            }
+
+            .container.out{
+                max-width:700px;
+            }
+
+            .container.profile{
+                justify-content: flex-end;
+                text-align: left;
+            }
+
+            .item.img{
+                order:1;
+                flex-basis: 35%;
+                padding-top: 15px;
+                height: 60px;
+            }
+
+            .item.post{
+                order:5;
+                flex-basis:140px;
+                padding-top:15px;
+                margin-bottom: 15px;
+            }
+
+            .item.follower{
+                order:6;
+                flex-basis:140px;
+                padding-top:15px;
+                margin-bottom: 15px;
+            }
+
+            .item.following{
+                order:7;
+                flex-basis:140px;
+                padding-top:15px;
+                margin-bottom: 15px;
+            }
+
+            .item.nick{
+                order:2;
+                flex-basis:20%;
+            }
+
+            .item.update{
+                order:3;
+                flex-basis:20%;
+            }
+
+            .item.write{
+                order:4;
+                flex-basis:20%;
+            }
+
+            .item.intro{
+                order:8;
+                padding-left:240px;
+                margin-top:15px;
             }
 
             .icon {
@@ -175,6 +312,10 @@
 
             .report {
                 margin-left:150px;
+            }
+
+            .btn.update, .btn.write{
+                width: 135px;
             }
 
         }
@@ -202,6 +343,11 @@
             color:#25aa90;
         }
 
+        span{
+            display: inline !important;
+        }
+        
+
 
 
     </style>
@@ -210,72 +356,76 @@
 
 </head>
 <body>
-    <div>
+    
 
         <!-- 키티퍼피 로고 -->
-        
-            <div class="header-logo">
-                
-                <i class="bi bi-exclamation-octagon-fill hidden"></i>
-                <h1 class="text-center">KittyPuppy</h1>
-                <a href =''><i class="bi bi-exclamation-octagon-fill report"></i></a>
-                
-                
-            </div>
+        <div class="header-logo">
+            <i class="bi bi-exclamation-octagon-fill hidden"></i>
+            <h1 class="text-center">KittyPuppy</h1>
+            <a href =''><i class="bi bi-exclamation-octagon-fill report"></i></a>
+        </div>
             
-            <br>
-            <!-- 상단 고정된 메뉴바 -->
-            <div class='text-center banner header-menu'>
-                <a><i class = "bi bi-phone icon"></i></a>
+        <br>
+        <!-- 상단 고정된 메뉴바 -->
+        <div class='text-center banner header-menu'>
+            <a><i class = "bi bi-phone icon"></i></a>
 
-                <a><i class="bi bi-megaphone icon"></i></a>
+            <a><i class="bi bi-megaphone icon"></i></a>
 
-                <a><i class="bi bi-geo-alt icon"></i></a>
+            <a><i class="bi bi-geo-alt icon"></i></a>
 
-                <a><i class="bi bi-person icon"></i></a>
+            <a><i class="bi bi-person icon"></i></a>
 
-                <a><i class = "bi bi-chat-dots icon"></i></a>
-            </div>
+            <a><i class = "bi bi-chat-dots icon"></i></a>
+        </div>
         
-            
+         
 
-    <div class="container">
+    <div class="container out">
 
          <!-- 프로필 사진, 게시물, 팔로워 팔로잉 -->
-        <div class="row mt-3">
-            <div class="col-3 col-sm-6">
-                <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start" alt="프로필 사진 추가">
-        
-            </div>
-            <div class="col-3 col-sm-2 mt-3">
-                1150<br>
-                게시물
-            </div>
+        <div class="container profile">
+            
+            <span class="item img ">
+            <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start" alt="프로필 사진 추가">
+            </span>
+           
+            <!-- <div class="container profile-in text-center"> -->
+                <div class="item post">
+                    1150<br>
+                    게시물
+                </div>
 
-            <div class="col-3 col-sm-2 mt-3">
-                1500<br>
-                팔로워
-            </div>
+                <div class="item follower">
+                    1500<br>
+                    팔로워
+                </div>
 
-            <div class="col-3 col-sm-2 mt-3">
-                110<br>
-                팔로잉
-            </div>
-        </div>
+                <div class="item following">
+                    110<br>
+                    팔로잉
+                </div>
+            
 
-        <!-- 닉네임, 프로필 소개글 -->
-        <div class="row justify-content-center">
-            <div class="col text-start">nickname</div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col text-start">프로필 소개글 잘 부탁드립니다.</div>
-        </div>
-        <br>
-        
-        <!-- 회원정보수정, 게시물 작성 버튼 -->
-        <div class="button row ">
-            <button type="button" class="col btn me-1">회원정보 수정</button>
-            <button type="button" class="col btn ms-1">게시물 작성</button>
+                <!-- 닉네임, 프로필 소개글 -->
+                
+                <div class="item nick text-start mt-2 mx-2">nickname</div>
+                
+                
+                <div class="item intro text-start mb-2 mx-2">프로필 소개글 잘 부탁드립니다.</div>
+                
+            
+            
+            
+                <!-- 회원정보수정, 게시물 작성 버튼 -->
+                <div class="item update">
+                    <button type="button" class="btn me-1 update">회원정보 수정</button>
+                </div>
+                <div class="item write">
+                    <button type="button" class="btn ms-1 write">게시물 작성</button>
+                </div>
+            <!-- </div> -->
+            
         </div>
         <br>
 
@@ -283,10 +433,14 @@
          
         <div class="animal row">
             <div class="col-auto">
-                <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail float-start" alt="프로필 사진 추가">
+                <a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
             </div>   
             <div class="col-auto">
-                <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail float-start" alt="프로필 사진 추가">
+                <a></a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
+            </div>
+
+            <div class="col-auto">
+                <a><i class="bi bi-plus-square-dotted"></i></a>
             </div>
             
         </div>
