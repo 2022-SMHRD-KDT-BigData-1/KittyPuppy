@@ -193,7 +193,7 @@ public class MemberDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
-			if (rs.next() || id.equals("")) {
+			if (rs.next()) {
 				check = 0;
 			} else {
 				check = 1;
@@ -216,7 +216,7 @@ public class MemberDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, nick);
 			rs = psmt.executeQuery();
-			if (rs.next() || nick.equals("")) {
+			if (rs.next()) {
 				check = 0;
 			} else {
 				check = 1;

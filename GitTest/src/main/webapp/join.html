@@ -18,8 +18,9 @@
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" 
-			rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&display=swap"
+	rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
@@ -34,6 +35,10 @@ body {
 	color: #25aa90;
 	display: flex;
 }
+span{
+	display: none;
+}
+
 
 .simple-login-container {
 	width: 100%;
@@ -78,35 +83,30 @@ html, body {
 			<div class="row">
 
 
-				<div class="d-grid gap-0 col-12 mx-auto">
+				<div class="d-grid gap-2 col-12 mx-auto">
 
 					<h1>KittyPuppy</h1>
-					<br> <input type="email" id="input_id" class="form-control"
-						placeholder="이메일"><br> 
-						<font id="checkId" size = "2"></font><br>
-					<input type="nick" class="form-control" placeholder="닉네임"><br>
-					<input type="password" class="form-control" placeholder="비밀번호"><br>
-					<input type="passwordck" class="form-control" placeholder="비밀번호 확인"><br>
+					<input type="email" id="input_id" class="form-control"
+						placeholder="이메일">
+						<span id="checkId" size="2"></span>
+					<input type="text" id = "input_nick" class ="form-control" placeholder="닉네임">
+					<span id="checkNick" size="2"></span>
+					<input type="password" class="form-control" placeholder="비밀번호">
+					<input type="password" class="form-control" placeholder="비밀번호 확인">
 
 					<!-- 성별 -->
 					<!-- <input type="sex" class="form-control" placeholder="성별"><br> -->
 
-					<div class="mb-3">
-
-						<select id="disabledSelect" class="form-select">
-						
-							<option>성별</option>
-							<option>남자</option>
-							<option>여자</option>
-						</select>
-					</div>
 
 
+					<select id="disabledSelect" class="form-select">
 
-
-					<input type="birthday" class="form-control" placeholder="생년월일"><br>
-					<input type="address" class="form-control" placeholder="주소"><br>
-					<input type="profile" class="form-control" placeholder="프로필"><br>
+						<option>성별</option>
+						<option>남자</option>
+						<option>여자</option>
+					</select> <input type="date" class="form-control" placeholder="생년월일">
+					<input type="text" class="form-control" placeholder="주소">
+					<input type="text" class="form-control" placeholder="프로필">
 				</div>
 
 
@@ -121,29 +121,63 @@ html, body {
 	</div>
 	<script src="jquery-3.6.0.min.js"></script>
 	<script>
-			$('#input_id').focusout(function(){
-				let userId = $('#input_id').val();
-				
-				$.ajax({
-					url : "MJoinIdCheckCon",
-					type : "post",
-					data : {userId : userId},
-					dataType : 'json',
-					success : function(result){
-							if(result == 0){
-								$("#checkId").html('사용할수 없는 아이디입니다');
-								$("#checkId").attr('color','red');
-							}else{
-								$("#checkId").html('사용할수 있는 아이디입니다');
-								$("#checkId").attr('color','green');
-							}
-					},
-					error: function(){
-						alert("서버요청싶패")
+		$('#input_id').focusout(function() {
+			let userId = $('#input_id').val();
+
+			$.ajax({
+				url : "MJoinIdCheckCon.do",
+				type : "post",
+				data : {
+					id : userId
+				},
+				dataType : 'json',
+				success : function(result) {
+					if (result == 0) {
+						document.getElementById('checkId').style.display = 'block';
+						$("#checkId").html('사용할수 없는 아이디입니다');
+						$("#checkId").attr('color', 'red');
+					} else {
+						document.getElementById('checkId').style.display = 'block';
+						$("#checkId").html('사용할수 있는 아이디입니다');
+						$("#checkId").attr('color', 'green');
 					}
-				})
+				},
+				error : function() {
+					alert("서버요청싶패")
+				}
 			})
-		</script>
+		})
+		
+	</script>
+	<script >
+	$('#input_nick').focusout(function() {
+		let userNick = $('input_nick').val();
+
+		$.ajax({
+			url : "MJoinNickCheckCon.do",
+			type : "post",
+			data : {
+				Nick : userNick
+			},
+			dataType : 'json',
+			success : function(result) {
+				if (result == 0) {
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할수 없는 닉네임입니다');
+					$("#checkNick").attr('color', 'red');
+				 	
+				} else {
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할수 있는 닉네임입니다');
+					$("#checkNick").attr('color', 'green');
+				}
+			},
+			error : function() {
+				alert("서버요청싶패")
+			}
+		})
+	})
+	</script>
 
 </body>
 </html>
