@@ -59,6 +59,7 @@
     a {
         text-decoration-line: none;
     }
+    
     .ls {
         margin: atuo;
         max-width: 442px;
@@ -175,7 +176,7 @@
 
     <div>
         <!-- 검색창 -->
-        <div class="input-group rounded">
+        <div class="ls input-group rounded">
             <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
             <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
         </div>
