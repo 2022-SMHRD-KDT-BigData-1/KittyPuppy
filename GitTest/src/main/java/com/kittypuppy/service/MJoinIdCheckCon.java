@@ -32,6 +32,5 @@ public class MJoinIdCheckCon implements iCommand {
 
 		}
 		out.write(check + "");
-	
 	}
 }

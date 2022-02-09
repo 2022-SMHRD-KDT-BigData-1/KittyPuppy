@@ -55,6 +55,7 @@ public class FrontController extends HttpServlet {
 		map.put("/MDeleteCon.do", new MDeleteCon());
 		map.put("/ScrapCon.do", new ScrapCon());
 		map.put("/ScrapDeleteCon.do", new ScrapDeleteCon());
+		map.put("/MJoinIdCheckCon.do", new MJoinIdCheckCon());
 		super.init();
 	}
 
@@ -65,6 +66,7 @@ public class FrontController extends HttpServlet {
 		String command = requestURI.substring(contextPath.length());
 		
 		map.get(command).execute(request, response);
+		System.out.println("서버요청");
 	}
 
 }
