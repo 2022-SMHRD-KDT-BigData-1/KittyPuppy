@@ -43,7 +43,7 @@
     html, body {
         height: 100%;
     }
-
+    
     body{
         background-color: #ffffff;
         display: flex;
@@ -56,6 +56,9 @@
         color: #25aa90;
     }
 
+    a {
+        text-decoration-line: none;
+    }
     .ls {
         margin: atuo;
         max-width: 442px;
@@ -79,16 +82,6 @@
         font-size : 4ch;
         float: right;
         margin-right: 15px;
-    }
-
-    .search-icon {
-        font-size : 3ch;
-    }
-
-    .search-board {
-        outline: 2px solid;
-        outline-color: #25aa90;
-        width: 392px;
     }
 
     .lcs {
@@ -149,10 +142,6 @@
             max-width: 700px;
         }
 
-        .search-board {
-        width: 652px;
-        }
-
     }
 
     div{
@@ -186,17 +175,9 @@
 
     <div>
         <!-- 검색창 -->
-        <div class = 'ls'>
-            <table>
-                <tr>
-                    <td>
-                        <a href = "FeedSearchCon.do"><i class="bi bi-search search-icon"> </i></a>
-                    </td>
-                    <td>
-                        <input type = 'text' class = 'search-board' name = 'search' placeholder= "검색하고 싶은 닉네임 또는 태그 입력">
-                    </td>
-                </tr>
-            </table>
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+            <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
         </div>
         
         <!-- 피드 -->

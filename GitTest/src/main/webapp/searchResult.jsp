@@ -82,16 +82,6 @@
         margin-right: 15px;
     }
 
-    .search-icon {
-        font-size : 3ch;
-    }
-
-    .search-board {
-        outline: 2px solid;
-        outline-color: #25aa90;
-        width: 357px;
-    }
-
     .footer {
         font-size: 5ch;
     }
@@ -144,10 +134,6 @@
             max-width: 700px;
         }
 
-        .search-board {
-        width: 654px;
-        }
-
     }
 
     div{
@@ -161,26 +147,15 @@
     
     <div>
         <!-- 검색창 -->
-        <div class = 'ls'>
-            <table>
-                <tr>
-                    <td>
-                        <a href = 'search.jsp?search='><i class="bi bi-chevron-left"></i></a>
-                    </td>
-                    <td>
-                        <a href = "FeedSearchCon.do"><i class="bi bi-search search-icon"> </i></a>
-                    </td>
-                    <td>
-                        <input type = 'text' class = 'search-board' name = 'search' placeholder= "검색하고 싶은 닉네임 또는 태그 입력">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan = 3 style="line-height:30%">
-                        <br >
-                        <h1># 강아지</h1>
-                    </td>
-                </tr>
-            </table>
+        <div class = 'd-grid gap-3'>
+            <div class="input-group rounded">
+                <a href = 'search.jsp?search=' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
+                <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+                <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
+            </div>
+            <div>
+                <h1># 강아지</h1>
+            </div>
         </div>
 
         <!-- 피드 -->

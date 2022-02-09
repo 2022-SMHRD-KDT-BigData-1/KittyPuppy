@@ -72,16 +72,6 @@
         color : #000000;
     }
 
-    .search-icon {
-        font-size : 3ch;
-    }
-
-    .search-board {
-        outline: 2px solid;
-        outline-color: #25aa90;
-        width: 405px;
-    }
-
     .container{
         width: 100%;
         max-width: 492px;
@@ -114,9 +104,6 @@
             max-width: 700px;
         }
 
-        .search-board {
-        width: 664px;
-        }
 
     }
 
@@ -128,22 +115,14 @@
 </head>
 <body>
 <div class="container">
-    <!-- 검색창 -->
-    <div class = 'ls'>
-        <div class="row">
-            <table>
-                <tr>
-                    <td>
-                        <a href = 'feed.jsp'><i class="bi bi-chevron-left"></i></a>
-                    </td>
-                    <td>
-                        <a href = "FeedSearchCon.do"><i class="bi bi-search search-icon"> </i></a>
-                    </td>
-                    <td>
-                        <input type = 'text' class = 'search-board' name = 'search' placeholder= "검색하고 싶은 닉네임 또는 태그 입력">
-                    </td>
-                </tr>
-            </table>
+    
+    <div class = 'ls d-grid gap-3'>
+
+        <!-- 검색창 -->
+        <div class="input-group rounded">
+            <a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
+            <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+            <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
         </div>
 
         <div class="row">
