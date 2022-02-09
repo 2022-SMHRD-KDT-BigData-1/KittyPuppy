@@ -53,7 +53,6 @@
         .hidden {
             color : #f5e172;
             font-size : 4ch;
-            /* margin-left: 15px; */
             margin-right:100px;
             visibility: hidden;
         }
@@ -61,8 +60,6 @@
         .report {
             color : #f5e172;
             font-size : 4ch;
-            /* float: right; */
-            /* margin-right: 15px; */
             margin-left:100px;
         }
 
@@ -80,7 +77,7 @@
             text-align: center;
         }
 
-        /* 상단 로고 고정 */
+        /* 상단 메뉴바 고정 */
         .header-menu{
             position: fixed;
             margin: 0 auto;
@@ -151,6 +148,7 @@
             align-items: center;
         }
 
+        /* 바깥 컨테이너 설정 */
         .container.out{
             width: 100%;
             padding-left:15px;
@@ -162,6 +160,7 @@
             max-width: 470px;
         }
 
+        /* 프로필 컨테이너 설정 - flexbox */
         .container.profile{
             /* Flex - 정렬을 위한 컨테이너 */
             display: flex;
@@ -179,10 +178,8 @@
         .container.profile-in{
             display: flex;
             
-            /* 주축 방향 정렬 */
             justify-content: center;
 
-            /* 교차축 방향 정렬 */
             align-items: center;
 
             flex-wrap: wrap;
@@ -301,7 +298,7 @@
             }
 
             .icon {
-                font-size: 4ch;
+                font-size: 40px;
                 margin-left: 30px;
                 margin-right: 30px;
             }
@@ -320,9 +317,6 @@
 
         }
 
-        div{
-            display:block;
-        }
 
         ul{
             padding-right: 0px !important;
@@ -332,23 +326,14 @@
             margin:0px;
         }
 
-        
 
         .bi {
             font-size: 40px;
-            
         }
 
         .bi-person{
             color:#25aa90;
         }
-
-        span{
-            display: inline !important;
-        }
-        
-
-
 
     </style>
 
@@ -380,7 +365,7 @@
         </div>
         
          
-
+    <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
     <div class="container out">
 
          <!-- 프로필 사진, 게시물, 팔로워 팔로잉 -->
@@ -430,7 +415,6 @@
         <br>
 
         <!-- 반려동물 사진, 추가등록 버튼 -->
-         
         <div class="animal row">
             <div class="col-auto">
                 <a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
@@ -442,7 +426,6 @@
             <div class="col-auto">
                 <a><i class="bi bi-plus-square-dotted"></i></a>
             </div>
-            
         </div>
         
         <br>
