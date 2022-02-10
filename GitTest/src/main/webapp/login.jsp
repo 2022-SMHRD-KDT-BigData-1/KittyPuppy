@@ -76,8 +76,10 @@ html, body {
 }
 
 .col-sm-6 {
-	width: 300px;
+	width: 400px;
 }
+
+
 
 #logo {
 	margin-top: 40px;
@@ -94,7 +96,10 @@ html, body {
 	<div class="container">
 
 		<div class="row justify-content-center">
-			<div class="d-grid gap-sm-1 col-sm-6 ">
+		
+				<!--모바일 크기에는 사진 없어짐 d-none d-sm-block d-sm-none d-md-block -->
+			<div class="d-none d-sm-block d-sm-none d-md-block d-grid gap-sm-1 col-sm-6 ">
+			
 				<img class="img-fluid"
 					src="http://www.animaltogether.com/news/photo/202012/3614_7974_1835.jpg"
 					alt="IMG">
