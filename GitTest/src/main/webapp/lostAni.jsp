@@ -265,7 +265,7 @@ h1 {
 				class="bi bi-person icon b"></i></a> <a><i
 				class="bi bi-chat-dots icon b"></i></a>
 		</div>
-      
+        
 
 		<!-- 상단 로고,메뉴바 밑의 내용 하나 컨테이너 -->
 		<div class="row innerContainer b">
