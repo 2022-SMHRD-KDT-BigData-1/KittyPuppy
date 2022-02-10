@@ -8,6 +8,7 @@
     pageEncoding="UTF-8"%>
     
 <%
+	
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
 	String nick = member.getNick();
     

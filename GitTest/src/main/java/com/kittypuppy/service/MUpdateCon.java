@@ -23,9 +23,8 @@ public class MUpdateCon implements iCommand {
 		String birth = request.getParameter("birth");
 		String address = request.getParameter("address");
 		String profile = request.getParameter("profile");
-		String isAnimal = request.getParameter("isAnimal");
 
-		int cnt = dao.membertUpdate(new MemberDTO(null, pw, picAddress, nick, sex, birth, address, profile, isAnimal));
+		int cnt = dao.membertUpdate(new MemberDTO(null, pw, picAddress, nick, sex, birth, address, profile));
 
 		if (cnt > 0) {
 			response.sendRedirect("mypage.jsp");

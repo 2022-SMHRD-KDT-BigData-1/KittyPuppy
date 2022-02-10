@@ -29,11 +29,10 @@ public class MJoinCon implements iCommand{
 		String birth = request.getParameter("birth");
 		String address = request.getParameter("address");
 		String profile = request.getParameter("profile");
-		String isAnimal = request.getParameter("isAnimal");
 
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.memberJoin(new MemberDTO(id, pw, null, nick, sex, birth, address, profile, null));
+		int cnt = dao.memberJoin(new MemberDTO(id, pw, null, nick, sex, birth, address, profile));
 
 	
 		if (cnt > 0) { 

@@ -47,7 +47,7 @@ public class MemberDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into member values(?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into member values(?,?,?,?,?,?,?,?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, member.getId());
 			psmt.setString(2, member.getPw());
@@ -57,7 +57,6 @@ public class MemberDAO {
 			psmt.setString(6, member.getBirth());
 			psmt.setString(7, member.getAddress());
 			psmt.setString(8, member.getProfile());
-			psmt.setString(9, member.getIsAnimal());
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +72,7 @@ public class MemberDAO {
 		connect();
 		try {
 			String sql = "update member "
-					+ "set pw = ?, picaddress = ?, nick = ?, sex = ?, birth = ?, address = ?, profile = ?, isanimal = ?"
+					+ "set pw = ?, picaddress = ?, nick = ?, sex = ?, birth = ?, address = ?, profile = ?"
 					+ "where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, member.getPw());
@@ -83,8 +82,7 @@ public class MemberDAO {
 			psmt.setString(5, member.getBirth());
 			psmt.setString(6, member.getAddress());
 			psmt.setString(7, member.getProfile());
-			psmt.setString(8, member.getIsAnimal());
-			psmt.setString(9, member.getId());
+			psmt.setString(8, member.getId());
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -146,8 +144,7 @@ public class MemberDAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				member = new MemberDTO(rs.getString("id"), null, rs.getString("picaddress"), rs.getString("nick"),
-						rs.getString("sex"), rs.getString("birth"), rs.getString("address"), rs.getString("profile"),
-						rs.getString("isanimal"));
+						rs.getString("sex"), rs.getString("birth"), rs.getString("address"), rs.getString("profile"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

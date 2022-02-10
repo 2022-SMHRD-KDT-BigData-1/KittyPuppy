@@ -10,10 +10,9 @@ public class MemberDTO {
 	private String birth;
 	private String address;
 	private String profile;
-	private String isAnimal;
 	
 	public MemberDTO(String id, String pw, String picAddress, String nick, String sex, String birth, String address,
-			String profile, String isAnimal) {
+			String profile) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -23,7 +22,6 @@ public class MemberDTO {
 		this.birth = birth;
 		this.address = address;
 		this.profile = profile;
-		this.isAnimal = isAnimal;
 	}
 
 	public String getId() {
@@ -90,12 +88,5 @@ public class MemberDTO {
 		this.profile = profile;
 	}
 
-	public String getIsAnimal() {
-		return isAnimal;
-	}
-
-	public void setIsAnimal(String isAnimal) {
-		this.isAnimal = isAnimal;
-	}
 	
 }

@@ -33,6 +33,9 @@ SELECT * from lost_animal;
 SELECT * from lost_comment;
 SELECT * from lost_cocomment;
 
+insert into MEMBER (id, pw, picaddress, nick, sex, birth, address, profile)
+values('1111','1111',null,'테스트용계정','남자','2022-02-10', '광주광역시 동구 예술길 31-15 3층', '테스트용계정 프로필에 들어가는 내용~~~~~~~~')
+
 CREATE table member(
 	id VARCHAR2(20) not null,
 	pw VARCHAR2(15) not null,
@@ -42,9 +45,7 @@ CREATE table member(
 	birth VARCHAR2(10) not null,
 	address VARCHAR2(50) not null,
 	profile VARCHAR2(300),
-	isanimal VARCHAR2(10) ,
-	constraint member_id_pk primary key(id),
-	constraint member_isanimal_ck check(isanimal IN('O','X'))
+	constraint member_id_pk primary key(id)
 );
 
 CREATE table animal(
