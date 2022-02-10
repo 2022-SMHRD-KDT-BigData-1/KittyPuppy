@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,18 +102,18 @@ html, body {
 
 			<!-- <div class="simple-login-container"> -->
 			<div class="col-sm-6">
-				<form action="">
+				<form action="MLoginCon.do" method="post">
 					<div>
 						<div class="d-grid gap-2 col-12">
 							<h1 id="logo">KittyPuppy</h1>
-							<input type="email" class="form-control" placeholder="Email">
-							<input type="password" class="form-control"
+							<input type="text" name="id" class="form-control" placeholder="Email">
+							<input type="password" name="pw" class="form-control"
 								placeholder="Password"> <a hrep="#" class="text-end">비밀번호를
 								잊으셨나요?</a><br>
 						</div>
 
 						<div class="d-grid gap-2 col-12 mx-auto">
-							<button type="button" class="btn"
+							<button type="submit" class="btn"
 								style="background-color: #25aa90;">로그인</button>
 							<button type="button" class="btn"
 								style="background-color: #25aa8f7e;">회원가입</button>

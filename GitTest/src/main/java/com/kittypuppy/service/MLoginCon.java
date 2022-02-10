@@ -28,7 +28,7 @@ public class MLoginCon implements iCommand {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("nick", nick);
-			response.sendRedirect("#");//메인 피드 수정
+			response.sendRedirect("feed.jsp");//메인 피드 수정
 
 		} else {
 			// 로그인 실패 알림창 띄운 후 main.jsp로 이동하기!
