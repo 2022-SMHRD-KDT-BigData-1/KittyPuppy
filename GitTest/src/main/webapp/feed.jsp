@@ -172,6 +172,10 @@ body {
 		display: block;
 	}
 	
+	.comt {
+		display: none;
+	}
+	
 	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
 	@media ( min-width : 1050px) {
 		/* 바깥 컨테이너 설정 */
@@ -184,12 +188,15 @@ body {
 			max-height: 150px;
 		}
 		.ls {
-			max-width: 700px;
+			max-width: 1000px;
 		}
+	}
+	
+	.input-group {
+		z-index: -1;
 	}
 </style>
 
-</style>
 </head>
 <body>
     
@@ -205,22 +212,21 @@ body {
     <div class='ls navbar text-center banner header-menu'>
         <a><i id = 'cursor' class = "bi bi-phone-fill icon"></i></a>
 
-        <a><i class="bi bi-megaphone icon"></i></a>
+        <a href = 'lostAniBoard.jsp'><i class="bi bi-megaphone icon"></i></a>
 
         <a><i class="bi bi-geo-alt icon"></i></a>
 
-        <a><i class="bi bi-person icon"></i></a>
+        <a href = 'mypage.jsp'><i class="bi bi-person icon"></i></a>
 
-        <a><i class = "bi bi-chat-dots icon"></i></a>
+        <a href = ''><i class = "bi bi-chat-dots icon"></i></a>
     </div>
-
 
     <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
 	<div class="container out">
         <!-- 검색창 -->
         <div class="ls input-group rounded">
             <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-            <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
+            <a href = 'FeedSearchCon.do?search=' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
         </div>
         
         <!-- 피드 -->
@@ -240,20 +246,28 @@ body {
                 </div>
                 <!-- 피드 내용-->
                 <div class="col-sm-6">
-                    <div align = 'left'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
-                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
+                    <div class = 'content' align = 'left'>간식 냠냠...<button class = 'info one' onclick = 'more()'>더보기</button></div>
+                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info'>전체보기</button></div>
+                    <div class = 'comt'>
+                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
+                    		<div class="input-group rounded">
+					        	<input type="text" class="form-control rounded" placeholder="댓글 입력" aria-label="Search" aria-describedby="search-addon" />
+								<input type='submit' value = '↑'>
+							</div>
+                    	</form>
+                    </div>
                     <div>
-                        <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
-                        <button><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap()'> 스크랩</i></button>
-                        <!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
+                        <button class = 'bt1'><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
+                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
+                        <button class = 'bt3'><i class = "bi bi-chat-dots lcs"> 댓글</i></button>
+                        <button class = 'bt4'><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap();'> 스크랩</i></button>
+                        <!-- <button class = 'bt5'><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- 피드 -->
+         <!-- 피드 -->
         <div class="row mt-3 text-center">
             <div class="row justify-content-center">
                 <div class="d-grid gap-sm-1 col-sm-6">
@@ -270,20 +284,28 @@ body {
                 </div>
                 <!-- 피드 내용-->
                 <div class="col-sm-6">
-                    <div align = 'left'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
-                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
+                    <div class = 'content' align = 'left'>간식 냠냠...<button class = 'info one' onclick = 'more()'>더보기</button></div>
+                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info'>전체보기</button></div>
+                    <div class = 'comt'>
+                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
+                    		<div class="input-group rounded">
+					        	<input type="text" class="form-control rounded" placeholder="댓글 입력" aria-label="Search" aria-describedby="search-addon" />
+								<input type='submit' value = '↑'>
+							</div>
+                    	</form>
+                    </div>
                     <div>
-                        <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
-                        <button><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap()'> 스크랩</i></button>
-                        <!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
+                        <button class = 'bt1'><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
+                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
+                        <button class = 'bt3'><i class = "bi bi-chat-dots lcs"> 댓글</i></button>
+                        <button class = 'bt4'><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap();'> 스크랩</i></button>
+                        <!-- <button class = 'bt5'><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- 피드 -->
+         <!-- 피드 -->
         <div class="row mt-3 text-center">
             <div class="row justify-content-center">
                 <div class="d-grid gap-sm-1 col-sm-6">
@@ -300,23 +322,30 @@ body {
                 </div>
                 <!-- 피드 내용-->
                 <div class="col-sm-6">
-                    <div align = 'left'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
-                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
+                    <div class = 'content' align = 'left'>간식 냠냠...<button class = 'info one' onclick = 'more()'>더보기</button></div>
+                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info'>전체보기</button></div>
+                    <div class = 'comt'>
+                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
+                    		<div class="input-group rounded">
+					        	<input type="text" class="form-control rounded" placeholder="댓글 입력" aria-label="Search" aria-describedby="search-addon" />
+								<input type='submit' value = '↑'>
+							</div>
+                    	</form>
+                    </div>
                     <div>
-                        <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
-                        <button><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap()'> 스크랩</i></button>
-                        <!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
+                        <button class = 'bt1'><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
+                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
+                        <button class = 'bt3'><i class = "bi bi-chat-dots lcs"> 댓글</i></button>
+                        <button class = 'bt4'><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap();'> 스크랩</i></button>
+                        <!-- <button class = 'bt5'><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
-
-
-
-     <!-- Optional JavaScript; choose one of the two! -->
+	
+    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -325,38 +354,10 @@ body {
     
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
-	<script>
-	    let more = function(){
-	    
-	    };
-	
-	    let entire = function(){
-	        
-	    }
-	
-	    let like = function() {
-	
-	    }
-	
-	    let likedelete = function() {
-	
-	    }
-	
-	    let comment = function(){
-	
-	    }
-	
-	    let cocoment = function(){
-	
-	    }
-	
-	    let scrap = function(){
-	
-	    }
-	
-	    let scrapdelete = function(){
-	
-	    }
+    
+    <script src="jquery-3.6.0.min.js"></script>
+	<script type = 'text/script'>
+		
 	</script>
 </body>
 </html>
