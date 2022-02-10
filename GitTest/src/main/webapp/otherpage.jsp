@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,18 @@
             margin-left:100px;
         }
 
+        /* 아이콘 설정 */
+
+        .icon {
+            margin-left: 15px;
+            margin-right: 15px;
+            color: #25aa8f7e;
+        }
+
+        .bi {
+            font-size: 40px;
+        }
+
         /* 상단 로고 고정 */
         .header-logo{
             position: fixed;
@@ -88,64 +102,6 @@
             background-color: white;
             padding-top: 15px;
             width: 100%;
-        }
-
-        .icon {
-            font-size: 4ch;
-            margin-left: 15px;
-            margin-right: 15px;
-        }
-        
-        /* 탭을 클릭했을 때 */
-        .nav-link.active {
-            background-color: #25aa90 !important;
-            padding-left:13px;
-            padding-right:13px;
-            padding-top:7px;
-            padding-bottom:7px;
-        }
-
-        /* 탭에 마우스를 올렸을 때 */
-        .nav-link{
-            color : white;
-            background-color: #25aa8f7e !important;
-            padding-left:13px;
-            padding-right:13px;
-            padding-top:7px;
-            padding-bottom:7px;
-        }
-
-        .nav-link:hover {
-            color : white !important;
-        }
-
-        .btn:hover{
-            /* background-color: #25aa8f7e !important; */
-            color : white !important;
-        }
-
-        .btn{
-            background-color: #25aa90;
-            color:white;
-            /* width:190px;
-            height: 38px;
-            padding-left:13px;
-            padding-right: 13px;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            border: 0px; */
-        }
-
-        .btn.update, .btn.write{
-            width: 215px;
-        }
-
-        /* button{
-            align-items: stretch !important;
-        } */
-
-        .row {
-            align-items: center;
         }
 
         /* 바깥 컨테이너 설정 */
@@ -175,19 +131,12 @@
             text-align: center;
         }
 
-        .container.profile-in{
-            display: flex;
-            
-            justify-content: center;
-
-            align-items: center;
-
-            flex-wrap: wrap;
-            padding:0px;
-            flex-basis: 280px;
+        /* 프로필 썸네일 설정 */
+        .img-thumbnail{
+            max-width:77px;
+            max-height:77px;
         }
 
-        
         /* Flexbox 안의 아이템 모바일 */
         .item.img{
             /* margin-right: 50px; */
@@ -220,32 +169,59 @@
         .item.update, .item.write{
             flex-basis:220px;
         }
-            
 
-        /* 스크린 사이즈에 따라 썸네일, 컨테이너 max크기 지정 */
-        .img-thumbnail{
-            max-width:77px;
-            max-height:77px;
+        .btn:hover{
+            background-color: #25aa8f7e !important;
+            color : white !important;
         }
 
+        .btn{
+            background-color: #25aa90;
+            color:white;
+        }
+
+        .btn.follow, .btn.message{
+            width: 215px;
+        }
+
+        .row{
+            margin:0px;
+        }
+
+        /* 화면크기가 992px이 넘어갔을때 적용되는 css */
         @media (min-width: 992px) {
-            .img-thumbnail{
-                max-width:150px;
-                max-height:150px;
-            }
-
-            .img-thumbnail.animal{
-                max-width: 90px;
-                max-height: 90px;
-            }
-
+            
+            /* 바깥 컨테이너 설정 */
             .container.out{
                 max-width:700px;
             }
 
+            /* 상단 로고 관련 설정 */
+            .hidden {
+                margin-right:150px;
+            }
+
+            .report {
+                margin-left:150px;
+            }
+
+            /* 상단 메뉴바 설정 */
+            .icon {
+                font-size: 40px;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            /* 프로필 컨테이너 설정 */
             .container.profile{
                 justify-content: flex-end;
                 text-align: left;
+            }
+
+            /* 프로필 썸네일 설정 */
+            .img-thumbnail{
+                max-width:150px;
+                max-height:150px;
             }
 
             .item.img{
@@ -297,78 +273,47 @@
                 margin-top:15px;
             }
 
-            .icon {
-                font-size: 40px;
-                margin-left: 30px;
-                margin-right: 30px;
-            }
-
-            .hidden {
-                margin-right:150px;
-            }
-
-            .report {
-                margin-left:150px;
-            }
-
-            .btn.update, .btn.write{
+            .btn.follow, .btn.message{
                 width: 135px;
             }
 
-        }
-
-
-        ul{
-            padding-right: 0px !important;
-        }
-
-        .row{
-            margin:0px;
-        }
-
-
-        .bi {
-            font-size: 40px;
-        }
-
-        .bi-person{
-            color:#25aa90;
+            /* 반려동물 썸네일 설정 */
+            .img-thumbnail.animal{
+                max-width: 90px;
+                max-height: 90px;
+            }
         }
 
     </style>
-
-   
-
 </head>
 <body>
     
-
-        <!-- 키티퍼피 로고 -->
-        <div class="header-logo">
-            <i class="bi bi-exclamation-octagon-fill hidden"></i>
-            <h1 class="text-center">KittyPuppy</h1>
-            <a href =''><i class="bi bi-exclamation-octagon-fill report"></i></a>
-        </div>
-            
-        <br>
-        <!-- 상단 고정된 메뉴바 -->
-        <div class='text-center banner header-menu'>
-            <a><i class = "bi bi-phone icon"></i></a>
-
-            <a><i class="bi bi-megaphone icon"></i></a>
-
-            <a><i class="bi bi-geo-alt icon"></i></a>
-
-            <a><i class="bi bi-person icon"></i></a>
-
-            <a><i class = "bi bi-chat-dots icon"></i></a>
-        </div>
+    <!-- 키티퍼피 로고 -->
+    <div class="header-logo">
+        <i class="bi bi-exclamation-octagon-fill hidden"></i>
+        <h1 class="text-center">KittyPuppy</h1>
+        <a href =''><i class="bi bi-exclamation-octagon-fill report"></i></a>
+    </div>
         
-         
+    <br>
+    <!-- 상단 고정된 메뉴바 -->
+    <div class='text-center banner header-menu'>
+        <a><i class = "bi bi-phone icon"></i></a>
+
+        <a><i class="bi bi-megaphone icon"></i></a>
+
+        <a><i class="bi bi-geo-alt icon"></i></a>
+
+        <a><i class="bi bi-person icon"></i></a>
+
+        <a><i class = "bi bi-chat-dots icon"></i></a>
+    </div>
+
+
     <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
     <div class="container out">
-
-         <!-- 프로필 사진, 게시물, 팔로워 팔로잉 -->
+    
+        <!-- 프로필 사진, 게시물, 팔로워 팔로잉 -->
         <div class="container profile">
             
             <span class="item img ">
@@ -404,13 +349,12 @@
             
                 <!-- 회원정보수정, 게시물 작성 버튼 -->
                 <div class="item update">
-                    <button type="button" class="btn me-1 update">회원정보 수정</button>
+                    <button type="button" class="btn me-1 follow">팔로우</button>
                 </div>
                 <div class="item write">
-                    <button type="button" class="btn ms-1 write">게시물 작성</button>
+                    <button type="button" class="btn ms-1 message">메세지</button>
                 </div>
             <!-- </div> -->
-            
         </div>
         <br>
 
@@ -422,77 +366,24 @@
             <div class="col-auto">
                 <a></a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
             </div>
-
-            <div class="col-auto">
-                <a><i class="bi bi-plus-square-dotted"></i></a>
-            </div>
         </div>
-        
-        <br>
-       
-        <!-- 탭 메뉴 -->
-                <div class="tab row">
-                    <ul class="nav nav-pills" id="myTab" role="tablist">
-                        <li class="nav-item col me-1" role="presentation">
-                            <button class="nav-link active w-100 btn" href="#userinfo" id="userinfo-tab" data-bs-toggle="tab"
-                                " type="button" role="tab" aria-controls="userinfo"
-                                aria-selected="true">스토리</button>
-                        </li>
-                        <li class="nav-item col ms-1" role="presentation">
-                            <button class="nav-link w-100 btn" id="myreview-tab" data-bs-toggle="tab"
-                                data-bs-target="#myreview" type="button" role="tab"
-                                aria-controls="myreview" aria-selected="false">스크랩</button>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- 탭의 내용 -->
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="userinfo" role="tabpanel"
-                        aria-labelledby="userinfo-tab">
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
-                        내 피드 게시물<br>
+    
+        <hr>
 
-                    </div>
-                    <div class="tab-pane fade" id="myreview" role="tabpanel"
-                        aria-labelledby="myreview-tab">내가 스크랩한 게시물</div>
-                    
-                </div>
+
+
+
+
+
+
+
+
 
     </div>
-        
-    
-
-    
-    
-    
-
-
-    
 
 
 
-    <!-- Optional JavaScript; choose one of the two! -->
+     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -501,6 +392,5 @@
     
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
-    
 </body>
 </html>
