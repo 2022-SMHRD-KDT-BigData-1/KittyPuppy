@@ -1,5 +1,26 @@
+<%@page import="com.kittypuppy.model.FollowDTO"%>
+<%@page import="com.kittypuppy.model.FollowDAO"%>
+<%@page import="com.kittypuppy.model.FeedDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kittypuppy.model.MemberDTO"%>
+<%@page import="com.kittypuppy.model.FeedDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	MemberDTO member = (MemberDTO)session.getAttribute("member");
+	String nick = member.getNick();
+    
+	FeedDAO feed = new FeedDAO();
+	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
+	
+	FollowDAO follow = new FollowDAO();
+	// 나를 팔로우 하는 사람들
+	ArrayList<String> followerList = follow.followerShow(nick);
+	// 내가 팔로잉중인 사람들
+	ArrayList<String> followingList = follow.followingShow(nick);
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -356,15 +377,15 @@
         <br>
         <!-- 상단 고정된 메뉴바 -->
         <div class='text-center banner header-menu'>
-            <a href=""><i class = "bi bi-phone icon"></i></a>
+            <a href="feed.jsp"><i class = "bi bi-phone icon"></i></a>
 
-            <a><i class="bi bi-megaphone icon"></i></a>
+            <a href="lostAniBorad.jsp"><i class="bi bi-megaphone icon"></i></a>
 
-            <a><i class="bi bi-geo-alt icon"></i></a>
+            <a href=""><i class="bi bi-geo-alt icon"></i></a>
 
-            <a><i class="bi bi-person-fill icon"></i></a>
+            <a href="mypage.jsp"><i class="bi bi-person-fill icon"></i></a>
 
-            <a><i class = "bi bi-chat-dots icon"></i></a>
+            <a href=""><i class = "bi bi-chat-dots icon"></i></a>
         </div>
         
          
@@ -380,37 +401,38 @@
            
             <!-- <div class="container profile-in text-center"> -->
                 <div class="item post">
-                    1150<br>
+                	<!-- 게시물의 갯수 -->
+                	<%= feedList.size()%><br>
                     게시물
                 </div>
 
                 <div class="item follower">
-                    1500<br>
+                    <%= followerList.size() %><br>
                     팔로워
                 </div>
 
                 <div class="item following">
-                    110<br>
+                    <%= followingList.size() %><br>
                     팔로잉
                 </div>
             
 
                 <!-- 닉네임, 프로필 소개글 -->
                 
-                <div class="item nick text-start mt-2 mx-2">nickname</div>
+                <div class="item nick text-start mt-2 mx-2"><%=nick %></div>
                 
                 
-                <div class="item intro text-start mb-2 mx-2">프로필 소개글 잘 부탁드립니다.</div>
+                <div class="item intro text-start mb-2 mx-2"><%=member.getProfile() %></div>
                 
             
             
             
                 <!-- 회원정보수정, 게시물 작성 버튼 -->
                 <div class="item update">
-                    <button type="button" class="btn me-1 update">회원정보 수정</button>
+                    <button type="button" class="btn me-1 update" onclick="location.href='update.jsp' ">회원정보 수정</button>
                 </div>
                 <div class="item write">
-                    <button type="button" class="btn ms-1 write">게시물 작성</button>
+                    <button type="button" class="btn ms-1 write" onclick="location.href='feedUpload.jsp' ">게시물 작성</button>
                 </div>
             <!-- </div> -->
             
@@ -427,7 +449,7 @@
             </div>
 
             <div class="col-auto">
-                <a><i class="bi bi-plus-square-dotted"></i></a>
+                <a href="aniJoin.jsp"><i class="bi bi-plus-square-dotted"></i></a>
             </div>
         </div>
         
