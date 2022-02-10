@@ -107,6 +107,7 @@ h1 {
 	text-align: center;
 	max-width: 430px;
 	min-width: 385px;
+	z-index: 2;
 }
 
 /* 상단 메뉴바 고정 */
@@ -122,6 +123,7 @@ h1 {
 	width: 100%;
 	min-width: 385px;
 	max-width: 750px;
+	z-index: 2;
 }
 
 /* 바깥 컨테이너 설정 */
@@ -181,6 +183,7 @@ h1 {
 		max-width: 750px;
 		margin: auto;
 		display: auto;
+		z-index: 2;
 	}
 	/* 상단 로고 고정 */
 	.header-logo {
@@ -194,6 +197,7 @@ h1 {
 		width: 100%;
 		text-align: center;
 		max-width: 750px;
+		z-index: 2;
 	}
 	/* 상단 로고 관련 설정 */
 	.hidden {
@@ -234,7 +238,6 @@ h1 {
 .searchInput {
 	text-align: center;
 	max-width: 650px;
-	z-index: -1;
 }
 
 /* grid 구분 확인을 위한 css 설정*/
@@ -264,18 +267,7 @@ h1 {
 		</div>
 
 
-		<!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
-		<div class="row b justify-content-center b">
-			<div class="input-group mb-3 searchInput b">
-				<div class="input-group-prepend">
-					<span class="input-group-text material-icons" id="basic-addon3">
-						search </span>
-				</div>
-				<input type="text" class="form-control" id="basic-url"
-					aria-describedby="basic-addon3" />
-			</div>
-		</div>
-
+		<!-- 상단 로고,메뉴바 밑의 내용 하나 컨테이너 -->
 		<div class="row innerContainer b">
 			<div class="card">
 				<a href="#"><img src="./assets/img/img1.jpg"
@@ -291,69 +283,12 @@ h1 {
 					</p>
 				</div>
 			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-
-
 
 
 		</div>
 	</div>
 
+	
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
@@ -367,5 +302,9 @@ h1 {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
+
+	<script>
+	
+    </script>
 </body>
 </html>

@@ -4,9 +4,9 @@
 
 // 모달 창 켜기
 const modal = document.getElementById("modal");
-const btnModal = document.getElementById("btn-modal");
+const search = document.getElementById("search");
 
-btnModal.addEventListener("click", e => {
+search.addEventListener("click", e => {
     modal.style.display = "flex";
 });
 
@@ -14,9 +14,9 @@ btnModal.addEventListener("click", e => {
 // 모달 창 끄기 1. x 버튼 누르기  2. 모달 바깥 영역 클릭
 
 //1. x 버튼 누르기
-const closeBtn = modal.querySelector(".close-area");
+const back = modal.querySelector(".back");
 
-closeBtn.addEventListener("click", e => {
+back.addEventListener("click", e => {
     modal.style.display = "none";
 });
 
