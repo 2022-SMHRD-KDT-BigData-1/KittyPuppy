@@ -1,3 +1,4 @@
+<%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@page import="com.kittypuppy.model.FollowDTO"%>
 <%@page import="com.kittypuppy.model.FollowDAO"%>
 <%@page import="com.kittypuppy.model.FeedDTO"%>
@@ -8,9 +9,10 @@
     pageEncoding="UTF-8"%>
     
 <%
-	
-	MemberDTO member = (MemberDTO)session.getAttribute("member");
-	String nick = member.getNick();
+	String nick = (String)session.getAttribute("nick");	
+
+	MemberDAO dao = new MemberDAO();
+	MemberDTO member = dao.memberInfo(nick);
     
 	FeedDAO feed = new FeedDAO();
 	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
