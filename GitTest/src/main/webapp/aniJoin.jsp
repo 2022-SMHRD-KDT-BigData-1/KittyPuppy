@@ -179,8 +179,7 @@
 
             <div class="d-grid gap-2 col-12 mx-auto">
                 <button type="button" class="btn" style="background-color: #25aa90;">완료</button>
-                <!-- 완료 하고 마이메이지 -->
-
+              
             </div>
 
         </div>
