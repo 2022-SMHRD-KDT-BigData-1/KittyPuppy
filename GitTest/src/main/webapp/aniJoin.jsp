@@ -23,32 +23,61 @@
     <script src="js/bootstrap.min.js"></script>
 
     <style>
-        body {
+    
+    html, body{
+            height:100%;
+        }
+
+        body{
+        background-color: #ffffff;
+        padding: 10px;
+        }
+        
+        /* body {
             background-color: #ffffff;
             font-size: 10px;
             color: #25aa90;
             display: flex;
             padding: 15px;
             margin: auto;
-        }
+        } */
 
         .container {
             width: 40%;
             padding: 15px;
             margin: auto;
             display: block;
+            max-width: 1200px;
         }
-
+        
+        
+        /* 바깥 컨테이너 설정 */
+        .container.out{
+            width: 100%;
+            padding-left:15px;
+            padding-right:15px;
+            padding-bottom: 15px;;
+            padding-top: 9rem;
+            margin: auto;
+            display:block;
+            max-width: 470px;
+        }
+        
+         /* 화면크기가 992px이 넘어갔을때 적용되는 css */
         @media (min-width: 992px) {
+            
+            /* 바깥 컨테이너 설정 */
+            .container.out{
+                max-width:700px;
+            }
+
+        /* @media (min-width: 992px) {
             .img-thumbnail {
                 max-width: 150px;
                 max-height: 150px;
-            }
+            } */
 
-            .container {
-                max-width: 1200px;
-            }
-        }
+            
 
         .container p {
             text-align: center;
@@ -68,17 +97,14 @@
             color: #fff;
         }
 
-        html,
-        body {
-            height: 100%;
-        }
+        
         
     </style>
 
 </head>
 <body>
 
- <div class="container">
+ <div class="container out">
 
         <div class="row">
 
@@ -110,11 +136,12 @@
                 <!-- 원형 사진을 클릭하여 사진을 업로드 -->
 
                 <div class="text-center ">
-                     <a href="">
                      <!-- 사진업로드 이동 -->
-                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"></a>
-                        
+                    <label class="btn btn-default" style="background-color: white;">
+                        <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"> <input
+                            type="file" hidden></i>
+                    </label>
 
                     <!-- 사진 파일업로드 안될시 버튼을 생성해서 업로드해야하므로 이코드 지우지 않기 
                                                 <input type="file" class="text-center center-block file-upload"> -->

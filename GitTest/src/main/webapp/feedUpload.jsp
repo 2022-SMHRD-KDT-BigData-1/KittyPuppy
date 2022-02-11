@@ -137,7 +137,7 @@
             <!-- 상단 메뉴 -->
             <div class="row text-center">
                 <div class = 'col-4' align = 'left'>
-                    <a href = ''><i class="bi bi-chevron-left"></i></a>
+                    <a href = 'mypage.jsp'><i class="bi bi-chevron-left"></i></a>
                 </div>
                 <div class = 'col-4'>
                     <span class = 'title'>글쓰기</span>

@@ -64,6 +64,29 @@ public class FeedDAO {
 		return cnt;
 		
 	}
+	
+	// 피드 전체 보여주기
+	public ArrayList<FeedDTO> feedShowALl(){
+		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from feed order by feeddate desc";
+			psmt = conn.prepareStatement(sql);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
+	}
+	}
 	// 팔로잉하는 사람 피드 보여주기
 	public ArrayList<FeedDTO> feedShow(ArrayList<String> followingList) {
 		
