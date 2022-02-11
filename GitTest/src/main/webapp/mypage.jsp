@@ -28,8 +28,7 @@
 	
 	// 현재 로그인한 닉네임으로 불러온 피드리스트 page영역에 저장하기
 	pageContext.setAttribute("feedList",feedList);
-	
-	// 
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -202,7 +201,6 @@
 
                 <!-- 스토리 : 내 피드 -->
                 <% 
-                	
                 	for(int i = 0; i < feedList.size(); i++){ 
                 	String carouselid = "carouselExampleControls";
                 	carouselid += i;
@@ -225,20 +223,27 @@
 							<!-- 첨부된 사진-->
 							<div id="<%=carouselid %>"  class="carousel slide"
                             data-bs-interval="false">
-                            
-                            <%
-                            	String src = feedList.get(i).getPicAddress();
-                            %>
 								<div class="carousel-inner">
-									<div class="carousel-item active">
-										<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDJfODYg%2FMDAxNjM4Mzc0MDUzNDEw.GlqRlx5WO8pxj6XqYd4wBBO4r73WB_X0fAma5Lg_Vtog.1Sl0ddpm3g8xp-6U68SINCq-P8sfgNle64KQnw7mCYog.JPEG.zzjworld%2F20211201%25A3%25DF234106.jpg&type=sc960_832" class="d-block w-100" alt="...">
+									<%
+		                            	String src = feedList.get(i).getPicAddress();
+										System.out.println(src);
+		                            	String[] srclist = src.split(",");
+		                            	String item = null;
+		                            	
+		                            	for(int j = 0; j < srclist.length; j++){
+		                            		if(j == 0){
+		                            			item = "carousel-item active";
+		                            		}else{
+		                            			item = "carousel-item";
+		                            		}
+		                            		System.out.println(srclist[j]);
+                            		%>
+                            	
+									<div class="<%= item %>">
+										<img src="<%=srclist[j] %>" class="d-block w-100" alt="...">
 									</div>
-									<div class="carousel-item">
-										<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDJfODYg%2FMDAxNjM4Mzc0MDUzNDEw.GlqRlx5WO8pxj6XqYd4wBBO4r73WB_X0fAma5Lg_Vtog.1Sl0ddpm3g8xp-6U68SINCq-P8sfgNle64KQnw7mCYog.JPEG.zzjworld%2F20211201%25A3%25DF234106.jpg&type=sc960_832" class="d-block w-100" alt="...">
-									</div>
-									<div class="carousel-item">
-										<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDJfODYg%2FMDAxNjM4Mzc0MDUzNDEw.GlqRlx5WO8pxj6XqYd4wBBO4r73WB_X0fAma5Lg_Vtog.1Sl0ddpm3g8xp-6U68SINCq-P8sfgNle64KQnw7mCYog.JPEG.zzjworld%2F20211201%25A3%25DF234106.jpg&type=sc960_832" class="d-block w-100" alt="...">
-									</div>
+									
+									<% } %>
 								</div>
 								<% carouselid = "#" + carouselid; %>
 								<button class="carousel-control-prev" type="button"
