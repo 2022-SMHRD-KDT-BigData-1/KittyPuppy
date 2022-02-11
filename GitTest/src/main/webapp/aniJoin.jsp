@@ -24,60 +24,32 @@
 
     <style>
     
-    html, body{
-            height:100%;
-        }
-
-        body{
-        background-color: #ffffff;
-        padding: 10px;
-        }
-        
-        /* body {
+           body {
             background-color: #ffffff;
             font-size: 10px;
             color: #25aa90;
             display: flex;
-            padding: 15px;
-            margin: auto;
-        } */
+            /* padding: 15px;
+            margin: auto; */
+        }
 
         .container {
-            width: 40%;
-            padding: 15px;
-            margin: auto;
-            display: block;
-            max-width: 1200px;
-        }
-        
-        
-        /* 바깥 컨테이너 설정 */
-        .container.out{
             width: 100%;
-            padding-left:15px;
-            padding-right:15px;
-            padding-bottom: 15px;;
-            padding-top: 9rem;
-            margin: auto;
-            display:block;
-            max-width: 470px;
+            padding: 15px;
+
+            display: block;
         }
-        
-         /* 화면크기가 992px이 넘어갔을때 적용되는 css */
+
         @media (min-width: 992px) {
-            
-            /* 바깥 컨테이너 설정 */
-            .container.out{
-                max-width:700px;
+            .img-thumbnail {
+                max-width: 100px;
+                max-height: 100px;
             }
 
-        /* @media (min-width: 992px) {
-            .img-thumbnail {
-                max-width: 150px;
-                max-height: 150px;
-            } */
-
-            
+            .container {
+                max-width: 800px;
+            }
+        }
 
         .container p {
             text-align: center;
@@ -97,7 +69,10 @@
             color: #fff;
         }
 
-        
+        html,
+        body {
+            height: 100%;
+        }
         
     </style>
 
@@ -139,12 +114,11 @@
                      <!-- 사진업로드 이동 -->
                     <label class="btn btn-default" style="background-color: white;">
                         <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"> <input
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
                             type="file" hidden></i>
                     </label>
 
-                    <!-- 사진 파일업로드 안될시 버튼을 생성해서 업로드해야하므로 이코드 지우지 않기 
-                                                <input type="file" class="text-center center-block file-upload"> -->
+                    
 
                     <br>
                     <p>반려동물 사진 바꾸기</p>

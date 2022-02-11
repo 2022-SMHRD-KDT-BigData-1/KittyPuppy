@@ -237,6 +237,7 @@ insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animal
 values
 ('bamtol','밤톨이','./assets/img/반려동물.jpg','고양이','코리아숏헤어','암','3살','null')
 
+<<<<<<< HEAD
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
 ('mushroom10', '리나', './assets/img/img22.jpg','개','골든 리트리버','암','2','null')
@@ -396,3 +397,6 @@ insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 2, 'mushroom
 insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 3, '하양맘', '저의 해피를 찾아주셔서 감사합니다', default, null);
 insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 4, '태경', '전화주세요' , default, null);
 insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 5, 'sample', '찾았다!', default, null);
+=======
+
+>>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/KittyPuppy.git
