@@ -132,44 +132,6 @@ html, body {
 
 
 
-	
-	<!-- <div class="loginform"> 
-
-
-
-        <br>
-
-
-        <div class="row">
-            <div class="col-md-12 form-group">
-                <input type="email" class="form-control" placeholder="Email">
-
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12 form-group">
-                <input type="password" class="form-control" placeholder="Password">
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12 form-group">
-                <p hrep="#" class="text-end">비밀번호를 잊으셨나요?</p>
-            </div>
-        </div>
-        <br>
-
-
-        <div class="d-grid gap-2 col-12 mx-auto">
-            <button type="button" class="btn" style="background-color: #25aa90;">로그인</button>
-            <button type="button" class="btn" style="background-color: #25aa8f7e;">회원가입</button>
-        </div>
-
-
-
-    </div>-->
 </body>
 
 </html>

@@ -89,7 +89,7 @@
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
                     <div class="col-2">
-                        <a href="mypage.jsp"><!-- 마이페이지 이동 -->
+                        <a href=""><!-- 마이페이지 이동 -->
                         <i class="bi bi-chevron-left"
                                 style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
                             
