@@ -15,24 +15,18 @@ public class DMSendCon implements iCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int dmNo = Integer.parseInt(request.getParameter("dmNo"));
+		
+		request.setCharacterEncoding("utf-8");
 		String sendnick = request.getParameter("sendNick");
 		String receiveNick = request.getParameter("receiveNick");
 		String content = request.getParameter("content");
-		String sendDate = request.getParameter("sendDate");
-
-		int cnt = dao.DMSend(new DMDTO(dmNo, sendnick, receiveNick, content, sendDate));
+		
+		int cnt = dao.DMSend(new DMDTO(0, sendnick, receiveNick, content, null));
 
 		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
+			System.out.println("성공");
 		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('데이터 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
-
+			System.out.println("실패");
 		}
 	}
 

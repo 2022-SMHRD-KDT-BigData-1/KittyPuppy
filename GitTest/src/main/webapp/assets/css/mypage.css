@@ -1,0 +1,312 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #ffffff;
+	padding: 10px;
+}
+
+/* 로고 글꼴, 색상 설정 */
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 35px;
+	color: #25aa90;
+	display: inline;
+}
+
+.hidden {
+	color: #f5e172;
+	font-size: 4ch;
+	margin-right: 100px;
+	visibility: hidden;
+}
+
+.report {
+	color: #f5e172;
+	font-size: 4ch;
+	margin-left: 100px;
+}
+
+/* 상단 로고 고정 */
+.header-logo {
+	position: fixed;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 5rem;
+	background-color: white;
+	padding-top: 15px;
+	width: 100%;
+	text-align: center;
+    z-index: 3;
+}
+
+/* 상단 메뉴바 고정 */
+.header-menu {
+	position: fixed;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 5rem;
+	height: 5rem;
+	background-color: white;
+	padding-top: 15px;
+	width: 100%;
+    z-index: 3;
+}
+
+.icon {
+	font-size: 4ch;
+	margin-left: 15px;
+	margin-right: 15px;
+	color: #25aa8f7e;
+}
+
+/* 탭을 클릭했을 때 */
+.nav-link.active {
+	background-color: #25aa90 !important;
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+/* 탭에 마우스를 올렸을 때 */
+.nav-link {
+	color: white;
+	background-color: #25aa8f7e !important;
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.nav-link:hover {
+	color: white !important;
+}
+
+.btn:hover {
+	/* background-color: #25aa8f7e !important; */
+	color: white !important;
+}
+
+.btn {
+	background-color: #25aa90;
+	color: white;
+	/* width:190px;
+            height: 38px;
+            padding-left:13px;
+            padding-right: 13px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border: 0px; */
+}
+
+.btn.update, .btn.write {
+	width: 215px;
+}
+
+/* button{
+            align-items: stretch !important;
+        } */
+.row {
+	align-items: center;
+}
+
+/* 바깥 컨테이너 설정 */
+.container.out {
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;;
+	padding-top: 9rem;
+	margin: auto;
+	display: block;
+	max-width: 470px;
+}
+
+/* 피드 컨테이너 설정 */
+.tab-content {
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;;
+	margin: auto;
+	display: block;
+	max-width: 470px;
+}
+
+
+/* 프로필 컨테이너 설정 - flexbox */
+.container.profile {
+	/* Flex - 정렬을 위한 컨테이너 */
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0px;
+	/* 주축 방향 정렬 */
+	justify-content: center;
+	/* 교차축 방향 정렬 */
+	align-items: center;
+	text-align: center;
+}
+
+/* Flexbox 안의 아이템 모바일 */
+.item.img {
+	/* margin-right: 50px; */
+	flex-basis: 100px;
+	height: 72px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.item.post {
+	flex-basis: 25%;
+}
+
+.item.follower {
+	flex-basis: 25%;
+}
+
+.item.following {
+	flex-basis: 25%;
+}
+
+.item.nick {
+	flex-basis: 100%;
+}
+
+.item.intro {
+	flex-basis: 100%;
+}
+
+.item.update, .item.write {
+	flex-basis: 220px;
+}
+
+/* 스크린 사이즈에 따라 썸네일, 컨테이너 max크기 지정 */
+.img-thumbnail {
+	max-width: 77px;
+	max-height: 77px;
+}
+
+@media ( min-width : 992px) {
+	.img-thumbnail {
+		max-width: 150px;
+		max-height: 150px;
+	}
+	.img-thumbnail.animal {
+		max-width: 90px;
+		max-height: 90px;
+	}
+	.img-thumbnail.feed{
+		max-width: 100px;
+		max-height: 100px;
+	}
+	.container.out {
+		max-width: 700px;
+	}
+	.container.profile {
+		justify-content: flex-end;
+		text-align: left;
+	}
+	.tab-content{
+		max-width: 1200px;
+	}
+	.item.img {
+		order: 1;
+		flex-basis: 35%;
+		padding-top: 15px;
+		height: 60px;
+	}
+	.item.post {
+		order: 5;
+		flex-basis: 140px;
+		padding-top: 15px;
+		margin-bottom: 15px;
+	}
+	.item.follower {
+		order: 6;
+		flex-basis: 140px;
+		padding-top: 15px;
+		margin-bottom: 15px;
+	}
+	.item.following {
+		order: 7;
+		flex-basis: 140px;
+		padding-top: 15px;
+		margin-bottom: 15px;
+	}
+	.item.nick {
+		order: 2;
+		flex-basis: 20%;
+	}
+	.item.update {
+		order: 3;
+		flex-basis: 20%;
+	}
+	.item.write {
+		order: 4;
+		flex-basis: 20%;
+	}
+	.item.intro {
+		order: 8;
+		padding-left: 240px;
+		margin-top: 15px;
+	}
+	.icon {
+		font-size: 40px;
+		margin-left: 30px;
+		margin-right: 30px;
+	}
+	.hidden {
+		margin-right: 150px;
+	}
+	.report {
+		margin-left: 150px;
+	}
+	.btn.update, .btn.write {
+		width: 135px;
+	}
+}
+
+ul {
+	padding-right: 0px !important;
+}
+
+.row {
+	margin: 0px;
+}
+
+.bi {
+	font-size: 40px;
+}
+
+.bi-person-fill {
+	color: #25aa90;
+}
+
+/* 피드 관련 css */
+.info {
+	font-size: 12px;
+}
+
+.col-sm-6 {
+	width: 492px;
+}
+
+.col-sm-6>img {
+	width: 100%;
+}
+
+.feed {
+	border: 0cm;
+	background-color: #ffffff;
+}
+
+.lcs {
+	font-size: 2ch;
+	margin-left: 15px;
+	margin-right: 15px;
+}
