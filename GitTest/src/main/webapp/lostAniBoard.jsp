@@ -10,7 +10,7 @@ MemberDTO member = (MemberDTO) session.getAttribute("member");
 LostAniDAO la_dao = new LostAniDAO();
 ArrayList<LostAniDTO> lostList = null;
 lostList = la_dao.lostAniShow();
-
+pageContext.setAttribute("lostList", lostList);
 %>
 
 
@@ -285,6 +285,11 @@ h1 {
 	margin: 4px;
 }
 
+.img-size {
+	max-width: 200px;
+	max-height: 165px;
+}
+
 .card>a {
 	margin: auto;
 }
@@ -386,10 +391,10 @@ h1 {
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
-			<a><i class="bi bi-phone icon b"></i></a> <a><i
-				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a><i
-				class="bi bi-geo-alt icon b"></i></a> <a><i
-				class="bi bi-person icon b"></i></a> <a><i
+			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
+				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a href="maps.jsp"><i
+				class="bi bi-geo-alt icon b"></i></a> <a href="mypage.jsp?nick=${member.getNick()}"><i
+				class="bi bi-person icon b"></i></a> <a href="dmList.jsp?nick=${member.getNick()}"><i
 				class="bi bi-chat-dots icon b"></i></a>
 		</div>
 
@@ -407,22 +412,35 @@ h1 {
 
 		<!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
 		<div class="row innerContainer b">
-			<div class="card">
-				<a href="#"><img src=""
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
 
-						</span>
-					</p>
-				</div>
-			</div>
-
-
+			<c:choose>
+				<c:when test="${empty lostList}">
+					<li>현재 제보된 내용이 없습니다.</li>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="lost" items="${lostList}">
+						<div class="card">
+							<a href="lostAni.jsp?lostNo=${lost.getLostNo()}">
+									<img src='${lost.getAniPic()}'
+										class="img-fluid card-img-top" alt="photo position" />
+								</a>
+							<div class="card-body">
+								<h5 class="card-title">
+									<span class="laType">${lost.getLaType()}</span><span
+										class="lakind">${lost.getKind()}</span>
+								</h5>
+								<p class="card-text">
+									<span>${lost.getSex()}</span> <span>${lost.getAniSize()}</span><br>
+									<span><i class="bi bi-calendar3 innerIcon"></i> 등록일:
+										${lost.getLaDate()}</span> <br> <span
+										class="material-icons innerIcon">location_on</span><span>위치
+										: ${lost.getPlace()} </span>
+								</p>
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 
