@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>lostAniBoard</title>
+<title>lostAniShow</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -68,11 +68,10 @@ h1 {
 	display: inline;
 }
 
-.hidden {
-	color: #f5e172;
-	font-size: 4ch;
-	margin-right: 10px;
-	visibility: hidden;
+.bi-chevron-left {
+	font-size: 25px;
+	margin-left: 5px;
+	width: 40px;
 }
 
 .report {
@@ -108,10 +107,12 @@ h1 {
 	max-width: 430px;
 	min-width: 385px;
 	z-index: 2;
+	max-width: 430px;
 }
 
 /* 상단 메뉴바 고정 */
 .header-menu {
+	display: none;
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -124,6 +125,7 @@ h1 {
 	min-width: 385px;
 	max-width: 750px;
 	z-index: 2;
+	position: fixed;
 }
 
 /* 바깥 컨테이너 설정 */
@@ -132,7 +134,7 @@ h1 {
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;;
-	padding-top: 9rem;
+	padding-top: 3rem;
 	margin: auto;
 	display: block;
 	max-width: 430px;
@@ -143,9 +145,6 @@ h1 {
 /* 유실 유기동물 카드 관련 */
 .innerContainer {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	align-content: flex-start;
 }
 
 .card {
@@ -183,6 +182,7 @@ h1 {
 		max-width: 750px;
 		margin: auto;
 		display: auto;
+		padding-top: 9rem;
 		z-index: 2;
 	}
 	/* 상단 로고 고정 */
@@ -199,9 +199,13 @@ h1 {
 		max-width: 750px;
 		z-index: 2;
 	}
+	.header-menu {
+		display: block;
+	}
+
 	/* 상단 로고 관련 설정 */
-	.hidden {
-		margin-right: 10px;
+	.bi-chevron-left {
+		visibility: hidden;
 	}
 	.report {
 		margin-right: 15px;
@@ -213,31 +217,37 @@ h1 {
 		margin-left: 30px;
 		margin-right: 30px;
 	}
-	/* 제보현황 4개 보이기*/
 	.innerContainer {
 		display: flex;
-		flex-wrap: wrap;
+		flex-direction: coloumn;
 		align-items: flex-start;
-		align-content: flex-start;
 	}
-	.card {
-		flex: 1 1 25%;
-		border: solid 1px green;
-		max-width: 180px;
-		height: 255px;
-		padding: 1px;
-		z-index: -1;
-		margin: 2px;
+	.inner-items {
+		flex: 1 1 40%;
 	}
+
 }
 
 .top {
 	width: 650px;
 }
 
-.searchInput {
-	text-align: center;
-	max-width: 650px;
+.comment-line {
+	display: flex;
+	justify-content: center;
+}
+
+.comment-btn {
+	flex: auto;
+}
+
+.update-btn {
+	flex: 1 1 40%;
+	display: none;
+}
+
+.bi-chat-dots-fill {
+	display: none;
 }
 
 /* grid 구분 확인을 위한 css 설정*/
@@ -250,8 +260,8 @@ h1 {
 	<div class="container out b">
 
 		<!-- 키티퍼피 로고 -->
-		<div class="header-logo  b">
-			<i class="bi bi-exclamation-octagon-fill hidden b"></i>
+		<div class="header-logo b">
+			<i class="bi bi-chevron-left b"></i>
 			<h1 class="text-center b">KittyPuppy</h1>
 			<a href=''><i class="bi bi-exclamation-octagon-fill report b"></i></a>
 		</div>
@@ -265,30 +275,39 @@ h1 {
 				class="bi bi-person icon b"></i></a> <a><i
 				class="bi bi-chat-dots icon b"></i></a>
 		</div>
-        
+
 
 		<!-- 상단 로고,메뉴바 밑의 내용 하나 컨테이너 -->
 		<div class="row innerContainer b">
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
 
-						</span>
-					</p>
-				</div>
+			<!-- 이미지 파일 -->
+			<div class="inner-items b">
+				<img class="img-fluid" src="./assets/img/img1.jpg" />
 			</div>
 
+			<!-- lostAni 상세 -->
+			<div class="inner-items b">
+				<div class="aniTitle h2">${lostAni.laType}타입[${lostAni.upKind}]${lostAni.kind}</div>
+				<div class="subTitle h5">${lostAni.sex}서브/${lostAni.age}/${lostAni.size}/${lostAni.color}</div>
+
+				<div class="laDetail b">
+					<span class="h5"> 날짜 : ${lostAni.laDate}</span><br /> <span
+						class="h5"> 장소: ${lostAni.place}</span><br /> <span class="h5">
+						특징 : ${lostAni.feature}</span><br /> <span class="h5"> 닉네임 :
+						${lostAni.nick}</span>
+				</div>
+				<div class="comment-line b">
+					<sapn class="commet-btn"> <i class="bi bi-chat-dots"></i> <i
+						class="bi bi-chat-dots-fill"></i> 댓글</sapn>
+					<span class="update-btn"><a href="#">글 수정</a></span>
+
+				</div>
+			</div>
 
 		</div>
 	</div>
 
-	
+
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
@@ -304,7 +323,7 @@ h1 {
     -->
 
 	<script>
-	
-    </script>
+		
+	</script>
 </body>
 </html>

@@ -335,7 +335,7 @@ h1 {
 	}
 	.card {
 		flex: 1 1 25%;
-		border: solid 1px green;
+		border: solid 1px gainsboro;
 		max-width: 180px;
 		height: 255px;
 		padding: 1px;
