@@ -109,13 +109,12 @@
                 <!-- 원형 사진을 클릭하여 사진을 업로드 -->
 
                 <div class="text-center ">
-                     <a href=""><!-- 사진업로드 이동 -->
-                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"></a>
-                        
-
-                    <!-- 사진 파일업로드 안될시 버튼을 생성해서 업로드해야하므로 이코드 지우지 않기 
-                        <input type="file" class="text-center center-block file-upload"> -->
+                     <!-- 사진업로드 이동 -->
+                    <label class="btn btn-default" style="background-color: white;">
+                        <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"> <input
+                            type="file" hidden></i>
+                    </label>
                     <br>
                     <p>프로필 사진 바꾸기</p>
 
