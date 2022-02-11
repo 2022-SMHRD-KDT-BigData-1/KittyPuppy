@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="com.kittypuppy.model.*"%>
+<%@ page import="com.kittypuppy.service.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+MemberDTO member = (MemberDTO) session.getAttribute("member");
+LostAniDAO la_dao = new LostAniDAO();
+ArrayList<LostAniDTO> lostList = null;
+lostList = la_dao.lostAniShow();
+
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +103,7 @@
 }
 
 .searchPage {
-	font-family: 'Dancing Script', cursive ;
+	font-family: 'Dancing Script', cursive;
 	font-size: 35px;
 	color: #25aa90;
 	display: inline;
@@ -394,7 +408,7 @@ h1 {
 		<!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
 		<div class="row innerContainer b">
 			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
+				<a href="#"><img src=""
 					class="card-img-top" alt="photo position" /></a>
 				<div class="card-body">
 					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
@@ -407,64 +421,6 @@ h1 {
 					</p>
 				</div>
 			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-			<div class="card">
-				<a href="#"><img src="./assets/img/img1.jpg"
-					class="card-img-top" alt="photo position" /></a>
-				<div class="card-body">
-					<h5 class="card-title">${lostAni.type}${lostAni.kind}kind</h5>
-					<p class="card-text">
-						<span>${lostAni.sex}성별</span> <span>${lostAni.aniSize}크기</span><br>
-						<span><i class="bi bi-calendar3 innerIcon"></i>${lostAni.laDate}날짜</span>
-						<br> <span class="material-icons innerIcon">location_on</span><span>${lostAni.place}위치
-
-						</span>
-					</p>
-				</div>
-			</div>
-
-
 
 
 		</div>
@@ -480,7 +436,7 @@ h1 {
 						<div class="item back b">
 							<i class="bi bi-chevron-left"></i>
 						</div>
-						<div class="item searchPage b"> Search </div>
+						<div class="item searchPage b">Search</div>
 						<div class="item submit b">
 							<button type="submit" class="btn">검색</button>
 						</div>

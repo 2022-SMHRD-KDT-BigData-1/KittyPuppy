@@ -220,56 +220,56 @@ nocache;
 drop table member;
 
 
--- ìƒ˜í”Œë°ì´í„° ì¿¼ë¦¬------------------------------------
+-- »ùÇÃµ¥ÀÌÅÍ Äõ¸®------------------------------------
 
 -- member
-insert into member values ('123@123.com', '123',null,'mushroom10','ë‚¨ì„±', '1991-01-31', 'ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ë™ëª…ë™', 'ì•ˆë…•í•˜ì„¸ìš”, ë¦¬ë‚˜ ì•„ë¹  ì…ë‹ˆë‹¤!');
-insert into member values('sample@sample.sample','sample',null,'sample','ë‚¨ì„±','1111-11-11', 'ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ì¶©ì¥ë™',null);
-insert into member values('qo1515@aka.com','123','./assets/img/ì†í¥.jpg','íƒœê²½','ë‚¨ì','1999-11-23','ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ì¶©ì¥ë™',null);
-insert into member values ('wdog@ani.com',' wdog',null,'í•˜ì–‘ë§˜','ì—¬ì„±','2000-01-01','ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ë™ëª…ë™','í•˜ì–‘ë§˜ ì…ë‹ˆë‹¹ ì €ì˜ í•˜ì–‘ì´ë‘ ê°™ì´ ì¹œêµ¬í•´ìš”~~');
-insert into member values ('bamtol@google.com','123456','./assets/img/í”„ë¡œí•„.jpg','bamtol','ì—¬ì„±','2020-02-02','ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ì¶©ì¥ë™ 4ê°€ 34','ê·€ì—¬ìš´ ë°¤í†¨ì´â™¥');
+insert into member values ('123@123.com', '123',null,'mushroom10','³²¼º', '1991-01-31', '±¤ÁÖ±¤¿ª½Ã µ¿±¸ µ¿¸íµ¿', '¾È³çÇÏ¼¼¿ä, ¸®³ª ¾Æºü ÀÔ´Ï´Ù!');
+insert into member values('sample@sample.sample','sample',null,'sample','³²¼º','1111-11-11', '±¤ÁÖ±¤¿ª½Ã µ¿±¸ ÃæÀåµ¿',null);
+insert into member values('qo1515@aka.com','123','./assets/img/¼ÕÈï.jpg','ÅÂ°æ','³²ÀÚ','1999-11-23','±¤ÁÖ±¤¿ª½Ã µ¿±¸ ÃæÀåµ¿',null);
+insert into member values ('wdog@ani.com',' wdog',null,'ÇÏ¾ç¸¾','¿©¼º','2000-01-01','±¤ÁÖ±¤¿ª½Ã µ¿±¸ µ¿¸íµ¿','ÇÏ¾ç¸¾ ÀÔ´Ï´ç ÀúÀÇ ÇÏ¾çÀÌ¶û °°ÀÌ Ä£±¸ÇØ¿ä~~');
+insert into member values ('bamtol@google.com','123456','./assets/img/ÇÁ·ÎÇÊ.jpg','bamtol','¿©¼º','2020-02-02','±¤ÁÖ±¤¿ª½Ã µ¿±¸ ÃæÀåµ¿ 4°¡ 34','±Í¿©¿î ¹ãÅçÀÌ¢¾');
 insert into MEMBER (id, pw, picaddress, nick, sex, birth, address, profile)
-values('1111','1111',null,'í…ŒìŠ¤íŠ¸ìš©ê³„ì •','ë‚¨ì','2022-02-10', 'ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ì˜ˆìˆ ê¸¸ 31-15 3ì¸µ', 'í…ŒìŠ¤íŠ¸ìš©ê³„ì • í”„ë¡œí•„ì— ë“¤ì–´ê°€ëŠ” ë‚´ìš©~~~~~~~~')
+values('1111','1111',null,'Å×½ºÆ®¿ë°èÁ¤','³²ÀÚ','2022-02-10', '±¤ÁÖ±¤¿ª½Ã µ¿±¸ ¿¹¼ú±æ 31-15 3Ãş', 'Å×½ºÆ®¿ë°èÁ¤ ÇÁ·ÎÇÊ¿¡ µé¾î°¡´Â ³»¿ë~~~~~~~~')
 
 
 -- animal
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('bamtol','ë°¤í†¨ì´','./assets/img/ë°˜ë ¤ë™ë¬¼.jpg','ê³ ì–‘ì´','ì½”ë¦¬ì•„ìˆí—¤ì–´','ì•”','3ì‚´','null')
+('bamtol','¹ãÅçÀÌ','./assets/img/¹İ·Áµ¿¹°.jpg','°í¾çÀÌ','ÄÚ¸®¾Æ¼ôÇì¾î','¾Ï','3»ì','null')
 
 <<<<<<< HEAD
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('mushroom10', 'ë¦¬ë‚˜', './assets/img/img22.jpg','ê°œ','ê³¨ë“  ë¦¬íŠ¸ë¦¬ë²„','ì•”','2','null')
+('mushroom10', '¸®³ª', './assets/img/img22.jpg','°³','°ñµç ¸®Æ®¸®¹ö','¾Ï','2','null')
 
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('íƒœê²½','ê¼¬ê¼¬','./assets/img/ê³ ì–‘.jpg','ê³ ì–‘ì´','ìƒ´','ì•”','3','null')
+('ÅÂ°æ','²¿²¿','./assets/img/°í¾ç.jpg','°í¾çÀÌ','¼¤','¾Ï','3','null')
 
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('sample','sampleani','null','ì¸ë¥˜','ë¯¸êµ­ì¸','ë‚¨','33','null')
+('sample','sampleani','null','ÀÎ·ù','¹Ì±¹ÀÎ','³²','33','null')
 
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('í•˜ì–‘ë§˜','í•˜ì–‘ì´','./assets/img/dog(í•˜ì–‘ì´profile).png','ê°œ','ë¯¹ìŠ¤ê²¬','ìˆ˜','6','í•˜ì–‘ì´ëŠ” ì‚°ì±…ì„ ì¢‹ì•„í•˜êµ¬ìš” ì œì¼ ì¢‹ì•„í•˜ëŠ” ê±´ ë¶ì–´í¬ëë‹ˆë‹¤!!! ')
+('ÇÏ¾ç¸¾','ÇÏ¾çÀÌ','./assets/img/dog(ÇÏ¾çÀÌprofile).png','°³','¹Í½º°ß','¼ö','6','ÇÏ¾çÀÌ´Â »êÃ¥À» ÁÁ¾ÆÇÏ±¸¿ä Á¦ÀÏ ÁÁ¾ÆÇÏ´Â °Ç ºÏ¾îÆ÷¶ø´Ï´Ù!!! ')
 
 
 --feed-----
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/í”¼ë“œì‚¬ì§„1.jpg','ë°¤í†¨ì´ í™”ë³´','#ê³ ì–‘ì´ #ì½”ìˆ #ê³ ì–‘ì´ì¼ìƒ',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/ÇÇµå»çÁø1.jpg','¹ãÅçÀÌ È­º¸','#°í¾çÀÌ #ÄÚ¼ô #°í¾çÀÌÀÏ»ó',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'mushroom10','./assets/img/img22.jpg','ì²« í”¼ë“œâ€¦!','#ë¦¬ë‚˜, #í‚¤í‹°í¼í”¼,#ì²« ì‚¬ìš©',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'mushroom10','./assets/img/img22.jpg','Ã¹ ÇÇµå¡¦!','#¸®³ª, #Å°Æ¼ÆÛÇÇ,#Ã¹ »ç¿ë',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'mushroom10','./assets/img/img32.jpg','ìš°ë¦¬ ë¦¬ë‚˜ ê±´ê°•í•˜ì~!','#ë¦¬ë‚˜, #ê±´ê°•',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'mushroom10','./assets/img/img32.jpg','¿ì¸® ¸®³ª °Ç°­ÇÏÀÚ~!','#¸®³ª, #°Ç°­',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
-values(feed_feedno_seq.NEXTVAL,'íƒœê²½','./assets/img/ìŒì‹.jpg','ì˜¤ëŠ˜ ì¬ë°Œê²Œ ë†€ì•˜ë‹¤ã…ã…','#ë§›ì§‘',default,null,'1')
+values(feed_feedno_seq.NEXTVAL,'ÅÂ°æ','./assets/img/À½½Ä.jpg','¿À´Ã Àç¹Õ°Ô ³î¾Ò´Ù¤¾¤¾','#¸ÀÁı',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values(feed_feedno_seq.NEXTVAL,'','','','',default,null,'1')
@@ -281,41 +281,37 @@ insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, 
 values(feed_feedno_seq.NEXTVAL,'sample','./assets/img/catsleep.jpg','so cute','#cat',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
-values(feed_feedno_seq.NEXTVAL,'í•˜ì–‘ë§˜','./assets/img/dog(feed).jpg','í•˜ì–‘ì´ ê·€ì—½ì£µ!!! ì˜¤ëŠ˜ ì‚°ì±… ë‚˜ê°€ê¸° ì¤€ë¹„ ì™„ë£Œ!!','#ë™ëª…ë™ì‚°ì±…',default,null,'1')
+values(feed_feedno_seq.NEXTVAL,'ÇÏ¾ç¸¾','./assets/img/dog(feed).jpg','ÇÏ¾çÀÌ ±Í¿±ÁÕ!!! ¿À´Ã »êÃ¥ ³ª°¡±â ÁØºñ ¿Ï·á!!','#µ¿¸íµ¿»êÃ¥',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/í”¼ë“œì‚¬ì§„2.jpg','ì°½ë°–êµ¬ê²½í•˜ê¸°','#ê³ ì–‘ì´ #ì½”ìˆ #ê³ ì–‘ì´ì¼ìƒ #í‚¤í‹°í¼í”¼',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/ÇÇµå»çÁø2.jpg','Ã¢¹Û±¸°æÇÏ±â','#°í¾çÀÌ #ÄÚ¼ô #°í¾çÀÌÀÏ»ó #Å°Æ¼ÆÛÇÇ',default,null,'1')
 
-
---feed ìˆ˜ì •--
-update feed set PICADDRESS = './assets/img/í”¼ë“œì‚¬ì§„1.jpg, ./assets/img/í”¼ë“œì‚¬ì§„2.jpg, ./assets/img/í”¼ë“œì‚¬ì§„3.jpg' where feedno = '1'
-update feed set PICADDRESS = './assets/img/í”¼ë“œì‚¬ì§„4.jpg, ./assets/img/í”¼ë“œì‚¬ì§„5.jpg, ./assets/img/í”¼ë“œì‚¬ì§„6.jpg' where feedno = '9'
 
 --feed_comment---
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'1','bamtol','ë„ˆë¬´ ê·€ì—¬ì›Œ~',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'1','bamtol','³Ê¹« ±Í¿©¿ö~',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'9','bamtol','ë­˜ ë³´ê³  ìˆëŠ”ê±°ì–Œ ã…‹ã…‹',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'9','bamtol','¹» º¸°í ÀÖ´Â°Å¾ä ¤»¤»',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'3','mushroom10','ê±´ê°•í•˜ë©´ ë˜,',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'3','mushroom10','°Ç°­ÇÏ¸é ¶Ç,',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'5','íƒœê²½','ì¬ë°Œì—ˆë‹¤',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'5','ÅÂ°æ','Àç¹Õ¾ú´Ù',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'9','íƒœê²½','ì¬ë°Œì—ˆë‹¤',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'9','ÅÂ°æ','Àç¹Õ¾ú´Ù',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'6','sample','ê·€ì—¬ì›Œ???',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'6','sample','±Í¿©¿ö???',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'7','sample','ê·€ì—¬ì›Œ!!!',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'7','sample','±Í¿©¿ö!!!',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'8','í•˜ì–‘ë§˜','ì €í¬ ê°•ì•„ì§€ë„ ì¢‹ì•„í•´ìš”',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'8','ÇÏ¾ç¸¾','ÀúÈñ °­¾ÆÁöµµ ÁÁ¾ÆÇØ¿ä',default,null)
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
 values(feed_comment_fcno_seq.NEXTVAL,'','','',default,null)
@@ -323,17 +319,17 @@ values(feed_comment_fcno_seq.NEXTVAL,'','','',default,null)
 
 -- feed_cocomment ------
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'1','bamtol','ì‚¬ë‘ë‘¥ì´~',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'1','bamtol','»ç¶ûµÕÀÌ~',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'2','bamtol','í˜¸ê¸°ì‹¬ ê°€ë“!',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'2','bamtol','È£±â½É °¡µæ!',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'3','mushroom10','ìš°ë¦¬ ë¦¬ë‚˜ì§€ ã…ã…',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'3','mushroom10','¿ì¸® ¸®³ªÁö ¤¾¤¾',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'4','íƒœê²½','ë‚˜ë„ ë°ë ¤ê°€',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'4','ÅÂ°æ','³ªµµ µ¥·Á°¡',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'6','sample','ê·€ì—¬ì›Œ???',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'6','sample','±Í¿©¿ö???',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'8','í•˜ì–‘ë§˜','ê°™ì´ ë†€ì•„ìš”~',default,null)
+values(feed_cocomment_cono_seq.NEXTVAL,'8','ÇÏ¾ç¸¾','°°ÀÌ ³î¾Æ¿ä~',default,null)
 insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
 values(feed_cocomment_cono_seq.NEXTVAL,'','','',default,null)
 
@@ -346,61 +342,61 @@ insert into scrap (NICK, FEEDNO, SCRAPDATE)
 values('mushroom10','5',default)
 
 insert into scrap (NICK, FEEDNO, SCRAPDATE)
-values('íƒœê²½','6',default)
+values('ÅÂ°æ','6',default)
 
 insert into scrap (NICK, FEEDNO, SCRAPDATE)
 values('sample','8',default)
 
 insert into scrap (NICK, FEEDNO, SCRAPDATE)
-values('í•˜ì–‘ë§˜','1',default)
+values('ÇÏ¾ç¸¾','1',default)
 
 
 --lostAnimal
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'bamtol', 'ì´ë¦„ëª¨ë¦„', './assets/img/ìœ ê¸°ë™ë¬¼.jpg', 'ê°œ', 'ë¯¹ìŠ¤ê²¬', 'ìˆ˜ì»·', 'í°ìƒ‰', 'ì†Œí˜•', 'false', 'ëª©ì¤„ì„ í•˜ê³  ìˆì–´ìš”. ë§ì´ ë§ëë„¤ìš” ã…  ìƒì–´ë²„ë¦¬ì‹ ë¶„ ì—°ë½ì£¼ì„¸ìš”', 'ê´‘ì£¼ê´‘ì—­ì‹œ ë™êµ¬ ì¶©ì¥ë™', sysdate, null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'mushroom10',null,null,'ê°œ','ë³´ë”ì½œë¦¬',null,null,'ì†Œí˜•', null, 'ì¤„ ë¹„ìŠ·í•œ ê²Œ ìˆìŒ','ëŒ€êµ¬ê´‘ì—­ì‹œ ë‚¨êµ¬',sysdate,null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'í•˜ì–‘ë§˜','í•˜ì–‘ì´ì¹œêµ¬','./assets/img/img1.jpg','ê°œ','ë¯¹ìŠ¤ê²¬','ìˆ˜ì»·','í•˜ì–€ìƒ‰','ì†Œí˜•',null,'ê·€ê°€ ì ‘í˜€ì§','ê´‘ì£¼ ë™ëª…ë™',sysdate, null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'íƒœê²½','ë°•ì¶˜ì‚¼','./assets/img/ì¶˜ì‚¼ì´.jpg','ê°œ','í”„ë Œì¹˜ë¶ˆë…','ìˆ˜ì»·','í°ìƒ‰','ì†Œí˜•','false','ëˆˆì´ í¬ê³  ì–¼êµ´ì— ì ì´ ìˆìŒ',' ì¶©ì¥ë¡œ',sysdate,null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'lost', 'sample','sampleani',null,'ì¸ë¥˜','ë¯¸êµ­ì¸','ìˆ˜ì»·','í°ìƒ‰','ëŒ€í˜•','false','ê¸ˆë°œë¨¸ë¦¬','ê´‘ì£¼ì‹œ ì¶©ì¥ë™',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'bamtol', 'ÀÌ¸§¸ğ¸§', './assets/img/À¯±âµ¿¹°.jpg', '°³', '¹Í½º°ß', '¼öÄÆ', 'Èò»ö', '¼ÒÇü', 'false', '¸ñÁÙÀ» ÇÏ°í ÀÖ¾î¿ä. ¸¹ÀÌ ¸»¶ú³×¿ä ¤Ğ ÀÒ¾î¹ö¸®½ÅºĞ ¿¬¶ôÁÖ¼¼¿ä', '±¤ÁÖ±¤¿ª½Ã µ¿±¸ ÃæÀåµ¿', sysdate, null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'mushroom10',null,null,'°³','º¸´õÄİ¸®',null,null,'¼ÒÇü', null, 'ÁÙ ºñ½ÁÇÑ °Ô ÀÖÀ½','´ë±¸±¤¿ª½Ã ³²±¸',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'ÇÏ¾ç¸¾','ÇÏ¾çÀÌÄ£±¸','./assets/img/img1.jpg','°³','¹Í½º°ß','¼öÄÆ','ÇÏ¾á»ö','¼ÒÇü',null,'±Í°¡ Á¢ÇôÁü','±¤ÁÖ µ¿¸íµ¿',sysdate, null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'ÅÂ°æ','¹ÚÃá»ï','./assets/img/Ãá»ïÀÌ.jpg','°³','ÇÁ·»Ä¡ºÒµ¶','¼öÄÆ','Èò»ö','¼ÒÇü','false','´«ÀÌ Å©°í ¾ó±¼¿¡ Á¡ÀÌ ÀÖÀ½',' ÃæÀå·Î',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'lost', 'sample','sampleani',null,'ÀÎ·ù','¹Ì±¹ÀÎ','¼öÄÆ','Èò»ö','´ëÇü','false','±İ¹ß¸Ó¸®','±¤ÁÖ½Ã ÃæÀåµ¿',sysdate,null);
 
 --follow
-insert into follow values ('íƒœê²½', 'mushroom10', sysdate);
-insert into follow values ('íƒœê²½', 'í•˜ì–‘ë§˜', sysdate);
-insert into follow values ('íƒœê²½', 'sample', sysdate);
+insert into follow values ('ÅÂ°æ', 'mushroom10', sysdate);
+insert into follow values ('ÅÂ°æ', 'ÇÏ¾ç¸¾', sysdate);
+insert into follow values ('ÅÂ°æ', 'sample', sysdate);
 
-insert into follow values ('mushroom10', 'í•˜ì–‘ë§˜', sysdate);
+insert into follow values ('mushroom10', 'ÇÏ¾ç¸¾', sysdate);
 insert into follow values ('mushroom10', 'bamtol', sysdate);
 
-insert into follow values ('í•˜ì–‘ë§˜', 'íƒœê²½', sysdate);
-insert into follow values ('í•˜ì–‘ë§˜', 'bamtol', sysdate);
-insert into follow values ('í•˜ì–‘ë§˜', 'sample', sysdate);
+insert into follow values ('ÇÏ¾ç¸¾', 'ÅÂ°æ', sysdate);
+insert into follow values ('ÇÏ¾ç¸¾', 'bamtol', sysdate);
+insert into follow values ('ÇÏ¾ç¸¾', 'sample', sysdate);
 
 insert into follow values ('bamtol', 'mushroom10', sysdate);
-insert into follow values ('bamtol', 'í•˜ì–‘ë§˜', sysdate);
+insert into follow values ('bamtol', 'ÇÏ¾ç¸¾', sysdate);
 
-insert into follow values ('sample', 'í•˜ì–‘ë§˜', sysdate);
+insert into follow values ('sample', 'ÇÏ¾ç¸¾', sysdate);
 
 -- DM ------
-insert into dm values(dm_dmno_seq.NEXTVAL, 'mushroom10' ,'íƒœê²½' ,'1-2'  , default);
-insert into dm values(dm_dmno_seq.NEXTVAL, 'íƒœê²½' , 'í•˜ì–‘ë§˜'  ,'2-3'   , default);
-insert into dm values(dm_dmno_seq.NEXTVAL, 'í•˜ì–‘ë§˜' ,  'bamtol', '3-4'  , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'mushroom10' ,'ÅÂ°æ' ,'1-2'  , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'ÅÂ°æ' , 'ÇÏ¾ç¸¾'  ,'2-3'   , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'ÇÏ¾ç¸¾' ,  'bamtol', '3-4'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, 'bamtol' , 'sample','4-5'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, 'sample', 'mushroom10','5-1' , default);
 
 
--- ëŒ“ê¸€-----
-insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 4, 'bamtol', 'ì£¼ì¸ ë¹¨ë¦¬ ì°¾ì•˜ìœ¼ë©´ ì¢‹ê² ë„¤ìš”', default, null);
-insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 5, 'mushroom10', 'ã…œã…œ', default, null);
-insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 6, 'í•˜ì–‘ë§˜', 'ì €í¬ ì•„íŒŒíŠ¸ ì˜†ë™ì— ì‚¬ëŠ” ê°•ì•„ì§€ì¸ê²ƒ ê°™ì•„ìš” ', default, null);
-insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 7, 'íƒœê²½', 'ì œë°œ ì°¾ì•„ì£¼ì„¸ìš”ã… ' , default, null);
-insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 8, 'sample', 'ë¹¨ë¦¬ ì°¾ê³  ì‹¶ë‹¤â€¦', default, null);
+-- ´ñ±Û-----
+insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 4, 'bamtol', 'ÁÖÀÎ »¡¸® Ã£¾ÒÀ¸¸é ÁÁ°Ú³×¿ä', default, null);
+insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 5, 'mushroom10', '¤Ì¤Ì', default, null);
+insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 6, 'ÇÏ¾ç¸¾', 'ÀúÈñ ¾ÆÆÄÆ® ¿·µ¿¿¡ »ç´Â °­¾ÆÁöÀÎ°Í °°¾Æ¿ä ', default, null);
+insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 7, 'ÅÂ°æ', 'Á¦¹ß Ã£¾ÆÁÖ¼¼¿ä¤Ğ' , default, null);
+insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 8, 'sample', '»¡¸® Ã£°í ½Í´Ù¡¦', default, null);
 
 
--- ëŒ€ëŒ“ê¸€--
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 1, 'bamtol', 'ì•ˆì“°ëŸ¬ì›Œìš” ã… ', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 2, 'mushroom10', 'ã…œã…œ..', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 3, 'í•˜ì–‘ë§˜', 'ì €ì˜ í•´í”¼ë¥¼ ì°¾ì•„ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 4, 'íƒœê²½', 'ì „í™”ì£¼ì„¸ìš”' , default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 5, 'sample', 'ì°¾ì•˜ë‹¤!', default, null);
+-- ´ë´ñ±Û--
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 1, 'bamtol', '¾È¾²·¯¿ö¿ä ¤Ğ', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 2, 'mushroom10', '¤Ì¤Ì..', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 3, 'ÇÏ¾ç¸¾', 'ÀúÀÇ ÇØÇÇ¸¦ Ã£¾ÆÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 4, 'ÅÂ°æ', 'ÀüÈ­ÁÖ¼¼¿ä' , default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 5, 'sample', 'Ã£¾Ò´Ù!', default, null);
 =======
 
 >>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/KittyPuppy.git
