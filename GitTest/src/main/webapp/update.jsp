@@ -22,7 +22,7 @@
     <script src="js/bootstrap.min.js"></script>
     
       <style>
-      body {
+ body {
             background-color: #ffffff;
             font-size: 10px;
             color: #25aa90;
@@ -32,20 +32,20 @@
         }
 
         .container {
-            width: 40%;
+            width: 100%;
             padding: 15px;
-            margin: auto;
+
             display: block;
         }
 
         @media (min-width: 992px) {
             .img-thumbnail {
-                max-width: 150px;
-                max-height: 150px;
+                max-width: 100px;
+                max-height: 100px;
             }
 
             .container {
-                max-width: 1200px;
+                max-width: 800px;
             }
         }
 
@@ -112,7 +112,7 @@
                      <!-- 사진업로드 이동 -->
                     <label class="btn btn-default" style="background-color: white;">
                         <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 25%;"> <input
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
                             type="file" hidden></i>
                     </label>
                     <br>
