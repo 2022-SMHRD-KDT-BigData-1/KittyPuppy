@@ -24,6 +24,7 @@
     <script src="js/bootstrap.min.js"></script>
 
 
+    
     <style>
         body {
             background-color: #ffffff;
@@ -32,6 +33,7 @@
             display: flex;
             padding: 15px;
             margin: auto;
+
         }
 
         html,
@@ -44,6 +46,9 @@
             padding: 15px;
             margin: auto;
             display: block;
+            overflow-x: hidden;
+
+
         }
 
         @media (min-width: 992px) {
@@ -56,6 +61,9 @@
                 max-width: 1200px;
                 max-height: 700px;
             }
+            .ls {
+			max-width: 1000px;
+		}
         }
 
         .container p {
@@ -63,34 +71,66 @@
             font-size: 12px;
         }
 
+        /* 상단 로고 고정 */
+        .header-logo {
+            position: fixed;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 5rem;
+            background-color: white;
+            padding-top: 15px;
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+        }
+
+        /* 로고 */
         h1 {
             text-align: center;
             font-size: 40px;
             color: #25aa90;
             font-family: 'Dancing Script', cursive;
+            display: inline;
+        }
+
+        .bi {
+            font-size: 40px;
+        }
+
+        .hidden {
+            color: #f5e172;
+            font-size: 40px;
+            visibility: hidden;
+        }
+
+        .report {
+            color: #f5e172;
+            font-size: 40px;
         }
 
         /* 탭 버튼 */
         .nav-link.active {
             background-color: #25aa90 !important;
         }
+
         .nav-link {
             color: white;
             background-color: #25aa8f7e !important;
         }
+
         .nav-link:hover {
             color: white !important;
         }
+
         .btn {
             background-color: #25aa90;
             color: white;
         }
 
-        /* 네비(메뉴)바  */
-        .banner {
-            font-size: 30px;
-            word-spacing: 2.0ch;
-        }
+
+
 
         /* 지도 크기  */
         .map-container {
@@ -99,6 +139,7 @@
             position: relative;
             height: 0;
         }
+
         .map-container iframe {
             left: 0;
             top: 0;
@@ -106,6 +147,7 @@
             width: 100%;
             position: absolute;
         }
+
         #map {
             height: 100%;
         }
@@ -114,19 +156,55 @@
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
+
         }
+
         /* Track */
         ::-webkit-scrollbar-track {
             box-shadow: inset 0 0 5px white;
             border-radius: 10px;
         }
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             /* background: #afe6db; */
             background-color: white;
             border-radius: 10px;
         }
- 
+
+        /* 메뉴바  */
+        .banner {
+            font-size: 30px;
+            word-spacing: 2.0ch;
+        }
+
+        .ls {
+            margin: atuo;
+            max-width: 442px;
+            margin: auto;
+        }
+
+        /* 상단 메뉴바 고정 */
+        .header-menu {
+            position: fixed;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: 5rem;
+            height: 5rem;
+            background-color: white;
+            padding-top: 15px;
+            width: 100%;
+            z-index: 3;
+            
+        }
+
+
+        /* 공간 배분 비율 체크 */
+        .b {
+            border: solid;
+            color: coral;
+        }
     </style>
 
 
@@ -137,36 +215,30 @@
 
  <div class="container">
         <div class='row'>
-            <div class="col-sm-2">
-                <p></p>
-            </div>
-            <div class="col-sm-8">
-                <h1>KittyPuppy</h1>
-            </div>
-            <div class="col-sm-2 text-center">
-                <a href="#" style="color: gold; font-size: 30px;"><i
-                        class="bi bi-exclamation-octagon-fill hidden "></i></a>
-                <!-- <i class="bi bi-exclamation-octagon-fill report"></i> -->
+            <div class='ls navbar header-logo'>
+                <i class='bi bi-exclamation-octagon-fill hidden'></i>
+                <h1 class='text-center'>KittyPuppy</h1>
+                <a href='lostAniReport.html'><i class='bi bi-exclamation-octagon-fill report'></i></a>
             </div>
         </div>
 
         <div class="row">
             <!-- 상단 배너 -->
-            <div class="col-sm-1">
+            <!-- <div class="col-sm-1">
                 <p></p>
-            </div>
-            <div class="col-sm-10">
-                <div class='navbar text-center banner'>
-                    <a href="#" style="color: #25aa90;"><i class="bi bi-phone footer"></i></a>
-                    <a href="#" style="color: #25aa90;"><i class="bi bi-megaphone footer"></i></a>
-                    <a href="#" style="color: #25aa90;"><i class="bi bi-geo-alt footer"></i></a>
-                    <a href="#" style="color: #25aa90;"><i class="bi bi-person footer"></i></a>
-                    <a href="#" style="color: #25aa90;"><i class="bi bi-chat-dots footer"></i></a>
+            </div> -->
+            <div class="g-4 gap-5">
+                <div class='ls navbar text-center banner header-menu'>
+                    <a href="feed.jsp" style="color: #25aa90;"><i class="bi bi-phone footer"></i></a>
+                    <a href="lostAniBoard.jsp" style="color: #25aa90;"><i class="bi bi-megaphone footer"></i></a>
+                    <a href="maps.jsp" style="color: #25aa90;"><i class="bi bi-geo-alt footer"></i></a>
+                    <a href="mypage.jsp" style="color: #25aa90;"><i class="bi bi-person footer"></i></a>
+                    <a href="dmList.jsp" style="color: #25aa90;"><i class="bi bi-chat-dots footer"></i></a>
                 </div>
             </div>
-            <div class="col-sm-1">
+            <!-- <div class="col-sm-1">
                 <p></p>
-            </div>
+            </div> -->
         </div>
 
         <!-- 지도 -->

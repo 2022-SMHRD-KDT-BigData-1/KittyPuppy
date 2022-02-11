@@ -89,7 +89,7 @@
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
                     <div class="col-2">
-                        <a href=""><!-- 마이페이지 이동 -->
+                        <a href="mypage.jsp"><!-- 마이페이지 이동 -->
                         <i class="bi bi-chevron-left"
                                 style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
                             
@@ -179,6 +179,7 @@
 
             <div class="d-grid gap-2 col-12 mx-auto">
                 <button type="button" class="btn" style="background-color: #25aa90;">완료</button>
+                <!-- 완료 하고 마이메이지 -->
 
             </div>
 
