@@ -110,6 +110,11 @@
     div{
         display:block;
     }
+    
+    #search-addon {
+    	background-color: white;
+    	
+    }
 
 </style>
 </head>

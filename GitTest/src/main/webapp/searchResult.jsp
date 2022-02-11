@@ -136,14 +136,10 @@
 
     }
 
-    div{
+	    div{
         display:block;
     }
 	
-	a {
-        text-decoration-line: none;
-    }
-    
 </style>
 </head>
 <body>
@@ -178,7 +174,7 @@
                 <div class="col-sm-6">
                     <div align = 'left'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
                     <div align = 'left'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
-                    <div>
+                    <div class = 'navbar'>
                         <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
                         <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
                         <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
