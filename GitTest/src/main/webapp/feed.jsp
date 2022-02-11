@@ -207,10 +207,6 @@ body {
 		}
 	}
 	
-	.input-group {
-		
-	}
-	
 </style>
 
 </head>
@@ -222,11 +218,15 @@ body {
     	String nick = (String)session.getAttribute("nick");
     	fwdao.followingShow(nick);
     	
+    	ArrayList<FeedDTO> feedList = null;
     	ArrayList<String> followList = fwdao.followingShow(nick);
     	if (followList.size() == 0) {
-    		
+    		feedList = fdao.feedShowAll();
+    	} else {
+    		feedList = fdao.feedShow(followList);
     	}
     %>
+    
     <!-- 키티퍼피 로고 -->
     <div class="ls navbar header-logo">
         <i class="bi bi-exclamation-octagon-fill hidden"></i>
@@ -251,10 +251,14 @@ body {
     <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
 	<div class="container out">
         <!-- 검색창 -->
-        <div class="ls input-group rounded">
-            <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-            <a href = 'FeedSearchCon.do?search=' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
-        </div>
+        <form action = 'FeedSearchCon.do' method = 'post'>
+	        <div class="ls input-group rounded">
+	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
+	        		<i class="fas fa-search""> <input type="submit" hidden></i>
+	    		</label>
+	        </div>
+        </form>
         
         <!-- 피드 -->
         <div class="row mt-3 text-center">
@@ -280,7 +284,7 @@ body {
                     		<button class = 'col-1 remove'><i class="bi bi-chevron-left"></i></button>
                     		<h1 class = 'col-10'>comment</h1>
                     	</div>
-                    	<div class = 'comment_body' align = ''>
+                    	<div class = 'comment_body' align = 'left'>
                     		<div>댓글내용</div>
                     	</div>
                     	 <div class = 'comt'>

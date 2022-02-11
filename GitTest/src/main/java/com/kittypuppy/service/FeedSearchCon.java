@@ -8,23 +8,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kittypuppy.model.FeedDAO;
-import com.kittypuppy.model.FeedDTO;
+import com.kittypuppy.model.*;
 
 public class FeedSearchCon implements iCommand {
-
-	FeedDAO dao = new FeedDAO();
-	ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		String tag = (String) request.getParameter("tag");
-		feedList = dao.feedSelect(tag);
+		String search = (String) request.getParameter("search");
+		String[] temp = search.split("");
 
-		request.setAttribute("feedList", feedList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("mainPage.jsp");
+		if (temp[0].equals("#")) {
+			
+			
+			request.setAttribute("searchList",search);
+		} else {
+			MemberDAO dao = new MemberDAO();
+			ArrayList<MemberDTO> memberList = dao.memberList(search);
+			request.setAttribute("searchList", memberList);
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");
 		dispatcher.forward(request, response);
 
 	}
