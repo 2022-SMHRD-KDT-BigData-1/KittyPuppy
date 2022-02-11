@@ -151,16 +151,15 @@
     
     <div>
         <!-- 검색창 -->
-        <div class = 'd-grid gap-3'>
-            <div class="ls input-group rounded">
-                <a href = 'search.jsp?search=' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
-                <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-                <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
-            </div>
-            <div class = 'ls'>
-                <h1># 강아지</h1>
-            </div>
-        </div>
+        <form action = 'FeedSearchCon.do' method = 'post'>
+	        <div class="ls input-group rounded">
+	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
+	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
+	        		<i class="fas fa-search"> <input type="submit" hidden></i>
+	    		</label>
+	        </div>
+        </form>
 
         <!-- 피드 -->
         <div class="row mt-3 text-center">

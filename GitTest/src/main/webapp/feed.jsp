@@ -255,7 +255,7 @@ body {
 	        <div class="ls input-group rounded">
 	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
 	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
-	        		<i class="fas fa-search""> <input type="submit" hidden></i>
+	        		<i class="fas fa-search"> <input type="submit" hidden></i>
 	    		</label>
 	        </div>
         </form>
@@ -323,11 +323,7 @@ body {
 	<script type = 'text/javascript'>
 		// 더보기(본문 자세히보기)
 		$('.more').click(function(){
-			$('.content').html("css 너무 어렵다.....<button class = 'info reduce'>줄이기</button>");간
-		});
-		// 줄이기(본문 요약하기)
-		$('.reduce').click(function(){
-			$('.content').html("간식 냠냠...<button class = 'info more'>줄이기</button>");
+			$('.content').html("css 너무 어렵다.....");
 		});
 		// 전체보기
 		$('.entire').click(function(){

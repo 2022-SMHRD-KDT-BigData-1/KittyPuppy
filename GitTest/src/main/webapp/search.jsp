@@ -117,13 +117,17 @@
 <div class="container">
     
     <div class = 'ls d-grid gap-3'>
-
-        <!-- 검색창 -->
-        <div class="ls input-group rounded">
-            <a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
-            <input type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-            <a href = 'FeedSearchCon.do' class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></a>
-        </div>
+		
+		 <!-- 검색창 -->
+        <form action = 'FeedSearchCon.do' method = 'post'>
+	        <div class="ls input-group rounded">
+	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
+	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
+	        		<i class="fas fa-search"> <input type="submit" hidden></i>
+	    		</label>
+	        </div>
+        </form>
 
         <div class="row">
             <button class="col btn me-1">회원정보 수정</button>
@@ -132,7 +136,7 @@
 
         <!-- 닉네임 검색 결과-->
         <div class="row mt-3">
-            <a href =''>
+            <a href ='otherpage.jsp'>
                 <div>
                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
                     <br>
@@ -140,7 +144,7 @@
                 </div>
             </a>
             
-            <a href =''>
+            <a href ='otherpage.jsp'>
                 <div>
                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
                     <br>
@@ -148,7 +152,7 @@
                 </div>
             </a>
 
-            <a href =''>
+            <a href ='otherpage.jsp'>
                 <div>
                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
                     <br>
@@ -156,7 +160,7 @@
                 </div>
             </a>
 
-            <a href =''>
+            <a href ='otherpage.jsp'>
                 <div>
                     <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
                     <br>
