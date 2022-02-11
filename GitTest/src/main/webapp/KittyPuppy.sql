@@ -288,6 +288,10 @@ values
 (feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/피드사진2.jpg','창밖구경하기','#고양이 #코숏 #고양이일상 #키티퍼피',default,null,'1')
 
 
+--feed 수정--
+update feed set PICADDRESS = './assets/img/피드사진1.jpg, ./assets/img/피드사진2.jpg, ./assets/img/피드사진3.jpg' where feedno = '1'
+update feed set PICADDRESS = './assets/img/피드사진4.jpg, ./assets/img/피드사진5.jpg, ./assets/img/피드사진6.jpg' where feedno = '9'
+
 --feed_comment---
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
 values(feed_comment_fcno_seq.NEXTVAL,'1','bamtol','너무 귀여워~',default,null)
