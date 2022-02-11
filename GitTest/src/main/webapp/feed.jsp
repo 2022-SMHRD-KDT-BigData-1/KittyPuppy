@@ -5,6 +5,7 @@
 	import = 'com.kittypuppy.model.*'
 %>
 <%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = 'fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -125,7 +126,8 @@ body {
 		max-width: 470px;
 	}
 	
-	a {
+	a {	
+		color: #000000;
 		text-decoration-line: none;
 	}
 	
@@ -184,7 +186,7 @@ body {
 	}
 	
 	.comment {
-		display: none;
+		display: block;
 	}
 	
 	.comment_body {
@@ -267,28 +269,79 @@ body {
 				<div class='row justify-content-center'>
 	                <div class='d-grid gap-sm-1 col-sm-6'>
 	                    <!-- 게시자 정보 -->
-	                    <div class = 'col-6'>
-	                        <img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
-	                        <div align ='left'>
-		                        <strong>${feed.nick}</strong><br/>
-		                        ${feed.feedDate}
-	                        </div>
-	                    </div>
+	                    <a href = 'otherpage.jsp?nick="${feed.nick}"'>
+		                    <div class = 'col-6'>
+		                        <img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                        <div align ='left'>
+			                        <strong>${feed.nick}</strong><br/>
+			                        ${feed.feedDate}
+		                        </div>
+		                    </div>
+	                    </a>
+	                    
 	                    <!-- 첨부된 사진-->
-	                    <img src='${feed.picAddress}'>
+	                    <div id="carouselExampleControls${feed.feedNo}"  class="carousel slide" data-bs-interval="false">
+	                    	<div class="carousel-inner">
+	                    		<c:set var = 'temp' value = '1' scope = 'request'/>
+	                    		<c:forEach var ='src' items='${fn:split(feed.picAddress,",")}'>
+	                    			<c:choose>
+	                    				<c:when test="${requestScope.temp==1}">
+	                    					<c:set var = 'temp' value = '2' scope = 'request'/>
+	                    					<div class="carousel-item active">
+												<img src="${src}" class="d-block w-100" alt="...">
+											</div>
+	                    				</c:when>
+	                    				<c:otherwise>
+		                    				<div class="carousel-item">
+												<img src="${src}" class="d-block w-100" alt="...">
+											</div>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    		</c:forEach>
+	                    	</div>
+	                    	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls${feed.feedNo}" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls${feed.feedNo}" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+	                    </div>
 	                </div>
 	                <!-- 피드 내용-->
 	                <div class='col-sm-6'>
 	                    <div class = 'content' align = 'left'>${feed.content}<button class = 'info more'>더보기</button></div>
 	                    <div class = 'tag' align = 'left'>${feed.tag}
-	                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info entire'>전체보기</button></div>
+	                    <div align = 'left'><span id = 'like${feed.feedNo}'>좋아요 10</span> 댓글 10 <button class = 'info entire'>전체보기</button></div>
 	                    <div class = 'comment'>
 	                    	<div class = 'row'>
 	                    		<button class = 'col-1 remove'><i class='bi bi-chevron-left'></i></button>
 	                    		<h1 class = 'col-10'>comment</h1>
 	                    	</div>
 	                    	<div class = 'comment_body' align = 'left'>
-	                    		<div>댓글내용</div>
+	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
+	                    		<%
+	                    			FeedCommentDAO fcdao = new FeedCommentDAO();
+	                    			ArrayList<FeedCommentDTO> cs = null;
+	                    			int feedNo = (int) session.getAttribute("feedNo");
+	                    			cs = fcdao.feedCommentShow(feedNo);
+	                    			pageContext.setAttribute("cs", cs);
+	                    		%>
+	                    		<c:forEach var ='com' items = '${cs}'>
+	                    			<div>${com.content}</div>
+	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
+		                    		<%
+		                    			FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
+		                    			ArrayList<FeedCoCommentDTO> ccs = null;
+		                    			int fcNo = (int) session.getAttribute("fcNo");
+		                    			ccs = fccdao.feedCoCommentShow(fcNo);
+		                    			pageContext.setAttribute("ccs", ccs);
+		                    		%>
+		                    		<c:forEach var ='cocom' items = '${cs}'>
+		                    			<div>\t${cocom.content}</div>
+		                    		</c:forEach>
+	                    		</c:forEach>
 	                    	</div>
 	                    	 <div class = 'comt'>
 		                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
@@ -330,11 +383,9 @@ body {
 			$('.content').html('css 너무 어렵다.....');
 		});
 		// 전체보기
-		for (let i = 0; i < document.querySelectorAll('.entire').length;i++){
-			document.querySelectorAll('.enetire')[i].addEventListener('click',function(){
-				document.querySelector('.comment')[i].style.display = 'block';
+			$('.entire').click(function(){
+				document.querySelector('.comment').style.display = 'block';
 			});
-		}
 		// 접기
 		$('.remove').click(function(){
 			document.querySelector('.comment').style.display = 'none';
@@ -347,6 +398,38 @@ body {
 				document.querySelector('.comt').style.display = 'none';
 			}
 		});
+		
+		// 좋아요 개수 세기
+		function likeCount(){
+		    $.ajax({
+		        type: "post",
+		         data: { "feedNo": ${feed.feedNo}}, 
+		            url: "FeedLikeCountCon.do",
+		         dataType: "text",
+		         success: function(result) {
+		         },
+		         error: function() {
+		         }
+		      });
+		}
+
+		// 2. 댓글 작성 db 저장 기능
+		function lostCommentCreate(){
+		    $.ajax({
+		        type: "post",
+		         data: { "lostComContent": $('#lostComContent').html(),
+		                    "lostNo": $('#lostNo').html()}, 
+		            url: "LostCommentCreateCon.do",
+		         dataType: "text",
+		         success: function(data) {
+		                alert(data);
+		         },
+		         error: function() {
+		            alert("ajax실패!");
+		         }
+		      });
+		}
+		
 	</script>
 </body>
 </html>
