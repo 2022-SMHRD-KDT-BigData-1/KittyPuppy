@@ -392,9 +392,11 @@ h1 {
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
 			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
-				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a href="maps.jsp"><i
-				class="bi bi-geo-alt icon b"></i></a> <a href="mypage.jsp?nick=${member.getNick()}"><i
-				class="bi bi-person icon b"></i></a> <a href="dmList.jsp?nick=${member.getNick()}"><i
+				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a
+				href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
+				href="mypage.jsp?nick=${member.getNick()}"><i
+				class="bi bi-person icon b"></i></a> <a
+				href="dmList.jsp?nick=${member.getNick()}"><i
 				class="bi bi-chat-dots icon b"></i></a>
 		</div>
 
@@ -420,10 +422,10 @@ h1 {
 				<c:otherwise>
 					<c:forEach var="lost" items="${lostList}">
 						<div class="card">
-							<a href="lostAni.jsp?lostNo=${lost.getLostNo()}">
-									<img src='${lost.getAniPic()}'
-										class="img-fluid card-img-top" alt="photo position" />
-								</a>
+							<a href="lostAni.jsp?lostNo=${lost.getLostNo()}"> 
+								<img src='${lost.getAniPic()}' class="img-fluid card-img-top"
+									alt="photo position">
+							</a>		
 							<div class="card-body">
 								<h5 class="card-title">
 									<span class="laType">${lost.getLaType()}</span><span
