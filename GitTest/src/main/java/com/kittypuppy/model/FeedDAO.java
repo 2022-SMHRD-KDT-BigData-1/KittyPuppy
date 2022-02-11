@@ -66,7 +66,7 @@ public class FeedDAO {
 	}
 	
 	// 피드 전체 보여주기
-	public ArrayList<FeedDTO> feedShowALl(){
+	public ArrayList<FeedDTO> feedShowAll(){
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
 		FeedDTO feed = null;
@@ -86,7 +86,7 @@ public class FeedDAO {
 		}
 		return feedList;
 	}
-	}
+	
 	// 팔로잉하는 사람 피드 보여주기
 	public ArrayList<FeedDTO> feedShow(ArrayList<String> followingList) {
 		
@@ -187,7 +187,6 @@ public class FeedDAO {
 	
 
 	// 닉네임으로 검색은 특정인물의 피드를 보여주는 것과 동일
-	
 	public ArrayList<FeedDTO> feedSearchByTag(String tag) {
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
@@ -208,5 +207,26 @@ public class FeedDAO {
 			close();
 		}
 		return feedList;
+	}
+	
+	// 피드 번호로 피드 불러오기
+	public FeedDTO feedSearchByNo(int feedNo) {
+
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from feed where feedno = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, feedNo);
+			rs =  psmt.executeQuery();
+			if (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feed;
 	}
 }

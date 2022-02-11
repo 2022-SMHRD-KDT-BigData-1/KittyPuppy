@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MemberDAO {
 
@@ -224,5 +225,28 @@ public class MemberDAO {
 			close();
 		}
 		return check;
+	}
+	
+	// 멤버 리스트 받아오기
+	public ArrayList<MemberDTO> memberList(String nick) {
+		
+		ArrayList<MemberDTO> members = null;
+		MemberDTO member = null;
+		connect();
+		try {
+			String sql = "select * from member where nick = %?%";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				member = new MemberDTO(rs.getString("id"),null,rs.getString("picaddress"),null,null,null,null,null);
+				members.add(member);
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return members;
 	}
 }
