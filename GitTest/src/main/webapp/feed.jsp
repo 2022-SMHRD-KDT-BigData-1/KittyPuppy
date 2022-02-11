@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page
+	import = 'java.util.ArrayList'
+	import = 'com.kittypuppy.model.*'
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,6 +95,7 @@ body {
 		padding-top: 15px;
 		width: 100%;
 		text-align: center;
+		z-index: 1;
 	}
 	
 	/* 상단 메뉴바 고정 */
@@ -104,6 +109,7 @@ body {
 		background-color: white;
 		padding-top: 15px;
 		width: 100%;
+		z-index:1;
 	}
 	
 	/* 바깥 컨테이너 설정 */
@@ -136,10 +142,6 @@ body {
 		font-size: 2ch;
 		margin-left: 15px;
 		margin-right: 15px;
-	}
-	
-	.lcs2 {
-		font-size: 2ch;
 	}
 	
 	#cursor {
@@ -180,6 +182,15 @@ body {
 		display: none;
 	}
 	
+	.comment {
+		display: none;
+	}
+	
+	.comment_body {
+		hegiht : 300px;
+		overflow : auto;
+	}
+	
 	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
 	@media ( min-width : 1050px) {
 		/* 바깥 컨테이너 설정 */
@@ -197,73 +208,25 @@ body {
 	}
 	
 	.input-group {
+		
 	}
 	
-	.modal {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border : 5px;
-		padding : 0%;
-		display: none;
-		background-color: rgba(0, 0, 0, 0.4);
-	}
-	
-	.modal.show {
-		display: block;
-	}
-	
-	.modal_body {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 442px;
-		height: 700px;
-		padding: 15px;
-		text-align: center;
-		background-color: rgb(255, 255, 255);
-		border-radius: 10px;
-		box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-		transform: translateX(-50%) translateY(-50%);
-	}
-	
-	.modal_header {
-		height : 10%;
-	}
-	
-	.modal_content {
-		height : 85%;
-		overflow : auto;
-	}
-	
-	.modal_footer {
-		height : 5%;
-	}
-	
-	/* 스크롤 바 width */
-	::-webkit-scrollbar {
-	    width: 5px;
-	    height: 5px;
-	}
-	/* Track */
-	::-webkit-scrollbar-track {
-	    box-shadow: inset 0 0 5px white;
-	    border-radius: 10px;
-	}
-	/* Handle */
-	::-webkit-scrollbar-thumb {
-	    /* background: #afe6db; */
-	    background-color: white;
-	    border-radius: 10px;
-	}
-
 </style>
 
 </head>
 <body>
     
+    <%	
+    	FeedDAO fdao = new FeedDAO();
+    	FollowDAO fwdao = new FollowDAO();
+    	String nick = (String)session.getAttribute("nick");
+    	fwdao.followingShow(nick);
+    	
+    	ArrayList<String> followList = fwdao.followingShow(nick);
+    	if (followList.size() == 0) {
+    		
+    	}
+    %>
     <!-- 키티퍼피 로고 -->
     <div class="ls navbar header-logo">
         <i class="bi bi-exclamation-octagon-fill hidden"></i>
@@ -310,71 +273,31 @@ body {
                 </div>
                 <!-- 피드 내용-->
                 <div class="col-sm-6">
-                    <div class = 'content' align = 'left'>간식 냠냠...<button class = 'info one' onclick = 'more()'>더보기</button></div>
-                    <div class="modal">
-                    	<div class="modal_body">
-                    		<div class = 'row modal_header'>
-                    			<div class = 'col-1'>
-					            	<button class = 'modal-close'><i class="bi bi-chevron-left"></i></button>
-					        	</div>
-					        	<div class = 'col-10'>
-					        		<h1>Comment</h1>
-					        	</div>
-					        </div>
-					        <div class = 'modal_content' align = 'left'>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-								<div>댓글내용</div><button class = 'info'>대댓글보기</button>
-					        </div>
-					        <div class = 'comt modal_footer'>
-		                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
-		                    		<div class="input-group rounded">
-							        	<input type="text" class="form-control rounded" placeholder="댓글 입력" aria-label="Search" aria-describedby="search-addon" />
-										<input type='submit' value = '↑'>
-									</div>
-		                    	</form>
-		                    </div>
-					        <div class = 'modal_footer navbar'>
-					        	 <button><i class = 'fa fa-paw lcs2' onclick = 'like()'> 좋아요</i></button>
-		                        <!-- <button><i class = 'fal fa-paw lcs2' onclick = 'likedelete()'> 좋아요</i></button> -->
-		                        <button class = 'bt3'><i class = "bi bi-chat-dots lcs2"> 댓글</i></button>
-		                        <button><i class = "bi bi-bookmark-fill lcs2" onclick = 'scrap();'> 스크랩</i></button>
-		                        <!-- <button><i class = "bi bi-bookmark lcs2" onclick = 'scrapdelete()'> 스크랩</i></button> -->
-					        </div>
+                    <div class = 'content' align = 'left'>간식 냠냠...<button class = 'info more'>더보기</button></div>
+                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info entire'>전체보기</button></div>
+                    <div class = 'comment'>
+                    	<div class = 'row'>
+                    		<button class = 'col-1 remove'><i class="bi bi-chevron-left"></i></button>
+                    		<h1 class = 'col-10'>comment</h1>
                     	</div>
+                    	<div class = 'comment_body' align = ''>
+                    		<div>댓글내용</div>
+                    	</div>
+                    	 <div class = 'comt'>
+	                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
+	                    		<div class="input-group rounded">
+						        	<input type="text" class="form-control rounded" placeholder="댓글 입력" aria-label="Search" aria-describedby="search-addon" />
+									<input type='submit' value = '↑'>
+								</div>
+	                    	</form>
+	                    </div>
                     </div>
-                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info btn-open-popup'>전체보기</button></div>
                     <div>
-                        <button class = 'bt1'><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs"> 댓글</i></button>
-                        <button class = 'bt4'><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap();'> 스크랩</i></button>
-                        <!-- <button class = 'bt5'><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
+                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs'> 좋아요</i></button> -->
+                        <button class = 'bt3'><i class = "bi bi-chat-dots lcs"> 댓글</i></button>
+                        <button class = 'bt4'><i class = "bi bi-bookmark-fill lcs"> 스크랩</i></button>
+                        <!-- <button class = 'bt5'><i class = "bi bi-bookmark lcs"> 스크랩</i></button> -->
                     </div>
                 </div>
             </div>
@@ -394,24 +317,27 @@ body {
     
     <script src="jquery-3.6.0.min.js"></script>
 	<script type = 'text/javascript'>
-	
-		// 댓글 모달창 보이기
-		document.querySelector('.btn-open-popup').addEventListener('click',function(){
-			document.querySelector('.modal').style.display = 'block';
-			document.querySelector('body').style.overflow = 'hidden';
+		// 더보기(본문 자세히보기)
+		$('.more').click(function(){
+			$('.content').html("css 너무 어렵다.....<button class = 'info reduce'>줄이기</button>");간
 		});
-		// 댓글 모달창 숨기기
-		document.querySelector('.modal-close').addEventListener('click',function(){
-			document.querySelector('.modal').style.display = 'none';
-			document.querySelector('body').style.overflow = 'auto';
+		// 줄이기(본문 요약하기)
+		$('.reduce').click(function(){
+			$('.content').html("간식 냠냠...<button class = 'info more'>줄이기</button>");
 		});
-		// 댓글 입력창 보이기 & 숨기기
+		// 전체보기
+		$('.entire').click(function(){
+			document.querySelector('.comment').style.display = 'block';
+		});
+		// 접기
+		$('.remove').click(function(){
+			document.querySelector('.comment').style.display = 'none';
+		});
+		// 댓글 입력창 보이기 및 숨기기		
 		document.querySelector('.bt3').addEventListener('click',function(){
-			if (document.querySelector('.comt').style.display == 'none'){
-				document.querySelector('.modal_content').style.height = '80%';
+			if(document.querySelector('.comt').style.display == 'none'){
 				document.querySelector('.comt').style.display = 'block';
 			} else {
-				document.querySelector('.modal_content').style.height = '85%';
 				document.querySelector('.comt').style.display = 'none';
 			}
 		});
