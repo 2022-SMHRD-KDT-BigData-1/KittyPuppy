@@ -63,15 +63,15 @@ public class ScrapDAO {
 	}
 	
 	// scrap한 feed 보여주기
-	public ArrayList<FeedDTO> scrapShow(String nick) {
+	public ArrayList<FeedDTO> scrapShow(String sNick) {
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from feed_scrap_view where nick = ?";
+			String sql = "select * from feed_scrap_view where snick = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, nick);
+			psmt.setString(1, sNick);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
 				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
@@ -91,9 +91,9 @@ public class ScrapDAO {
 		boolean isScrap = false;
 		connect();
 		try {
-			String sql = "select * from scrap where nick = ? and feedno = ?";
+			String sql = "select * from scrap where snick = ? and feedno = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, scrap.getNick());
+			psmt.setString(1, scrap.getSNick());
 			psmt.setInt(2, scrap.getFeedNo());
 			rs =  psmt.executeQuery();
 			isScrap = rs.next();
@@ -111,9 +111,9 @@ public class ScrapDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "delete from scrap where nick = ? and feedno = ?";
+			String sql = "delete from scrap where snick = ? and feedno = ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, scrap.getNick());
+			psmt.setString(1, scrap.getSNick());
 			psmt.setInt(2, scrap.getFeedNo());
 			cnt = psmt.executeUpdate();
 		} catch (SQLException e){

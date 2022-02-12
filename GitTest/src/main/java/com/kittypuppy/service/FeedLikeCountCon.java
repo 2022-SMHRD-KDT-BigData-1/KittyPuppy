@@ -17,8 +17,9 @@ public class FeedLikeCountCon implements iCommand{
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 		FeedLikeDAO fdao = new FeedLikeDAO();
 		int result = fdao.feedLikeShow(feedNo).size();
+		System.out.println(result);
 		PrintWriter out = response.getWriter();
-		out.write(result);
+		out.print(result);
 	}
 
 }

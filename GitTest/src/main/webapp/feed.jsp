@@ -315,7 +315,7 @@ body {
 	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
 	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
-	                    <div align = 'left'><span id = 'like${feed.feedNo}'>좋아요 10</span> 댓글 10</div>
+	                    <div align = 'left'><span id = 'like'>좋아요 10</span> 댓글 10</div>
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
 	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
@@ -388,17 +388,20 @@ body {
 		// 좋아요 개수 세기
 		function likeCount(){
 		    $.ajax({
-		        type: "post",
-		         data: { "feedNo": ${feed.feedNo}}, 
-		            url: "FeedLikeCountCon.do",
-		         dataType: "text",
-		         success: function(result) {
-		         },
-		         error: function() {
-		         }
-		      });
+			    url: "FeedLikeCountCon.do",
+			    type: "post",
+		        data: { feedNo: ${feed.feedNo}
+		        },
+		        success: function() {
+	        		return 1;
+			    },
+			    error: function() {
+		    		console.log("err");
+		    		}
+			});
 		}
-
+		$
+	 
 		// 2. 댓글 작성 db 저장 기능
 		function lostCommentCreate(){
 		    $.ajax({
