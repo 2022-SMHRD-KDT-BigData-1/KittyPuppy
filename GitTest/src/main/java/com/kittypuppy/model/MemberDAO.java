@@ -72,8 +72,8 @@ public class MemberDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "update member "
-					+ "set pw = ?, picaddress = ?, nick = ?, sex = ?, birth = ?, address = ?, profile = ?"
+			String sql = "update member"
+					+ "set pw = ?, picaddress = ?, nick = ?, sex = ?, birth = ?, address = ?, profile = ? "
 					+ "where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, member.getPw());
