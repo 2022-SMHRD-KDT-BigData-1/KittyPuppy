@@ -38,6 +38,7 @@ public class FrontController extends HttpServlet {
 		map.put("/FeedLikeCon.do", new FeedLikeCon());
 		map.put("/FeedLikeDeleteCon.do", new FeedLikeDeleteCon());
 		map.put("/FeedLikeCountCon.do",new FeedLikeCountCon());
+		map.put("/FeedLikeCheckCon.do",new FeedLikeCheckCon());
 		map.put("/FollowCon.do", new FollowCon());
 		map.put("/UnFollowCon.do", new UnFollowCon());
 		map.put("/LostAniCreateCon.do", new LostAniCreateCon());

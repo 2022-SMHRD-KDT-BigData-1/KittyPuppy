@@ -214,8 +214,12 @@ body {
     <%	
     	FeedDAO fdao = new FeedDAO();
     	FollowDAO fwdao = new FollowDAO();
-    	String nick = (String)session.getAttribute("nick");
+    	FeedLikeDAO fldao = new FeedLikeDAO();
+    	
+    	MemberDTO member = (MemberDTO)session.getAttribute("member");
+    	String nick = member.getNick();
     	fwdao.followingShow(nick);
+    	pageContext.setAttribute("nick",nick);
     	
     	ArrayList<FeedDTO> feedList = null;
     	ArrayList<String> followList = fwdao.followingShow(nick);
@@ -264,6 +268,7 @@ body {
         </form>
         
         <c:forEach var ='feed' items = '${feedList}'>
+        	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
 			<div class='row mt-3 text-center'>
 				<div class='row justify-content-center'>
 	                <div class='d-grid gap-sm-1 col-sm-6'>
@@ -310,22 +315,41 @@ body {
 	                </div>
 	                <!-- 피드 내용-->
 	                <div class='col-sm-6'>
+	                	
 	                	<!-- 피드 본문 -->
 	                    <div class = 'content' align = 'left'>${fn:substring(feed.content, 0, 4)}...<button class = 'info btn' type = 'button' data-bs-toggle="collapse" data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button></div>
 	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+	                    
 	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
 	                    
+	                    <!-- 좋아요 댓글 정보 -->
+	                    <%
+	                    	int fdn = (int)request.getAttribute("fdn");
+	                    	int cnt = fldao.feedLikeShow(fdn).size();
+	                    %>
+	                    <div align = 'left'><button id ='like${feed.feedNo}' onclick = 'likeCount(${feed.feedNo},"#like${feed.feedNo}")'>좋아요 <%= cnt %></button> 댓글 10</div>
 	                    
-	                    
-	                    <div align = 'left'><button id ='like${feed.feedNo}' onclick = 'likeCount(${feed.feedNo},"#like${feed.feedNo}")'>좋아요 1</button> 댓글 10</div>
-	                    
-	                    
+	                    <button onclick='likeCheck(${feed.feedNo},"#likeCheck${feed.feedNo}")'>좋아요 체크</button>
 	                    
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
-	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
-	                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs'> 좋아요</i></button> -->
+	                    	<%
+	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
+	                    		if (check) {
+	                    			pageContext.setAttribute("check",1);
+	                    		} else {
+	                    			pageContext.setAttribute("check",0);
+	                    		}
+	                    	%>
+	                    	<c:choose>
+	                    		<c:when test="${check==1}">
+	                    			<button id = 'likeCheck${feed.feedNo}' onclick='likeDelete(${feed.feedNo},"#likeCheck${feed.feedNo}")'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<button id = 'likeCheck${feed.feedNo}' onclick='like(${feed.feedNo},"#likeCheck${feed.feedNo}")'><i class = 'fal fa-paw lcs'> 좋아요</i></button>
+	                    		</c:otherwise>
+	                    	</c:choose>
 	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
 	                        <button class = 'bt4'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
 	                        <!-- <button class = 'bt5'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button> -->
@@ -392,13 +416,12 @@ body {
 	<script type = 'text/javascript'>
 		
 		// 좋아요 개수 세기
-		
 		function likeCount(feedNo,id){
 			 $.ajax({
+				async: false,
 			    url: "FeedLikeCountCon.do",
 			    type: "post",
-		        data: { feedNo: feedNo
-		        },
+		        data: { feedNo: feedNo },
 		        dataType : 'json',
 		        success: function(result) {
 		        	console.log(id);
@@ -412,13 +435,32 @@ body {
 		};
 		
 		// 좋아요 체크
+		function likeCheck(feedNo,id){
+			 $.ajax({
+				async: false,
+			    url: "FeedLikeCheckCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo },
+		        dataType : 'json',
+		        success: function(result) {
+		        	if (result == 0) {
+		        		console.log("싫어요 ");
+		        	} else {
+		        		console.log("좋아요")
+		        	}
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
 		
 		// 좋아요 누르기
-		function like(nick,feedNo){
+		function like(feedNo,id){
 			 $.ajax({
 			    url: "FeedLikeCon.do",
 			    type: "post",
-		        data: { nick: nick, feedNo: feedNo
+		        data: { feedNo: feedNo
 		        },
 		        dataType : 'json',
 		        success: function(result) {
@@ -431,11 +473,11 @@ body {
 		};
 		
 		// 좋아요 취소
-		function likeDelete(nick,feedNo){
+		function likeDelete(feedNo,id){
 			 $.ajax({
 			    url: "FeedLikeDeleteCon.do",
 			    type: "post",
-		        data: { nick: nick, feedNo: feedNo
+		        data: { feedNo: feedNo
 		        },
 		        dataType : 'json',
 		        success: function(result) {
