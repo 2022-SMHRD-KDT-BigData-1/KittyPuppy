@@ -29,6 +29,9 @@ LostCoCommentDAO lcoco_dao = new LostCoCommentDAO();
 ArrayList<LostCoCommentDTO> lcoco = null;
 lcoco = lcoco_dao.lostCoCommentShow(lostNo);
 pageContext.setAttribute("lcoco", lcoco);
+
+int Commentcnt = lc_dao.lostCommentCount(lostNo) + lcoco_dao.lostCoCommentCount(lostNo);
+pageContext.setAttribute("Commentcnt", Commentcnt);
 %>
 <!DOCTYPE html>
 <html>
@@ -306,18 +309,17 @@ img {
 					<span class="h5"> 날짜 : ${lostAni.getLaDate()}</span><br /> <span
 						class="h5"> 장소: ${lostAni.getPlace()}</span><br /> <span
 						class="h5"> 특징 : ${lostAni.getFeature()}</span><br /> <span
-						class="h5"> 닉네임 : ${lostAni.getNick()}</span><br />
-						<a href="LostCommentCntCon.do">댓글</a> 
+						class="h5"> 닉네임 : ${lostAni.getNick()}</span><br /> <span
+						id="lostComCnt"> 댓글수 </span>${Commentcnt}
 				</div>
 				<div class="comment-line b">
-					<span class="commet-btn"> <i class="bi bi-chat-dots"></i> <i
-						class="bi bi-chat-dots-fill"></i> 댓글
-					</span>
-					<!--  글수정 안 나옴 -->
-					<c:if test="${member.getNick() == lostAni.getNick()}">
-						<a href="#"><span class="update-btn">글 수정</span></a>
-					</c:if>
-
+					<button class="comment-btn" onclick="lostCommentCnt()">
+						<i class="bi bi-chat-dots"></i> <i class="bi bi-chat-dots-fill"></i>
+						댓글 </span>
+						<!--  글수정 안 나옴 -->
+						<c:if test="${member.getNick() == lostAni.getNick()}">
+							<a href="#"><span class="update-btn">글 수정</span></a>
+						</c:if>
 				</div>
 			</div>
 
@@ -340,43 +342,99 @@ img {
     -->
 
 	<script>
-	
-	//작성 버튼 눌리면 작동하는 기능
-	$('.write_on').on('click', function(){
-		let com = $('input[type=text]').val();
-		$('#comments').append('<li class="com'+num+'">'+com+'<input type="button" value="댓글삭제"onclick="del('+num+')"></li>');
-		num++;
-		$('input[type=text]').val('');
+		//작성 버튼 눌리면 작동하는 기능
+		$('.comment-btn').on('click', lostCommentCnt() {
+			let cnt = 0;
+
+			$.ajax({
+				type : "post",
+				data : {
+					"lostNo" : lostNo
+				},
+				url : "LostCommentCntCon.do",
+				dataType : "text",
+				success : function(data) {
+					cnt += data;
+				},
+				error : function() {
+					alert("ajax 1 실패");
+				}
+			});
+			console.log(3);
+			$.ajax({
+				type : "post",
+				data : {
+					"lostNo" : lostNo
+				},
+				url : "LostCoCommentCntCon.do",
+				dataType : "text",
+				success : function(data) {
+					cnt += data;
+				},
+				error : function() {
+					alert("ajax 2 실패");
+				}
+			});
+
+			$('#lostComCnt').html("댓글" + cnt + "개");
+		});
 		
-	});
-	
-	// 1. 댓글 개수 보기 (dao댓글 가져와서 -> 개수 반환)
-	function lostCommentCnt(){
-	    $.ajax({
-	        type: "post",
-	         data: { "lostNo": lostNo}, 
-	            // lostNo 값을 담은 id가 필요함. 방법을 못 찾을 경우, 
-	            // <span id="lostNo" style="display:none">${lostNo}</span>만들기
-	         
-	            url: "LostCommentCntCon",
-	         dataType: "text",
-	         success: function(data) {
-	                
-	                // <#lostComCnt></> 
-	            let comCnt = $('#lostComCnt').html(data);
-	                if(comCnt>0){
-	                    $('#lostComCnt').html("댓글"+data+"개");
-	                }else{
-	                    $('#lostComCnt').html("댓글 없음");
-	                }
-	         },
-	         error: function() {
-	            alert("ajax실패!");
-	         }
-	      });
-	}
-	
-	lostCommentCnt();
+		
+		
+		$('.write_on')
+				.on(
+						'click',
+						function() {
+							let com = $('input[type=text]').val();
+							$('#comments')
+									.append(
+											'<li class="com'+num+'">'
+													+ com
+													+ '<input type="button" value="댓글삭제"onclick="del('
+													+ num + ')"></li>');
+							num++;
+							$('input[type=text]').val('');
+
+						});
+
+		// 1. 댓글 개수 보기 (dao댓글 가져와서 -> 개수 반환)
+		function lostCommentCnt() {
+			let cnt = 0;
+
+			$.ajax({
+				type : "post",
+				data : {
+					"lostNo" : lostNo
+				},
+				url : "LostCommentCntCon.do",
+				dataType : "text",
+				success : function(data) {
+					cnt += data;
+				},
+				error : function() {
+					alert("ajax 1 실패");
+				}
+			});
+
+			$.ajax({
+				type : "post",
+				data : {
+					"lostNo" : lostNo
+				},
+				url : "LostCoCommentCntCon.do",
+				dataType : "text",
+				success : function(data) {
+					cnt += data;
+				},
+				error : function() {
+					alert("ajax 2 실패");
+				}
+			});
+
+			$('#lostComCnt').html("댓글" + cnt + "개");
+		}
+
+		lostCommentCnt();
 	</script>
 </body>
 </html>

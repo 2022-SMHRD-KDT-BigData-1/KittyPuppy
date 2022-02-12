@@ -143,7 +143,10 @@
     
         <hr>
 
-		<!-- 스토리 : 내 피드 -->
+    </div>
+    
+    <div class="tab-content">
+    	<!-- 스토리 : 내 피드 -->
                 <% 
                 	for(int i = 0; i < feedList.size(); i++){ 
                 	String carouselid = "carouselExampleControls";
@@ -229,14 +232,6 @@
 					</div>
 				</div>
 				<% } %>
-
-
-
-
-
-
-
-
     </div>
 
 
