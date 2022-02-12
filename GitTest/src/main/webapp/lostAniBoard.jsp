@@ -42,7 +42,11 @@ pageContext.setAttribute("lostList", lostList);
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 <script src="js/bootstrap.min.js"></script>
-
+<!-- moment.js cdn : 날짜 형태 변환 라이브러리 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+	integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- 아이콘 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -285,7 +289,6 @@ h1 {
 	margin: 4px;
 }
 
-
 img {
 	border-radius: 2%;
 }
@@ -295,8 +298,8 @@ img {
 }
 
 .card-img-top {
-	mwidth: 163px;
-	height: 163px;
+	max-mwidth: 163px;
+	max-height: 163px;
 }
 
 .card-body {
@@ -384,7 +387,8 @@ img {
 		<div class="header-logo  b">
 			<i class="bi bi-exclamation-octagon-fill hidden b"></i>
 			<h1 class="text-center b">KittyPuppy</h1>
-			<a href=''><i id='report'class="bi bi-exclamation-octagon-fill b"></i></a>
+			<a href=''><i id='report'
+				class="bi bi-exclamation-octagon-fill b"></i></a>
 		</div>
 
 		<br>
@@ -419,9 +423,10 @@ img {
 				<c:otherwise>
 					<c:forEach var="lost" items="${lostList}">
 						<div class="card">
-							<a href='lostAni.jsp?lostNo=${lost.getLostNo()}'> <img
+							<a href='lostAniShow.jsp?lostNo=${lost.getLostNo()}'> <img
 								src='${lost.getAniPic()}' class="img-fluid card-img-top"
-								alt="photo position"></a>
+								onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
+								alt="이미지가 등록되지 않았습니다."></a>
 							<div class="card-body">
 								<h5 class="card-title">
 									<span class="laType">${lost.getLaType()}</span><span
@@ -429,7 +434,7 @@ img {
 								</h5>
 								<p class="card-text">
 									<span>${lost.getSex()}</span> <span>${lost.getAniSize()}</span><br>
-									<span><i class="bi bi-calendar3 innerIcon"></i> 등록일:
+									<sapn><i class="bi bi-calendar3 innerIcon"></i> 등록일: </sapn><span class="boardDate">
 										${lost.getLaDate()}</span> <br> <span
 										class="material-icons innerIcon">location_on</span><span>위치
 										: ${lost.getPlace()} </span>
@@ -521,6 +526,12 @@ img {
     -->
 
 	<script>
+	// 날짜 형식 변경 라이브러리
+	$(document).ready(function () {
+        var date = new Date();
+        $(".boardDate").text(moment(date).format('YYYY-MM-DD'));
+	});
+	
 	// 모달 창 켜기
 	const modal = document.getElementById("modal");
 	const search = document.getElementById("search");

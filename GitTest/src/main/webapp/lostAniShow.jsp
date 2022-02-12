@@ -80,7 +80,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 <style>
 /* 공통 사항 @media 위에 작성함. */
-.material-icons, .megaphone, .bi-calendar3 {
+.material-icons, .#megaphone-fill, .bi-calendar3 {
 	color: #25aa90;
 }
 
@@ -101,10 +101,16 @@ h1 {
 	display: inline;
 }
 
+.bi {
+	font-size: 40px;
+	color: #25aa8f7e;
+}
+
 .bi-chevron-left {
 	font-size: 25px;
 	margin-left: 5px;
 	width: 40px;
+	color: #25aa8f7e;
 }
 
 .report {
@@ -284,7 +290,7 @@ img {
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
 			<a><i class="bi bi-phone icon b"></i></a> <a><i
-				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a><i
+				id="megaphone-fill" class="bi bi-megaphone-fill icon b"></i></a> <a><i
 				class="bi bi-geo-alt icon b"></i></a> <a><i
 				class="bi bi-person icon b"></i></a> <a><i
 				class="bi bi-chat-dots icon b"></i></a>
@@ -296,7 +302,9 @@ img {
 
 			<!-- 이미지 파일 -->
 			<div class="inner-items b">
-				<img class="img-fluid" src="${lostAni.getAniPic()}" />
+				<img class="img-fluid" src="${lostAni.getAniPic()}"
+					onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
+					alt="이미지가 등록되지 않았습니다.">
 			</div>
 
 			<!-- lostAni 상세 -->
