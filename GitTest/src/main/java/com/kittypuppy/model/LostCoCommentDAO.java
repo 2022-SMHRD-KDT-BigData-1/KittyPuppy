@@ -122,4 +122,30 @@ public class LostCoCommentDAO {
 		}
 		return cnt;
 	}
+	
+	public int lostCoCommentCount(int lostNo) {
+		int cnt = 0;
+		connect();
+
+		String sql = "select * from lost_cocomment where lostNo = ? ";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, lostNo);
+
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				cnt++;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
+	
 }
