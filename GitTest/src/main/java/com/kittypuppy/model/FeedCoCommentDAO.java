@@ -48,11 +48,12 @@ public class FeedCoCommentDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,?,?,?,default,null)";
+			String sql = "insert into feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,?,?,?,?,default,null)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, feedCoComment.getFcNo());
-			psmt.setString(2, feedCoComment.getNick());
-			psmt.setString(3, feedCoComment.getContent());
+			psmt.setInt(2, feedCoComment.getFeedNo());
+			psmt.setString(3, feedCoComment.getNick());
+			psmt.setString(4, feedCoComment.getContent());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,7 +75,7 @@ public class FeedCoCommentDAO {
 			psmt.setInt(1, fcNo);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				fcc = new FeedCoCommentDTO(rs.getInt("cono"),rs.getInt("fcno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				fcc = new FeedCoCommentDTO(rs.getInt("cono"),rs.getInt("fcno"),rs.getInt("feedNo"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
 				list.add(fcc);
 			}
 		} catch (SQLException e) {

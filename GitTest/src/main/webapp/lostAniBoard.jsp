@@ -285,10 +285,6 @@ h1 {
 	margin: 4px;
 }
 
-.img-size {
-	max-width: 200px;
-	max-height: 165px;
-}
 
 img {
 	border-radius: 2%;
@@ -299,7 +295,7 @@ img {
 }
 
 .card-img-top {
-	width: 163px;
+	mwidth: 163px;
 	height: 163px;
 }
 
@@ -362,7 +358,6 @@ img {
 		max-width: 180px;
 		height: 255px;
 		padding: 1px;
-		z-index: -1;
 		margin: 2px;
 	}
 }

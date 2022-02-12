@@ -23,6 +23,7 @@ public class LostCoCommentCreateCon implements iCommand {
 		// post 방식으로 입력값 넘겨 받음.
 		request.setCharacterEncoding("utf-8");
 		String content = request.getParameter("content");
+		int lostNo = Integer.parseInt(request.getParameter("lostNo"));
 
 		// 쿼리스트링으로 locNo 받음
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
@@ -31,7 +32,7 @@ public class LostCoCommentCreateCon implements iCommand {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 
-		int cnt = dao.lostCoCommentCreate(new LostCoCommentDTO(0, locNo, member.getNick(), content, null, null));
+		int cnt = dao.lostCoCommentCreate(new LostCoCommentDTO(0, locNo, lostNo, member.getNick(), content, null, null));
 
 		if (cnt > 0) {
 			response.sendRedirect("mypage.jsp");

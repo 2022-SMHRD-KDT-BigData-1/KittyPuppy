@@ -48,11 +48,12 @@ public class LostCoCommentDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL,?,?,?,default,null)";
+			String sql = "insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL,?,?,?,?,default,null)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lcc.getLocNo());
-			psmt.setString(2, lcc.getNick());
-			psmt.setString(3, lcc.getContent());
+			psmt.setInt(2, lcc.getFeedNo());
+			psmt.setString(3, lcc.getNick());
+			psmt.setString(4, lcc.getContent());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +74,7 @@ public class LostCoCommentDAO {
 			psmt.setInt(1, locNo);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"), rs.getInt("feedNo"), rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
 				list.add(lcc);
 			}
 		} catch (SQLException e) {

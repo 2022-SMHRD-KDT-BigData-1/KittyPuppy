@@ -25,6 +25,7 @@ public class FeedCoCommentCreateCon implements iCommand {
 		// post 방식으로 입력값 넘겨 받음.
 		request.setCharacterEncoding("utf-8");
 		String content = request.getParameter("content");
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 
 		// 쿼리스트링으로 fcNo 받음
 		int fcNo = Integer.parseInt(request.getParameter("fcNo"));
@@ -33,7 +34,7 @@ public class FeedCoCommentCreateCon implements iCommand {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 
-		int cnt = dao.feedCoCommentCreate(new FeedCoCommentDTO(0, fcNo, member.getNick(), content, null, null));
+		int cnt = dao.feedCoCommentCreate(new FeedCoCommentDTO(0, fcNo, feedNo, member.getNick(), content, null, null));
 
 		if (cnt > 0) {
 			response.sendRedirect("mypage.jsp");

@@ -6,13 +6,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
+// 로그인 회원정보 저장
 MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+// get 방식으로 해당 데이터 lostNo 받아서 저장
+int lostNo = Integer.parseInt(request.getParameter("lostNo"));
+
+// lostAni 정보 저장
 LostAniDAO la_dao = new LostAniDAO();
 LostAniDTO lostAni = null;
-
-int lostNo = Integer.parseInt(request.getParameter("lostNo"));
 lostAni = la_dao.lostAniSelect(lostNo);
 pageContext.setAttribute("lostAni", lostAni);
+
+// laComment/cocoment 저장
+LostCommentDAO lc_dao = new LostCommentDAO();
+ArrayList<LostCommentDTO> lco = null;
+lco = lc_dao.lostCommentShow(lostNo);
+pageContext.setAttribute("lco", lco);
+
+//Cocoment lcoco 저장
+LostCoCommentDAO lcoco_dao = new LostCoCommentDAO();
+ArrayList<LostCoCommentDTO> lcoco = null;
+lcoco = lcoco_dao.lostCoCommentShow(lostNo);
+pageContext.setAttribute("lcoco", lcoco);
 %>
 <!DOCTYPE html>
 <html>
@@ -104,7 +120,7 @@ h1 {
 	font-size: 40px;
 }
 
-.inner-items:first-child  {
+.inner-items:first-child {
 	margin: auto;
 	text-align: center;
 }
@@ -256,7 +272,7 @@ img {
 
 		<!-- 키티퍼피 로고 -->
 		<div class="header-logo b">
-			<i class="bi bi-chevron-left b"></i>
+			<a href='lostAniBoard.jsp'><i class="bi bi-chevron-left b"></i></a>
 			<h1 class="text-center b">KittyPuppy</h1>
 			<a href=''><i class="bi bi-exclamation-octagon-fill report b"></i></a>
 		</div>
@@ -282,19 +298,25 @@ img {
 
 			<!-- lostAni 상세 -->
 			<div class="inner-items b">
-				<div class="aniTitle h2">${lostAni.getLaType()} [${lostAni.getUpKind()}] ${lostAni.getKind()}</div>
-				<div class="subTitle h5">${lostAni.getSex()}서브/${lostAni.getIsTag()}/${lostAni.getAniSize()}/${lostAni.getColor()}</div>
+				<div class="aniTitle h2">${lostAni.getLaType()}
+					[${lostAni.getUpKind()}] ${lostAni.getKind()}</div>
+				<div class="subTitle h5">${lostAni.getSex()}/${lostAni.getIsTag()}/${lostAni.getAniSize()}/${lostAni.getColor()}</div>
 
 				<div class="laDetail b">
 					<span class="h5"> 날짜 : ${lostAni.getLaDate()}</span><br /> <span
 						class="h5"> 장소: ${lostAni.getPlace()}</span><br /> <span
 						class="h5"> 특징 : ${lostAni.getFeature()}</span><br /> <span
-						class="h5"> 닉네임 : ${lostAni.getNick()}</span>
+						class="h5"> 닉네임 : ${lostAni.getNick()}</span><br />
+						<a href="LostCommentCntCon.do">댓글</a> 
 				</div>
 				<div class="comment-line b">
-					<sapn class="commet-btn"> <i class="bi bi-chat-dots"></i> <i
-						class="bi bi-chat-dots-fill"></i> 댓글</sapn>
-					<span class="update-btn"><a href="#">글 수정</a></span>
+					<span class="commet-btn"> <i class="bi bi-chat-dots"></i> <i
+						class="bi bi-chat-dots-fill"></i> 댓글
+					</span>
+					<!--  글수정 안 나옴 -->
+					<c:if test="${member.getNick() == lostAni.getNick()}">
+						<a href="#"><span class="update-btn">글 수정</span></a>
+					</c:if>
 
 				</div>
 			</div>
@@ -318,7 +340,43 @@ img {
     -->
 
 	<script>
+	
+	//작성 버튼 눌리면 작동하는 기능
+	$('.write_on').on('click', function(){
+		let com = $('input[type=text]').val();
+		$('#comments').append('<li class="com'+num+'">'+com+'<input type="button" value="댓글삭제"onclick="del('+num+')"></li>');
+		num++;
+		$('input[type=text]').val('');
 		
+	});
+	
+	// 1. 댓글 개수 보기 (dao댓글 가져와서 -> 개수 반환)
+	function lostCommentCnt(){
+	    $.ajax({
+	        type: "post",
+	         data: { "lostNo": lostNo}, 
+	            // lostNo 값을 담은 id가 필요함. 방법을 못 찾을 경우, 
+	            // <span id="lostNo" style="display:none">${lostNo}</span>만들기
+	         
+	            url: "LostCommentCntCon",
+	         dataType: "text",
+	         success: function(data) {
+	                
+	                // <#lostComCnt></> 
+	            let comCnt = $('#lostComCnt').html(data);
+	                if(comCnt>0){
+	                    $('#lostComCnt').html("댓글"+data+"개");
+	                }else{
+	                    $('#lostComCnt').html("댓글 없음");
+	                }
+	         },
+	         error: function() {
+	            alert("ajax실패!");
+	         }
+	      });
+	}
+	
+	lostCommentCnt();
 	</script>
 </body>
 </html>

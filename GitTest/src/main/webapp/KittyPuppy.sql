@@ -104,12 +104,14 @@ CREATE table feed_comment(
 CREATE table feed_cocomment(
 	cono INT not null,
 	fcno INT not null,
+	feedno INT not null,
 	nick VARCHAR2(20) not null,
 	content VARCHAR2(500) not null,
 	codate DATE default sysdate,
 	coupdate DATE,
 	constraint fcomment_cono_pk primary key(cono),
 	constraint fcomment_fcno_fk foreign key(fcno) references feed_comment(fcno),
+	constraint fcomment_feedno_fk foreign key(feedno) references feed(feedno),
 	constraint fcomment_nick_fk foreign key(nick) references member(nick)
 );
 
@@ -168,12 +170,14 @@ CREATE table lost_comment(
 CREATE table lost_cocomment(
 	cono INT not null,
 	locno INT not null,
+	lostno INT not null,
 	nick VARCHAR2(20) not null,
 	content VARCHAR2(500) not null,
 	codate DATE default sysdate not null,
 	coupdate DATE,
 	constraint lcomment_cono_pk primary key(cono),
 	constraint lcomment_locno_fk foreign key(locno) references lost_comment(locno),
+	constraint lcomment_lostno_fk foreign key(lostno) references lost_animal(lostno),
 	constraint lcomment_nick_fk foreign key(nick) references member(nick)
 );
 
@@ -291,48 +295,39 @@ values
 
 --feed_comment---
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'1','bamtol','너무 귀여워~',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'1','bamtol','너무 귀여워~',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'9','bamtol','뭘 보고 있는거얌 ㅋㅋ',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'9','bamtol','뭘 보고 있는거얌 ㅋㅋ',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'3','mushroom10','건강하면 또,',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'3','mushroom10','건강하면 또,',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'5','태경','재밌었다',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'5','태경','재밌었다',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'9','태경','재밌었다',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'9','태경','재밌었다',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'6','sample','귀여워???',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'6','sample','귀여워???',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'7','sample','귀여워!!!',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'7','sample','귀여워!!!',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'8','하양맘','저희 강아지도 좋아해요',default,null)
+values(feed_comment_fcno_seq.NEXTVAL,'8','하양맘','저희 강아지도 좋아해요',default,null);
 
 insert into feed_comment (FCNO, FEEDNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_comment_fcno_seq.NEXTVAL,'','','',default,null)
-
+values(feed_comment_fcno_seq.NEXTVAL,'','','',default,null);
 
 -- feed_cocomment ------
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'1','bamtol','사랑둥이~',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'2','bamtol','호기심 가득!',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'3','mushroom10','우리 리나지 ㅎㅎ',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'4','태경','나도 데려가',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'6','sample','귀여워???',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'8','하양맘','같이 놀아요~',default,null)
-insert into  feed_cocomment (CONO, FCNO, NICK, CONTENT, CODATE, COUPDATE)
-values(feed_cocomment_cono_seq.NEXTVAL,'','','',default,null)
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'1', 1, 'bamtol','사랑둥이~',default,null);
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'2', 9, 'bamtol','호기심 가득!',default,null);
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'3', 3, 'mushroom10','우리 리나지 ㅎㅎ',default,null);
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'4', 5, '태경','나도 데려가',default,null);
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'6', 6, 'sample','귀여워???',default,null);
+insert into  feed_cocomment values(feed_cocomment_cono_seq.NEXTVAL,'8', 8, '하양맘','같이 놀아요~',default,null);
 
 
 --scrap -----
@@ -393,11 +388,11 @@ insert into lost_comment values(lost_comment_locno_seq.NEXTVAL, 8, 'sample', '빨
 
 
 -- 대댓글--
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 1, 'bamtol', '안쓰러워요 ㅠ', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 2, 'mushroom10', 'ㅜㅜ..', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 3, '하양맘', '저의 해피를 찾아주셔서 감사합니다', default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 4, '태경', '전화주세요' , default, null);
-insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 5, 'sample', '찾았다!', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 1, 4,  'bamtol', '안쓰러워요 ㅠ', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 2, 5,  'mushroom10', 'ㅜㅜ..', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 3, 6,  '하양맘', '저의 해피를 찾아주셔서 감사합니다', default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 4, 7,  '태경', '전화주세요' , default, null);
+insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, 5, 8,  'sample', '찾았다!', default, null);
 =======
 
 >>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-BigData-1/KittyPuppy.git
