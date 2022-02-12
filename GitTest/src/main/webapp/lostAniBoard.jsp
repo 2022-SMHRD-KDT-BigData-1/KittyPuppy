@@ -174,7 +174,7 @@ pageContext.setAttribute("lostList", lostList);
 
 /*------------------------------------이상 모달 창 관련 --------------------------------------------------------------*/
 /* 공통 사항 @media 위에 작성함. */
-.material-icons, .megaphone, .bi-calendar3 {
+.material-icons, #megaphone-fill, .bi-calendar3 {
 	color: #25aa90;
 }
 
@@ -202,7 +202,7 @@ h1 {
 	visibility: hidden;
 }
 
-.report {
+#report {
 	color: #f5e172;
 	font-size: 4ch;
 	margin-right: 15px;
@@ -216,6 +216,7 @@ h1 {
 
 .bi {
 	font-size: 40px;
+	color: #25aa8f7e;
 }
 
 /* 상단 로고 고정 */
@@ -281,13 +282,16 @@ h1 {
 	max-width: 200px;
 	height: 255px;
 	padding: 1px;
-	z-index: -1;
 	margin: 4px;
 }
 
 .img-size {
 	max-width: 200px;
 	max-height: 165px;
+}
+
+img {
+	border-radius: 2%;
 }
 
 .card>a {
@@ -335,7 +339,7 @@ h1 {
 	.hidden {
 		margin-right: 10px;
 	}
-	.report {
+	#report {
 		margin-right: 15px;
 	}
 
@@ -385,19 +389,17 @@ h1 {
 		<div class="header-logo  b">
 			<i class="bi bi-exclamation-octagon-fill hidden b"></i>
 			<h1 class="text-center b">KittyPuppy</h1>
-			<a href=''><i class="bi bi-exclamation-octagon-fill report b"></i></a>
+			<a href=''><i id='report'class="bi bi-exclamation-octagon-fill b"></i></a>
 		</div>
 
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
 			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
-				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a
-				href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
-				href="mypage.jsp?nick=${member.getNick()}"><i
-				class="bi bi-person icon b"></i></a> <a
-				href="dmList.jsp?nick=${member.getNick()}"><i
-				class="bi bi-chat-dots icon b"></i></a>
+				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
+			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
+				href="mypage.jsp?"><i class="bi bi-person icon b"></i></a> <a
+				href="dmList.jsp?"><i class="bi bi-chat-dots icon b"></i></a>
 		</div>
 
 		<!-- 검색 바... : 거대한 검색 버튼... 이거 좀 바꿔야 할 듯 -->
@@ -422,10 +424,9 @@ h1 {
 				<c:otherwise>
 					<c:forEach var="lost" items="${lostList}">
 						<div class="card">
-							<a href="lostAni.jsp?lostNo=${lost.getLostNo()}"> 
-								<img src='${lost.getAniPic()}' class="img-fluid card-img-top"
-									alt="photo position">
-							</a>		
+							<a href='lostAni.jsp?lostNo=${lost.getLostNo()}'> <img
+								src='${lost.getAniPic()}' class="img-fluid card-img-top"
+								alt="photo position"></a>
 							<div class="card-body">
 								<h5 class="card-title">
 									<span class="laType">${lost.getLaType()}</span><span
@@ -550,6 +551,7 @@ h1 {
 	        modal.style.display = "none";
 	    }
 	}); 
+	
     </script>
 </body>
 </html>

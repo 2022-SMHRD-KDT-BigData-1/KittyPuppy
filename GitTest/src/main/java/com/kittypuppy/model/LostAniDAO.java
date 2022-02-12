@@ -98,6 +98,32 @@ public class LostAniDAO {
 		return lostList;
 		
 	}
+	
+	public LostAniDTO lostAniSelect(int lostNo) {
+		
+		LostAniDTO lostAni = null;
+		connect();
+		try {
+			String sql = "select * from lost_animal where lostno = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, lostNo);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				lostAni = new LostAniDTO(lostNo,rs.getString("latype"),
+						rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),
+						rs.getString("upkind"),rs.getString("kind"),rs.getString("sex"),
+						rs.getString("color"),rs.getString("animalsize"),rs.getString("istag"),
+						rs.getString("feature"),rs.getString("place"),rs.getString("ladate"),
+						rs.getString("laupdate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return lostAni;
+		
+	}
 
 	public int lostAniUpdate(LostAniDTO lostAni) {
 		

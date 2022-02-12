@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="com.kittypuppy.model.*"%>
+<%@ page import="com.kittypuppy.service.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+MemberDTO member = (MemberDTO) session.getAttribute("member");
+LostAniDAO la_dao = new LostAniDAO();
+LostAniDTO lostAni = null;
+
+int lostNo = Integer.parseInt(request.getParameter("lostNo"));
+lostAni = la_dao.lostAniSelect(lostNo);
+pageContext.setAttribute("lostAni", lostAni);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +22,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>lostAniShow</title>
+<title>lostAni</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -90,6 +104,15 @@ h1 {
 	font-size: 40px;
 }
 
+.inner-items:first-child  {
+	margin: auto;
+	text-align: center;
+}
+
+img {
+	border-radius: 2%;
+}
+
 /* 상단 로고 고정 */
 .header-logo {
 	position: fixed; /*상단에 고정된 플렉스 박스 */
@@ -147,33 +170,6 @@ h1 {
 	display: flex;
 }
 
-.card {
-	flex: 1 1 45%;
-	border: solid 1px Gainsboro;
-	max-width: 200px;
-	height: 255px;
-	padding: 1px;
-	z-index: -1;
-	margin: 4px;
-}
-
-.card>a {
-	margin: auto;
-}
-
-.card-img-top {
-	width: 163px;
-	height: 163px;
-}
-
-.card-body {
-	padding: 5px;
-}
-
-.innerIcon, .card-text {
-	font-size: 12px;
-}
-
 /* 화면크기가 800px이 넘어갔을때 적용되는 css */
 @media ( min-width : 800px) {
 	/* 바깥 컨테이너 설정 */
@@ -225,7 +221,6 @@ h1 {
 	.inner-items {
 		flex: 1 1 40%;
 	}
-
 }
 
 .top {
@@ -282,19 +277,19 @@ h1 {
 
 			<!-- 이미지 파일 -->
 			<div class="inner-items b">
-				<img class="img-fluid" src="./assets/img/img1.jpg" />
+				<img class="img-fluid" src="${lostAni.getAniPic()}" />
 			</div>
 
 			<!-- lostAni 상세 -->
 			<div class="inner-items b">
-				<div class="aniTitle h2">${lostAni.laType}타입[${lostAni.upKind}]${lostAni.kind}</div>
-				<div class="subTitle h5">${lostAni.sex}서브/${lostAni.age}/${lostAni.size}/${lostAni.color}</div>
+				<div class="aniTitle h2">${lostAni.getLaType()} [${lostAni.getUpKind()}] ${lostAni.getKind()}</div>
+				<div class="subTitle h5">${lostAni.getSex()}서브/${lostAni.getIsTag()}/${lostAni.getAniSize()}/${lostAni.getColor()}</div>
 
 				<div class="laDetail b">
-					<span class="h5"> 날짜 : ${lostAni.laDate}</span><br /> <span
-						class="h5"> 장소: ${lostAni.place}</span><br /> <span class="h5">
-						특징 : ${lostAni.feature}</span><br /> <span class="h5"> 닉네임 :
-						${lostAni.nick}</span>
+					<span class="h5"> 날짜 : ${lostAni.getLaDate()}</span><br /> <span
+						class="h5"> 장소: ${lostAni.getPlace()}</span><br /> <span
+						class="h5"> 특징 : ${lostAni.getFeature()}</span><br /> <span
+						class="h5"> 닉네임 : ${lostAni.getNick()}</span>
 				</div>
 				<div class="comment-line b">
 					<sapn class="commet-btn"> <i class="bi bi-chat-dots"></i> <i
