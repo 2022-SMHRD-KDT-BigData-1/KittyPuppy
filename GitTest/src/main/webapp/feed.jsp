@@ -209,8 +209,8 @@ body {
 </style>
 
 </head>
+
 <body>
-    
     <%	
     	FeedDAO fdao = new FeedDAO();
     	FollowDAO fwdao = new FollowDAO();
@@ -315,7 +315,7 @@ body {
 	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
 	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
-	                    <div align = 'left'><span id = 'like'>좋아요 10</span> 댓글 10</div>
+	                    <div align = 'left'>좋아요 10 댓글 10</div>
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
 	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
@@ -386,21 +386,24 @@ body {
 	<script type = 'text/javascript'>
 		
 		// 좋아요 개수 세기 예시
-		$('#like').on('click',function(){
+		function likeCount(feedNo){
 			 $.ajax({
 			    url: "FeedLikeCountCon.do",
 			    type: "post",
-		        data: { feedNo: ${feed.feedNo}
+		        data: { feedNo: feedNo
 		        },
 		        dataType : 'json',
 		        success: function(result) {
-	        		$('#like').html("좋아요 "+result)
-			    },
+		        	cnt = result;
+		        },
 			    error: function() {
 		    		console.log("err");
-		    		}
+		    	}
 			});
-		});
+			return cnt;
+		};
+		
+		
 	 
 		// 2. 댓글 작성 db 저장 기능 예시
 		function lostCommentCreate(){

@@ -31,7 +31,7 @@ public class MJoinCon implements iCommand{
 		String profile = request.getParameter("profile");
 
 		MemberDAO dao = new MemberDAO();
-
+		
 		int cnt = dao.memberJoin(new MemberDTO(id, pw, null, nick, sex, birth, address, profile));
 
 	
