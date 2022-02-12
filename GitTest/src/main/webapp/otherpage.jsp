@@ -1,3 +1,9 @@
+<%@page import="com.kittypuppy.model.MemberDTO"%>
+<%@page import="com.kittypuppy.model.MemberDAO"%>
+<%@page import="com.kittypuppy.model.FollowDAO"%>
+<%@page import="com.kittypuppy.model.FeedDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kittypuppy.model.FeedDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,259 +38,10 @@
 
     <!-- Custom styles for this template -->
     <link href="narrow-jumbotron.css" rel="stylesheet">
+    
+    <!-- css 파일 -->
+	<link rel="stylesheet" href="./assets/css/otherpage.css">
 
-    <style>
-
-        html, body{
-            height:100%;
-        }
-
-        body{
-        background-color: #ffffff;
-        padding: 10px;
-        }
-
-        /* 로고 글꼴, 색상 설정 */
-        h1{
-            font-family: 'Dancing Script', cursive;
-            font-size: 35px;
-            color: #25aa90;
-            display: inline;
-        }
-
-        .hidden {
-            color : #f5e172;
-            font-size : 4ch;
-            margin-right:100px;
-            visibility: hidden;
-        }
-
-        .report {
-            color : #f5e172;
-            font-size : 4ch;
-            margin-left:100px;
-        }
-
-        /* 아이콘 설정 */
-
-        .icon {
-            margin-left: 15px;
-            margin-right: 15px;
-            color: #25aa8f7e;
-        }
-
-        .bi {
-            font-size: 40px;
-        }
-
-        /* 상단 로고 고정 */
-        .header-logo{
-            position: fixed;
-            margin: 0 auto;
-            left:0;
-            right:0;
-            top:0;
-            height: 5rem;
-            background-color: white;
-            padding-top: 15px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* 상단 메뉴바 고정 */
-        .header-menu{
-            position: fixed;
-            margin: 0 auto;
-            left:0;
-            right:0;
-            top:5rem;
-            height: 5rem;
-            background-color: white;
-            padding-top: 15px;
-            width: 100%;
-        }
-
-        /* 바깥 컨테이너 설정 */
-        .container.out{
-            width: 100%;
-            padding-left:15px;
-            padding-right:15px;
-            padding-bottom: 15px;;
-            padding-top: 9rem;
-            margin: auto;
-            display:block;
-            max-width: 470px;
-        }
-
-        /* 프로필 컨테이너 설정 - flexbox */
-        .container.profile{
-            /* Flex - 정렬을 위한 컨테이너 */
-            display: flex;
-            flex-wrap: wrap;
-            padding:0px;
-
-            /* 주축 방향 정렬 */
-            justify-content: center;
-
-            /* 교차축 방향 정렬 */
-            align-items: center;
-            text-align: center;
-        }
-
-        /* 프로필 썸네일 설정 */
-        .img-thumbnail{
-            max-width:77px;
-            max-height:77px;
-        }
-
-        /* Flexbox 안의 아이템 모바일 */
-        .item.img{
-            /* margin-right: 50px; */
-            flex-basis: 100px;
-            height:72px;
-            flex-grow: 0;
-            flex-shrink: 0;
-        }
-
-        .item.post{
-            flex-basis:25%;
-        }
-
-        .item.follower{
-            flex-basis:25%;
-        }
-
-        .item.following{
-            flex-basis:25%;
-        }
-
-        .item.nick{
-            flex-basis:100%;
-        }
-
-        .item.intro{
-            flex-basis:100%;
-        }
-
-        .item.update, .item.write{
-            flex-basis:220px;
-        }
-
-        .btn:hover{
-            background-color: #25aa8f7e !important;
-            color : white !important;
-        }
-
-        .btn{
-            background-color: #25aa90;
-            color:white;
-        }
-
-        .btn.follow, .btn.message{
-            width: 215px;
-        }
-
-        .row{
-            margin:0px;
-        }
-
-        /* 화면크기가 992px이 넘어갔을때 적용되는 css */
-        @media (min-width: 992px) {
-            
-            /* 바깥 컨테이너 설정 */
-            .container.out{
-                max-width:700px;
-            }
-
-            /* 상단 로고 관련 설정 */
-            .hidden {
-                margin-right:150px;
-            }
-
-            .report {
-                margin-left:150px;
-            }
-
-            /* 상단 메뉴바 설정 */
-            .icon {
-                font-size: 40px;
-                margin-left: 30px;
-                margin-right: 30px;
-            }
-
-            /* 프로필 컨테이너 설정 */
-            .container.profile{
-                justify-content: flex-end;
-                text-align: left;
-            }
-
-            /* 프로필 썸네일 설정 */
-            .img-thumbnail{
-                max-width:150px;
-                max-height:150px;
-            }
-
-            .item.img{
-                order:1;
-                flex-basis: 35%;
-                padding-top: 15px;
-                height: 60px;
-            }
-
-            .item.post{
-                order:5;
-                flex-basis:140px;
-                padding-top:15px;
-                margin-bottom: 15px;
-            }
-
-            .item.follower{
-                order:6;
-                flex-basis:140px;
-                padding-top:15px;
-                margin-bottom: 15px;
-            }
-
-            .item.following{
-                order:7;
-                flex-basis:140px;
-                padding-top:15px;
-                margin-bottom: 15px;
-            }
-
-            .item.nick{
-                order:2;
-                flex-basis:20%;
-            }
-
-            .item.update{
-                order:3;
-                flex-basis:20%;
-            }
-
-            .item.write{
-                order:4;
-                flex-basis:20%;
-            }
-
-            .item.intro{
-                order:8;
-                padding-left:240px;
-                margin-top:15px;
-            }
-
-            .btn.follow, .btn.message{
-                width: 135px;
-            }
-
-            /* 반려동물 썸네일 설정 */
-            .img-thumbnail.animal{
-                max-width: 90px;
-                max-height: 90px;
-            }
-        }
-
-    </style>
 </head>
 <body>
     
@@ -308,6 +65,22 @@
 
         <a><i class = "bi bi-chat-dots icon"></i></a>
     </div>
+    
+    <%
+    	String nick = request.getParameter("nick");
+    	
+   		FeedDAO feed = new FeedDAO();
+   		ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
+   		
+   		FollowDAO follow = new FollowDAO();
+   		// 나를 팔로우 하는 사람들
+   		ArrayList<String> followerList = follow.followerShow(nick);
+   		// 내가 팔로잉중인 사람들
+   		ArrayList<String> followingList = follow.followingShow(nick);
+   		
+   		MemberDAO dao = new MemberDAO();
+   		MemberDTO member = dao.memberInfo(nick);
+    %>
 
 
     <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
@@ -322,27 +95,27 @@
            
             <!-- <div class="container profile-in text-center"> -->
                 <div class="item post">
-                    1150<br>
+                    <%=feedList.size()%><br>
                     게시물
                 </div>
 
                 <div class="item follower">
-                    1500<br>
+                    <%=followerList.size()%><br>
                     팔로워
                 </div>
 
                 <div class="item following">
-                    110<br>
+                    <%=followingList.size()%><br>
                     팔로잉
                 </div>
             
 
                 <!-- 닉네임, 프로필 소개글 -->
                 
-                <div class="item nick text-start mt-2 mx-2">nickname</div>
+                <div class="item nick text-start mt-2 mx-2"><%=nick%></div>
                 
                 
-                <div class="item intro text-start mb-2 mx-2">프로필 소개글 잘 부탁드립니다.</div>
+                <div class="item intro text-start mb-2 mx-2"><%=member.getProfile()%></div>
                 
             
             
@@ -352,7 +125,7 @@
                     <button type="button" class="btn me-1 follow">팔로우</button>
                 </div>
                 <div class="item write">
-                    <button type="button" class="btn ms-1 message">메세지</button>
+                    <button type="button" class="btn ms-1 message" onclick="location.href='' ">메세지</button>
                 </div>
             <!-- </div> -->
         </div>
@@ -364,13 +137,98 @@
                 <a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
             </div>   
             <div class="col-auto">
-                <a></a><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
+                <a href="aniJoin.jsp"><img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail animal float-start" alt="프로필 사진 추가"></a>
             </div>
         </div>
     
         <hr>
 
+		<!-- 스토리 : 내 피드 -->
+                <% 
+                	for(int i = 0; i < feedList.size(); i++){ 
+                	String carouselid = "carouselExampleControls";
+                	carouselid += i;
+                %>
+						
+               	
+				<div class="row mt-3 text-center">
+					<div class="row justify-content-center">
+						<div class="d-grid gap-sm-1 col-sm-6">
+							<!-- 게시자 정보 -->
+							<div class='col-6'>
+								<img
+									src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+									class="rounded-circle img-thumbnail feed img-fluid float-start">
+								<div align="left">
+									<strong><%=feedList.get(i).getNick() %></strong><br />
+									<%=feedList.get(i).getFeedDate() %>
+								</div>
+							</div>
+							<!-- 첨부된 사진-->
+							<div id="<%=carouselid %>"  class="carousel slide"
+                            data-bs-interval="false">
+								<div class="carousel-inner">
+									<%
+		                            	String src = feedList.get(i).getPicAddress();
+		                            	String[] srclist = src.split(",");
+		                            	String item = null;
+		                            	
+		                            	for(int j = 0; j < srclist.length; j++){
+		                            		if(j == 0){
+		                            			item = "carousel-item active";
+		                            		}else{
+		                            			item = "carousel-item";
+		                            		}
+                            		%>
+                            	
+									<div class="<%= item %>" style="max-width:500px; max-height:500px;">
+										<img src="<%=srclist[j] %>" class="d-block w-100" alt="...">
+									</div>
+									
+									<% } %>
+								</div>
+								<% carouselid = "#" + carouselid; %>
+								<button class="carousel-control-prev" type="button"
+									data-bs-target="<%=carouselid %>" data-bs-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button class="carousel-control-next" type="button"
+									data-bs-target="<%=carouselid %>" data-bs-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Next</span>
+								</button>
+							</div>
 
+						</div>
+						<!-- 피드 내용-->
+						<div class="col-sm-6">
+							<div align='left'>
+								<%=feedList.get(i).getContent() %>
+								<button class='info feed-bt' onclick='more()'>더보기</button>
+							</div>
+							<div class="tag" align="left"><%=feedList.get(i).getTag() %></div>
+							<div align='left'>
+								좋아요 10 댓글 10
+								<button class='info feed-bt' onclick='entire()'>전체보기</button>
+							</div>
+							<div>
+								<button class="feed-bt">
+									<i class='fa fa-paw lcs' onclick='like()'> 좋아요</i>
+								</button>
+								<!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
+								<button class="feed-bt">
+									<i class="bi bi-chat-dots lcs" onclick='comment()'> 댓글</i>
+								</button>
+								<button class="feed-bt">
+									<i class="bi bi-bookmark-fill lcs" onclick='scrap()'> 스크랩</i>
+								</button>
+								<!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
 
 
 

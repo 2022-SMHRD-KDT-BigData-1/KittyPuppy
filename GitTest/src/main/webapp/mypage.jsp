@@ -1,3 +1,4 @@
+<%@page import="com.kittypuppy.model.ScrapDAO"%>
 <%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@page import="com.kittypuppy.model.FollowDTO"%>
 <%@page import="com.kittypuppy.model.FollowDAO"%>
@@ -28,6 +29,7 @@
 	
 	// 현재 로그인한 닉네임으로 불러온 피드리스트 page영역에 저장하기
 	pageContext.setAttribute("feedList",feedList);
+
 
 %>
 <!DOCTYPE html>
@@ -109,7 +111,7 @@
 		<div class="container profile">
 
 			<span class="item img "> <img
-				src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+				src="./assets/img/bigcat.jpg"
 				class="rounded-circle img-thumbnail img-fluid float-start"
 				alt="프로필 사진 추가">
 			</span>
@@ -226,7 +228,6 @@
 								<div class="carousel-inner">
 									<%
 		                            	String src = feedList.get(i).getPicAddress();
-										System.out.println(src);
 		                            	String[] srclist = src.split(",");
 		                            	String item = null;
 		                            	
@@ -236,10 +237,9 @@
 		                            		}else{
 		                            			item = "carousel-item";
 		                            		}
-		                            		System.out.println(srclist[j]);
                             		%>
                             	
-									<div class="<%= item %>">
+									<div class="<%= item %>" style="max-width:500px; max-height:500px;">
 										<img src="<%=srclist[j] %>" class="d-block w-100" alt="...">
 									</div>
 									
@@ -263,22 +263,22 @@
 						<div class="col-sm-6">
 							<div align='left'>
 								<%=feedList.get(i).getContent() %>
-								<button class='info feed' onclick='more()'>더보기</button>
+								<button class='info feed-bt' onclick='more()'>더보기</button>
 							</div>
 							<div class="tag" align="left"><%=feedList.get(i).getTag() %></div>
 							<div align='left'>
 								좋아요 10 댓글 10
-								<button class='info feed' onclick='entire()'>전체보기</button>
+								<button class='info feed-bt' onclick='entire()'>전체보기</button>
 							</div>
 							<div>
-								<button class="feed">
+								<button class="feed-bt">
 									<i class='fa fa-paw lcs' onclick='like()'> 좋아요</i>
 								</button>
 								<!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-								<button class="feed">
+								<button class="feed-bt">
 									<i class="bi bi-chat-dots lcs" onclick='comment()'> 댓글</i>
 								</button>
-								<button class="feed">
+								<button class="feed-bt">
 									<i class="bi bi-bookmark-fill lcs" onclick='scrap()'> 스크랩</i>
 								</button>
 								<!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
@@ -297,39 +297,64 @@
 				aria-labelledby="myreview-tab">
 
                 <!-- 스크랩 -->
+                <%
+	            	// 스크랩
+	            	ScrapDAO scrap = new ScrapDAO();
+	            	ArrayList<FeedDTO> scrapList = scrap.scrapShow(nick);
+	            	if(scrapList.size()==0){ 
+	            		out.print("<h1>저장한 항목 없음</h1>");
+	            	 } else{
+	            		 for(int i = 0; i < scrapList.size(); i++){ 
+	                     	String carouselid = "carouselExampleControls";
+	                     	carouselid += i;
+	             %>
+	            	
 				<div class="row mt-3 text-center">
 					<div class="row justify-content-center">
 						<div class="d-grid gap-sm-1 col-sm-6">
 							<!-- 게시자 정보 -->
-							<div class='col-4'>
-								<img
-									src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-									class="rounded-circle img-thumbnail feed img-fluid float-start">
-								<div>
-									<strong>닉네임</strong><br /> 게시일
+							<a href = 'otherpage.jsp?nick=<%=scrapList.get(i).getNick()%>'>
+								<div class='col-6'>
+									<img
+										src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+										class="rounded-circle img-thumbnail feed img-fluid float-start">
+									<div align="left">
+										<strong><%=scrapList.get(i).getNick() %></strong>
+										<br /><%=scrapList.get(i).getFeedDate() %>
+									</div>
 								</div>
-							</div>
+							</a>
 							<!-- 첨부된 사진-->
-							<div id="carouselExampleControls3" class="carousel slide"
+							<div id="<%=carouselid %>" class="carousel slide"
                             data-bs-interval="false">
-								<div class="carousel-inner">
-									<div class="carousel-item active">
-										<img src="https://t.ly/j26ep" class="d-block w-100" alt="...">
+								<div class="carousel-inner" >
+								<%
+		                            	String src = scrapList.get(i).getPicAddress();
+		                            	String[] srclist = src.split(",");
+		                            	String item = null;
+		                            	
+		                            	for(int j = 0; j < srclist.length; j++){
+		                            		if(j == 0){
+		                            			item = "carousel-item active";
+		                            		}else{
+		                            			item = "carousel-item";
+		                            		}
+                            		%>
+                            		
+									<div class="<%= item %>" style="max-width:500px; max-height:500px;">
+										<img src="<%=srclist[j] %>" class="d-block img-fluid" alt="..." style="display:inline !important;">
 									</div>
-									<div class="carousel-item">
-										<img src="https://t.ly/j26ep" class="d-block w-100" alt="...">
-									</div>
-									<div class="carousel-item">
-										<img src="https://t.ly/j26ep" class="d-block w-100" alt="...">
-									</div>
+									
+									<% } %>
 								</div>
+								<% carouselid = "#" + carouselid; %>
 								<button class="carousel-control-prev" type="button"
-									data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
+									data-bs-target="<%=carouselid %>" data-bs-slide="prev">
 									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Previous</span>
 								</button>
 								<button class="carousel-control-next" type="button"
-									data-bs-target="#carouselExampleControls3" data-bs-slide="next">
+									data-bs-target="<%=carouselid %>" data-bs-slide="next">
 									<span class="carousel-control-next-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Next</span>
 								</button>
@@ -339,22 +364,23 @@
 						<!-- 피드 내용-->
 						<div class="col-sm-6">
 							<div align='left'>
-								간식 냠냠...
-								<button class='info feed' onclick='more()'>더보기</button>
+								<%=scrapList.get(i).getContent() %>
+								<button class='info feed-bt' onclick='more()'>더보기</button>
 							</div>
+							<div class="tag" align="left"><%=scrapList.get(i).getTag() %></div>
 							<div align='left'>
 								좋아요 10 댓글 10
-								<button class='info feed' onclick='entire()'>전체보기</button>
+								<button class='info feed-bt' onclick='entire()'>전체보기</button>
 							</div>
 							<div>
-								<button class="feed">
+								<button class="feed-bt">
 									<i class='fa fa-paw lcs' onclick='like()'> 좋아요</i>
 								</button>
 								<!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-								<button class="feed">
+								<button class="feed-bt">
 									<i class="bi bi-chat-dots lcs" onclick='comment()'> 댓글</i>
 								</button>
-								<button class="feed">
+								<button class="feed-bt">
 									<i class="bi bi-bookmark-fill lcs" onclick='scrap()'> 스크랩</i>
 								</button>
 								<!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
@@ -362,7 +388,8 @@
 						</div>
 					</div>
 				</div>
-            
+            <%  }
+	         } %>
             
             </div>
 
