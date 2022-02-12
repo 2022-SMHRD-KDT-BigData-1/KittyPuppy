@@ -341,7 +341,7 @@ body {
 	                    			pageContext.setAttribute("cs", cs);
 	                    		%>
 	                    		<c:forEach var ='com' items = '${cs}'>
-	                    			<div>${com.content}</div>
+	                    			<div>${com.content} ${com.nick} ${com.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>	                  
 	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
 		                    		<%
 		                    			FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
@@ -351,7 +351,7 @@ body {
 		                    			pageContext.setAttribute("ccs", ccs);
 		                    		%>
 		                    		<c:forEach var ='cocom' items = '${ccs}'>
-		                    			<div>\t${cocom.content}</div>
+		                    			<div style = 'padding-left: 20px;'>↳${cocom.content}  ${cocom.nick} ${cocom.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>
 		                    		</c:forEach>
 	                    		</c:forEach>
 	                    	</div>
