@@ -40,7 +40,7 @@ public class MJoinCon implements iCommand{
 			
 			//forward방식으로 페이지 이동
 			RequestDispatcher dispatcher =
-					request.getRequestDispatcher(".jsp"); //로그인 페이지수정
+					request.getRequestDispatcher("login.jsp"); //로그인 페이지수정 
 					
 					dispatcher.forward(request, response);
 		} else {

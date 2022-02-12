@@ -32,7 +32,7 @@ public class MUpdateCon implements iCommand {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('게시글 수정 실패');");
+			out.print("alert('회원정보 수정 실패');");  //완료하고 마이페이지
 			out.print("location.href='mypage.jsp';");
 			out.print("</script>");
 		}

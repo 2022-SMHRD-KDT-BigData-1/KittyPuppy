@@ -31,6 +31,6 @@ public class MJoinIdCheckCon implements iCommand {
 			System.out.println("사용 가능한 아이디입니다.");
 
 		}
-		out.write(check + "");
+		out.write(check + "중복 체크 완료");
 	}
 }
