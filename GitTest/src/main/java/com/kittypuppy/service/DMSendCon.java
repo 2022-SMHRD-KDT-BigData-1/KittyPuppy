@@ -17,11 +17,11 @@ public class DMSendCon implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		String sendnick = request.getParameter("sendNick");
+		String sendNick = request.getParameter("sendNick");
 		String receiveNick = request.getParameter("receiveNick");
 		String content = request.getParameter("content");
 		
-		int cnt = dao.DMSend(new DMDTO(0, sendnick, receiveNick, content, null));
+		int cnt = dao.DMSend(new DMDTO(0, sendNick, receiveNick, content, null));
 
 		if (cnt > 0) {
 			System.out.println("¼º°ø");

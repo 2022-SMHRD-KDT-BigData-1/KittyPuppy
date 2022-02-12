@@ -1,5 +1,20 @@
+<%@page import="com.kittypuppy.model.DMDTO"%>
+<%@page import="com.kittypuppy.model.MemberDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kittypuppy.model.DMDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+/* DMDTO member = (DMDTO) session.getAttribute("member");
+
+DMDAO dao = new DMDAO();
+ArrayList<DMDTO> DMlist = null;
+
+if (member != null) { // 로그인한 상태
+	DMlist = dao.DMList(member.getSendNick());
+ */
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -261,8 +276,8 @@ h1 {
 					style="display: inline-block; vertical-align: top">
 					<a href=""> <img
 						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-						class="rounded-circle img-thumbnail img-fluid float-start" />
-						<strong class="sdiv">닉네임</strong>
+						class="rounded-circle img-thumbnail img-fluid float-start" /> <strong
+						class="sdiv">닉네임</strong>
 					</a>
 				</div>
 			</div>
@@ -274,6 +289,7 @@ h1 {
 			<div class="overflow-auto g-2 p-3"
 				style="max-height: 500px; max-width: 100%">
 				<div class="row sm-2">
+
 					<div class="balloon_03 mb-4">
 						Hi, how are you samim?
 						<!-- <div class="me-chat-col"></div> -->
@@ -319,10 +335,9 @@ h1 {
 						class="form-control col-4" id="sNick" autocomplete="off" /> <input
 						type="text" class="form-control" id="m" autocomplete="off" />
 					<div class="input-group-append">
-						<button id="msg-send"
-								class="btn btn-primary" placeholder="message"
-								style="background-color: #25aa90">
-								보내기</button>
+						<button id="msg-send" class="btn btn-primary"
+							placeholder="message" style="background-color: #25aa90">
+							보내기</button>
 					</div>
 				</div>
 			</div>
@@ -332,26 +347,57 @@ h1 {
 	<script src="jquery-3.6.0.min.js"></script>
 
 	<script>
-    $('#msg-send').on('click',function(){
-			alert('저장성공')    	
-    		$.ajax({
-    			url: 'DMSendCon.do', // 서버에 전달할 파일명
-    			type: 'post',
-    			data: {
-    				sendnick :  $('#nick').html(), // 전송할 파라미터 1
-    				receivenick :$('#sNick').html(), // 전송할 파라미터 1
-    				content :$('#m').html()  // 전송할 파라미터 2
-    			},
-    			success: function() {
-    					
-    			      alert('저장성공'); // 성공시 코드
-    			},
-    			error : function() {
+		/* $(document).ready(function(){
+		    function dm(){
+		        let nick = $('#nick').val();
+		        let sNick=$('#sNick').val();
+		        let m=$('#m').val();
+
+		        $.ajax({
+		            url:'DMSendCon.do',
+		            type:'get',
+		            dataType: 'json',
+		            data: {sendnick:nick, receivenick:sNick, content: m},
+		            success:function(data){
+		                console.log(data.sql);
+		                alert("성공");
+		            },
+		            error:function(){
+		                alert ("실패");
+		            }
+		        })
+
+		    }
+
+		    $('#msg-send').click(function(){
+		        dm();
+		    });
+
+
+		});
+
+		 */
+
+		$('#msg-send').on('click', function() {
+			alert('저장성공')
+			$.ajax({
+				url : 'DMSendCon.do', // 서버에 전달할 파일명
+				type : 'get',
+				data : {
+					sendNick : $('#nick').val(), // 전송할 파라미터 1
+					receiveNick : $('#sNick').val(), // 전송할 파라미터 1
+					content : $('#m').val()
+				// 전송할 파라미터 2
+				},
+				success : function() {
+
+					console.log('저장성공'); // 성공시 코드
+				},
+				error : function() {
 					alert("저장실패");
 				}
-    		});
-    	});
-    
-    </script>
+			});
+		});
+	</script>
 </body>
 </html>
