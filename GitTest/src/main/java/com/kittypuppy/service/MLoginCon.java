@@ -21,13 +21,13 @@ public class MLoginCon implements iCommand {
 
 		MemberDAO dao = new MemberDAO();
 
-		String nick = dao.memberLogin(id, pw);
+		MemberDTO member = dao.memberLogin(id, pw);
 
-		if (nick != null) {
+		if (member != null) {
 			System.out.println("로그인 성공!");
 
 			HttpSession session = request.getSession();
-			session.setAttribute("nick", nick);
+			session.setAttribute("member", member);
 			response.sendRedirect("feed.jsp");//메인 피드 수정
 
 		} else {

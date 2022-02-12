@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.MemberDAO;
 import com.kittypuppy.model.MemberDTO;
@@ -17,7 +18,11 @@ public class MUpdateCon implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
 		
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		String id = member.getId();
+				
 		String pw = request.getParameter("pw");
 		String picAddress = request.getParameter("picAddress");
 		String nick = request.getParameter("nick");
@@ -28,7 +33,7 @@ public class MUpdateCon implements iCommand {
 		
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.membertUpdate(new MemberDTO(null, pw, picAddress, nick, sex, birth, address, profile));
+		int cnt = dao.memberUpdate(new MemberDTO(id, pw, picAddress, nick, sex, birth, address, profile));
 
 		if (cnt > 0) {
 			response.sendRedirect("mypage.jsp");
@@ -37,7 +42,7 @@ public class MUpdateCon implements iCommand {
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('회원정보 수정 실패');");  //완료하고 마이페이지
-			out.print("location.href='mypage.jsp';");
+			out.print("location.href='update.jsp';");
 			out.print("</script>");
 		}
 	}

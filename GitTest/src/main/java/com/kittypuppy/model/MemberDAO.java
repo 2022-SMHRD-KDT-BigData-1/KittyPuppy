@@ -67,7 +67,7 @@ public class MemberDAO {
 		return cnt;
 	}
 
-	public int membertUpdate(MemberDTO member) {
+	public int memberUpdate(MemberDTO member) {
 
 		int cnt = 0;
 		connect();
@@ -94,9 +94,9 @@ public class MemberDAO {
 
 	}
 
-	public String memberLogin(String id, String pw) {
+	public MemberDTO memberLogin(String id, String pw) {
 
-		String nick = null;
+		MemberDTO member = null;
 		connect();
 		try {
 			String sql = "select * from member where id = ? and pw = ?";
@@ -105,14 +105,15 @@ public class MemberDAO {
 			psmt.setString(2, pw);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				nick = rs.getString("nick");
+				member = new MemberDTO(rs.getString("id"), null, rs.getString("picaddress"), rs.getString("nick"),
+						rs.getString("sex"), rs.getString("birth"), rs.getString("address"), rs.getString("profile"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return nick;
+		return member;
 	}
 
 	public int memberDelete(String id, String pw) {
