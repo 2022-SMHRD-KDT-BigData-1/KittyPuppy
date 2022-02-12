@@ -12,10 +12,10 @@
 <%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	String nick = (String) session.getAttribute("nick");
+	MemberDTO member = (MemberDTO)session.getAttribute("member");
+	String nick = member.getNick();
 	
 	MemberDAO dao = new MemberDAO();
-	MemberDTO member = dao.memberInfo(nick);
 	
 	FeedDAO feed = new FeedDAO();
 	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
