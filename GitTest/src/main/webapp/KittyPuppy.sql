@@ -178,10 +178,10 @@ CREATE table lost_cocomment(
 );
 
 CREATE view feed_scrap_view AS
-SELECT f.*, s.nick AS "snick" FROM feed f, scrap s
+SELECT f.*, s.nick AS snick FROM feed f, scrap s
 WHERE f.feedno = s.feedno;
  
-SELECT * from feed_scrap_view;
+SELECT * from feed_scrap_view WHERE SNICK = 'bamtol';
 
 CREATE sequence feed_feedno_seq
 start with 1
