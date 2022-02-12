@@ -76,8 +76,9 @@
 
 </head>
 <body>
-
+<form action="MUpdateCon.do" method="post">
  <div class="container">
+ 
 
         <div class="row">
 
@@ -87,7 +88,7 @@
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
                     <div class="col-sm-2">
-                         <a href=""><!-- 마이페이지 이동 -->
+                         <a href="mypage.jsp"><!-- 마이페이지 이동 -->
                          <i class="bi bi-chevron-left"
                                 style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
                            
@@ -112,55 +113,83 @@
                      <!-- 사진업로드 이동 -->
                     <label class="btn btn-default" style="background-color: white;">
                         <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
-                            type="file" hidden></i>
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;">
+                             <input type="file"  name="picAddress" hidden ></i>
                     </label>
                     <br>
                     <p>프로필 사진 바꾸기</p>
 
                 </div>
-
-
-
+				<div class="d-grid gap-2 col-sm-12 mx-auto">
                 <!-- 정보 변경 -->
-                <input type="nick" class="form-control" placeholder="닉네임"><br>
-                <input type="password" class="form-control" placeholder="비밀번호"><br>
-                <input type="passwordck" class="form-control" placeholder="비밀번호 확인"><br>
+                <input type="text" class="form-control" placeholder="닉네임" name="nick">
+                <span id="checkNick" size="2"></span>
+                
+                <input type="password" class="form-control" placeholder="비밀번호" name="pw">
+                <input type="password" class="form-control" placeholder="비밀번호 확인">
 
-                <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select">
+                    <select id="disabledSelect" class="form-select" name="sex">
                         <option>성별</option>
                         <option value="male">남성</option>
                         <option value="female">여성</option>
                     </select>
-                </div>
 
-                <input type="birthday" class="form-control" placeholder="생년월일"><br>
-                <input type="address" class="form-control" placeholder="주소"><br>
-                <input type="profile" class="form-control" placeholder="프로필"><br>
 
-                <div class="mb-3">
+                <input type="date" class="form-control" placeholder="생년월일" name="birth">
+                <input type="text" class="form-control" placeholder="주소" name="address">
+                <input type="text" class="form-control" placeholder="프로필" name="profile">
 
-                    <select id="disabledSelect" class="form-select">
-                        <option>반려동물 보유 여부</option>
-                        <option value="1">있음</option>
-                        <option value="0">없음</option>
-                    </select>
-                </div>
+                
 
 
             </div>
 
 
             <div class="d-grid gap-2 col-sm-12 mx-auto">
-                <button type="button" class="btn" style="background-color: #25aa90;">완료</button>
+                <button type="submit" class="btn" style="background-color: #25aa90;">완료</button>
 
             </div>
-
+</div>
         </div>
 
     </div>
+
+<!-- 닉 중복 체크 -->
+<script src="jquery-3.6.0.min.js"></script>
+
+<script >
+   $('#input_nick').focusout(function() {
+      let userNick = $('input_nick').val();
+
+      $.ajax({
+         url : "MJoinNickCheckCon.do",
+         type : "post",
+         data : {
+            Nick : userNick
+         },
+         dataType : 'json',
+         success : function(result) {
+            if (result == 0) {
+               document.getElementById('checkNick').style.display = 'block';
+               $("#checkNick").html('사용할수 없는 닉네임입니다');
+               $("#checkNick").attr('color', 'red');
+                
+            } else {
+               document.getElementById('checkNick').style.display = 'block';
+               $("#checkNick").html('사용할수 있는 닉네임입니다');
+               $("#checkNick").attr('color', 'green');
+            }
+         },
+         error : function() {
+            alert("서버요청실패")
+         }
+      })
+   })
+   </script>
+
+</form>
+
 
 
 

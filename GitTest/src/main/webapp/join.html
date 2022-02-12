@@ -86,9 +86,8 @@ html, body {
 				<div class="d-grid gap-2 col-12 mx-auto">
 
 					<h1>KittyPuppy</h1>
-					<input type="email" id="input_id" class="form-control"
-						placeholder="이메일" name="id"  >
-						<span id="checkId" size="2"></span>
+					<input type="email" id="input_id" class="form-control" placeholder="이메일" name="id">
+					<span id="checkId" size="2"></span>
 					<input type="text" id = "input_nick" class ="form-control" placeholder="닉네임" name="nick">
 					<span id="checkNick" size="2"></span>
 					<input type="password" class="form-control" placeholder="비밀번호" name="pw">
@@ -117,13 +116,14 @@ html, body {
 
 
 <script src="jquery-3.6.0.min.js"></script>
+
    <script>
       $('#input_id').focusout(function() {
          let userId = $('#input_id').val();
 
          $.ajax({
             url : "MJoinIdCheckCon.do",
-            type : "post",
+            type : "get",
             data : {
                id : userId
             },
@@ -140,7 +140,7 @@ html, body {
                }
             },
             error : function() {
-               alert("서버요청실패")
+               alert("서버요청실패 id")
             }
          })
       })
@@ -170,7 +170,7 @@ html, body {
             }
          },
          error : function() {
-            alert("서버요청실패")
+            alert("서버요청실패 nick")
          }
       })
    })

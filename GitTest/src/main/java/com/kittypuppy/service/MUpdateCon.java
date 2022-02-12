@@ -16,6 +16,8 @@ public class MUpdateCon implements iCommand {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8");
+		
 		String pw = request.getParameter("pw");
 		String picAddress = request.getParameter("picAddress");
 		String nick = request.getParameter("nick");
@@ -23,6 +25,8 @@ public class MUpdateCon implements iCommand {
 		String birth = request.getParameter("birth");
 		String address = request.getParameter("address");
 		String profile = request.getParameter("profile");
+		
+		MemberDAO dao = new MemberDAO();
 
 		int cnt = dao.membertUpdate(new MemberDTO(null, pw, picAddress, nick, sex, birth, address, profile));
 
