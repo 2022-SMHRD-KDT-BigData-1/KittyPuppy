@@ -268,7 +268,7 @@ body {
 				<div class='row justify-content-center'>
 	                <div class='d-grid gap-sm-1 col-sm-6'>
 	                    <!-- 게시자 정보 -->
-	                    <a href = 'otherpage.jsp?nick="${feed.nick}"'>
+	                    <a href = 'otherpage.jsp?nick=${feed.nick}'>
 		                    <div class = 'col-6'>
 		                        <img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
 		                        <div align ='left'>
@@ -286,13 +286,13 @@ body {
 	                    			<c:choose>
 	                    				<c:when test="${requestScope.temp==1}">
 	                    					<c:set var = 'temp' value = '2' scope = 'request'/>
-	                    					<div class="carousel-item active">
-												<img src="${src}" class="d-block w-100" alt="...">
+	                    					<div class="carousel-item active" style = 'height:600px;'>
+												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
 											</div>
 	                    				</c:when>
 	                    				<c:otherwise>
-		                    				<div class="carousel-item">
-												<img src="${src}" class="d-block w-100" alt="...">
+		                    				<div class="carousel-item" style = 'height:600px;'>
+												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
 											</div>
 	                    				</c:otherwise>
 	                    			</c:choose>
@@ -341,7 +341,7 @@ body {
 	                    			pageContext.setAttribute("cs", cs);
 	                    		%>
 	                    		<c:forEach var ='com' items = '${cs}'>
-	                    			<div>${com.content} ${com.nick} ${com.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>	                  
+	                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>	                  
 	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
 		                    		<%
 		                    			FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
@@ -351,7 +351,7 @@ body {
 		                    			pageContext.setAttribute("ccs", ccs);
 		                    		%>
 		                    		<c:forEach var ='cocom' items = '${ccs}'>
-		                    			<div style = 'padding-left: 20px;'>↳${cocom.content}  ${cocom.nick} ${cocom.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>
+		                    			<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>
 		                    		</c:forEach>
 	                    		</c:forEach>
 	                    	</div>
@@ -385,24 +385,24 @@ body {
     <script src='jquery-3.6.0.min.js'></script>
 	<script type = 'text/javascript'>
 		
-		// 좋아요 개수 세기
-		function likeCount(){
-		    $.ajax({
+		// 좋아요 개수 세기 예시
+		$('#like').on('click',function(){
+			 $.ajax({
 			    url: "FeedLikeCountCon.do",
 			    type: "post",
 		        data: { feedNo: ${feed.feedNo}
 		        },
-		        success: function() {
-	        		return 1;
+		        dataType : 'json',
+		        success: function(result) {
+	        		$('#like').html("좋아요 "+result)
 			    },
 			    error: function() {
 		    		console.log("err");
 		    		}
 			});
-		}
-		$
+		});
 	 
-		// 2. 댓글 작성 db 저장 기능
+		// 2. 댓글 작성 db 저장 기능 예시
 		function lostCommentCreate(){
 		    $.ajax({
 		        type: "post",
