@@ -315,7 +315,13 @@ body {
 	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
 	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
-	                    <div align = 'left'>좋아요 10 댓글 10</div>
+	                    
+	                    
+	                    
+	                    <div align = 'left'><button id ='like${feed.feedNo}' onclick = 'likeCount(${feed.feedNo},"#like${feed.feedNo}")'>좋아요 1</button> 댓글 10</div>
+	                    
+	                    
+	                    
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
 	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
@@ -385,8 +391,9 @@ body {
     <script src='jquery-3.6.0.min.js'></script>
 	<script type = 'text/javascript'>
 		
-		// 좋아요 개수 세기 예시
-		function likeCount(feedNo){
+		// 좋아요 개수 세기
+		
+		function likeCount(feedNo,id){
 			 $.ajax({
 			    url: "FeedLikeCountCon.do",
 			    type: "post",
@@ -394,17 +401,52 @@ body {
 		        },
 		        dataType : 'json',
 		        success: function(result) {
-		        	cnt = result;
+		        	console.log(id);
+		        	$(id).html("좋아요 " + result);
+		        	console.log($(id).html);
 		        },
 			    error: function() {
 		    		console.log("err");
 		    	}
 			});
-			return cnt;
 		};
 		
+		// 좋아요 체크
 		
-	 
+		// 좋아요 누르기
+		function like(nick,feedNo){
+			 $.ajax({
+			    url: "FeedLikeCon.do",
+			    type: "post",
+		        data: { nick: nick, feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 좋아요 취소
+		function likeDelete(nick,feedNo){
+			 $.ajax({
+			    url: "FeedLikeDeleteCon.do",
+			    type: "post",
+		        data: { nick: nick, feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
 		// 2. 댓글 작성 db 저장 기능 예시
 		function lostCommentCreate(){
 		    $.ajax({
