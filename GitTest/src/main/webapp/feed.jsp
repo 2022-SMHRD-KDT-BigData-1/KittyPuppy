@@ -181,10 +181,6 @@ body {
 		display: block;
 	}
 	
-	.comt {
-		display: none;
-	}
-	
 	.comment {
 		display: block;
 	}
@@ -229,6 +225,9 @@ body {
     		feedList = fdao.feedShow(followList);
     	}
     	pageContext.setAttribute("feedList",feedList);
+    	
+    	// 개행 처리
+		pageContext.setAttribute("enter","\n");
     %>
     
     <!-- 키티퍼피 로고 -->
@@ -311,10 +310,23 @@ body {
 	                </div>
 	                <!-- 피드 내용-->
 	                <div class='col-sm-6'>
-	                    <div class = 'content' align = 'left'>${feed.content}<button class = 'info more'>더보기</button></div>
+	                	<!-- 피드 본문 -->
+	                    <div class = 'content' align = 'left'>${fn:substring(feed.content, 0, 4)}...<button class = 'info btn' type = 'button' data-bs-toggle="collapse" data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button></div>
+	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
-	                    <div align = 'left'><span id = 'like${feed.feedNo}'>좋아요 10</span> 댓글 10 <button class = 'info entire'>전체보기</button></div>
-	                    <div class = 'comment'>
+	                    <div align = 'left'><span id = 'like${feed.feedNo}'>좋아요 10</span> 댓글 10</div>
+	                    <!-- 피드 배너 -->
+	                    <div class = 'navbar'>
+	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+	                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs'> 좋아요</i></button> -->
+	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+	                        <button class = 'bt4'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
+	                        <!-- <button class = 'bt5'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button> -->
+	                    </div>
+	                    
+	                    <!--  피드 댓글 창 -->
+	                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
 	                    	<div class = 'row'>
 	                    		<button class = 'col-1 remove'><i class='bi bi-chevron-left'></i></button>
 	                    		<h1 class = 'col-10'>comment</h1>
@@ -338,12 +350,12 @@ body {
 		                    			ccs = fccdao.feedCoCommentShow(fcNo);
 		                    			pageContext.setAttribute("ccs", ccs);
 		                    		%>
-		                    		<c:forEach var ='cocom' items = '${cs}'>
+		                    		<c:forEach var ='cocom' items = '${ccs}'>
 		                    			<div>\t${cocom.content}</div>
 		                    		</c:forEach>
 	                    		</c:forEach>
 	                    	</div>
-	                    	 <div class = 'comt'>
+	                    	<div>
 		                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
 		                    		<div class='input-group rounded'>
 							        	<input type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
@@ -352,13 +364,7 @@ body {
 		                    	</form>
 		                    </div>
 	                    </div>
-	                    <div>
-	                        <button class = 'bt1'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
-	                        <!-- <button class = 'bt2'><i class = 'fal fa-paw lcs'> 좋아요</i></button> -->
-	                        <button class = 'bt3'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
-	                        <button class = 'bt4'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
-	                        <!-- <button class = 'bt5'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button> -->
-	                    </div>
+	                    
 	                </div>
 	            </div>
 	        </div>
@@ -378,26 +384,6 @@ body {
     
     <script src='jquery-3.6.0.min.js'></script>
 	<script type = 'text/javascript'>
-		// 더보기(본문 자세히보기)
-		$('.more').click(function(){
-			$('.content').html('css 너무 어렵다.....');
-		});
-		// 전체보기
-			$('.entire').click(function(){
-				document.querySelector('.comment').style.display = 'block';
-			});
-		// 접기
-		$('.remove').click(function(){
-			document.querySelector('.comment').style.display = 'none';
-		});
-		// 댓글 입력창 보이기 및 숨기기		
-		document.querySelector('.bt3').addEventListener('click',function(){
-			if(document.querySelector('.comt').style.display == 'none'){
-				document.querySelector('.comt').style.display = 'block';
-			} else {
-				document.querySelector('.comt').style.display = 'none';
-			}
-		});
 		
 		// 좋아요 개수 세기
 		function likeCount(){

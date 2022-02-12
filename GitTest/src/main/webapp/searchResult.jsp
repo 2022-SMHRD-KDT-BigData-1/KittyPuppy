@@ -62,8 +62,14 @@
         margin: auto;
     }
     
+    a {	
+    
+		color: #000000;
+		text-decoration-line: none;
+	}
+	
     i {
-        font-size : 3ch;
+        font-size : 2ch;
         color: #25aa90;
     }
 
@@ -131,7 +137,7 @@
         }
 
         .ls {
-            max-width: 700px;
+            max-width: 1000px;
         }
 
     }
@@ -139,7 +145,11 @@
 	    div{
         display:block;
     }
-	
+    
+    .bi-chevron-left {
+    	font-size: 3ch;
+    }
+    
 </style>
 </head>
 <body>
@@ -149,7 +159,7 @@
         <!-- 검색창 -->
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class="ls input-group rounded">
-	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
+	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon" style = "background-color :#ffffff"><i class="bi bi-chevron-left"></i></a>
 	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
 	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
 	        		<i class="fas fa-search"> <input type="submit" hidden></i>

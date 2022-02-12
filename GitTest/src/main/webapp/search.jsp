@@ -62,8 +62,6 @@
     }
     
     i {
-        font-size: 3ch;
-        font-weight: bold;
         color: #25aa90;
     }
 
@@ -106,6 +104,10 @@
 
 
     }
+    
+    .bi-chevron-left {
+    	font-size: 3ch;
+    }
 
     div{
         display:block;
@@ -119,96 +121,92 @@
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container ls d-grid gap-3">
     
-    <div class = 'ls d-grid gap-3'>
-		
-		 <!-- 검색창 -->
-        <form action = 'FeedSearchCon.do' method = 'post'>
-	        <div class="ls input-group rounded">
+	 <!-- 검색창 -->
+       <form action = 'FeedSearchCon.do' method = 'post'>
+       		<div class="input-group rounded">
 	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
-	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
+	            <input name ='search' type="search" class="form-control rounded" style="margin-right: 5px;" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px; padding:0px; margin :5px">
 	        		<i class="fas fa-search"> <input type="submit" hidden></i>
 	    		</label>
 	        </div>
-        </form>
+       </form>
 
-        <div class="row">
-            <button class="col btn me-1">회원정보 수정</button>
-            <button class="col btn ms-1">게시물 작성</button>
-        </div>
+       <div class="row">
+           <button class="col btn me-1">회원정보 수정</button>
+           <button class="col btn ms-1">게시물 작성</button>
+       </div>
 
-        <!-- 닉네임 검색 결과-->
-        <div class="row mt-3">
-            <a href ='otherpage.jsp'>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                    <br>
-                    <strong> 닉네임1</strong>
-                </div>
-            </a>
-            
-            <a href ='otherpage.jsp'>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                    <br>
-                    <strong> 닉네임2</strong>
-                </div>
-            </a>
+       <!-- 닉네임 검색 결과-->
+       <div class="row mt-3">
+           <a href ='otherpage.jsp'>
+               <div>
+                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
+                   <br>
+                   <strong> 닉네임1</strong>
+               </div>
+           </a>
+           
+           <a href ='otherpage.jsp'>
+               <div>
+                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
+                   <br>
+                   <strong> 닉네임2</strong>
+               </div>
+           </a>
 
-            <a href ='otherpage.jsp'>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                    <br>
-                    <strong> 닉네임3</strong>
-                </div>
-            </a>
+           <a href ='otherpage.jsp'>
+               <div>
+                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
+                   <br>
+                   <strong> 닉네임3</strong>
+               </div>
+           </a>
 
-            <a href ='otherpage.jsp'>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                    <br>
-                    <strong> 닉네임4</strong>
-                </div>
-            </a>
-        </div>
+           <a href ='otherpage.jsp'>
+               <div>
+                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
+                   <br>
+                   <strong> 닉네임4</strong>
+               </div>
+           </a>
+       </div>
 
-        <!-- 태그 검색 결과-->
+       <!-- 태그 검색 결과-->
 
-        <div class="row mt-3">
+       <div class="row mt-3">
 
-            <a href ='searchResult.jsp?search='>
-                <div>
-                    <i class="hash bi bi-hash"></i>
-                    <strong> 태그1</strong>
-                </div>
-            </a>
+           <a href ='searchResult.jsp?search='>
+               <div>
+                   <i class="hash bi bi-hash"></i>
+                   <strong> 태그1</strong>
+               </div>
+           </a>
 
-            <a href ='searchResult.jsp?search='>
-                <div>
-                    <i class="hash bi bi-hash"></i>
-                    <strong> 태그2</strong>
-                </div>
-            </a>
+           <a href ='searchResult.jsp?search='>
+               <div>
+                   <i class="hash bi bi-hash"></i>
+                   <strong> 태그2</strong>
+               </div>
+           </a>
 
-            <a href ='searchResult.jsp?search='>
-                <div>
-                    <i class="hash bi bi-hash"></i>
-                    <strong> 태그3</strong>
-                </div>
-            </a>
+           <a href ='searchResult.jsp?search='>
+               <div>
+                   <i class="hash bi bi-hash"></i>
+                   <strong> 태그3</strong>
+               </div>
+           </a>
 
-            <a href ='searchResult.jsp?search='>
-                <div>
-                    <i class="hash bi bi-hash"></i>
-                    <strong> 태그4</strong>
-                </div>
-            </a>
-            
-        </div>
-
-    </div>
+           <a href ='searchResult.jsp?search='>
+               <div>
+                   <i class="hash bi bi-hash"></i>
+                   <strong> 태그4</strong>
+               </div>
+           </a>
+           
+       </div>
 
 </div>
 
