@@ -328,9 +328,7 @@ body {
 	                    	int fdn = (int)request.getAttribute("fdn");
 	                    	int cnt = fldao.feedLikeShow(fdn).size();
 	                    %>
-	                    <div align = 'left'><button id ='like${feed.feedNo}' onclick = 'likeCount(${feed.feedNo},"#like${feed.feedNo}")'>좋아요 <%= cnt %></button> 댓글 10</div>
-	                    
-	                    <button onclick='likeCheck(${feed.feedNo},"#likeCheck${feed.feedNo}")'>좋아요 체크</button>
+	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> 댓글 10</div>
 	                    
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
@@ -342,14 +340,16 @@ body {
 	                    			pageContext.setAttribute("check",0);
 	                    		}
 	                    	%>
-	                    	<c:choose>
-	                    		<c:when test="${check==1}">
-	                    			<button id = 'likeCheck${feed.feedNo}' onclick='likeDelete(${feed.feedNo},"#likeCheck${feed.feedNo}")'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
-	                    		</c:when>
-	                    		<c:otherwise>
-	                    			<button id = 'likeCheck${feed.feedNo}' onclick='like(${feed.feedNo},"#likeCheck${feed.feedNo}")'><i class = 'fal fa-paw lcs'> 좋아요</i></button>
-	                    		</c:otherwise>
-	                    	</c:choose>
+	                    	<div id = 'likeCheck${feed.feedNo}'>
+		                    	<c:choose>
+		                    		<c:when test="${check==1}">
+		                    			<button onclick='likeDelete(${feed.feedNo},"#like${feed.feedNo}","#likeCheck${feed.feedNo}")'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<button onclick='like(${feed.feedNo},"#like${feed.feedNo}","#likeCheck${feed.feedNo}")'><i class = 'fal fa-paw lcs'> 좋아요</i></button>
+		                    		</c:otherwise>
+		                    	</c:choose>
+	                    	</div>
 	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
 	                        <button class = 'bt4'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
 	                        <!-- <button class = 'bt5'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button> -->
@@ -444,9 +444,11 @@ body {
 		        dataType : 'json',
 		        success: function(result) {
 		        	if (result == 0) {
-		        		console.log("싫어요 ");
+		        		console.log("안좋은데..");
+		        		$(id).html("<button onclick='like("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fal fa-paw lcs'> 좋아요</i></button>");
 		        	} else {
-		        		console.log("좋아요")
+		        		console.log("좋아요♥");
+		        		$(id).html("<button onclick='likeDelete("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fa fa-paw lcs'> 좋아요</i></button>");
 		        	}
 		        },
 			    error: function() {
@@ -456,7 +458,7 @@ body {
 		};
 		
 		// 좋아요 누르기
-		function like(feedNo,id){
+		function like(feedNo,id1,id2){
 			 $.ajax({
 			    url: "FeedLikeCon.do",
 			    type: "post",
@@ -464,7 +466,8 @@ body {
 		        },
 		        dataType : 'json',
 		        success: function(result) {
-		        	
+		        	likeCount(feedNo,id1);
+		        	likeCheck(feedNo,id2);
 		        },
 			    error: function() {
 		    		console.log("err");
@@ -473,7 +476,7 @@ body {
 		};
 		
 		// 좋아요 취소
-		function likeDelete(feedNo,id){
+		function likeDelete(feedNo,id1,id2){
 			 $.ajax({
 			    url: "FeedLikeDeleteCon.do",
 			    type: "post",
@@ -481,7 +484,8 @@ body {
 		        },
 		        dataType : 'json',
 		        success: function(result) {
-		        	
+		        	likeCount(feedNo,id1);
+		        	likeCheck(feedNo,id2);
 		        },
 			    error: function() {
 		    		console.log("err");
