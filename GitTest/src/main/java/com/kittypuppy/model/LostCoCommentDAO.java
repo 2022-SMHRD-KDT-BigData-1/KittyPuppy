@@ -69,12 +69,34 @@ public class LostCoCommentDAO {
 		LostCoCommentDTO lcc = null;
 		connect();
 		try {
-			String sql = "select * from lost_cocomment where locno = ? order by codate desc";
+			String sql = "select * from lost_cocomment where locno = ? order by codate asc";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, locNo);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
-				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"), rs.getInt("feedNo"), rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"), rs.getInt("lostNo"), rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				list.add(lcc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	public ArrayList<LostCoCommentDTO> lostCoCommentShow2(int lostNo) {
+		
+		ArrayList<LostCoCommentDTO> list = new ArrayList<LostCoCommentDTO>();
+		LostCoCommentDTO lcc = null;
+		connect();
+		try {
+			String sql = "select * from lost_cocomment where lostNo = ? order by codate asc ";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, lostNo);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				lcc = new LostCoCommentDTO(rs.getInt("cono"),rs.getInt("locno"), rs.getInt("lostNo"), rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
 				list.add(lcc);
 			}
 		} catch (SQLException e) {

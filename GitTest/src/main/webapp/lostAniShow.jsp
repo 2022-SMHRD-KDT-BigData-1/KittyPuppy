@@ -4,6 +4,7 @@
 <%@ page import="com.kittypuppy.model.*"%>
 <%@ page import="com.kittypuppy.service.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='fn' uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%
 // 로그인 회원정보 저장
@@ -19,18 +20,19 @@ lostAni = la_dao.lostAniSelect(lostNo);
 pageContext.setAttribute("lostAni", lostAni);
 
 // laComment/cocoment 저장
-LostCommentDAO lc_dao = new LostCommentDAO();
-ArrayList<LostCommentDTO> lco = null;
-lco = lc_dao.lostCommentShow(lostNo);
-pageContext.setAttribute("lco", lco);
+LostCommentDAO lco_dao = new LostCommentDAO();
+ArrayList<LostCommentDTO> lco_list = null;
+lco_list = lco_dao.lostCommentShow(lostNo);
+pageContext.setAttribute("lco_list", lco_list);
 
 //Cocoment lcoco 저장
 LostCoCommentDAO lcoco_dao = new LostCoCommentDAO();
-ArrayList<LostCoCommentDTO> lcoco = null;
-lcoco = lcoco_dao.lostCoCommentShow(lostNo);
-pageContext.setAttribute("lcoco", lcoco);
+ArrayList<LostCoCommentDTO> lcoco_list = null;
+lcoco_list = lcoco_dao.lostCoCommentShow2(lostNo);
+pageContext.setAttribute("lcoco_list", lcoco_list);
 
-int Commentcnt = lc_dao.lostCommentCount(lostNo) + lcoco_dao.lostCoCommentCount(lostNo);
+//int Commentcnt = lc_dao.lostCommentCount(lostNo) + lcoco_dao.lostCoCommentCount(lostNo);
+int Commentcnt = lco_list.size() + lcoco_list.size();
 pageContext.setAttribute("Commentcnt", Commentcnt);
 %>
 <!DOCTYPE html>
@@ -80,7 +82,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 <style>
 /* 공통 사항 @media 위에 작성함. */
-.material-icons, .#megaphone-fill, .bi-calendar3 {
+.material-icons, #megaphone-fill, .bi-calendar3 {
 	color: #25aa90;
 }
 
@@ -98,16 +100,17 @@ h1 {
 	font-family: 'Dancing Script', cursive;
 	font-size: 35px;
 	color: #25aa90;
-	display: inline;
 }
 
 .bi {
-	font-size: 40px;
+	font-size: 30px;
 	color: #25aa8f7e;
+	display: inline;
+	width: 40px;
 }
 
 .bi-chevron-left {
-	font-size: 25px;
+	font-size: 35px;
 	margin-left: 5px;
 	width: 40px;
 	color: #25aa8f7e;
@@ -123,10 +126,6 @@ h1 {
 .icon {
 	margin-left: 15px;
 	margin-right: 15px;
-}
-
-.bi {
-	font-size: 40px;
 }
 
 .inner-items:first-child {
@@ -252,23 +251,35 @@ img {
 	width: 650px;
 }
 
-.comment-line {
+.comment-btn-line {
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-.comment-btn {
+.comment-btn, .update-btn {
 	flex: auto;
-}
-
-.update-btn {
-	flex: 1 1 40%;
-	display: none;
+	display: block;
 }
 
 .bi-chat-dots-fill {
 	display: none;
 }
+
+/* 이하 대댓글 배치 관련 flex 설정*/
+#coComItems {
+	display: flex;
+}
+
+.coco-space {
+	flex: auto;
+	width: 30px;
+}
+
+.coco-items {
+	flex: auto;
+}
+/* 이상 대댓글 배치 관련 flex 설정*/
 
 /* grid 구분 확인을 위한 css 설정*/
 .b {
@@ -299,57 +310,161 @@ img {
 
 		<!-- 상단 로고,메뉴바 밑의 내용 하나 컨테이너 -->
 		<div class="row innerContainer b">
+			<div class="row innerContainer b">
 
-			<!-- 이미지 파일 -->
-			<div class="inner-items b">
-				<img class="img-fluid" src="${lostAni.getAniPic()}"
-					onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
-					alt="이미지가 등록되지 않았습니다.">
-			</div>
 
-			<!-- lostAni 상세 -->
-			<div class="inner-items b">
-				<div class="aniTitle h2">${lostAni.getLaType()}
-					[${lostAni.getUpKind()}] ${lostAni.getKind()}</div>
-				<div class="subTitle h5">${lostAni.getSex()}/${lostAni.getIsTag()}/${lostAni.getAniSize()}/${lostAni.getColor()}</div>
+				<!-- 이미지 파일 : bootstrap carousel 사용-->
+				<div id="carouselExampleIndicators"
+					class="carousel slide inner-items" data-bs-ride="carousel"
+					data-interval="false">
 
-				<div class="laDetail b">
-					<span class="h5"> 날짜 : ${lostAni.getLaDate()}</span><br /> <span
-						class="h5"> 장소: ${lostAni.getPlace()}</span><br /> <span
-						class="h5"> 특징 : ${lostAni.getFeature()}</span><br /> <span
-						class="h5"> 닉네임 : ${lostAni.getNick()}</span><br /> <span
-						id="lostComCnt"> 댓글수 </span>${Commentcnt}
+					<!-- 이미지 반복  입력-->
+					<div class="carousel-inner" data-interval="false">
+						<c:set var='temp' value='1' scope='request' />
+						<c:forEach var='src' items='${fn:split(lostAni.getAniPic(),",")}'>
+							<c:choose>
+								<c:when test="${requestScope.temp==1}">
+									<div class="carousel-item active" data-interval="false">
+										<img src="${src}" class="d-block w-100 img-fluid"
+											onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
+											alt="이미지가 등록되지 않았습니다.">
+										<c:set var='temp' value='${requestScope.temp+1}'
+											scope='request' />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="carousel-item " data-interval="false">
+										<img src="${src}" class="d-block w-100 img-fluid"
+											onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
+											alt="이미지가 등록되지 않았습니다.">
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
+
+					<!-- 좌우 슬라이드 버튼 -->
+					<button class="carousel-control-prev" type="button"
+						data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+
+					<!-- 인디케이터 반복 -->
+					<div class="carousel-indicators">
+						<c:set var='temp' value='1' scope='request' />
+						<c:forEach var='src' items='${fn:split(lostAni.getAniPic(),",")}'>
+							<c:choose>
+								<c:when test="${requestScope.temp==1}">
+									<button type="button"
+										data-bs-target="#carouselExampleIndicators"
+										data-bs-slide-to="${requestScope.temp-1}" class="active"
+										aria-current="true" aria-label="Slide ${requestScope.temp}"></button>
+									<c:set var='temp' value='${requestScope.temp+1}'
+										scope='request' />
+
+								</c:when>
+								<c:otherwise>
+									<button type="button"
+										data-bs-target="#carouselExampleIndicators"
+										data-bs-slide-to="${requestScope.temp-1}"
+										aria-label="Slide ${requestScope.temp}"></button>
+									<c:set var='temp' value='${requestScope.temp+1}'
+										scope='request' />
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
 				</div>
-				<div class="comment-line b">
-					<button class="comment-btn" onclick="lostCommentCnt()">
-						<i class="bi bi-chat-dots"></i> <i class="bi bi-chat-dots-fill"></i>
-						댓글 </span>
-						<!--  글수정 안 나옴 -->
-						<c:if test="${member.getNick() == lostAni.getNick()}">
-							<a href="#"><span class="update-btn">글 수정</span></a>
+
+
+				<!-- lostAni 상세 -->
+				<div class="inner-items b">
+					<div class="aniTitle h2">${lostAni.laType}
+						[${lostAni.getUpKind()}] ${lostAni.kind}</div>
+					<div class="subTitle h5">${lostAni.sex}${lostAni.getIsTag()}
+						${lostAni.aniSize} ${lostAni.color}</div>
+
+					<div class="laDetail b">
+						<span class="h5"> 날짜 : ${lostAni.laDate}</span><br /> <span
+							class="h5"> 장소: ${lostAni.place}</span><br /> <span class="h5">
+							특징 : ${lostAni.feature}</span><br /> <span class="h5"> 작성자 :
+							${lostAni.nick}</span><br />
+						<p id="lostComCnt">댓글수 ${Commentcnt}</p>
+					</div>
+
+					<!-- 댓글 버튼 : 작성자일 경우 글 수정 버튼 생성 -->
+					<div class="comment-btn-line b">
+						<button class='btn comment-btn b' type='button'
+							data-bs-toggle="collapse" data-bs-target="#collapseExample"
+							aria-expanded="false" aria-controls="collapseExample">
+							<i class='bi bi-chat-dots lcs'> 댓글</i>
+						</button>
+						<c:if test="${member.getNick() == lostAni.nick}">
+							<button class='btn update-btn b' type='button'>
+								<i class="bi bi-vector-pen">글 수정</i>
+							</button>
 						</c:if>
+					</div>
+
+					<!-- 댓글 보이는 창  -->
+					<div class="collapse" id="collapseExample">
+						<div class="well">
+							<div class="comment-contents b">
+								<c:forEach var="lco" items="lco_list">
+									<div id="comItems${lco.locno}">
+										<p>${lco.nick}</p>
+										<p class="">${lco.content}</p>
+										<span class="">${fn:substring(lco.laDate,0,11)}</span> <span
+											class="">${fn:substring(lco.laUpdate,0,11)}</span>
+
+										<c:forEach var="lcoco" items="lcoco_list">
+
+											<c:if test="${lcoco.lostno == lco.lostno}">
+												<div id="coComItems ${lcoco.cono}">
+													<div class="coco-space">ㄴ</div>
+													<div class="coco-items">
+														<p class="">${lcoco.nick}</p>
+														<p class="">${lcoco.content}</p>
+														<span class="">${fn:substring(lcoco.laDate,0,11)}</span> <span
+															class="">${fn:substring(lcoco.laUpdate,0,11)}</span>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+									</div>
+
+
+
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 
-		</div>
-	</div>
 
+			<!-- Optional JavaScript; choose one of the two! -->
 
-	<!-- Optional JavaScript; choose one of the two! -->
+			<!-- Option 1: Bootstrap Bundle with Popper -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+				crossorigin="anonymous"></script>
 
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
-
-	<!-- Option 2: Separate Popper and Bootstrap JS -->
-	<!--
+			<!-- Option 2: Separate Popper and Bootstrap JS -->
+			<!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
 
-	<script>
+			<script>
 		//작성 버튼 눌리면 작동하는 기능
 		$('.comment-btn').on('click', lostCommentCnt() {
 			let cnt = 0;
