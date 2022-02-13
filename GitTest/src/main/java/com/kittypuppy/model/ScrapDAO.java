@@ -50,7 +50,7 @@ public class ScrapDAO {
 		try {
 			String sql = "insert into scrap values(?,?,default)";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, scrap.getNick());
+			psmt.setString(1, scrap.getSNick());
 			psmt.setInt(2, scrap.getFeedNo());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class ScrapDAO {
 		boolean isScrap = false;
 		connect();
 		try {
-			String sql = "select * from scrap where snick = ? and feedno = ?";
+			String sql = "select * from scrap where nick = ? and feedno = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, scrap.getSNick());
 			psmt.setInt(2, scrap.getFeedNo());
@@ -111,7 +111,7 @@ public class ScrapDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "delete from scrap where snick = ? and feedno = ?";
+			String sql = "delete from scrap where nick = ? and feedno = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, scrap.getSNick());
 			psmt.setInt(2, scrap.getFeedNo());

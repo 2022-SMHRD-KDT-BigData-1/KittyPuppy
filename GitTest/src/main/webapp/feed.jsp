@@ -199,7 +199,7 @@ body {
 	
 		.img-thumbnail {
 			max-width: 100px;
-			max-height: 150px;
+			max-height: 100px;
 		}
 		.ls {
 			max-width: 1000px;
@@ -215,6 +215,10 @@ body {
     	FeedDAO fdao = new FeedDAO();
     	FollowDAO fwdao = new FollowDAO();
     	FeedLikeDAO fldao = new FeedLikeDAO();
+    	MemberDAO dao = new MemberDAO(); 
+    	FeedCommentDAO fcdao = new FeedCommentDAO();
+    	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
+    	ScrapDAO sdao = new ScrapDAO();
     	
     	MemberDTO member = (MemberDTO)session.getAttribute("member");
     	String nick = member.getNick();
@@ -231,7 +235,7 @@ body {
     	pageContext.setAttribute("feedList",feedList);
     	
     	// 개행 처리
-		pageContext.setAttribute("enter","\n");
+		pageContext.setAttribute("enter","\r\n");
     %>
     
     <!-- 키티퍼피 로고 -->
@@ -269,13 +273,26 @@ body {
         
         <c:forEach var ='feed' items = '${feedList}'>
         	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
+        	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>
 			<div class='row mt-3 text-center'>
 				<div class='row justify-content-center'>
 	                <div class='d-grid gap-sm-1 col-sm-6'>
 	                    <!-- 게시자 정보 -->
+	                    <%
+	                    	String fnick = (String) request.getAttribute("fnick");
+	                    	MemberDTO fm = dao.memberInfo(fnick);
+	                    	pageContext.setAttribute("fm",fm);
+	                    %>
 	                    <a href = 'otherpage.jsp?nick=${feed.nick}'>
 		                    <div class = 'col-6'>
-		                        <img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    	<c:choose>
+		                    		<c:when test = "${empty fm.picAddress}">
+		                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    		</c:otherwise>
+		                    	</c:choose>
 		                        <div align ='left'>
 			                        <strong>${feed.nick}</strong><br/>
 			                        ${feed.feedDate}
@@ -334,11 +351,21 @@ body {
 	                    <div class = 'navbar'>
 	                    	<%
 	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
+	                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,fdn,null,nick));
+	                    	
 	                    		if (check) {
 	                    			pageContext.setAttribute("check",1);
 	                    		} else {
 	                    			pageContext.setAttribute("check",0);
 	                    		}
+	                    		
+	                    		if (checkS) {
+	                    			pageContext.setAttribute("checkS",1);
+	                    		} else {
+	                    			pageContext.setAttribute("checkS",0);
+	                    		}
+	                    		
+	                    		
 	                    	%>
 	                    	<div id = 'likeCheck${feed.feedNo}'>
 		                    	<c:choose>
@@ -351,8 +378,16 @@ body {
 		                    	</c:choose>
 	                    	</div>
 	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
-	                        <button class = 'bt4'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
-	                        <!-- <button class = 'bt5'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button> -->
+	                        <div id ='scrap${feed.feedNo}'>
+	                        	<c:choose>
+	                        		<c:when test="${checkS==1}">
+	                        			<button onclick ='scrapDelete(${feed.feedNo},"#scrap${feed.feedNo}")'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<button onclick ='scrap(${feed.feedNo},"#scrap${feed.feedNo}")'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </div>
 	                    </div>
 	                    
 	                    <!--  피드 댓글 창 -->
@@ -364,7 +399,6 @@ body {
 	                    	<div class = 'comment_body' align = 'left'>
 	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
 	                    		<%
-	                    			FeedCommentDAO fcdao = new FeedCommentDAO();
 	                    			ArrayList<FeedCommentDTO> cs = null;
 	                    			int feedNo = (int) session.getAttribute("feedNo");
 	                    			cs = fcdao.feedCommentShow(feedNo);
@@ -374,7 +408,6 @@ body {
 	                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>	                  
 	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
 		                    		<%
-		                    			FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
 		                    			ArrayList<FeedCoCommentDTO> ccs = null;
 		                    			int fcNo = (int) session.getAttribute("fcNo");
 		                    			ccs = fccdao.feedCoCommentShow(fcNo);
@@ -493,7 +526,62 @@ body {
 			});
 		};
 		
-		// 2. 댓글 작성 db 저장 기능 예시
+		// 스크랩 체크
+		function scrapCheck(feedNo,id){
+			 $.ajax({
+				async: false,
+			    url: "ScrapCheckCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo },
+		        dataType : 'json',
+		        success: function(result) {
+		        	if (result == 0) {
+		        		$(id).html("<button onclick ='scrap("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>");
+		        	} else {
+		        		$(id).html("<button onclick ='scrapDelete("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>");
+		        	}
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 스크랩 하기
+		function scrap(feedNo,id){
+			 $.ajax({
+			    url: "ScrapCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	scrapCheck(feedNo,id);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 스크랩 취소하기
+		function scrapDelete(feedNo,id){
+			 $.ajax({
+			    url: "ScrapDeleteCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	scrapCheck(feedNo,id);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 댓글 작성 db 저장 기능 예시
 		function lostCommentCreate(){
 		    $.ajax({
 		        type: "post",

@@ -6,32 +6,29 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kittypuppy.model.MemberDTO;
 import com.kittypuppy.model.ScrapDAO;
 import com.kittypuppy.model.ScrapDTO;
 
 public class ScrapDeleteCon implements iCommand {
-	ScrapDAO dao = new ScrapDAO();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String nick = request.getParameter("nick");
+		HttpSession session = request.getSession();
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		String nick = member.getNick();
+		
+		ScrapDAO sdao = new ScrapDAO();
+		
+		int result = sdao.scrapDelete(new ScrapDTO(null,feedNo,null,nick));
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
 
-		int cnt = dao.scrapDelete(new ScrapDTO(nick, feedNo, null));
-
-		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
-		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('데이터 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
-
-		}
 	}
 
 }

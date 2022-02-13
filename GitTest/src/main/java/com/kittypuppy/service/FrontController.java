@@ -56,6 +56,7 @@ public class FrontController extends HttpServlet {
 		map.put("/MUpdateCon.do", new MUpdateCon());
 		map.put("/MDeleteCon.do", new MDeleteCon());
 		map.put("/ScrapCon.do", new ScrapCon());
+		map.put("/ScrapCheckCon.do", new ScrapCheckCon());
 		map.put("/ScrapDeleteCon.do", new ScrapDeleteCon());
 		map.put("/MJoinIdCheckCon.do", new MJoinIdCheckCon());
 		map.put("/MJoinNickCheckCon.do", new MJoinNickCheckCon());
