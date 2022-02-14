@@ -105,6 +105,27 @@ public class FollowDAO {
 		
 	}
 	
+	// 팔로우 한 otherpage에 팔로우 했음을 표시하기
+	public boolean followMark(String nick, String followerNick) {
+			
+		boolean isfollow = false;
+		connect();
+		try {
+			String sql = "select * from follow where nick = ? and followernick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			psmt.setString(2, followerNick);
+			rs =  psmt.executeQuery();
+			isfollow = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return isfollow;
+			
+	}
+	
 	public int unFollow(FollowDTO follow) {
 		
 		int cnt = 0;

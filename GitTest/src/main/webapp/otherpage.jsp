@@ -6,6 +6,9 @@
 <%@page import="com.kittypuppy.model.FeedDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,19 +70,25 @@
     </div>
     
     <%
-    	String nick = request.getParameter("nick");
+    	// 다른사람의 프로필 이미지를 눌렀을때 get방식으로 담겨오는 nick을 받아주는 것
+    	String otherNick = request.getParameter("nick");
+    	request.setAttribute("otherNick", otherNick);
     	
    		FeedDAO feed = new FeedDAO();
-   		ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
+   		ArrayList<FeedDTO> feedList = feed.feedSelect(otherNick);
+   		
    		
    		FollowDAO follow = new FollowDAO();
    		// 나를 팔로우 하는 사람들
-   		ArrayList<String> followerList = follow.followerShow(nick);
+   		ArrayList<String> followerList = follow.followerShow(otherNick);
    		// 내가 팔로잉중인 사람들
-   		ArrayList<String> followingList = follow.followingShow(nick);
+   		ArrayList<String> followingList = follow.followingShow(otherNick);
    		
    		MemberDAO dao = new MemberDAO();
-   		MemberDTO member = dao.memberInfo(nick);
+   		MemberDTO otherMember = dao.memberInfo(otherNick);
+   		
+   		MemberDTO member = (MemberDTO)session.getAttribute("member");
+   		
     %>
 
 
@@ -112,17 +121,33 @@
 
                 <!-- 닉네임, 프로필 소개글 -->
                 
-                <div class="item nick text-start mt-2 mx-2"><%=nick%></div>
+                <div class="item nick text-start mt-2 mx-2"><%=otherNick%></div>
                 
                 
-                <div class="item intro text-start mb-2 mx-2"><%=member.getProfile()%></div>
+                <div class="item intro text-start mb-2 mx-2"><%=otherMember.getProfile()%></div>
                 
             
             
             
-                <!-- 회원정보수정, 게시물 작성 버튼 -->
-                <div class="item update">
-                    <button type="button" class="btn me-1 follow">팔로우</button>
+                <!-- 팔로우, 메세지 버튼 -->
+                <div class="item update" id="followCheck">
+                	<%
+                		boolean check = follow.followMark(member.getNick(), otherNick);
+                	
+                		if(check){
+                			pageContext.setAttribute("check", 1);
+                		}else{
+                			pageContext.setAttribute("check", 0);
+                		}
+                	%>
+                	<c:choose>
+                		<c:when test="${check==0}">
+                			<button onclick='follow()'type="button" class="btn me-1 follow">팔로우</button>
+                		</c:when>
+						<c:otherwise>
+							<button onclick='followDelete()'type="button" class="btn me-1 follow">팔로우</button>
+						</c:otherwise>                		
+                	</c:choose>
                 </div>
                 <div class="item write">
                     <button type="button" class="btn ms-1 message" onclick="location.href='' ">메세지</button>
@@ -151,6 +176,7 @@
                 	for(int i = 0; i < feedList.size(); i++){ 
                 	String carouselid = "carouselExampleControls";
                 	carouselid += i;
+                	request.setAttribute("feedNO", feedList.get(i).getFeedNo());
                 %>
 						
                	
@@ -245,5 +271,19 @@
     
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
+    
+    <script src='jquery-3.6.0.min.js'></script>
+    <script>
+    	
+    	// 팔로우 체크
+    	function followCheck(){
+    		$.ajax({
+    			async: false,
+				url: "Follow"    			
+    		});
+    		
+    	};
+    
+    </script>
 </body>
 </html>

@@ -65,7 +65,7 @@ public class FeedDAO {
 		
 	}
 	
-	// ï¿½Çµï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+	// ¸ðµç È¸¿øÀÇ ÇÇµå º¸¿©ÁÖ±â (ÆÈ·Î¿ìÇÏ°í ÀÖ´Â È¸¿øÀÌ ¾øÀ» ¶§) 
 	public ArrayList<FeedDTO> feedShowAll(){
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
@@ -87,7 +87,7 @@ public class FeedDAO {
 		return feedList;
 	}
 	
-	// ï¿½È·ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+	// ³»°¡ ÆÈ·Î¿ì ÇÏ°í ÀÖ´Â È¸¿øµéÀÇ ÇÇµå º¸¿©ÁÖ±â
 	public ArrayList<FeedDTO> feedShow(ArrayList<String> followingList) {
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
@@ -120,7 +120,7 @@ public class FeedDAO {
 		return feedList;
 	}
 	
-	// Æ¯ï¿½ï¿½ï¿½Î¹ï¿½ ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+	// Æ¯Á¤ È¸¿øÀÇ ÇÇµå º¸¿©ÁÖ±â
 	public  ArrayList<FeedDTO> feedSelect(String nick) {
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
@@ -186,7 +186,7 @@ public class FeedDAO {
 	}
 	
 
-	// ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ ï¿½Çµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ÅÂ±×·Î ÇÇµå °Ô½Ã¹° °Ë»öÇÏ±â
 	public ArrayList<FeedDTO> feedSearchByTag(String tag) {
 		
 		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
@@ -209,7 +209,7 @@ public class FeedDAO {
 		return feedList;
 	}
 	
-	// ï¿½Çµï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Çµï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+	// °Ô½Ã¹°¹øÈ£·Î ÇÇµå °Ô½Ã¹° °Ë»öÇÏ±â
 	public FeedDTO feedSearchByNo(int feedNo) {
 
 		FeedDTO feed = null;
