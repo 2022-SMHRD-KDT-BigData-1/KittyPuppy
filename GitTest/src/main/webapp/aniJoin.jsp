@@ -80,6 +80,8 @@
 <body>
 
  <div class="container out">
+ 
+ <form action="AniJoinCon.do" method="post">
 
         <div class="row">
 
@@ -89,7 +91,7 @@
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
                     <div class="col-2">
-                        <a href=""><!-- 마이페이지 이동 -->
+                        <a href="mypage.jsp"><!-- 마이페이지 이동 -->
                         <i class="bi bi-chevron-left"
                                 style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
                             
@@ -129,17 +131,17 @@
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <input type="nick" class="form-control" placeholder="닉네임"><br>
-                <input type="" class="form-control" placeholder="반려동물 이름"><br>
+                <input type="nick" class="form-control" placeholder="닉네임" name="nick"><br>
+                <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName"><br>
 
 
                 <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select">
+                    <select id="disabledSelect" class="form-select" name="upKind">
                         <option>반려동물 대분류</option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                        <option>고양이</option>
+                        <option>개</option>
+                        <option>동물</option>
                         <!--  <option value=""></option> 추가 하면 됨 -->
 
                     </select>
@@ -147,18 +149,14 @@
 
                 <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select">
-                        <option>반려동물 소분류</option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                    </select>
+				<input type="text" class="form-control" placeholder="반려동물 소분류 ex)푸들 or 샴" name="kind">
+                    
                 </div>
 
 
                 <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select">
+                    <select id="disabledSelect" class="form-select" name="animalSex">
                         <option>성별</option>
                         <option value="">여아</option>
                         <option value="">남아</option>
@@ -166,8 +164,8 @@
                     </select>
                 </div>
 
-                <input type="birthday" class="form-control" placeholder="나이"><br>
-                <input type="profile" class="form-control" placeholder="프로필"><br>
+                <input type="text" class="form-control" placeholder="나이 ex)2세" name="animalAge"><br>
+                <input type="text" class="form-control" placeholder="반려동물 프로필" name="animalProfile"><br>
 
 
 
@@ -178,12 +176,12 @@
 
 
             <div class="d-grid gap-2 col-12 mx-auto">
-                <button type="button" class="btn" style="background-color: #25aa90;">완료</button>
+                <button type="submit" class="btn" style="background-color: #25aa90;">완료</button>
 
             </div>
 
         </div>
-
+</form>
     </div>
 
 

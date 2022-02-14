@@ -76,10 +76,10 @@
 
 </head>
 <body>
-<form action="MUpdateCon.do" method="post">
+
  <div class="container">
  
-
+<form action="MUpdateCon.do" method="post">
         <div class="row">
 
 
@@ -122,7 +122,7 @@
                 </div>
 				<div class="d-grid gap-2 col-sm-12 mx-auto">
                 <!-- 정보 변경 -->
-                <input type="text" class="form-control" placeholder="닉네임" name="nick">
+                <input type="text" id = "input_nick" class="form-control" placeholder="닉네임" name="nick">
                 <span id="checkNick" size="2"></span>
                 
                 <input type="password" class="form-control" placeholder="비밀번호" name="pw">
@@ -147,12 +147,12 @@
 
 
             <div class="d-grid gap-2 col-sm-12 mx-auto">
-                <button type="submit" class="btn" style="background-color: #25aa90;">완료</button>
+                <button type="submit" class="btn my-3" style="background-color: #25aa90;">완료</button>
 
             </div>
 </div>
         </div>
-
+</form>
     </div>
 
 <!-- 닉 중복 체크 -->
@@ -188,7 +188,7 @@
    })
    </script>
 
-</form>
+
 
 
 

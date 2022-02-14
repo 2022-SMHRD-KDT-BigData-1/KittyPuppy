@@ -3,6 +3,7 @@ package com.kittypuppy.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,11 +28,12 @@ public class AniJoinCon implements iCommand {
 		int animalAge = Integer.parseInt(request.getParameter("animalAge"));
 		String animalProfile = request.getParameter("animalProfile");
 
-		int cnt = dao
-				.aniJoin(new AnimalDTO(nick, animalName, animalPic, upKind, kind, animalSex, animalAge, animalProfile));
+		int cnt = dao.aniJoin(new AnimalDTO(nick, animalName, animalPic, upKind, kind, animalSex, animalAge, animalProfile));
 
 		if (cnt > 0) {
-			response.sendRedirect("#");
+			response.sendRedirect("mypage.jsp"); //등록 완료시 마이페이지로 이동
+			
+			 
 		} else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
