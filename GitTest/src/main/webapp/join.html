@@ -77,6 +77,9 @@ html, body {
 </head>
 
 <body>
+
+
+
 	<div class="simple-login-container">
 		<form action="MJoinCon.do" method="post">
 
@@ -117,64 +120,64 @@ html, body {
 
 <script src="jquery-3.6.0.min.js"></script>
 
-   <script>
-      $('#input_id').focusout(function() {
-         let userId = $('#input_id').val();
+<script>
+		$('#input_id').focusout(function() {
+			let userId = $('#input_id').val();
 
-         $.ajax({
-            url : "MJoinIdCheckCon.do",
-            type : "get",
-            data : {
-               id : userId
-            },
-            dataType : 'json',
-            success : function(result) {
-               if (result == 0) {
-                  document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 없는 아이디입니다');
-                  $("#checkId").attr('color', 'red');
-               } else {
-                  document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 있는 아이디입니다');
-                  $("#checkId").attr('color', 'green');
-               }
-            },
-            error : function() {
-               alert("서버요청실패 id")
-            }
-         })
-      })
-      
-   </script>
-   <script >
-   $('#input_nick').focusout(function() {
-      let userNick = $('input_nick').val();
+			$.ajax({
+				url : "MJoinIdCheckCon.do",
+				type : "post",
+				data : {
+					id : userId
+				},
+				dataType : 'json',
+				success : function(result) {
+					if (result == 0) {
+						document.getElementById('checkId').style.display = 'block';
+						$("#checkId").html('사용할수 없는 아이디입니다');
+						$("#checkId").attr('color', 'red');
+					} else {
+						document.getElementById('checkId').style.display = 'block';
+						$("#checkId").html('사용할수 있는 아이디입니다');
+						$("#checkId").attr('color', 'green');
+					}
+				},
+				error : function() {
+					alert("서버요청싶패")
+				}
+			})
+		})
+		
+	</script>
+	<script >
+	$('#input_nick').focusout(function() {
+		let userNick = $('input_nick').val();
 
-      $.ajax({
-         url : "MJoinNickCheckCon.do",
-         type : "post",
-         data : {
-            Nick : userNick
-         },
-         dataType : 'json',
-         success : function(result) {
-            if (result == 0) {
-               document.getElementById('checkNick').style.display = 'block';
-               $("#checkNick").html('사용할수 없는 닉네임입니다');
-               $("#checkNick").attr('color', 'red');
-                
-            } else {
-               document.getElementById('checkNick').style.display = 'block';
-               $("#checkNick").html('사용할수 있는 닉네임입니다');
-               $("#checkNick").attr('color', 'green');
-            }
-         },
-         error : function() {
-            alert("서버요청실패 nick")
-         }
-      })
-   })
-   </script>
+		$.ajax({
+			url : "MJoinNickCheckCon.do",
+			type : "post",
+			data : {
+				Nick : userNick
+			},
+			dataType : 'json',
+			success : function(result) {
+				if (result == 0) {
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할수 없는 닉네임입니다');
+					$("#checkNick").attr('color', 'red');
+				 	
+				} else {
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할수 있는 닉네임입니다');
+					$("#checkNick").attr('color', 'green');
+				}
+			},
+			error : function() {
+				alert("서버요청싶패")
+			}
+		})
+	})
+	</script>
 
 
 

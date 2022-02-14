@@ -192,7 +192,7 @@ public class MemberDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
-			if (rs.next()) {
+			if (rs.next() || id.equals("")) {
 				check = 0;
 			} else {
 				check = 1;
@@ -205,7 +205,7 @@ public class MemberDAO {
 		return check;
 	}
 
-//닉내암 중복 체크
+//닉네임 중복 체크
 	public int memberNickCheck(String nick) {
 
 		int check = 0;
