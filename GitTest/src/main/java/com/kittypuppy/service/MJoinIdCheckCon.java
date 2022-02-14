@@ -15,7 +15,7 @@ public class MJoinIdCheckCon implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("EUC-KR");
+		response.setCharacterEncoding("UTF-8");
 
 		// 이메일, 비밀번호,전화번호,주소
 		String id = request.getParameter("id");
@@ -36,3 +36,4 @@ public class MJoinIdCheckCon implements iCommand {
 		out.write(check + "");  //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
 	}
 }
+

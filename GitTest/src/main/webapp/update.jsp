@@ -122,7 +122,7 @@
                 </div>
 				<div class="d-grid gap-2 col-sm-12 mx-auto">
                 <!-- 정보 변경 -->
-                <input type="text" id = "input_nick" class="form-control" placeholder="닉네임" name="nick">
+                <input type="text" id ="nick" class="form-control" placeholder="닉네임" name="nick">
                 <span id="checkNick" size="2"></span>
                 
                 <input type="password" class="form-control" placeholder="비밀번호" name="pw">
@@ -131,8 +131,8 @@
 
                     <select id="disabledSelect" class="form-select" name="sex">
                         <option>성별</option>
-                        <option value="male">남성</option>
-                        <option value="female">여성</option>
+                        <option value="남성">남성</option>
+                        <option value="여성">여성</option>
                     </select>
 
 
@@ -159,14 +159,14 @@
 <script src="jquery-3.6.0.min.js"></script>
 
 <script >
-   $('#input_nick').focusout(function() {
-      let userNick = $('input_nick').val();
+   $('#nick').focusout(function() {
+      var nick = $('#nick').val();
 
       $.ajax({
          url : "MJoinNickCheckCon.do",
          type : "post",
          data : {
-            Nick : userNick
+            NICK : NICK
          },
          dataType : 'json',
          success : function(result) {
