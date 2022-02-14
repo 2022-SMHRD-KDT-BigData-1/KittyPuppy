@@ -69,7 +69,7 @@ public class LostCommentDAO {
 		LostCommentDTO loc = null;
 		connect();
 		try {
-			String sql = "select * from lost_comment where lostno = ? order by codate desc";
+			String sql = "select * from lost_comment where lostno = ? order by codate asc";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lostNo);
 			rs =  psmt.executeQuery();

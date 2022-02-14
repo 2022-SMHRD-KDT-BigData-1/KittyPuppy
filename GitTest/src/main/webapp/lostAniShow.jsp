@@ -266,8 +266,12 @@ img {
 	display: none;
 }
 
-/* 이하 대댓글 배치 관련 flex 설정*/
-#coComItems {
+/* *** 이하 댓글 대댓글 배치 관련 flex 설정*/
+.lcocoNum {
+	color: gray;
+}
+
+#aCocomment-div {
 	display: flex;
 }
 
@@ -279,7 +283,7 @@ img {
 .coco-items {
 	flex: auto;
 }
-/* 이상 대댓글 배치 관련 flex 설정*/
+/* **** 이상 댓글 대댓글 배치 관련 flex 설정*/
 
 /* grid 구분 확인을 위한 css 설정*/
 .b {
@@ -398,6 +402,8 @@ img {
 						<p id="lostComCnt">댓글수 ${Commentcnt}</p>
 					</div>
 
+
+
 					<!-- 댓글 버튼 : 작성자일 경우 글 수정 버튼 생성 -->
 					<div class="comment-btn-line b">
 						<button class='btn comment-btn b' type='button'
@@ -406,65 +412,93 @@ img {
 							<i class='bi bi-chat-dots lcs'> 댓글</i>
 						</button>
 						<c:if test="${member.getNick() == lostAni.nick}">
-							<button class='btn update-btn b' type='button'>
-								<i class="bi bi-vector-pen">글 수정</i>
-							</button>
+							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}"><button
+									class='btn update-btn b' type='button'>
+									<i class="bi bi-vector-pen">글 수정</i>
+								</button></a>
 						</c:if>
 					</div>
 
-					<!-- 댓글 보이는 창  -->
+					<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
 					<div class="collapse" id="collapseExample">
-						<div class="well">
-							<div class="comment-contents b">
-								<c:forEach var="lco" items="lco_list">
-									<div id="comItems${lco.locno}">
-										<p>${lco.nick}</p>
-										<p class="">${lco.content}</p>
-										<span class="">${fn:substring(lco.laDate,0,11)}</span> <span
-											class="">${fn:substring(lco.laUpdate,0,11)}</span>
+						<div class="well comment-contents b">
 
-										<c:forEach var="lcoco" items="lcoco_list">
+							<c:forEach var="lco" items="${lco_list}">
 
-											<c:if test="${lcoco.lostno == lco.lostno}">
-												<div id="coComItems ${lcoco.cono}">
-													<div class="coco-space">ㄴ</div>
-													<div class="coco-items">
-														<p class="">${lcoco.nick}</p>
-														<p class="">${lcoco.content}</p>
-														<span class="">${fn:substring(lcoco.laDate,0,11)}</span> <span
-															class="">${fn:substring(lcoco.laUpdate,0,11)}</span>
-													</div>
-												</div>
-											</c:if>
-										</c:forEach>
-									</div>
+								<div class='aComment-box${lco.locNo}'>
+									<p>${lco.nick}</p>
+									<p class="">${lco.content}</p>
+									<span class="">${fn:substring(lco.coDate,0,11)}</span> <span
+										class="">${fn:substring(lco.coUpdate,0,11)}</span> <a
+										class="write_cocomment">댓글쓰기</a>
+
+									<c:set var="lcocoNum" value="0" scope="request" />
+									<c:forEach var="lcoco" items="${lcoco_list}">
+										<c:if test="${lcoco.locNo == lco.locNo}">
+											<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
+												scope="request" />
+										</c:if>
+									</c:forEach>
+									<c:if test="${requestScope.lcocoNum > 0}">
+										<a class="h6 lcocoNum${lco.locNo} b">ㅡ 댓글수
+											${requestScope.lcocoNum}</a>
+									</c:if>
 
 
-
-								</c:forEach>
-							</div>
+									<!-- <%-- <div id="aCocomment-div${lcoco.cono}">
+											<div class="coco-space">ㄴ</div>
+											<div class="coco-items">
+												<p class="">${lcoco.nick}</p>
+												<p class="">${lcoco.content}</p>
+												<span class="">${fn:substring(lcoco.laDate,0,11)}</span> <span
+													class="">${fn:substring(lcoco.laUpdate,0,11)}</span>
+											</div>
+										</div> --%> -->
+								</div>
+							</c:forEach>
 						</div>
 					</div>
-
+					<!-- 댓글 작성 창 구현 : 시작 : 가져옴-->
+					<div>
+						<form action='lostCommentCreateCon.do' method='post'>
+							<div class='input-group rounded'>
+								<input type='text' class='form-control rounded'
+									placeholder='댓글 입력' aria-label='Search'
+									aria-describedby='search-addon' /> <input type='submit'
+									value='↑'>
+							</div>
+						</form>
+					</div>
+					<!-- 댓글 작성 창 구현 : 종료 -->
 				</div>
+
+
+				<!-- 댓글 및 댓글 작성창 collapse : 종료 -->
+				<!-- 댓글 종료 -->
+
 			</div>
+		</div>
 
 
-			<!-- Optional JavaScript; choose one of the two! -->
+		<!-- Optional JavaScript; choose one of the two! -->
 
-			<!-- Option 1: Bootstrap Bundle with Popper -->
-			<script
-				src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-				crossorigin="anonymous"></script>
+		<!-- Option 1: Bootstrap Bundle with Popper -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous"></script>
 
-			<!-- Option 2: Separate Popper and Bootstrap JS -->
-			<!--
+		<!-- Option 2: Separate Popper and Bootstrap JS -->
+		<!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
 
-			<script>
+		<script>
+			
+		// moveLostAniupdate(): 페이지 이동 : a 태그로 버튼이 감싸지면  필요 없음.
+		
+			
 		//작성 버튼 눌리면 작동하는 기능
 		$('.comment-btn').on('click', lostCommentCnt() {
 			let cnt = 0;
@@ -502,62 +536,115 @@ img {
 			$('#lostComCnt').html("댓글" + cnt + "개");
 		});
 		
+
+		// 1. 댓글 개수 보기 (dao댓글 가져와서 -> 개수 반환) 필요 없음...
+		// function lostCommentCnt(lostNo) {
+		/* function lostCommentCnt() {
+			let cnt = lco_list.size() + lcoco_list.size(); 
+			$('#lostComCnt').html("댓글수" + cnt);
+		} */
 		
+		// 현재 댓글 대댓글 list 가져오기 
+		function submitComment(lostNo){
+			 $.ajax({
+			    url: "LostCommenShowCon.do",
+			    type: "post",
+                async:false, // 이 한 줄만 추가하면 전역 변수에 저장 가능
+		       data: { lostNo: lostNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	
+		        	let code ='';
+		        	
+		        	// 받아온 데이터를 테이블에 추가해주세요
+					for (let i = 0; i < result.length; i++) {
+						// 현재 배열의 원소를 사용가능한 객체로 변환한 후, 
+						let lco = JSON.parse(result[i]);
+
+						code += '	<div id="aComment-div'+lco.locNo+'">';
+						code += '	<p>'+lco.nick+'</p>';
+						code += '	<p class="">'+lco.content+'</p>';
+						code += '<span class="">${fn:substring('+lco.laDate+',0,11)}</span> <span';
+						code += '	class="">${fn:substring('+lco.laUpdate+',0,11)}</span> <a';
+						code += '	class="write_cocomment">댓글쓰기</a>';
+			
+						code += '		<c:forEach var="lcoco" items="lcoco_list">';
+			
+						code += '			<c:if test="${lcoco.lostNo == '+lco.lostNo+'}">';
+						code += '				<div id="aCocomment-div ${lcoco.cono}">';
+						code += '					<div class="coco-space">ㄴ</div>';
+						code += '				<div class="coco-items">';
+						code += '					<p class="">${lcoco.nick}</p>';
+						code += '					<p class="">${lcoco.content}</p>';
+						code += '					<span class="">${fn:substring(lcoco.laDate,0,11)}</span> <span';
+						code += '						class="">${fn:substring(lcoco.laUpdate,0,11)}</span>';
+						code += '	</div></div></c:if></c:forEach></div>';
+						}
+						
+			            $(".comment-contents").html(code);
+						$('#lostComCnt').html("댓글수" + ${Commentcnt+1});
+			            
+		        },
+			    error: function() {
+		    		console.log("err-co");
+		    	}
+			});
+		};
+
+		function submitCoComment(lostNo){
+			 $.ajax({
+			    url: "LostCoCommenShowCon.do",
+			    type: "post",
+                async:false, // 이 한 줄만 추가하면 전역 변수에 저장 가능
+		       data: { lostNo: lostNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	
+ 		        	let code ='';
+ 		        	//받아온 데이터를 테이블에 추가해주세요
+ 					for (let i = 0; i < result.length; i++) {
+ 						// 현재 배열의 원소를 사용가능한 객체로 변환한 후, 
+ 						let lcoco = JSON.parse(result[i]);
+					
+		        	
+		        	
+		       		code += '<div class="well">';
+		    		code += '<div class="comment-contents b">';
 		
-		$('.write_on')
-				.on(
-						'click',
-						function() {
-							let com = $('input[type=text]').val();
-							$('#comments')
-									.append(
-											'<li class="com'+num+'">'
-													+ com
-													+ '<input type="button" value="댓글삭제"onclick="del('
-													+ num + ')"></li>');
-							num++;
-							$('input[type=text]').val('');
-
-						});
-
-		// 1. 댓글 개수 보기 (dao댓글 가져와서 -> 개수 반환)
-		function lostCommentCnt() {
-			let cnt = 0;
-
-			$.ajax({
-				type : "post",
-				data : {
-					"lostNo" : lostNo
-				},
-				url : "LostCommentCntCon.do",
-				dataType : "text",
-				success : function(data) {
-					cnt += data;
-				},
-				error : function() {
-					alert("ajax 1 실패");
-				}
+					code += '<c:forEach var="lco" items="lco_list">';
+		
+					code += '	<div id="aComment-div${lco.locNo}">';
+					code += '	<p>${lco.nick}</p>';
+					code += '	<p class="">${lco.content}</p>';
+					code += '<span class="">${fn:substring(lco.laDate,0,11)}</span> <span';
+					code += '	class="">${fn:substring(lco.laUpdate,0,11)}</span> <a';
+					code += '	class="write_cocomment">댓글쓰기</a>';
+		
+					code += '		<c:forEach var="lcoco" items="lcoco_list">';
+		
+					code += '			<c:if test="${lcoco.lostno == lco.lostno}">';
+					code += '				<div id="aCocomment-div${lcoco.cono}">';
+					code += '					<div class="coco-space">ㄴ</div>';
+					code += '				<div class="coco-items">';
+					code += '					<p class="">${lcoco.nick}</p>';
+					code += '					<p class="">${lcoco.content}</p>';
+					code += '					<span class="">${fn:substring(lcoco.laDate,0,11)}</span> <span';
+					code += '						class="">${fn:substring(lcoco.laUpdate,0,11)}</span>';
+					code += '	</div></div></c:if></c:forEach></div></c:forEach></div></div></div>';
+					
+		            $(".comment-contents").html(code);
+					$('#lostComCnt').html("댓글수" + ${Commentcnt+1}); */
+		        },
+		        
+		        
+			    error: function() {
+		    		console.log("err-coco");
+		    	}
 			});
-
-			$.ajax({
-				type : "post",
-				data : {
-					"lostNo" : lostNo
-				},
-				url : "LostCoCommentCntCon.do",
-				dataType : "text",
-				success : function(data) {
-					cnt += data;
-				},
-				error : function() {
-					alert("ajax 2 실패");
-				}
-			});
-
-			$('#lostComCnt').html("댓글" + cnt + "개");
-		}
-
-		lostCommentCnt();
+		};
+		
 	</script>
 </body>
 </html>
