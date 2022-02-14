@@ -27,9 +27,9 @@ public class FollowMarkCon implements iCommand {
 		
 		boolean check = follow.followMark(nick, followerNick);
 		
-		int result = 0;
+		int result = 0; // 팔로우테이블에 행이 없음. 즉, 팔로우를 안한 상태
 		if(check) {
-			result = 1;
+			result = 1; // 팔로우테이블에 행이 있음. 즉, 팔로우를 한 상태
 		}
 		
 		PrintWriter out = response.getWriter();

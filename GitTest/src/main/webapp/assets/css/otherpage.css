@@ -157,6 +157,11 @@ h1 {
 	width: 215px;
 }
 
+.btn.unfollow{
+	background-color: #25aa8f7e !important;
+	width: 215px;
+}
+
 .row {
 	margin: 0px;
 	align-items: center;
@@ -255,7 +260,7 @@ h1 {
 		padding-left: 240px;
 		margin-top: 15px;
 	}
-	.btn.follow, .btn.message {
+	.btn.follow, .btn.message, .btn.unfollow {
 		width: 135px;
 	}
 

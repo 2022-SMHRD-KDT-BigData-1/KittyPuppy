@@ -131,7 +131,7 @@ public class FollowDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "delete from follow where nick = ? followernick = ?";
+			String sql = "delete from follow where nick = ? and followernick = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, follow.getNick());
 			psmt.setString(2, follow.getFollowerNick());

@@ -142,10 +142,10 @@
                 	%>
                 	<c:choose>
                 		<c:when test="${check==0}">
-                			<button onclick='follow()'type="button" class="btn me-1 follow">팔로우</button>
+                			<button onclick='follow("#followCheck")'type="button" class="btn me-1 follow">팔로우</button>
                 		</c:when>
 						<c:otherwise>
-							<button onclick='followDelete()'type="button" class="btn me-1 follow">팔로우</button>
+							<button onclick='unFollow("#followCheck")'type="button" class="btn me-1 unfollow">팔로우 취소</button>
 						</c:otherwise>                		
                 	</c:choose>
                 </div>
@@ -276,12 +276,58 @@
     <script>
     	
     	// 팔로우 체크
-    	function followCheck(){
+    	function followCheck(id){
     		$.ajax({
     			async: false,
-				url: "Follow"    			
+				url: "FollowMarkCon.do",
+				type: "post",
+				data: {id: id},
+				dataType: "json",
+				success: function(result){
+					if(result == 0){
+						console.log("팔로우 안한 상태");
+						$(id).html('<button onclick="follow(\"#followCheck\")" type="button" class="btn me-1 follow">팔로우</button>');
+					}else{
+						console.log("팔로우 한 상태")
+						$(id).html('<button onclick="unFollow(\"#followCheck\")" type="button" class="btn me-1 unfollow">팔로우</button>')
+					}
+				},
+				error: function(){
+					console.log("err");
+				}
     		});
-    		
+    	};
+    	
+    	// 팔로우 하기
+    	function follow(id){
+    		$.ajax({
+    			url: "FollowCon.do",
+    			type: "post",
+    			data: {id: id},
+    			dataType: "json",
+    			success: function(result){
+    				followCheck(id);
+    			},
+    			error:function(){
+    				console.log("err");
+    			}
+    		});
+    	};
+    	
+    	// 팔로우 취소
+    	function unFollow(id){
+    		$.ajax({
+    			url: "UnFollowCon.do",
+    			type: "post",
+    			data: {id: id},
+    			dataType: "json",
+    			success: function(result){
+    				followCheck(id);
+    			},
+    			error: function(){
+    				console.log("err");
+    			}
+    		});
     	};
     
     </script>
