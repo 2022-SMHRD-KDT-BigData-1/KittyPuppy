@@ -36,4 +36,3 @@ public class MJoinIdCheckCon implements iCommand {
 		out.write(check + "");  //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
 	}
 }
-
