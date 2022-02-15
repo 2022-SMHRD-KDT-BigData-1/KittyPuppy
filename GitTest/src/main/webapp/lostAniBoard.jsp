@@ -4,6 +4,7 @@
 <%@ page import="com.kittypuppy.model.*"%>
 <%@ page import="com.kittypuppy.service.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='fn' uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%
 MemberDTO member = (MemberDTO) session.getAttribute("member");
@@ -424,7 +425,7 @@ img {
 					<c:forEach var="lost" items="${lostList}">
 						<div class="card">
 							<a href='lostAniShow.jsp?lostNo=${lost.getLostNo()}'> <img
-								src='${lost.getAniPic()}' class="img-fluid card-img-top"
+								src='${fn:split(lost.aniPic,",")[0]}' class="img-fluid card-img-top"
 								onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
 								alt="이미지가 등록되지 않았습니다."></a>
 							<div class="card-body">
