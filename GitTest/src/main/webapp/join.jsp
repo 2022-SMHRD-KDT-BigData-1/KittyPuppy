@@ -111,7 +111,7 @@ html, body {
 
 
 				<div class="d-grid gap-2 col-12 mx-auto">
-					<button type="submit" class="btn"
+					<button type="submit" class="btn my-2"
 						style="background-color: #25aa90;">완료</button>
 
 				</div>
@@ -137,19 +137,19 @@ html, body {
             success : function(result) {
                if (result == 0) {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 없는 아이디입니다');
+                  $("#checkId").html('사용할 수 없는 아이디입니다');
                   $("#checkId").attr('color', 'red');
                } else {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 있는 아이디입니다');
+                  $("#checkId").html('사용할 수 있는 아이디입니다');
                   $("#checkId").attr('color', 'green');
                }
             },
             error : function() {
-               alert("서버요청실패 id")
+               alert("서버요청실패 id");
             }
-         })
-      })
+         });
+      });
       
    </script>
 	<script type="text/javascript">
@@ -168,20 +168,20 @@ html, body {
 			success : function(result) {
 				if (result == 0) { 
 					document.getElementById('checkNick').style.display = 'block';
-					$("#checkNick").html('사용할수 없는 닉네임입니다');
-					$("#checkNick").attr('color', 'red');
+					$("#checkNick").html('사용할 수 없는 닉네임입니다');
+					$("#checkNick").css("color", "red");
 				 	
 				} else {
 					document.getElementById('checkNick').style.display = 'block';
-					$("#checkNick").html('사용할수 있는 닉네임입니다');
-					$("#checkNick").attr('color', 'green');
+					$("#checkNick").html('사용할 수 있는 닉네임입니다');
+					$("#checkNick").css('color', 'green');
 				}
 			},
 			error : function() {
-				alert("nick서버요청실패")
-			}
-		})
-	}) 
+				alert("nick서버요청실패");
+			};
+		});
+	}); 
 	</script>
 
 

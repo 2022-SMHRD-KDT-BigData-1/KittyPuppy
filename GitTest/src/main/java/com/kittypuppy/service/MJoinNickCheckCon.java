@@ -24,7 +24,7 @@ public class MJoinNickCheckCon implements iCommand {
 		int check = dao.memberNickCheck(nick);
 
 		PrintWriter out = response.getWriter();
-		out.print(check);
+//		out.print(check);
 		
 		if(check == 0) {
 			System.out.println("이미 존재하는 닉네임입니다.");
@@ -32,6 +32,6 @@ public class MJoinNickCheckCon implements iCommand {
 			System.out.println("사용 가능한 닉네임입니다.");
 
 		}
-		out.write(check + ""); //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
+		out.print(check + ""); //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
 	}
 }
