@@ -123,42 +123,40 @@ html, body {
 
 <script src="jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-<script type="text/javascript">
-	
+<script>
+      $('#id').focusout(function() {
+         let id = $('#id').val();
 
-		 	$('#id').focusout(function() {
-			var id = $('#id').val();
-
-			function idcheck(){
-				var id = $("#id").val();
-				var sendData = {"id":id}
-			
-			$.ajax({
-				url : "MJoinIdCheckCon.do",
-				method : "post",
-				data : sendData,
-				success : function(result) {
-					if (result == 0) {
-						
-						$("#check").html('사용할수 없는 아이디입니다');
-						$("#check").css('color', 'red');
-						flag=false;
-					} else {
-						
-						$("#check").html('사용할수 있는 아이디입니다');
-						$("#check").css('color', 'green');
-						flag=true;
-			}}
-				
-			})
-		}
-			
-	</script>
+         $.ajax({
+            url : "MJoinIdCheckCon.do",
+            type : "post",
+            data : {
+               id : id
+            },
+            dataType : 'json',
+            success : function(result) {
+               if (result == 0) {
+                  document.getElementById('checkId').style.display = 'block';
+                  $("#checkId").html('사용할수 없는 아이디입니다');
+                  $("#checkId").attr('color', 'red');
+               } else {
+                  document.getElementById('checkId').style.display = 'block';
+                  $("#checkId").html('사용할수 있는 아이디입니다');
+                  $("#checkId").attr('color', 'green');
+               }
+            },
+            error : function() {
+               alert("서버요청실패 id")
+            }
+         })
+      })
+      
+   </script>
 	<script type="text/javascript">
 	
 	
  	$('#nick').focusout(function() {
-		var nick = $('#nick').val();
+		let nick = $('#nick').val();
 
 		$.ajax({
 			url : "MJoinNickCheckCon.do",
@@ -170,13 +168,13 @@ html, body {
 			success : function(result) {
 				if (result == 0) { 
 					document.getElementById('checkNick').style.display = 'block';
-					$("#check").html('사용할수 없는 닉네임입니다');
-					$("#check").attr('color', 'red');
+					$("#checkNick").html('사용할수 없는 닉네임입니다');
+					$("#checkNick").attr('color', 'red');
 				 	
 				} else {
 					document.getElementById('checkNick').style.display = 'block';
-					$("#check").html('사용할수 있는 닉네임입니다');
-					$("#check").attr('color', 'green');
+					$("#checkNick").html('사용할수 있는 닉네임입니다');
+					$("#checkNick").attr('color', 'green');
 				}
 			},
 			error : function() {
