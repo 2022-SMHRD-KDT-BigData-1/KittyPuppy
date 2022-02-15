@@ -25,12 +25,15 @@ public class FrontController extends HttpServlet {
 		map.put("/DMDeleteAllCon.do", new DMDeleteAllCon());
 		map.put("/DMDeleteCon.do", new DMDeleteCon());
 		map.put("/DMSendCon.do", new DMSendCon());
+		map.put("/FeedComCountCon.do", new FeedComCountCon());
 		map.put("/FeedCoCommentCreateCon.do", new FeedCoCommentCreateCon());
 		map.put("/FeedCoCommentDeleteCon.do", new FeedCoCommentDeleteCon());
 		map.put("/FeedCoCommentUpdateCon.do", new FeedCoCommentUpdateCon());
+		map.put("/FeedCoCommentLoadCon.do", new FeedCoCommentLoadCon());
 		map.put("/FeedCommentCreateCon.do", new FeedCommentCreateCon());
 		map.put("/FeedCommentDeleteCon.do", new FeedCommentDeleteCon());
 		map.put("/FeedCommentUpdateCon.do", new FeedCommentUpdateCon());
+		map.put("/FeedCommentLoadCon.do", new FeedCommentLoadCon());
 		map.put("/FeedCreateCon.do", new FeedCreateCon());
 		map.put("/FeedDeleteCon.do", new FeedDeleteCon());
 		map.put("/FeedUpdateCon.do", new FeedUpdateCon());
