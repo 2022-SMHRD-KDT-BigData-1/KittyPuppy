@@ -158,35 +158,37 @@
 <!-- 닉 중복 체크 -->
 <script src="jquery-3.6.0.min.js"></script>
 
-<script >
-   $('#nick').focusout(function() {
-      var nick = $('#nick').val();
+	<script type="text/javascript">
+	
+	
+ 	$('#nick').focusout(function() {
+		let nick = $('#nick').val();
 
-      $.ajax({
-         url : "MJoinNickCheckCon.do",
-         type : "post",
-         data : {
-            NICK : NICK
-         },
-         dataType : 'json',
-         success : function(result) {
-            if (result == 0) {
-               document.getElementById('checkNick').style.display = 'block';
-               $("#checkNick").html('사용할수 없는 닉네임입니다');
-               $("#checkNick").attr('color', 'red');
-                
-            } else {
-               document.getElementById('checkNick').style.display = 'block';
-               $("#checkNick").html('사용할수 있는 닉네임입니다');
-               $("#checkNick").attr('color', 'green');
-            }
-         },
-         error : function() {
-            alert("서버요청실패")
-         }
-      })
-   })
-   </script>
+		$.ajax({
+			url : "MJoinNickCheckCon.do",
+			type : "post",
+			data : {
+				nick : nick
+			},
+			dataType : 'json',
+			success : function(result) {
+				if (result == 0) { 
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할 수 없는 닉네임입니다');
+					$("#checkNick").css('color', 'red');
+				 	
+				} else {
+					document.getElementById('checkNick').style.display = 'block';
+					$("#checkNick").html('사용할 수 있는 닉네임입니다');
+					$("#checkNick").css('color', 'green');
+				}
+			},
+			error : function() {
+				alert("nick서버요청실패")
+			}
+		})
+	}) 
+	</script>
 
 
 

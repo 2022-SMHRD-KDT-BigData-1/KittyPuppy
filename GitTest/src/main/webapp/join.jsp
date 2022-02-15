@@ -43,7 +43,7 @@ span{
 }
 
 
-.simple-login-container {
+.container {
 	width: 100%;
 	max-width: 330px;
 	padding: 15px;
@@ -51,19 +51,19 @@ span{
 	/* display: block; */
 }
 
-.simple-login-container p {
+.container p {
 	text-align: right;
 	font-size: 15px;
 }
 
-.simple-login-container h1 {
+.container h1 {
 	text-align: center;
 	font-size: 50px;
 	font-family: 'Dancing Script', cursive;
 	font-weight: 900;
 }
 
-.simple-login-container .btn {
+.btn {
 	background-color: #25aa90;
 	color: #fff;
 }
@@ -83,7 +83,7 @@ html, body {
 
 
 
-	<div class="simple-login-container">
+	<div class="container">
 		<form action="MJoinCon.do" method="post">
 
 			<div class="row">
@@ -137,12 +137,12 @@ html, body {
             success : function(result) {
                if (result == 0) {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 없는 아이디입니다');
-                  $("#checkId").attr('color', 'red');
+                  $("#checkId").html('사용할 수 없는 아이디입니다');
+                  $("#checkId").css('color', 'red');
                } else {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할수 있는 아이디입니다');
-                  $("#checkId").attr('color', 'green');
+                  $("#checkId").html('사용할 수 있는 아이디입니다');
+                  $("#checkId").css('color', 'green');
                }
             },
             error : function() {
@@ -168,13 +168,13 @@ html, body {
 			success : function(result) {
 				if (result == 0) { 
 					document.getElementById('checkNick').style.display = 'block';
-					$("#checkNick").html('사용 할수 없는 닉네임입니다');
-					$("#checkNick").attr('color', 'red');
+					$("#checkNick").html('사용할 수 없는 닉네임입니다');
+					$("#checkNick").css('color', 'red');
 				 	
 				} else {
 					document.getElementById('checkNick').style.display = 'block';
 					$("#checkNick").html('사용할 수 있는 닉네임입니다');
-					$("#checkNick").attr('color', 'green');
+					$("#checkNick").css('color', 'green');
 				}
 			},
 			error : function() {
