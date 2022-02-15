@@ -120,7 +120,7 @@ html, body {
 						<div class="d-grid gap-2 col-12 mx-auto">
 							<button type="submit" class="btn"
 								style="background-color: #25aa90;">로그인</button>
-							<button type="button" class="btn" onclick="location.href='join.html'"
+							<button type="button" class="btn" onclick="location.href='join.jsp'"
 								style="background-color: #25aa8f7e;">회원가입</button>
 								
 								
