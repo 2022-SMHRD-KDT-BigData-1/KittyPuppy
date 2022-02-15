@@ -20,9 +20,9 @@ public class FollowMarkCon implements iCommand {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
-		
-		String followerNick = request.getParameter("otherNick");
+		String followerNick = (String)session.getAttribute("otherNick");
 		String nick = member.getNick();
+		
 		FollowDAO follow = new FollowDAO();
 		
 		boolean check = follow.followMark(nick, followerNick);

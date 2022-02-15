@@ -2,6 +2,7 @@ package com.kittypuppy.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,27 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.FollowDAO;
-import com.kittypuppy.model.FollowDTO;
-import com.kittypuppy.model.MemberDTO;
 
-public class FollowCon implements iCommand{
-
+public class FollowerShowCon implements iCommand{
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		String otherNick = (String)session.getAttribute("otherNick");
 		
-		MemberDTO member = (MemberDTO)session.getAttribute("member");
-		String nick = member.getNick();
-		String followerNick = (String)session.getAttribute("otherNick");
+		FollowDAO follow = new FollowDAO();
+   		// 나를 팔로우 하는 사람들
+   		ArrayList<String> followerList = follow.followerShow(otherNick);
+   		int result = followerList.size();
+   		
+   		PrintWriter out = response.getWriter();
+   		out.print(result);
 		
-		FollowDAO dao = new FollowDAO();
-		
-		int result = dao.follow(new FollowDTO(nick, followerNick, null));
-		PrintWriter out = response.getWriter();
-		
-		System.out.println(result);
-		out.print(result);
 	}
 
 }

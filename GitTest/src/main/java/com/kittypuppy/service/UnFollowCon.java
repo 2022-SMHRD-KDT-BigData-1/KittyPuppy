@@ -6,34 +6,32 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.FollowDAO;
 import com.kittypuppy.model.FollowDTO;
+import com.kittypuppy.model.MemberDTO;
 
 public class UnFollowCon implements iCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String nick = request.getParameter("nick");
-		String followerNick = request.getParameter("followerNick");
+		HttpSession session = request.getSession();
+		
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		String nick = member.getNick();
+		String followerNick = (String)session.getAttribute("otherNick");
 
 		FollowDAO dao = new FollowDAO();
 
-		int cnt = dao.unFollow(new FollowDTO(nick, followerNick, null));
+		int result = dao.unFollow(new FollowDTO(nick, followerNick, null));
 		PrintWriter out = response.getWriter();
 		
-		if(cnt > 0) {
-			System.out.println(cnt);
-			out.print(cnt);
+		System.out.println(result);
+		out.print(result);
 			
-		}else {
-			response.setContentType("text/html; charset=utf-8");
-			out.print("<script>");
-			out.print("alert('팔로우 실패..!');");
-			out.print("location.href= 'main.jsp';");//수정
-			out.print("</script>");
-		}
+		
 	}
 
 }

@@ -72,7 +72,7 @@
     <%
     	// 다른사람의 프로필 이미지를 눌렀을때 get방식으로 담겨오는 nick을 받아주는 것
     	String otherNick = request.getParameter("nick");
-    	request.setAttribute("otherNick", otherNick);
+    	session.setAttribute("otherNick", otherNick);
     	
    		FeedDAO feed = new FeedDAO();
    		ArrayList<FeedDTO> feedList = feed.feedSelect(otherNick);
@@ -142,10 +142,10 @@
                 	%>
                 	<c:choose>
                 		<c:when test="${check==0}">
-                			<button onclick='follow("#followCheck")'type="button" class="btn me-1 follow">팔로우</button>
+                			<button onclick='follow("#followCheck",".item.follower")'type="button" class="btn me-1 follow">팔로우</button>
                 		</c:when>
 						<c:otherwise>
-							<button onclick='unFollow("#followCheck")'type="button" class="btn me-1 unfollow">팔로우 취소</button>
+							<button onclick='unFollow("#followCheck",".item.follower")'type="button" class="btn me-1 unfollow">팔로우 취소</button>
 						</c:otherwise>                		
                 	</c:choose>
                 </div>
@@ -274,6 +274,19 @@
     
     <script src='jquery-3.6.0.min.js'></script>
     <script>
+    
+    	// 팔로우 개수 세기
+    	function followCount(id){
+    		$.ajax({
+    			async: false,
+    			url: "FollowerShowCon.do",
+    			type: "post",
+    			dataType:"json",
+    			success: function(result){
+    				$(id).html(result + "<br>팔로워");
+    			}
+    		});
+    	}
     	
     	// 팔로우 체크
     	function followCheck(id){
@@ -281,32 +294,31 @@
     			async: false,
 				url: "FollowMarkCon.do",
 				type: "post",
-				data: {id: id},
 				dataType: "json",
 				success: function(result){
 					if(result == 0){
-						console.log("팔로우 안한 상태");
-						$(id).html('<button onclick="follow(\"#followCheck\")" type="button" class="btn me-1 follow">팔로우</button>');
+						console.log("팔로우 취소했다");
+						$(id).html("<button onclick='follow("+'"#followCheck",'+'".item.follower")'+"'type="+'"button" class="'+'btn me-1 follow"'+">팔로우</button>");
 					}else{
-						console.log("팔로우 한 상태")
-						$(id).html('<button onclick="unFollow(\"#followCheck\")" type="button" class="btn me-1 unfollow">팔로우</button>')
+						console.log("팔로우 했다")
+						$(id).html("<button onclick='unFollow("+'"#followCheck",'+'".item.follower")'+"'type="+'"button" class="'+'btn me-1 unfollow"'+">팔로우 취소</button>");
 					}
 				},
 				error: function(){
-					console.log("err");
+					console.log("error");
 				}
     		});
     	};
     	
     	// 팔로우 하기
-    	function follow(id){
+    	function follow(id,id2){
     		$.ajax({
     			url: "FollowCon.do",
     			type: "post",
-    			data: {id: id},
     			dataType: "json",
     			success: function(result){
     				followCheck(id);
+    				followCount(id2);
     			},
     			error:function(){
     				console.log("err");
@@ -315,14 +327,14 @@
     	};
     	
     	// 팔로우 취소
-    	function unFollow(id){
+    	function unFollow(id,id2){
     		$.ajax({
     			url: "UnFollowCon.do",
     			type: "post",
-    			data: {id: id},
     			dataType: "json",
     			success: function(result){
     				followCheck(id);
+    				followCount(id2);
     			},
     			error: function(){
     				console.log("err");
