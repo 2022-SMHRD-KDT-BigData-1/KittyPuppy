@@ -1,20 +1,11 @@
+<%@page import="javax.print.DocFlavor.STRING"%>
 <%@page import="com.kittypuppy.model.DMDTO"%>
 <%@page import="com.kittypuppy.model.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kittypuppy.model.DMDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-/* DMDTO member = (DMDTO) session.getAttribute("member");
 
-DMDAO dao = new DMDAO();
-ArrayList<DMDTO> DMlist = null;
-
-if (member != null) { // 로그인한 상태
-	DMlist = dao.DMList(member.getSendNick());
- */
-}
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,6 +250,16 @@ h1 {
 </style>
 </head>
 <body>
+<%
+ DMDAO dao = new DMDAO();
+ArrayList<DMDTO> DMlist = null;
+String receivenick = request.getParameter("receivenick");
+MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+String nick = member.getNick();
+DMlist = dao.DMShow(nick, receivenick);
+System.out.print(receivenick);
+%>
 	<!-- 키티퍼피 로고 -->
 
 	<div class="row mt-5 text-center">
@@ -276,8 +277,8 @@ h1 {
 					style="display: inline-block; vertical-align: top">
 					<a href=""> <img
 						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-						class="rounded-circle img-thumbnail img-fluid float-start" /> <strong
-						class="sdiv">닉네임</strong>
+						class="rounded-circle img-thumbnail img-fluid float-start" />
+						<strong class="sdiv"> <%= receivenick %> </strong>
 					</a>
 				</div>
 			</div>
@@ -289,51 +290,29 @@ h1 {
 			<div class="overflow-auto g-2 p-3"
 				style="max-height: 500px; max-width: 100%">
 				<div class="row sm-2">
-
-					<div class="balloon_03 mb-4">
-						Hi, how are you samim?
-						<!-- <div class="me-chat-col"></div> -->
-					</div>
-
+				
+				<%for(int i = 0; i < DMlist.size(); i++){
+						if(DMlist.get(i).getSendNick().equals(nick)){   %>
+				
 					<div class="d-flex justify-content-end mb-4">
-						<div class="balloon_04">Hi Khalid i am good tnx how about
-							you?</div>
+						<div class="balloon_04">
+							<%= DMlist.get(i).getContent() %>
+						</div>
 					</div>
+				<%}else{ %>
 
 					<div class="d-flex justify-content-start mb-4">
-						<div class="balloon_03">I am good too, thank you for your
-							chat template</div>
+						<div class="balloon_03"><%= DMlist.get(i).getContent() %></div>
 					</div>
+					<%} %>
+					<%}%>
 
-					<div class="d-flex justify-content-end mb-4">
-						<div class="balloon_04">You are welcome</div>
-					</div>
-
-					<div class="d-flex justify-content-end mb-4">
-						<div class="balloon_04">You are welcome</div>
-					</div>
-
-					<div class="d-flex justify-content-start mb-4">
-						<div class="balloon_03">I am looking for your next templates</div>
-					</div>
-
-					<div class="d-flex justify-content-end mb-4">
-						<div class="balloon_04">Ok, thank you have a good day</div>
-					</div>
-
-					<div class="d-flex justify-content-start mb-4">
-						<div class="balloon_03">Bye, see you</div>
-					</div>
-				</div>
-			</div>
+				
 			<!-- 보내기 -->
 			<div class="row mt-3 text-center">
 				<div class="input-group mb-3">
 
-					닉<input type="text" class="form-control" id="nick"
-						autocomplete="off" /> 받는닉<input type="text"
-						class="form-control col-4" id="sNick" autocomplete="off" /> <input
-						type="text" class="form-control" id="m" autocomplete="off" />
+					 <input type="text" class="form-control" id="m" autocomplete="off" />
 					<div class="input-group-append">
 						<button id="msg-send" class="btn btn-primary"
 							placeholder="message" style="background-color: #25aa90">
@@ -384,10 +363,9 @@ h1 {
 				url : 'DMSendCon.do', // 서버에 전달할 파일명
 				type : 'get',
 				data : {
-					sendNick : $('#nick').val(), // 전송할 파라미터 1
-					receiveNick : $('#sNick').val(), // 전송할 파라미터 1
+					sendNick : $(nick).val(), // 전송할 파라미터 1
+					receiveNick : $(receivenick).val(), // 전송할 파라미터 1
 					content : $('#m').val()
-				// 전송할 파라미터 2
 				},
 				success : function() {
 

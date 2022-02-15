@@ -1,5 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kittypuppy.model.MemberDTO"%>
+<%@page import="com.kittypuppy.model.DMDTO"%>
+<%@page import="com.kittypuppy.model.DMDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,17 +97,53 @@ h1 {
 	text-align: center;
 }
 
+a {
+	color: #000000;
+	text-decoration-line: none;
+}
+
+i {
+	color: #25aa90;
+}
+
+.bi {
+	font-size: 40px;
+}
+
+.ls {
+	margin: atuo;
+	max-width: 442px;
+	margin: auto;
+}
+
+.lcs {
+	font-size: 2ch;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+#cursor {
+	color: #25aa90;
+}
+
+button {
+	border: 0cm;
+	background-color: #ffffff;
+}
+
 /* 상단 로고 고정 */
-.header-menu {
+.header-logo {
 	position: fixed;
 	margin: 0 auto;
 	left: 0;
 	right: 0;
-	top: 5rem;
+	top: 0;
 	height: 5rem;
 	background-color: white;
 	padding-top: 15px;
 	width: 100%;
+	text-align: center;
+	z-index: 3;
 }
 
 /* 상단 메뉴바 고정 */
@@ -116,13 +157,13 @@ h1 {
 	background-color: white;
 	padding-top: 15px;
 	width: 100%;
+	z-index: 3;
 }
 
+/* 아이콘 설정 */
 .icon {
-	font-size: 4ch;
-	margin-left: 15px;
-	margin-right: 15px;
-	color: #25aa8f7e;
+	font-size: 5ch;
+	color: #000000;
 }
 
 /* 탭을 클릭했을 때 */
@@ -508,6 +549,16 @@ img {
 </style>
 </head>
 <body>
+	<%
+	DMDAO dao = new DMDAO();
+	/* ArrayList<DMDTO> DMlist = null; */
+	MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+	String nick = member.getNick();
+	ArrayList<String> list = dao.DMList(nick);
+	pageContext.setAttribute("list", list);
+	%>
+
 	<!-- 키티퍼피 로고 -->
 	<div class="container out">
 		<div class="row mt-2 text-center">
@@ -519,13 +570,14 @@ img {
 		</div>
 		<!-- 상단 고정된 메뉴바 -->
 
-		<div class="text-center banner ">
-			<a href="feed.jsp"><i class="bi bi-phone icon"></i></a> <a
-				href="lostAniBorad.jsp"><i class="bi bi-megaphone icon"></i></a> <a
-				href=""><i class="bi bi-geo-alt icon"></i></a> <a href="mypage.jsp"><i
-				class="bi bi-person-fill icon"></i></a> <a href=""><i
-				class="bi bi-chat-dots icon"></i></a>
+		<div class='ls navbar text-center banner header-menu'>
+			<a href='feed.jsp'><i class='bi bi-phone-fill icon'></i></a> <a
+				href='lostAniBoard.jsp'><i class='bi bi-megaphone icon'></i></a> <a
+				href='maps.jsp'><i class='bi bi-geo-alt icon'></i></a> <a
+				href='mypage.jsp'><i class='bi bi-person icon'></i></a> <a
+				href='dmList.jsp'><i id='cursor' class=' bi bi-chat-dots icon'></i></a>
 		</div>
+
 	</div>
 
 	<!-- 리스트 -->
@@ -534,105 +586,33 @@ img {
 			<div class="inbox_people"></div>
 			<div class="inbox_chat mt-4">
 				<div class="chat_list active_chat">
+				<%
+				for (int i = 0; i < list.size(); i++) {
+				%>
+				<a href="dmShow.jsp?receivenick=<%=list.get(i)%>">
+		
 					<div class="chat_people">
+					
 						<div class="chat_img">
 							<img
 								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
 								alt="sunil" />
 						</div>
+
+						
 						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
+							<%
+							out.print(list.get(i));
+							out.print("<p>"+dao.latestDM(nick, list.get(i)).getContent()+"</p>");
+							out.print("<p>"+dao.latestDM(nick, list.get(i)).getSendDate()+"</p>");
+							%>
 						</div>
-					</div>
+						
+						</div>
+				</a>
+				<%}%>	
 				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>
-								Sunil Rajput
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"t,
-								which is a new approach to have all solutions
-								<p>astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
-				<div class="chat_list">
-					<div class="chat_people">
-						<div class="chat_img">
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								alt="sunil" />
-						</div>
-						<div class="chat_ib">
-							<h5>Sunil Rajput</h5>
-							<p>Test, which is a new approach to have all solutions
-								astrology under one roof.</p>
-						</div>
-					</div>
-				</div>
+
 			</div>
 		</div>
 	</div>
