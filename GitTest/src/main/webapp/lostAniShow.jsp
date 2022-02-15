@@ -21,10 +21,10 @@ lostAni = la_dao.lostAniSelect(lostNo);
 pageContext.setAttribute("lostAni", lostAni);
 
 // laComment/cocoment 저장
-LostCommentDAO lco_dao = new LostCommentDAO();
-ArrayList<LostCommentDTO> lco_list = null;
-lco_list = lco_dao.lostCommentShow(lostNo);
-pageContext.setAttribute("lco_list", lco_list);
+LostCommentDAO loc_dao = new LostCommentDAO();
+ArrayList<LostCommentDTO> loc_list = null;
+loc_list = loc_dao.lostCommentShow(lostNo);
+pageContext.setAttribute("loc_list", loc_list);
 
 //Cocoment lcoco 저장
 LostCoCommentDAO lcoco_dao = new LostCoCommentDAO();
@@ -32,8 +32,8 @@ ArrayList<LostCoCommentDTO> lcoco_list = null;
 lcoco_list = lcoco_dao.lostCoCommentShow2(lostNo);
 pageContext.setAttribute("lcoco_list", lcoco_list);
 
-//int Commentcnt = lc_dao.lostCommentCount(lostNo) + lcoco_dao.lostCoCommentCount(lostNo);
-int Commentcnt = lco_list.size() + lcoco_list.size();
+//int Commentcnt = loc_dao.lostCommentCount(lostNo) + lcoco_dao.lostCoCommentCount(lostNo);
+int Commentcnt = loc_list.size() + lcoco_list.size();
 pageContext.setAttribute("Commentcnt", Commentcnt);
 %>
 <!DOCTYPE html>
@@ -80,240 +80,9 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 <!-- Custom styles for this template -->
 <link href="narrow-jumbotron.css" rel="stylesheet">
-
+<!-- css 파일 -->
+<link rel="stylesheet" href="./assets/css/lostAniShow.css">
 <style>
-/* 공통 사항 @media 위에 작성함. */
-.material-icons, #megaphone-fill, .bi-calendar3 {
-	color: #25aa90;
-}
-
-html, body {
-	height: 100%;
-}
-
-body {
-	background-color: #ffffff;
-	padding: 10px;
-}
-
-/* 로고 글꼴, 색상 설정 */
-h1 {
-	font-family: 'Dancing Script', cursive;
-	font-size: 35px;
-	color: #25aa90;
-}
-
-.bi {
-	font-size: 30px;
-	color: #25aa8f7e;
-	display: inline;
-	width: 40px;
-}
-
-.bi-chevron-left {
-	font-size: 35px;
-	margin-left: 5px;
-	width: 40px;
-	color: #25aa8f7e;
-}
-
-.report {
-	color: #f5e172;
-	font-size: 4ch;
-	margin-right: 15px;
-}
-
-/* 아이콘 설정 */
-.icon {
-	margin-left: 15px;
-	margin-right: 15px;
-}
-
-.inner-items:first-child {
-	margin: auto;
-	text-align: center;
-}
-
-img {
-	border-radius: 2%;
-}
-
-/* 상단 로고 고정 */
-.header-logo {
-	position: fixed; /*상단에 고정된 플렉스 박스 */
-	left: 0;
-	right: 0;
-	top: 0;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	height: 5rem;
-	background-color: white;
-	padding-top: 15px;
-	width: 100%;
-	text-align: center;
-	max-width: 430px;
-	min-width: 385px;
-	z-index: 2;
-	max-width: 430px;
-}
-
-/* 상단 메뉴바 고정 */
-.header-menu {
-	display: none;
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 5rem;
-	margin: auto;
-	height: 5rem;
-	background-color: white;
-	padding-top: 15px;
-	width: 100%;
-	min-width: 385px;
-	max-width: 750px;
-	z-index: 2;
-	position: fixed;
-}
-
-/* 바깥 컨테이너 설정 */
-.container.out {
-	width: 100%;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom: 15px;;
-	padding-top: 3rem;
-	margin: auto;
-	display: block;
-	max-width: 430px;
-	min-width: 385px;
-	padding-right: 15px;
-	padding-bottom: 15px;
-}
-/* 유실 유기동물 카드 관련 */
-.innerContainer {
-	display: flex;
-}
-
-/* 화면크기가 800px이 넘어갔을때 적용되는 css */
-@media ( min-width : 800px) {
-	/* 바깥 컨테이너 설정 */
-	.container.out {
-		width: 100%;
-		max-width: 750px;
-		margin: auto;
-		display: auto;
-		padding-top: 9rem;
-		z-index: 2;
-	}
-	/* 상단 로고 고정 */
-	.header-logo {
-		display: flex;
-		position: fixed;
-		justify-content: space-between;
-		margin: auto;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		text-align: center;
-		max-width: 750px;
-		z-index: 2;
-	}
-	.header-menu {
-		display: block;
-	}
-
-	/* 상단 로고 관련 설정 */
-	.bi-chevron-left {
-		visibility: hidden;
-	}
-	.report {
-		margin-right: 15px;
-	}
-
-	/* 상단 메뉴바 설정 */
-	.icon {
-		font-size: 40px;
-		margin-left: 30px;
-		margin-right: 30px;
-	}
-	.innerContainer {
-		display: flex;
-		flex-direction: coloumn;
-		align-items: flex-start;
-	}
-	.inner-items {
-		flex: 1 1 40%;
-	}
-}
-
-.top {
-	width: 650px;
-}
-
-.comment-btn-line {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.comment-btn, .update-btn {
-	flex: auto;
-	display: block;
-}
-
-.bi-chat-dots-fill {
-	display: none;
-}
-
-/* *** 이하 댓글 대댓글 배치 관련 flex 설정*******/
-#aComment-box {
-	display: flex;
-}
-
-.loc-img-space {
-	flex: 1 1 3rem;
-	float: left;
-	display: inline;
-	margin: 5px;
-}
-
-.loc-img {
-	width: 2.5rem;
-	height: 2.5rem;
-	border-radius: 50%;
-}
-
-.loc-item-box {
-	flex: auto;
-	margin: 3px;
-}
-
-.loc-content-box {
-	display: block;
-	border-raidius: 20%;
-	padding: 5px;
-}
-
-.loc-nick, .loc-content {
-	margin-bottom: 0.2em;
-}
-
-.lcocoNum, .loc-bottom {
-	margin-left: 3rem;
-}
-
-.loc-bottom, .lcocoNum, .write_cocomment {
-	color: gray;
-}
-
-/* **** 이상 댓글 대댓글 배치 관련 flex 설정******/
-
-/* grid 구분 확인을 위한 css 설정*/
-.b {
-	border: solid 1px violet;
-}
 </style>
 </head>
 <body>
@@ -447,13 +216,13 @@ img {
 					<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
 					<div class="collapse comment-contents row b" id="collapseExample">
 
-						<c:forEach var="lco" items="${lco_list}">
+						<c:forEach var="loc" items="${loc_list}">
 
 							<!--  댓글 박스 1개 : 시작 -->
-							<div class="aComment-box ${lco.locNo}">
+							<div class="aComment-box ${loc.locNo}">
 
 								<div class="loc-img-space b">
-									<c:set var='locNick' value='${loc.nick}' scope='request' />
+									<c:set var='locNick' value='${loc.getNick()}' scope='request' />
 									<%
 									String locNick = (String) request.getAttribute("locNick");
 									MemberDTO loc_m = m_dao.memberInfo(locNick);
@@ -467,11 +236,11 @@ img {
 								<div class="loc-item-box b">
 									<div class="loc-content-box">
 										<p class="loc-nick h6 ">
-											<b>${lco.nick}</b>
+											<b>${loc.nick}</b>
 										</p>
-										<p class="loc-content h6 b">${lco.content}</p>
+										<p class="loc-content h6 b">${loc.content}</p>
 										<span class="loc-bottom"> 작성일
-											${fn:substring(lco.coDate,0,11)}</span> <span class="">${fn:substring(lco.coUpdate,0,11)}</span>
+											${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
 										<a class="write_cocomment">답글쓰기</a>
 									</div>
 								</div>
@@ -479,13 +248,13 @@ img {
 
 								<c:set var="lcocoNum" value="0" scope="request" />
 								<c:forEach var="lcoco" items="${lcoco_list}">
-									<c:if test="${lcoco.locNo == lco.locNo}">
+									<c:if test="${lcoco.locNo == loc.locNo}">
 										<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
 											scope="request" />
 									</c:if>
 								</c:forEach>
 								<c:if test="${requestScope.lcocoNum > 0}">
-									<a class="h6 lcocoNum ${lco.locNo} b">답글수
+									<a class="h6 lcocoNum ${loc.locNo} b">답글수
 										${requestScope.lcocoNum}</a>
 								</c:if>
 
@@ -497,14 +266,12 @@ img {
 						</c:forEach>
 						<!-- 댓글 작성 창 구현 : 시작 : 가져옴-->
 						<div>
-							<form action='lostCommentCreateCon.do' method='post'>
-								<div class='input-group rounded'>
-									<input type='text' class='form-control rounded'
-										placeholder='댓글 입력' aria-label='Search'
-										aria-describedby='search-addon' /> <input type='submit'
-										value='↑'>
-								</div>
-							</form>
+							<div class='input-group rounded'>
+								<input type='text' name="loc-comment" class='form-control rounded'
+									placeholder='댓글 입력' aria-label='Search'
+									aria-describedby='search-addon' />
+								<button class="loc-Submit-btn b" type='button' onclick="locSubmit()">등록</button>
+							</div>
 						</div>
 						<!-- 댓글 작성 창 구현 : 종료 -->
 					</div>
@@ -538,7 +305,13 @@ img {
 		
 			
 		//작성 버튼 눌리면 작동하는 기능
-		$('.comment-btn').on('click', lostCommentCnt() {
+		
+		function locSubmit(){
+			
+			
+		}
+		
+		$('.loc-Submit-btn').on('click', lostCommentCnt() {
 			let cnt = 0;
 
 			$.ajax({
@@ -555,24 +328,7 @@ img {
 					alert("ajax 1 실패");
 				}
 			});
-			console.log(3);
-			$.ajax({
-				type : "post",
-				data : {
-					"lostNo" : lostNo
-				},
-				url : "LostCoCommentCntCon.do",
-				dataType : "text",
-				success : function(data) {
-					cnt += data;
-				},
-				error : function() {
-					alert("ajax 2 실패");
-				}
-			});
 
-			$('#lostComCnt').html("댓글" + cnt + "개");
-		});
 		
 	</script>
 </body>
