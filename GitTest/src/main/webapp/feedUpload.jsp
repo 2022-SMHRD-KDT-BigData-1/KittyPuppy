@@ -147,7 +147,8 @@
 <div class="container">
 
 	<%
-		String nick = (String)session.getAttribute("nick");
+		MemberDTO member = (MemberDTO)session.getAttribute("member");
+		String nick = member.getNick();
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 		FeedDAO fdao = new FeedDAO();
 		FeedDTO feed = fdao.feedSearchByNo(feedNo);

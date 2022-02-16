@@ -104,13 +104,14 @@ h1 {
             border: 0px; */
 }
 
+i {
+	color: #25aa90;
+}
+
 .btn.update, .btn.write {
 	width: 215px;
 }
 
-/* button{
-            align-items: stretch !important;
-        } */
 .row {
 	align-items: center;
 }
