@@ -234,8 +234,8 @@ public class MemberDAO {
 
 		int check = 0;
 		connect();
-		try {
-			String sql = "select * from member where birth = ?";
+		try {				
+			String sql = "select id, birth from member where id = ? and birth = ?"; ;
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, birth);
 			rs = psmt.executeQuery();
