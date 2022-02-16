@@ -48,7 +48,7 @@ public class MJoinCon implements iCommand{
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('회원가입 실패..!');");
-			out.print("location.href= 'join.html';");//수정
+			out.print("location.href= 'join.jsp';");//수정
 			out.print("</script>");
 		}
 		
