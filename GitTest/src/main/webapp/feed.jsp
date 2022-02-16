@@ -364,7 +364,7 @@ body {
 	                    				<c:choose>
 	                    					<c:when test = "${nick == com.nick}">
 	                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-	                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+	                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
 	                    					</c:when>
 	                    					<c:otherwise>
 	                    					</c:otherwise>
@@ -383,7 +383,7 @@ body {
 						                   			<c:choose>
 						                 				<c:when test = "${nick == cocom.nick}">
 				                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-				                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+				                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
 				                    					</c:when>
 				                    					<c:otherwise>
 				                    					</c:otherwise>
@@ -393,7 +393,7 @@ body {
 				                    		<!--  대댓글 입력  -->
 				                    		<div class='input-group rounded' style = 'padding-left:20px'>
 									        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
-												<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"#comtext${com.fcNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
+												<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
 											</div>
 					                    </div>
 	                    		</c:forEach>
@@ -402,7 +402,7 @@ body {
 	                    	<div>
 	                    		<div class='input-group rounded'>
 						        	<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-									<button onclick = 'feedComCreate(${feed.feedNo},"#text${feed.feedNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+									<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
 								</div>
 		                    </div>
 	                    </div>
@@ -611,7 +611,7 @@ body {
 				data: {feedNo: feedNo},
 				dataType: 'json',
 				success: function(result) {
-					$(id).html("댓글"+result);
+					$(id).html("댓글 "+result);
 				},
 				error: function(){
 					console.log("err");
@@ -619,8 +619,15 @@ body {
 			});
 		};
 		
+
+		// 댓글 새로고침
+		function feedComLoad(feedNo,nick,id) {
+			$(id).empty();
+			$(id).load("temp.jsp "+id,{feedNo:feedNo, nick:nick});
+		}
+		
 		// 댓글 작성
-		function feedComCreate(feedNo,id1,id2) {
+		function feedComCreate(feedNo,nick,id1,id2,id3) {
 			var text = $(id1).val();
 			$.ajax({
 				url: "FeedCommentCreateCon.do",
@@ -629,6 +636,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3);
 				},
 				error : function(){
 					console.log('err');
@@ -639,7 +647,7 @@ body {
 		// 댓글 수정
 		
 		// 댓글 삭제
-		function feedComDelete(feedNo,fcNo,id) {
+		function feedComDelete(feedNo,fcNo,nick,id,id2) {
 			$.ajax({
 				url: "FeedCommentDeleteCon.do",
 				type: "post",
@@ -647,6 +655,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2);
 				},
 				error : function(){
 					console.log('err');
@@ -654,24 +663,8 @@ body {
 			});
 		};
 		
-		// 댓글 새로고침
-		function feedComLoad(feedNo) {
-			$.ajax({
-				url: "FeedCommentLoadCon.do",
-				type: "post",
-				data: {feedNo: feedNo},
-				dataType: 'json',
-				success: function(result) {
-					
-				},
-				error: function(){
-					console.log("err");
-				}
-			});
-		}
-		
 		// 대댓글 작성
-		function feedCoComCreate(fcNo,feedNo,id1,id2) {
+		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3) {
 			var text = $(id1).val();
 			$.ajax({
 				url: "FeedCoCommentCreateCon.do",
@@ -680,6 +673,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3);
 				},
 				error : function(){
 					console.log('err');
@@ -690,7 +684,7 @@ body {
 		// 대댓글 수정
 		
 		// 대댓글 삭제
-		function feedCoComDelete(feedNo,coNo,id) {
+		function feedCoComDelete(feedNo,coNo,nick,id,id2) {
 			$.ajax({
 				url: "FeedCoCommentDeleteCon.do",
 				type: "post",
@@ -698,14 +692,13 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2);
 				},
 				error : function(){
 					console.log('err');
 				}
 			});
 		};
-		
-		// 대댓글 새로고침
 		
 	</script>
 </body>
