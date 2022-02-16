@@ -87,6 +87,28 @@ public class FeedCoCommentDAO {
 		
 	}
 	
+	public ArrayList<FeedCoCommentDTO> feedCoCommentShowByFeedNo(int feedNo) {
+		
+		ArrayList<FeedCoCommentDTO> list = new ArrayList<FeedCoCommentDTO>();
+		FeedCoCommentDTO fcc = null;
+		connect();
+		try {
+			String sql = "select * from feed_cocomment where feedno = ? order by codate desc";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, feedNo);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				fcc = new FeedCoCommentDTO(rs.getInt("cono"),rs.getInt("fcno"),rs.getInt("feedNo"),rs.getString("nick"),rs.getString("content"),rs.getString("codate"),rs.getString("coupdate"));
+				list.add(fcc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	public int feedCoCommentUpdate(int coNo, String content) {
 		
 		int cnt = 0;

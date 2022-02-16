@@ -19,19 +19,10 @@ public class FeedCommentDeleteCon implements iCommand{
 		// 쿼리스트링으로 fcNo 받음
 		int fcNo = Integer.parseInt(request.getParameter("fcNo"));
 
-		int cnt = dao.feedCommentDelete(fcNo);
-
-		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
-		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('댓글 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
-
-		}
+		int result = dao.feedCommentDelete(fcNo);
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 
 }

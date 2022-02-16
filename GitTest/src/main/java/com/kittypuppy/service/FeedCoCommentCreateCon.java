@@ -16,7 +16,6 @@ import com.kittypuppy.model.MemberDTO;
 public class FeedCoCommentCreateCon implements iCommand {
 
 	FeedCoCommentDAO dao= new FeedCoCommentDAO();
-	FeedCoCommentDTO feedCoComment = null;
 
 	
 	@Override
@@ -24,28 +23,18 @@ public class FeedCoCommentCreateCon implements iCommand {
 
 		// post 방식으로 입력값 넘겨 받음.
 		request.setCharacterEncoding("utf-8");
-		String content = request.getParameter("content");
-		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
-
-		// 쿼리스트링으로 fcNo 받음
 		int fcNo = Integer.parseInt(request.getParameter("fcNo"));
-
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
+		String text = request.getParameter("text");
 		// 세션에서 로그인한 사용자 nick 가져오려고 선언
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		
 
-		int cnt = dao.feedCoCommentCreate(new FeedCoCommentDTO(0, fcNo, feedNo, member.getNick(), content, null, null));
+		int result = dao.feedCoCommentCreate(new FeedCoCommentDTO(0, fcNo, feedNo, member.getNick(), text, null, null));
+		PrintWriter out = response.getWriter();
+		out.print(result);
 
-		if (cnt > 0) {
-			response.sendRedirect("mypage.jsp");
-		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('댓글 작성 실패');");
-			out.print("location.href='mypage.jsp';");
-			out.print("</script>");
-		}
 	}
 
 }

@@ -344,8 +344,68 @@ body {
 	                    <%
 	                    	int fdn = (int)request.getAttribute("fdn");
 	                    	int cnt = fldao.feedLikeShow(fdn).size();
+	                    	int comCnt = fcdao.feedCommentShow(fdn).size()+fccdao.feedCoCommentShowByFeedNo(fdn).size();
 	                    %>
-	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> 댓글 10</div>
+	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${feed.feedNo}'>댓글 <%= comCnt%></span></div>
+	                    
+	                    <!--  피드 댓글 창 -->
+	                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
+	                    	<div class = 'comment_body' align = 'left'>
+	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
+	                    		<%
+	                    			ArrayList<FeedCommentDTO> cs = null;
+	                    			int feedNo = (int) session.getAttribute("feedNo");
+	                    			cs = fcdao.feedCommentShow(feedNo);
+	                    			pageContext.setAttribute("cs", cs);
+	                    		%>
+	                    		<c:forEach var ='com' items = '${cs}'>
+	                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate}
+	                    				<button type = 'button' data-bs-toggle="collapse" data-bs-target="#coCom${com.fcNo}" aria-expanded="false"><i class="bi bi-reply" style = 'font-size : 15px;'></i></button>
+	                    				<c:choose>
+	                    					<c:when test = "${nick == com.nick}">
+	                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+	                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+	                    					</c:when>
+	                    					<c:otherwise>
+	                    					</c:otherwise>
+	                    				</c:choose>
+	                    			</div>
+	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
+	                    				<div class = 'collapse' id = 'coCom${com.fcNo}'>
+				                    		<%
+				                    			ArrayList<FeedCoCommentDTO> ccs = null;
+				                    			int fcNo = (int) session.getAttribute("fcNo");
+				                    			ccs = fccdao.feedCoCommentShow(fcNo);
+				                    			pageContext.setAttribute("ccs", ccs);
+				                    		%>
+					                    	<c:forEach var ='cocom' items = '${ccs}'>
+						                    	<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate}
+						                   			<c:choose>
+						                 				<c:when test = "${nick == cocom.nick}">
+				                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+				                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+				                    					</c:when>
+				                    					<c:otherwise>
+				                    					</c:otherwise>
+				                    				</c:choose>
+				                    			</div>
+				                    		</c:forEach>
+				                    		<!--  대댓글 입력  -->
+				                    		<div class='input-group rounded' style = 'padding-left:20px'>
+									        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
+												<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"#comtext${com.fcNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
+											</div>
+					                    </div>
+	                    		</c:forEach>
+	                    	</div>
+	                    	<!--  댓글 입력  -->
+	                    	<div>
+	                    		<div class='input-group rounded'>
+						        	<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
+									<button onclick = 'feedComCreate(${feed.feedNo},"#text${feed.feedNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+								</div>
+		                    </div>
+	                    </div>
 	                    
 	                    <!-- 피드 배너 -->
 	                    <div class = 'navbar'>
@@ -390,44 +450,6 @@ body {
 	                        </div>
 	                    </div>
 	                    
-	                    <!--  피드 댓글 창 -->
-	                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
-	                    	<div class = 'row'>
-	                    		<button class = 'col-1 remove'><i class='bi bi-chevron-left'></i></button>
-	                    		<h1 class = 'col-10'>comment</h1>
-	                    	</div>
-	                    	<div class = 'comment_body' align = 'left'>
-	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
-	                    		<%
-	                    			ArrayList<FeedCommentDTO> cs = null;
-	                    			int feedNo = (int) session.getAttribute("feedNo");
-	                    			cs = fcdao.feedCommentShow(feedNo);
-	                    			pageContext.setAttribute("cs", cs);
-	                    		%>
-	                    		<c:forEach var ='com' items = '${cs}'>
-	                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>	                  
-	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
-		                    		<%
-		                    			ArrayList<FeedCoCommentDTO> ccs = null;
-		                    			int fcNo = (int) session.getAttribute("fcNo");
-		                    			ccs = fccdao.feedCoCommentShow(fcNo);
-		                    			pageContext.setAttribute("ccs", ccs);
-		                    		%>
-		                    		<c:forEach var ='cocom' items = '${ccs}'>
-		                    			<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate} <a href = ''>수정</a> <a href = ''>삭제</a></div>
-		                    		</c:forEach>
-	                    		</c:forEach>
-	                    	</div>
-	                    	<div>
-		                    	<form action ='FeedCommentCreateCon.do' method = 'post'>
-		                    		<div class='input-group rounded'>
-							        	<input type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-										<input type='submit' value = '↑'>
-									</div>
-		                    	</form>
-		                    </div>
-	                    </div>
-	                    
 	                </div>
 	            </div>
 	        </div>
@@ -445,8 +467,8 @@ body {
     <!-- <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js' integrity='sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB' crossorigin='anonymous'></script>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' integrity='sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13' crossorigin='anonymous'></script> -->
     
-    <script src='jquery-3.6.0.min.js'></script>
-	<script type = 'text/javascript'>
+	<script src='jquery-3.6.0.min.js'></script>
+	<script type='text/javascript'>
 		
 		// 좋아요 개수 세기
 		function likeCount(feedNo,id){
@@ -581,22 +603,109 @@ body {
 			});
 		};
 		
-		// 댓글 작성 db 저장 기능 예시
-		function lostCommentCreate(){
-		    $.ajax({
-		        type: "post",
-		         data: { "lostComContent": $('#lostComContent').html(),
-		                    "lostNo": $('#lostNo').html()}, 
-		            url: "LostCommentCreateCon.do",
-		         dataType: "text",
-		         success: function(data) {
-		                alert(data);
-		         },
-		         error: function() {
-		            alert("ajax실패!");
-		         }
-		      });
+		// 댓글 & 대댓글 개수 세기
+		function feedComCount(feedNo,id) {
+			$.ajax({
+				url: "FeedComCountCon.do",
+				type: "post",
+				data: {feedNo: feedNo},
+				dataType: 'json',
+				success: function(result) {
+					$(id).html("댓글"+result);
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
+		};
+		
+		// 댓글 작성
+		function feedComCreate(feedNo,id1,id2) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCommentCreateCon.do",
+				type: "post",
+				data: {feedNo: feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 댓글 수정
+		
+		// 댓글 삭제
+		function feedComDelete(feedNo,fcNo,id) {
+			$.ajax({
+				url: "FeedCommentDeleteCon.do",
+				type: "post",
+				data: {fcNo: fcNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 댓글 새로고침
+		function feedComLoad(feedNo) {
+			$.ajax({
+				url: "FeedCommentLoadCon.do",
+				type: "post",
+				data: {feedNo: feedNo},
+				dataType: 'json',
+				success: function(result) {
+					
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
 		}
+		
+		// 대댓글 작성
+		function feedCoComCreate(fcNo,feedNo,id1,id2) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCoCommentCreateCon.do",
+				type: "post",
+				data: {fcNo: fcNo, feedNo:feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 수정
+		
+		// 대댓글 삭제
+		function feedCoComDelete(feedNo,coNo,id) {
+			$.ajax({
+				url: "FeedCoCommentDeleteCon.do",
+				type: "post",
+				data: {coNo: coNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 새로고침
 		
 	</script>
 </body>
