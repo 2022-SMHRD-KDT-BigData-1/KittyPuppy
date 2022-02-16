@@ -28,16 +28,16 @@ public class MFindPW implements iCommand {
 		PrintWriter out = response.getWriter();
 
 		if(checkId == 0) {
-			System.out.println("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
+			System.out.println("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
 			if(checkBirth == 0) {
-				System.out.println("ë“±ë¡ ëœ ìƒë…„ì›”ì¼ ì…ë‹ˆë‹¤.");
+				System.out.println("µî·Ï µÈ »ı³â¿ùÀÏ ÀÔ´Ï´Ù.");
 				out.print("location.href= 'login.jsp';");
 			}else {
-				System.out.println("ë¯¸ë“±ë¡ ëœ ìƒë…„ì›”ì¼ ì…ë‹ˆë‹¤.");
+				System.out.println("¹Ìµî·Ï µÈ »ı³â¿ùÀÏ ÀÔ´Ï´Ù.");
 			}
 		}else {
-			System.out.println("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.");
+			System.out.println("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.");
 		}
-		out.print(checkBirth + "");  //ajaxê²°ê³¼ ê°’ì¸ result ê°€ ë¨, Stringìœ¼ë¡œ ê°’ì„ ë‚´ë³´ë‚¼ìˆ˜ ìˆë„ë¡ ""ë¡œ í•´ì¤€ë‹¤
+		out.print(checkBirth + "");  //ajax°á°ú °ªÀÎ result °¡ µÊ, StringÀ¸·Î °ªÀ» ³»º¸³¾¼ö ÀÖµµ·Ï ""·Î ÇØÁØ´Ù
 	}
 }
