@@ -22,14 +22,10 @@ public class LostCommentDeleteCon implements iCommand{
 		int cnt = dao.lostCommentDelete(locNo);
 
 		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
-		} else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('댓글 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
+			out.print("삭제 성공");
+		} else {
 
 		}
 	}

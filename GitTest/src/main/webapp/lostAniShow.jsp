@@ -219,7 +219,8 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 						<c:forEach var="loc" items="${loc_list}">
 
 							<!--  댓글 박스 1개 : 시작 -->
-							<div class="aComment-box ${loc.locNo}">
+							<div id="aComment-box${loc.locNo}"
+								class="aComment-box ${loc.locNo}">
 
 								<div class="loc-img-space b">
 									<c:set var='locNick' value='${loc.getNick()}' scope='request' />
@@ -242,6 +243,9 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 										<span class="loc-bottom"> 작성일
 											${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
 										<a class="write_cocomment">답글쓰기</a>
+										<c:if test="${member.getNick() == loc.nick}">
+										<button id="loc${loc.locNo}"class="loc-delete-btn b" type="button" onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">x</button>
+										</c:if>
 									</div>
 								</div>
 
@@ -254,11 +258,9 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 									</c:if>
 								</c:forEach>
 								<c:if test="${requestScope.lcocoNum > 0}">
-									<a class="h6 lcocoNum ${loc.locNo} b">답글수
+									<a id="lcocoNum${loc.locNo}" class="h6 lcocoNum ${loc.locNo} b">답글수
 										${requestScope.lcocoNum}</a>
 								</c:if>
-
-
 
 							</div>
 							<!--  댓글 박스 1개 : 종료 -->
@@ -267,10 +269,10 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 						<!-- 댓글 작성 창 구현 : 시작 : 가져옴-->
 						<div>
 							<div class='input-group rounded'>
-								<input type='text' name="loc-comment" class='form-control rounded'
-									placeholder='댓글 입력' aria-label='Search'
-									aria-describedby='search-addon' />
-								<button class="loc-Submit-btn b" type='button' onclick="locSubmit()">등록</button>
+								<input type='text' name="loc-comment"
+									class='form-control rounded loc-comment' placeholder='댓글 입력'
+									aria-label='Search' aria-describedby='search-addon' />
+								<button class="loc-Submit-btn b" type='button'>등록</button>
 							</div>
 						</div>
 						<!-- 댓글 작성 창 구현 : 종료 -->
@@ -300,34 +302,88 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
     -->
 
 	<script>
-			
-		// moveLostAniupdate(): 페이지 이동 : a 태그로 버튼이 감싸지면  필요 없음.
+	// 댓글 삭제 버튼		
+	function locDelete (locNo, del_id) {
+				
+		$.ajax({
+		    url: "LostCommentDeleteCon.do",
+		    type: "post",
+	        data: { locNo: locNo
+	        },
+	        dataType : 'json',
+	        success: function(result) {
+				$(del_id).detach();
+				alert(result);
+	        },
+		    error: function() {
+	    		console.log("err");
+	    	}
+		});
 		
+	}
+	
 			
-		//작성 버튼 눌리면 작동하는 기능
+	//작성 버튼 눌리면 작동하는 기능	
+	
+	$(".loc-Submit-btn").on("click", function() {
 		
-		function locSubmit(){
-			
-			
-		}
-		
-		$('.loc-Submit-btn').on('click', lostCommentCnt() {
-			let cnt = 0;
+    $.ajax({
+        type: "post",
+        data: {
+            lostNo: <%=lostNo%>,
+            content: $('.loc-comment').val()
+        },
+        url: "LostCommentCreateCon.do",
+        dataType: "json",
+        success: function (result) {
 
-			$.ajax({
-				type : "post",
-				data : {
-					"lostNo" : lostNo
-				},
-				url : "LostCommentCntCon.do",
-				dataType : "text",
-				success : function(data) {
-					cnt += data;
-				},
-				error : function() {
-					alert("ajax 1 실패");
-				}
-			});
+        	let code = '';
+			// 받아온 데이터를 테이블에 추가해ㄷ주세요
+			for (let i = 0; i < result.length; i++) {
+				// 현재 배열의 원소를 사용가능한 객체로 변환한 후, 
+				let loc = JSON.parse(result[i]);
+				
+				code += '<div id="aComment-box' + loc.locNo + '" class="aComment-box ' + loc.locNo + '">';
+                code += '    <div class="loc-img-space b">';
+                code += '        <c:set var="locNick" value="' + loc.nick +
+                        '" scope="request" />';
+                <% String locNick = (String) request.getAttribute("locNick");
+								MemberDTO loc_m = m_dao.memberInfo(locNick);
+								pageContext.setAttribute("loc_m", loc_m); %>
+                code += ' <img class="loc-img img-fluid rounded-circle img-thumbnail" src="${loc_m.getPicAddress()}"';
+                code += ' onerror="this.onerror=null; this.src=\'https://cdn.pixabay.com/photo/2018/11/' +
+                        '13/21/43/instagram-3814049_960_720.png\';" alt="">';
+                code += '    </div><div class="loc-item-box b"><div class="loc-content-box">';
+                code += '<p class="loc-nick h6 "><b>' + loc.nick + '</b> </p><p class="loc-content h6 b' +
+                        '">' + loc.content + '</p>';
+                code += ' <span class="loc-bottom"> 작성일 ${fn:substring(' + ${loc.coDate} +
+                        ',0,11)}</span>';
+                code += '<span class="">${fn:substring(' + ${loc.coUpdate} + ',0,11)}</span>';
+                code += '<a class="write_cocomment">답글쓰기</a></div></div>';
+                
+                code += '<c:if test="${requestScope.lcocoNum >0}"><a class="h6 lcocoNum' + loc.locNo + ' b">답글수${requestScope.lcocoNum}</a>';
+                code += '    </c:if></div>';
+           
+                    
+        }
+        code += '<div><div class="input-group rounded"><input type="text" name="loc-comment" class="form-control rounded loc-comment" placeholder="댓글 입력"'+
+        'aria-label="Search"aria-describedby="search-addon" />' +
+        '<button class="loc-Submit-btn b" type="button" onclick="locSubmit(${loc.locNo})">등록</button></div></div>';
+        
+        $("#collapseExample").html(code);        
+		alert("success");
+        
+        },error: function () {
+            alert("ajax-실패");
+        }
+    });
+
+});
+			
+		
+
+		
+	
 
 		
 	</script>
