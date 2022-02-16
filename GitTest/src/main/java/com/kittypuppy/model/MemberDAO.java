@@ -182,6 +182,7 @@ public class MemberDAO {
 		return cnt;
 
 	}
+
 //아이디 중복 체크
 	public int memberIdCheck(String id) {
 
@@ -227,10 +228,33 @@ public class MemberDAO {
 		}
 		return check;
 	}
-	
+
+// 생일 중복 체크(비밀번호 분실시)
+	public int memberBirthCheck(String birth) {
+
+		int check = 0;
+		connect();
+		try {
+			String sql = "select * from member where birth = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, birth);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				check = 0;
+			} else {
+				check = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return check;
+	}
+
 	// 멤버 리스트 받아오기
 	public ArrayList<MemberDTO> memberList(String nick) {
-		
+
 		ArrayList<MemberDTO> members = null;
 		MemberDTO member = null;
 		connect();
@@ -240,9 +264,10 @@ public class MemberDAO {
 			psmt.setString(1, nick);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				member = new MemberDTO(rs.getString("id"),null,rs.getString("picaddress"),null,null,null,null,null);
+				member = new MemberDTO(rs.getString("id"), null, rs.getString("picaddress"), null, null, null, null,
+						null);
 				members.add(member);
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
