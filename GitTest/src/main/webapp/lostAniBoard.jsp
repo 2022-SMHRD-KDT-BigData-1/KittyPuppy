@@ -375,10 +375,10 @@ img {
 	max-width: 650px;
 }
 
-/* grid 구분 확인을 위한 css 설정*/
+/* grid 구분 확인을 위한 css 설정
 .b {
 	border: solid 1px violet;
-}
+}*/
 </style>
 </head>
 <body>
@@ -388,7 +388,7 @@ img {
 		<div class="header-logo  b">
 			<i class="bi bi-exclamation-octagon-fill hidden b"></i>
 			<h1 class="text-center b">KittyPuppy</h1>
-			<a href=''><i id='report'
+			<a href="lostAniReport.html"><i id='report'
 				class="bi bi-exclamation-octagon-fill b"></i></a>
 		</div>
 
@@ -398,8 +398,8 @@ img {
 			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
 				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
 			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
-				href="mypage.jsp?"><i class="bi bi-person icon b"></i></a> <a
-				href="dmList.jsp?"><i class="bi bi-chat-dots icon b"></i></a>
+				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a
+				href="dmList.jsp"><i class="bi bi-chat-dots icon b"></i></a>
 		</div>
 
 		<!-- 검색 바... : 거대한 검색 버튼... 이거 좀 바꿔야 할 듯 -->

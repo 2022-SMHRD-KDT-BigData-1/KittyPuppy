@@ -87,7 +87,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 <body>
 
 	<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
-	<div class="collapse comment-contents row b" id="collapseExample">
+	<div class="collapse comment-contents row b show" id="collapseExample">
 
 		<!--  댓글 박스 반복문 : 시작 -->
 		<c:forEach var="loc" items="${loc_list}">
@@ -122,7 +122,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 							${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
 						<button class='btn cocomment-btn b h6' type='button'
 							data-bs-toggle="collapse"
-							data-bs-target="#collapse-loc${loc.locNo}" aria-expanded="false"
+							data-bs-target="#collapse-loc${loc.locNo}" aria-expanded="true"
 							aria-controls="collapseCocoWrite">
 							답글
 							<c:if test="${requestScope.lcocoNum > 0}">${requestScope.lcocoNum}</c:if>

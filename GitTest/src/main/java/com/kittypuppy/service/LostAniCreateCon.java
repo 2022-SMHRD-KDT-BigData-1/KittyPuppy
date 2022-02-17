@@ -41,13 +41,13 @@ public class LostAniCreateCon implements iCommand {
 				color, aniSize, isTag, feature, place, null, null));
 
 		if (cnt > 0) {
-			response.sendRedirect("lostpage.jsp");
+			response.sendRedirect("lostAniBoard.jsp");
 		} else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('게시글 작성 실패');");
-			out.print("location.href='lostpage.jsp';");
+			out.print("location.href='lostAniBoard.jsp';");
 			out.print("</script>");
 		}
 

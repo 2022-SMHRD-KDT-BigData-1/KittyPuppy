@@ -98,11 +98,11 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
-			<a><i class="bi bi-phone icon b"></i></a> <a><i
-				id="megaphone-fill" class="bi bi-megaphone-fill icon b"></i></a> <a><i
-				class="bi bi-geo-alt icon b"></i></a> <a><i
-				class="bi bi-person icon b"></i></a> <a><i
-				class="bi bi-chat-dots icon b"></i></a>
+			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="lostAniBoard.jsp"><i
+				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
+			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
+				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a
+				href="dmList.jsp"><i class="bi bi-chat-dots icon b"></i></a>
 		</div>
 
 
@@ -196,23 +196,6 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 						<p id="lostComCnt">댓글수 ${Commentcnt}</p>
 					</div>
 
-
-
-					<!-- 댓글 버튼 : 작성자일 경우 글 수정 버튼 생성 -->
-					<div class="comment-btn-line b">
-						<button class='btn comment-btn b' type='button'
-							data-bs-toggle="collapse" data-bs-target="#collapseExample"
-							aria-expanded="false" aria-controls="collapseExample">
-							<i class='bi bi-chat-dots lcs'> 댓글</i>
-						</button>
-						<c:if test="${member.getNick() == lostAni.nick}">
-							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}"><button
-									class='btn update-btn b' type='button'>
-									<i class="bi bi-vector-pen">글 수정</i>
-								</button></a>
-						</c:if>
-					</div>
-
 					<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
 					<div class="collapse comment-contents row b" id="collapseExample">
 
@@ -260,7 +243,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 										<c:if test="${member.getNick() == loc.nick}">
 											<button id="loc${loc.locNo}" class="loc-delete-btn btn b"
 												type="button"
-												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">
+												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}','${member.getNick()}')">
 												<i class="bi bi-trash" style='font-size: 15px;'></i>
 											</button>
 										</c:if>
@@ -276,12 +259,13 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 									id="collapse-loc${loc.locNo}">
 									<!-- 대댓글 입력창 -->
 									<div class='input-group rounded '>
-										<input type='text' name="lcoco-comment" id="lcoco-comment${loc.locNo}"
+										<input type='text' name="lcoco-comment"
+											id="lcoco-comment${loc.locNo}"
 											class='form-control rounded lcoco-comment'
 											placeholder='대댓글 입력' aria-label='Search'
 											aria-describedby='search-addon' />
 										<button class="lcoco-Submit-btn b" type='button'
-											onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}' )">
+											onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}','${member.getNick()}')">
 											<i style="font-size: 1.5ch;" class="bi bi-send"></i>
 										</button>
 									</div>
@@ -316,7 +300,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 														<c:if test="${member.getNick() == lcoco.nick}">
 															<button id="lcoco${lcoco.coNo}"
 																class="lcoco-delete-btn b" type="button"
-																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}')">
+																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}', '${member.getNick()}')">
 																<i class="bi bi-trash" style='font-size: 15px;'></i>
 															</button>
 														</c:if>
@@ -326,9 +310,6 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 										</c:if>
 									</c:forEach>
 								</div>
-
-
-
 								<!--  답글(대댓글) 반복박스  : 종료 -->
 							</div>
 							<!--  댓글 내부 반복박스  : 종료 -->
@@ -341,14 +322,28 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 									class='form-control rounded loc-comment' placeholder='댓글 입력'
 									aria-label='Search' aria-describedby='search-addon' />
 								<button class="loc-Submit-btn b"
-									onclick="locSubmit(${lostAni.lostNo})">
+									onclick="locSubmit(${lostAni.lostNo},'${member.getNick()}')">
 									<i style="font-size: 2ch;" class="bi bi-send"></i>
 								</button>
 							</div>
 						</div>
 						<!-- 댓글 작성 창 구현 : 종료 -->
 					</div>
+					<!-- 댓글 버튼 : 작성자일 경우 글 수정 버튼 생성 -->
+					<div class="comment-btn-line b">
 
+						<button class='btn comment-btn b' type='button'
+							data-bs-toggle="collapse" data-bs-target="#collapseExample"
+							aria-expanded="false" aria-controls="collapseExample">
+							<i class='bi bi-chat-dots lcs'> 댓글</i>
+						</button>
+						<c:if test="${member.getNick() == lostAni.nick}">
+							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}"><button
+									class='btn update-btn b' type='button'>
+									<i class="bi bi-vector-pen">글 수정</i>
+								</button></a>
+						</c:if>
+					</div>
 				</div>
 
 				<!-- 댓글 종료 -->
@@ -374,7 +369,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 	<script>
 	// 댓글 삭제 버튼		
-	function locDelete(locNo, del_id) {
+	function locDelete(locNo, del_id, nick) {
 				
 		$.ajax({
 		    type: "post",
@@ -384,7 +379,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
-	        		$(del_id).remove();
+	        		lostComLoad(lostNo, nick);
 	        	}else{
 	        		alert("con-댓글삭제 실패");
 	        	}
@@ -397,7 +392,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	}
 	
 	// 대댓글 삭제 버튼		
-	function lcocoDelete(coNo, del_id) {
+	function lcocoDelete(coNo, del_id, nick) {
 				
 		$.ajax({
 		    type: "post",
@@ -408,8 +403,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 				if(result > 0){
 	        		alert("success");
 	        		$(del_id).remove();
-	        		location.reload();
-	        		
+	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con-대댓글삭제 실패");
 	        	}
@@ -422,10 +416,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	
 	
 	// 댓글 등록 버튼 > db 등록 > 페이지 새로고침;	
-	function locSubmit(lostNo) {
-		
-		console.log(lostNo);
-		console.log($('.loc-comment').val());
+	function locSubmit(lostNo,nick) {
 		
 	    $.ajax({
 	        type: "post",
@@ -438,7 +429,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function (result) {
 	        	if(result > 0){
 	        		alert("success");
-	        		location.reload();
+	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con 댓글 작성 실패");
 	        	}
@@ -449,7 +440,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	}
 		
 	// 대댓글 작성 등록 ajax
-	function lcocoSubmit(lostNo, locNo, submitId){
+	function lcocoSubmit(lostNo, locNo, submitId, nick){
 		
 		 $.ajax({
 		        type: "post",
@@ -463,7 +454,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		        success: function (result) {
 		        	if(result > 0){
 		        		alert("success");
-		        		location.reload();
+		        		lostComLoad(lostNo,nick);
 		        	}else{
 		        		alert("con 대댓글 작성 실패");
 		        	}
@@ -473,7 +464,11 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		    });
 		}
 		
-		
+	// 댓글 보이기
+	function lostComLoad(lostNo,nick) {
+			$('#collapseExample').empty();
+			$('#collapseExample').load("lostAniCom.jsp #collapseExample",{lostNo:lostNo, nick:nick});
+	}
 	
 	</script>
 </body>

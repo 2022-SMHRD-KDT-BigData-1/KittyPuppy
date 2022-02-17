@@ -1,11 +1,17 @@
+<%@ page import="file.FileDAO"%>
+<%@ page import="java.io.File"%>
+<%@ page import="com.oreilly.servlet.multiport.DefaoltFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.multiportRequest"%>
+<
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>lostAniReport</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -124,8 +130,25 @@
 </head>
 
 <body>
+
+
+	<%
+	String directory = application.getRealPath("/assets/img/");
+	int maxSize = 1024 * 1024 * 10;
+	String encoding = "UTF-8";
+
+	MultipartRquest multipartRequest = new MultipartRquest(request, directory, maxSize, encoding,
+			newDefaultFileRenamePolicy());
+
+	String fileName = multipartRequest.getOriginalFileName("file");
+	String fileRealPath = multipartRequest.getFilesystemName("file");
+
+	new FileDAO().upload(fileName, fileRealPath);
+	out.write("파일명: " + fileName + "<br>");
+	out.write("실제 파일명: " + fileRealPath + "<br>");
+	%>
 	<div class="report-container b">
-		<form action="LostAniCreateCon.do" method="post" >
+		<form action="lostAniCreateCon.do" method="post">
 			<!-- header 박스 -->
 			<header class="container-head b">
 				<div class="item back b">
@@ -163,8 +186,8 @@
 					<option>소형</option>
 				</select> <select id="isTag" class="form-select item1" name="isTag">
 					<option value="" selected>인식표 여부</option>
-					<option value="true">인식표 있음</option>
-					<option value="false">인식표 없음</option>
+					<option>인식표 있음</option>
+					<option>인식표 없음</option>
 				</select> <select id="sex" class="form-select item1" name="sex">
 					<option value="" selected>성별</option>
 					<option>수컷</option>
