@@ -45,9 +45,4 @@ public class AniUpdateCon implements iCommand{
 	
 	}
 
-	private AnimalDTO AnimalDTO(String nick) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -38,7 +38,7 @@ public class AniJoinCon implements iCommand {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('회원가입 실패..!');");
+			out.print("alert('등록 실패..!');");
 			out.print("location.href= 'main.jsp';");// 수정
 			out.print("</script>");
 		}

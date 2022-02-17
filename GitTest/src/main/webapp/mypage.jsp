@@ -21,41 +21,7 @@
 <%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = 'fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 
-<%
-	MemberDAO dao = new MemberDAO();
-	MemberDTO member = (MemberDTO)session.getAttribute("member");
-	String nick = member.getNick();
-	System.out.println(nick);
-	
-	FeedDAO feed = new FeedDAO();
-	// 내가 팔로우 하고 있는 사람들의 게시물 리스트
-	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
-	
-	FollowDAO follow = new FollowDAO();
-	// 나를 팔로우 하는 사람들
-	ArrayList<String> followerList = follow.followerShow(nick);
-	// 내가 팔로잉중인 사람들
-	ArrayList<String> followingList = follow.followingShow(nick);
-	
-	// 현재 로그인한 닉네임으로 불러온 피드리스트, 팔로워리스트, 팔로잉리스트 page영역에 저장하기
-	pageContext.setAttribute("feedList",feedList);
-	pageContext.setAttribute("followerList", followerList);
-	pageContext.setAttribute("followingList", followingList);
-	
-	// 개행 처리 >> 댓글에 필요
-	pageContext.setAttribute("enter","\r\n");
-	
-	FeedLikeDAO fldao = new FeedLikeDAO();
-	FeedCommentDAO fcdao = new FeedCommentDAO();
-	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
-	ScrapDAO sdao = new ScrapDAO();
-	
-	// 등록한 반려동물 가져오기
-	AnimalDAO animal = new AnimalDAO();
-	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
-	pageContext.setAttribute("aniList", aniList);
 
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,7 +74,41 @@
 
 </head>
 <body>
+<%
+	MemberDAO dao = new MemberDAO();
+	MemberDTO member = (MemberDTO)session.getAttribute("member");
+	String nick = member.getNick();
+	// System.out.println(nick);
+	
+	FeedDAO feed = new FeedDAO();
+	// 내가 팔로우 하고 있는 사람들의 게시물 리스트
+	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
+	
+	FollowDAO follow = new FollowDAO();
+	// 나를 팔로우 하는 사람들
+	ArrayList<String> followerList = follow.followerShow(nick);
+	// 내가 팔로잉중인 사람들
+	ArrayList<String> followingList = follow.followingShow(nick);
+	
+	// 현재 로그인한 닉네임으로 불러온 피드리스트, 팔로워리스트, 팔로잉리스트 page영역에 저장하기
+	pageContext.setAttribute("feedList",feedList);
+	pageContext.setAttribute("followerList", followerList);
+	pageContext.setAttribute("followingList", followingList);
+	
+	// 개행 처리 >> 댓글에 필요
+	pageContext.setAttribute("enter","\r\n");
+	
+	FeedLikeDAO fldao = new FeedLikeDAO();
+	FeedCommentDAO fcdao = new FeedCommentDAO();
+	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
+	ScrapDAO sdao = new ScrapDAO();
+	
+	// 등록한 반려동물 가져오기
+	AnimalDAO animal = new AnimalDAO();
+	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
+	pageContext.setAttribute("aniList", aniList);
 
+%>
 
 	<!-- 키티퍼피 로고 -->
 	<div class="header-logo">
@@ -203,8 +203,8 @@
 				<c:otherwise>
 					<c:forEach var="ani" items="${aniList }">
 						<div class="col-auto">
-							<a href=""></a>
-							<img src="${ani.aniPic }"
+							<a href="ani">
+							<img src="${ani.animalPic }"
 								class="rounded-circle img-thumbnail animal float-start"
 								alt="프로필 사진 추가"></a>
 						</div>
@@ -252,9 +252,6 @@
                 <!-- 스토리 : 내 피드 -->
 				<div class="row mt-3 text-center">
 					<div class="row justify-content-center">
-						<div style="float:right; ">
-							<button class="feed-bt"><i class="bi bi-x-lg lcs"></i></button>
-						</div>
 						<div class="d-grid gap-sm-1 col-sm-6">
 							<!-- 게시자 정보 -->
 							<div class='col'>
@@ -277,7 +274,9 @@
 									<strong>${feed.nick}</strong><br />
 									${feed.feedDate}
 								</div>
-								
+								<div  style="float:right; ">
+									<button class="feed-bt"><i class="bi bi-x-lg lcs"></i></button>
+								</div>
 							</div>
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
