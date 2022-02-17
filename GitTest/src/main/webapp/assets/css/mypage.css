@@ -108,6 +108,11 @@ i {
 	color: #25aa90;
 }
 
+a{
+	color : #000000;
+	text-decoration-line: none;
+}
+
 .btn.update, .btn.write {
 	width: 215px;
 }

@@ -1,3 +1,5 @@
+<%@page import="com.kittypuppy.model.AnimalDTO"%>
+<%@page import="com.kittypuppy.model.AnimalDAO"%>
 <%@page import="com.kittypuppy.model.ScrapDTO"%>
 <%@page import="com.kittypuppy.model.FeedLikeDTO"%>
 <%@page import="com.kittypuppy.model.FeedCommentDTO"%>
@@ -23,6 +25,7 @@
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
 	String nick = member.getNick();
+	System.out.println(nick);
 	
 	FeedDAO feed = new FeedDAO();
 	// 내가 팔로우 하고 있는 사람들의 게시물 리스트
@@ -39,13 +42,18 @@
 	pageContext.setAttribute("followerList", followerList);
 	pageContext.setAttribute("followingList", followingList);
 	
-	// 개행 처리
+	// 개행 처리 >> 댓글에 필요
 	pageContext.setAttribute("enter","\r\n");
 	
 	FeedLikeDAO fldao = new FeedLikeDAO();
 	FeedCommentDAO fcdao = new FeedCommentDAO();
 	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
 	ScrapDAO sdao = new ScrapDAO();
+	
+	// 등록한 반려동물 가져오기
+	AnimalDAO animal = new AnimalDAO();
+	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
+	pageContext.setAttribute("aniList", aniList);
 
 %>
 <!DOCTYPE html>
@@ -125,11 +133,22 @@
 
 		<!-- 프로필 사진, 게시물, 팔로워 팔로잉 -->
 		<div class="container profile">
+			
+			<!-- 프로필 사진 -->
 
-			<span class="item img "> <img
-				src="./assets/img/bigcat.jpg"
-				class="rounded-circle img-thumbnail img-fluid float-start"
-				alt="프로필 사진 추가">
+			<span class="item img ">
+				<c:choose>
+					<c:when test="${empty member.picAddress }">
+						<img
+						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" 
+						class="rounded-circle img-thumbnail img-fluid float-start">
+					</c:when>
+					<c:otherwise>
+						<img
+						src="${member.picAddress}"
+						class="rounded-circle img-thumbnail img-fluid float-start">
+					</c:otherwise>
+				</c:choose>
 			</span>
 
 			<!-- <div class="container profile-in text-center"> -->
@@ -173,18 +192,28 @@
 
 		<!-- 반려동물 사진, 추가등록 버튼 -->
 		<div class="animal row">
-			<div class="col-auto">
-				<a href="aniJoin.jsp"><img
-					src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-					class="rounded-circle img-thumbnail animal float-start"
-					alt="프로필 사진 추가"></a>
-			</div>
-			<div class="col-auto">
-				<a href="aniJoin.jsp"></a><img
-					src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-					class="rounded-circle img-thumbnail animal float-start"
-					alt="프로필 사진 추가"></a>
-			</div>
+			<c:choose>
+				<c:when test="${empty aniList }">
+					<div class="col-auto">
+						<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+							class="rounded-circle img-thumbnail animal float-start"
+							alt="프로필 사진 추가">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="ani" items="${aniList }">
+						<div class="col-auto">
+							<a href=""></a>
+							<img src="${ani.aniPic }"
+								class="rounded-circle img-thumbnail animal float-start"
+								alt="프로필 사진 추가"></a>
+						</div>
+					</c:forEach>
+					
+				</c:otherwise>
+			</c:choose>
+			
+			
 
 			<div class="col-auto">
 				<a href="aniJoin.jsp"><i class="bi bi-plus-square-dotted"></i></a>
@@ -221,23 +250,19 @@
         		<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>	
         		
                 <!-- 스토리 : 내 피드 -->
-                <% 
-                	//for(int i = 0; i < feedList.size(); i++){ 
-                	//String carouselid = "carouselExampleControls";
-                	//carouselid += i;
-                %>
-						
-               	
 				<div class="row mt-3 text-center">
 					<div class="row justify-content-center">
+						<div style="float:right; ">
+							<button class="feed-bt"><i class="bi bi-x-lg lcs"></i></button>
+						</div>
 						<div class="d-grid gap-sm-1 col-sm-6">
 							<!-- 게시자 정보 -->
+							<div class='col'>
 							<%
-		                    	String fnick = (String) request.getAttribute("fnick");
-		                    	MemberDTO fm = dao.memberInfo(fnick);
-		                    	pageContext.setAttribute("fm",fm);
-		                    %>
-							<div class='col-6'>
+						      	String fnick = (String) request.getAttribute("fnick");
+						      	MemberDTO fm = dao.memberInfo(fnick);
+						      	pageContext.setAttribute("fm",fm);
+						    %>
 								<c:choose>
 									<c:when test = "${empty fm.picAddress} ">
 										<img
@@ -252,6 +277,7 @@
 									<strong>${feed.nick}</strong><br />
 									${feed.feedDate}
 								</div>
+								
 							</div>
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
@@ -401,7 +427,7 @@
 		                    	</c:choose>
 	                    	</div>
 	                        <button class = 'feed-bt btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
-	                        <button class="feed-bt" href=""><i class="bi bi-pencil-square lcs"> 수정하기</i></button>
+	                        <button class="feed-bt" onclick="location.href='feedUpdate.jsp?fdn=${feed.feedNo}' "><i class="bi bi-pencil-square lcs"> 수정하기</i></button>
 	                        <%-- <div id ='scrap${feed.feedNo}'>
 	                        	<c:choose>
 	                        		<c:when test="${checkS==1}">
@@ -421,11 +447,12 @@
 
 			</c:forEach>
 		</div>
-
+		
+			<!-- 스크랩 -->
 			<div class="tab-pane fade" id="myreview" role="tabpanel"
 				aria-labelledby="myreview-tab">
 
-                <!-- 스크랩 -->
+                
                 <%
 	            	// 스크랩
 	            	ScrapDAO scrap = new ScrapDAO();
@@ -490,7 +517,7 @@
 							</div>
 
 						</div>
-						<!-- 피드 내용-->
+						<!-- 피드 내용--> 
 						<div class="col-sm-6">
 							<div align='left'>
 								<%=scrapList.get(i).getContent() %>
