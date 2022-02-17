@@ -25,6 +25,7 @@ public class DMSendCon implements iCommand {
 
 		if (cnt > 0) {
 			System.out.println("성공");
+			
 		} else {
 			System.out.println("실패");
 		}

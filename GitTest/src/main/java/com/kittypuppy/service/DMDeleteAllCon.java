@@ -7,7 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.ha.deploy.WarWatcher;
+
 import com.kittypuppy.model.DMDAO;
+import com.kittypuppy.model.DMDTO;
+import com.kittypuppy.model.FollowDTO;
 
 public class DMDeleteAllCon implements iCommand {
 	// 대화방 삭제
@@ -18,18 +22,15 @@ public class DMDeleteAllCon implements iCommand {
 
 		String sendnick = request.getParameter("sendnick");
 		String receivenick = request.getParameter("receivenick");
-
+		PrintWriter out = response.getWriter();
 		int cnt = dao.DMDeleteAll(sendnick, receivenick);
-
+		int result = dao.DMSend(new DMDTO(0, sendnick, receivenick, null, null));
 		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
+			
+			out.print(result);
+			System.out.println("성공");
 		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('데이터 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
+			System.out.println("실패");
 
 		}
 

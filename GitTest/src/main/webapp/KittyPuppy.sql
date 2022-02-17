@@ -377,6 +377,9 @@ insert into dm values(dm_dmno_seq.NEXTVAL, 'еб╟Ф' , 'го╬Г╦╬'  ,'2-3'   , default
 insert into dm values(dm_dmno_seq.NEXTVAL, 'го╬Г╦╬' ,  'bamtol', '3-4'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, 'bamtol' , 'sample','4-5'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, 'sample', 'mushroom10','5-1' , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'го╬Г╦╬' , 'еб╟Ф'  ,'╬хЁГ'   , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'еб╟Ф', 'mushroom10','╬хЁГ' , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'еб╟Ф', 'sample','5-1' , default);
 
 
 -- ╢Я╠ш-----

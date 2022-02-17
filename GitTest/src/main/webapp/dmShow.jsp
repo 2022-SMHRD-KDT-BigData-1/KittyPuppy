@@ -1,3 +1,4 @@
+<%@page import="com.kittypuppy.model.FeedDAO"%>
 <%@page import="javax.print.DocFlavor.STRING"%>
 <%@page import="com.kittypuppy.model.DMDTO"%>
 <%@page import="com.kittypuppy.model.MemberDTO"%>
@@ -247,19 +248,31 @@ h1 {
 	display: table-cell;
 	vertical-align: middle;
 }
+
+.Vmore {
+	width: 10px;
+	margin-top: 7px
+}
 </style>
 </head>
 <body>
-<%
- DMDAO dao = new DMDAO();
-ArrayList<DMDTO> DMlist = null;
-String receivenick = request.getParameter("receivenick");
-MemberDTO member = (MemberDTO) session.getAttribute("member");
+	<%
+	DMDAO dao = new DMDAO();
+	ArrayList<DMDTO> DMlist = null;
+	String receivenick = request.getParameter("receivenick");
+	MemberDTO member = (MemberDTO) session.getAttribute("member");
 
-String nick = member.getNick();
-DMlist = dao.DMShow(nick, receivenick);
-System.out.print(receivenick);
-%>
+	String sendnick = member.getNick();
+
+	DMlist = dao.DMShow(sendnick, receivenick);
+
+	pageContext.setAttribute("receivenick", receivenick);
+	pageContext.setAttribute("sendnick", sendnick);
+
+	pageContext.setAttribute("DMlist", DMlist);
+
+	System.out.print(receivenick);
+	%>
 	<!-- 키티퍼피 로고 -->
 
 	<div class="row mt-5 text-center">
@@ -277,8 +290,8 @@ System.out.print(receivenick);
 					style="display: inline-block; vertical-align: top">
 					<a href=""> <img
 						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-						class="rounded-circle img-thumbnail img-fluid float-start" />
-						<strong class="sdiv"> <%= receivenick %> </strong>
+						class="rounded-circle img-thumbnail img-fluid float-start" /> <strong
+						class="sdiv"> ${receivenick} </strong>
 					</a>
 				</div>
 			</div>
@@ -290,92 +303,115 @@ System.out.print(receivenick);
 			<div class="overflow-auto g-2 p-3"
 				style="max-height: 500px; max-width: 100%">
 				<div class="row sm-2">
-				
-				<%for(int i = 0; i < DMlist.size(); i++){
-						if(DMlist.get(i).getSendNick().equals(nick)){   %>
-				
-					<div class="d-flex justify-content-end mb-4">
-						<div class="balloon_04">
-							<%= DMlist.get(i).getContent() %>
+
+					<%
+					for (int i = 0; i < DMlist.size(); i++) {
+						if (DMlist.get(i).getSendNick().equals(sendnick)) {
+					%>
+
+					<div class="d-flex justify-content-end mb-4 ">
+						<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)">
+							<div style="margin-top: 7px" class="Vmore">
+								<svg id="i-ellipsis-horizontal"
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+									width="32" height="32" fill="none" stroke="currentcolor"
+									stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    							<circle cx="7" cy="16" r="2" />
+   								 <circle cx="16" cy="16" r="2" />
+   								 <circle cx="25" cy="16" r="2" />
+								</svg>
+							</div>
+						</button>
+						<div id="sdm" class="balloon_04 ">
+							<%=DMlist.get(i).getContent()%>
+
 						</div>
+
 					</div>
-				<%}else{ %>
+					<%
+					} else {
+					%>
 
 					<div class="d-flex justify-content-start mb-4">
-						<div class="balloon_03"><%= DMlist.get(i).getContent() %></div>
+
+						<div id="rdm" class="balloon_03 "><%=DMlist.get(i).getContent()%></div>
+						<button onclick="DMDelete(<%=DMlist.get(i).getDmNo()%>)">
+							<div class="Vmore">
+								<svg id="i-ellipsis-horizontal"
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+									width="32" height="32" fill="none" stroke="currentcolor"
+									stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    							<circle cx="7" cy="16" r="2" />
+   								 <circle cx="16" cy="16" r="2" />
+   								 <circle cx="25" cy="16" r="2" />
+								</svg>
+							</div>
+						</button>
 					</div>
-					<%} %>
-					<%}%>
 
-				
-			<!-- 보내기 -->
-			<div class="row mt-3 text-center">
-				<div class="input-group mb-3">
+					<%
+					}
+					%>
+					<%
+					}
+					%>
 
-					 <input type="text" class="form-control" id="m" autocomplete="off" />
-					<div class="input-group-append">
-						<button id="msg-send" class="btn btn-primary"
-							placeholder="message" style="background-color: #25aa90">
-							보내기</button>
+
+					<!-- 보내기 -->
+					<div class="row mt-3 text-center">
+						<div class="input-group mb-3">
+
+							<input type="text" class="form-control" id="m" autocomplete="off" />
+							<div class="input-group-append">
+								<button id="msg-send" class="btn btn-primary"
+									placeholder="message" style="background-color: #25aa90">
+									보내기</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<script src="jquery-3.6.0.min.js"></script>
+			<script src="jquery-3.6.0.min.js"></script>
 
-	<script>
-		/* $(document).ready(function(){
-		    function dm(){
-		        let nick = $('#nick').val();
-		        let sNick=$('#sNick').val();
-		        let m=$('#m').val();
+			<script>
+				function DMDelete(dmNo) {
 
-		        $.ajax({
-		            url:'DMSendCon.do',
-		            type:'get',
-		            dataType: 'json',
-		            data: {sendnick:nick, receivenick:sNick, content: m},
-		            success:function(data){
-		                console.log(data.sql);
-		                alert("성공");
-		            },
-		            error:function(){
-		                alert ("실패");
-		            }
-		        })
+					$.ajax({
+						url : "DMDeleteCon.do",
+						type : "post",
+						data : {
+							dmNo : dmNo
+						},
+						dataType : 'json',
+						success : function() {
+							location.reload();
+							console.log('성공')
+						},
+						error : function() {
+							console.log('err');
+						}
+					});
+				};
 
-		    }
-
-		    $('#msg-send').click(function(){
-		        dm();
-		    });
-
-
-		});
-
-		 */
-
-		$('#msg-send').on('click', function() {
-			alert('저장성공')
-			$.ajax({
-				url : 'DMSendCon.do', // 서버에 전달할 파일명
-				type : 'get',
-				data : {
-					sendNick : $(nick).val(), // 전송할 파라미터 1
-					receiveNick : $(receivenick).val(), // 전송할 파라미터 1
-					content : $('#m').val()
-				},
-				success : function() {
-
-					console.log('저장성공'); // 성공시 코드
-				},
-				error : function() {
-					alert("저장실패");
-				}
-			});
-		});
-	</script>
+				$('#msg-send').on('click', function() {
+					$.ajax({
+						url : 'DMSendCon.do', // 서버에 전달할 파일명
+						type : 'post',
+						data : {
+							sendNick : '${sendnick}', // 전송할 파라미터 1
+							receiveNick : '${receivenick}', // 전송할 파라미터 1
+							content : $('#m').val()
+						},
+						success : function() {
+							location.reload();
+							console.log('저장성공'); // 성공시 코드
+						},
+						error : function() {
+							alert("저장실패");
+						}
+					});
+				});
+			</script>
 </body>
 </html>
