@@ -33,6 +33,10 @@ SELECT * from lost_animal;
 SELECT * from lost_comment;
 SELECT * from lost_cocomment;
 
+-- fk 이름을 넣으면 해당 fk로 묶여있는 테이블 이름을 알 수 있음 > 해당 테이블의 데이터를 삭제후 부모테이블의 내용 삭제
+SELECT CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME FROM USER_CONSTRAINTS
+WHERE CONSTRAINT_NAME = 'FEED_LIKE_FEEDNO_FK'
+
 
 CREATE table member(
 	id VARCHAR2(20) not null,

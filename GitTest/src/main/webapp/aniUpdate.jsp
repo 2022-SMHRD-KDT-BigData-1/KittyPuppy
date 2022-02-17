@@ -5,6 +5,9 @@
 <%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = 'fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,6 +82,10 @@
             height: 100%;
         }
         
+        textarea{
+        	height: 38px;
+        }
+        
     </style>
 
 </head>
@@ -88,10 +95,19 @@
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
 	String nick = member.getNick();
 	
-	// 등록한 반려동물 가져오기
+	// 수정하고싶은 반려동물 이름 받아오기
+	String animalName = request.getParameter("animalName");
+
 	AnimalDAO animal = new AnimalDAO();
 	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
-	pageContext.setAttribute("aniList", aniList);
+	AnimalDTO ani = null;
+	for(int i = 0; i < aniList.size(); i++){
+		if(aniList.get(i).getAnimalName().equals(animalName)){
+			ani = aniList.get(i);
+		}
+	}
+	
+	pageContext.setAttribute("ani", ani);
 %>
  <div class="container out">
  
@@ -100,7 +116,7 @@
         <div class="row">
 
 
-            <div class="d-grid gap-0 col-12 mx-auto">
+            <div class="d-grid gap-1 col-12 mx-auto">
 
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
@@ -145,9 +161,8 @@
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <input type="nick" class="form-control" placeholder="닉네임" name="nick"><br>
-                <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName"><br>
-
+                <textarea class="form-control" name="nick">${ani.nick }</textarea>
+                <textarea class="form-control" name="animalName">${ani.animalName }</textarea>
 
                 <div class="mb-3">
 
@@ -162,9 +177,7 @@
                 </div>
 
                 <div class="mb-3">
-
-				<input type="text" class="form-control" placeholder="반려동물 소분류 ex)푸들 or 샴" name="kind">
-                    
+					<textarea class="form-control" name="kind">${ani.kind }</textarea>
                 </div>
 
 
@@ -177,13 +190,8 @@
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
                 </div>
-
-                <input type="text" class="form-control" placeholder="나이 ex)2세" name="animalAge"><br>
-                <input type="text" class="form-control" placeholder="반려동물 프로필" name="animalProfile"><br>
-
-
-
-
+				<textarea class="form-control" name="animalAge">${ani.animalAge }</textarea>
+				<textarea class="form-control" name="animalProfile">${ani.animalProfile }</textarea>
 
 
             </div>

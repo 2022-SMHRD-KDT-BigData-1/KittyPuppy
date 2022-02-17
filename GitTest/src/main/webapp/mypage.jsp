@@ -203,7 +203,7 @@
 				<c:otherwise>
 					<c:forEach var="ani" items="${aniList }">
 						<div class="col-auto">
-							<a href="ani">
+							<a href="aniUpdate.jsp?animalName=${ani.animalName }">
 							<img src="${ani.animalPic }"
 								class="rounded-circle img-thumbnail animal float-start"
 								alt="프로필 사진 추가"></a>
@@ -275,7 +275,8 @@
 									${feed.feedDate}
 								</div>
 								<div  style="float:right; ">
-									<button class="feed-bt"><i class="bi bi-x-lg lcs"></i></button>
+									<!-- 삭제 아이콘 -->
+									<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' "><i class="bi bi-x-lg lcs"></i></button>
 								</div>
 							</div>
 							<!-- 첨부된 사진-->
