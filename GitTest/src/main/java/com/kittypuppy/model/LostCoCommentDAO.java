@@ -48,10 +48,10 @@ public class LostCoCommentDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "insert into  lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL,?,?,?,?,default,null)";
+			String sql = "insert into lost_cocomment values(lost_cocomment_cono_seq.NEXTVAL, ?, ?, ?, ?, default, null)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lcc.getLocNo());
-			psmt.setInt(2, lcc.getFeedNo());
+			psmt.setInt(2, lcc.getlostNo());
 			psmt.setString(3, lcc.getNick());
 			psmt.setString(4, lcc.getContent());
 			cnt =  psmt.executeUpdate();

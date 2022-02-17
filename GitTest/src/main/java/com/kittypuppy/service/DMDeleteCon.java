@@ -21,14 +21,9 @@ public class DMDeleteCon implements iCommand {
 		int cnt = dao.DMDelete(dmNo);
 
 		if (cnt > 0) {
-			response.sendRedirect("main.jsp");
+		System.out.println("성공");
 		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('데이터 삭제 실패..!');");
-			out.print("location.href= 'main.jsp';");
-			out.print("</script>");
+			System.out.println("실패");	
 
 		}
 

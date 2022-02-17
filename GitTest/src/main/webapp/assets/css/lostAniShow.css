@@ -179,56 +179,62 @@ img {
 .comment-btn, .update-btn {
 	flex: auto;
 	display: block;
+	padding: 0;
 }
 
 .bi-chat-dots-fill {
 	display: none;
 }
 
-/* *** 이하 댓글 대댓글 배치 관련 flex 설정*******/
-#aComment-box {
-	display: flex;
+#lostComCnt {
+	color: gray;
 }
 
-.loc-img-space {
-	flex: 1 1 3rem;
+/* *** 이하 댓글 대댓글 배치 관련*******/
+.lcocoNum, .loc-bottom {
+	margin-left: 3rem;
+	color: gray;
+}
+
+.lcoco-content-box .lcoco-bottom {
+	margin-left: 3rem;
+	color: gray;
+}
+
+.loc-img-space, .lcoco-img-space {
 	float: left;
 	display: inline;
-	margin: 5px;
+	margin: 1px;
+	padding-top: 3px;
 }
 
-.loc-img {
-	width: 2.5rem;
+.loc-img, .lcoco-img {
+	position: relative;
 	height: 2.5rem;
 	border-radius: 50%;
+	width: 2.5rem;
 }
 
-.loc-item-box {
-	flex: auto;
+.loc-item-box, .lcoco-item-box {
 	margin: 3px;
 }
 
-.loc-content-box {
+.loc-content-box, .lcoco-content-box {
+	position: relative;
 	display: block;
-	border-raidius: 20%;
-	padding: 5px;
 }
 
-.loc-nick, .loc-content {
+.loc-nick, .loc-content, .lcoco-nick, .lcoco-content {
 	margin-bottom: 0.2em;
 }
 
-.lcocoNum, .loc-bottom {
-	margin-left: 3rem;
-}
-
-.loc-bottom, .lcocoNum, .write_cocomment {
-	color: gray;
+.CoComment-contents {
+	padding-left: 3rem;
 }
 
 /* **** 이상 댓글 대댓글 배치 관련 flex 설정******/
 
-/* grid 구분 확인을 위한 css 설정*/
+/* grid 구분 확인을 위한 css 설정
 .b {
 	border: solid 1px violet;
-}
+}*/
