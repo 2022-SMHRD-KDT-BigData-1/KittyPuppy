@@ -148,8 +148,9 @@ public class AnimalDAO {
 		ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
 		AnimalDTO animal = null;
 		connect();
+		String sql = "select * from animal where nick = ? ";
+
 		try {
-			String sql = "select * from animal where nick = ?";
 			psmt.setString(1, nick);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

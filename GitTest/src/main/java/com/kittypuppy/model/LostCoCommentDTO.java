@@ -4,19 +4,19 @@ public class LostCoCommentDTO {
 	
 	private int coNo;
 	private int locNo;
-	private int feedNo;
+	private int lostNo;
 	private String nick;
 	private String content;
 	private String coDate;
 	private String coUpdate;
 	
 	
-	public LostCoCommentDTO(int coNo, int locNo, int feedNo, String nick, String content, String coDate,
+	public LostCoCommentDTO(int coNo, int locNo, int lostNo, String nick, String content, String coDate,
 			String coUpdate) {
 		super();
 		this.coNo = coNo;
 		this.locNo = locNo;
-		this.feedNo = feedNo;
+		this.lostNo = lostNo;
 		this.nick = nick;
 		this.content = content;
 		this.coDate = coDate;
@@ -44,13 +44,13 @@ public class LostCoCommentDTO {
 	}
 
 
-	public int getFeedNo() {
-		return feedNo;
+	public int getlostNo() {
+		return lostNo;
 	}
 
 
-	public void setFeedNo(int feedNo) {
-		this.feedNo = feedNo;
+	public void setLostNo(int lostNo) {
+		this.lostNo = lostNo;
 	}
 
 

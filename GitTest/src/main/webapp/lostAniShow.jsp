@@ -216,9 +216,8 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 					<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
 					<div class="collapse comment-contents row b" id="collapseExample">
 
+						<!--  댓글 박스 반복문 : 시작 -->
 						<c:forEach var="loc" items="${loc_list}">
-
-							<!--  댓글 박스 1개 : 시작 -->
 							<div id="aComment-box${loc.locNo}"
 								class="aComment-box ${loc.locNo}">
 
@@ -239,40 +238,112 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 										<p class="loc-nick h6 ">
 											<b>${loc.nick}</b>
 										</p>
+										<c:set var="lcocoNum" value="0" scope="request" />
+										<c:forEach var="lcoco" items="${lcoco_list}">
+											<c:if test="${lcoco.locNo == loc.locNo}">
+												<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
+													scope="request" />
+											</c:if>
+										</c:forEach>
 										<p class="loc-content h6 b">${loc.content}</p>
 										<span class="loc-bottom"> 작성일
 											${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
-										<a class="write_cocomment">답글쓰기</a>
+										<button class='btn cocomment-btn b h6' type='button'
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse-loc${loc.locNo}"
+											aria-expanded="false" aria-controls="collapseCocoWrite">
+											답글
+											<c:if test="${requestScope.lcocoNum > 0}">${requestScope.lcocoNum}</c:if>
+											<i class="bi bi-reply" style='font-size: 15px;'></i>
+										</button>
+
 										<c:if test="${member.getNick() == loc.nick}">
-										<button id="loc${loc.locNo}"class="loc-delete-btn b" type="button" onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">x</button>
+											<button id="loc${loc.locNo}" class="loc-delete-btn btn b"
+												type="button"
+												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">
+												<i class="bi bi-trash" style='font-size: 15px;'></i>
+											</button>
 										</c:if>
 									</div>
 								</div>
 
 
-								<c:set var="lcocoNum" value="0" scope="request" />
-								<c:forEach var="lcoco" items="${lcoco_list}">
-									<c:if test="${lcoco.locNo == loc.locNo}">
-										<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
-											scope="request" />
-									</c:if>
-								</c:forEach>
-								<c:if test="${requestScope.lcocoNum > 0}">
-									<a id="lcocoNum${loc.locNo}" class="h6 lcocoNum ${loc.locNo} b">답글수
-										${requestScope.lcocoNum}</a>
-								</c:if>
 
+								<!--  대댓글 박스 반복문 :댓글에 if 대댓이 있으, collapse로 대댓 생성 -->
+
+
+								<div class="collapse CoComment-contents row b"
+									id="collapse-loc${loc.locNo}">
+									<!-- 대댓글 입력창 -->
+									<div class='input-group rounded '>
+										<input type='text' name="lcoco-comment" id="lcoco-comment${loc.locNo}"
+											class='form-control rounded lcoco-comment'
+											placeholder='대댓글 입력' aria-label='Search'
+											aria-describedby='search-addon' />
+										<button class="lcoco-Submit-btn b" type='button'
+											onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}' )">
+											<i style="font-size: 1.5ch;" class="bi bi-send"></i>
+										</button>
+									</div>
+									<c:forEach var="lcoco" items="${lcoco_list}">
+										<c:if test="${loc.locNo == lcoco.locNo}">
+											<div id="lcoco-Comment-box${lcoco.coNo}"
+												class="lcoco-Comment-box ${lcoco.coNo}">
+
+												<div class="lcoco-img-space b">
+													<c:set var='lcocoNick' value='${lcoco.getNick()}'
+														scope='request' />
+													<%
+													String lcocoNick = (String) request.getAttribute("lcocoNick");
+													MemberDTO lcoco_m = m_dao.memberInfo(lcocoNick);
+													pageContext.setAttribute("lcoco_m", lcoco_m);
+													%>
+													<img
+														class="lcoco-img img-fluid rounded-circle img-thumbnail"
+														src="${lcoco_m.getPicAddress()}"
+														onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
+														alt="">
+												</div>
+												<div class="lcoco-item-box b">
+													<div class="lcoco-content-box">
+														<p class="lcoco-nick h6 ">
+															<b>${lcoco.nick}</b>
+														</p>
+														<p class="lcoco-content h6 b">${lcoco.content}</p>
+														<span class="lcoco-bottom"> 작성일
+															${fn:substring(lcoco.coDate,0,11)}</span> <span class="">${fn:substring(lcoco.coUpdate,0,11)}</span>
+
+														<c:if test="${member.getNick() == lcoco.nick}">
+															<button id="lcoco${lcoco.coNo}"
+																class="lcoco-delete-btn b" type="button"
+																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}')">
+																<i class="bi bi-trash" style='font-size: 15px;'></i>
+															</button>
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</c:if>
+									</c:forEach>
+								</div>
+
+
+
+								<!--  답글(대댓글) 반복박스  : 종료 -->
 							</div>
-							<!--  댓글 박스 1개 : 종료 -->
+							<!--  댓글 내부 반복박스  : 종료 -->
 
 						</c:forEach>
-						<!-- 댓글 작성 창 구현 : 시작 : 가져옴-->
+						<!-- 댓글 작성 창 구현 : 가져옴-->
 						<div>
 							<div class='input-group rounded'>
 								<input type='text' name="loc-comment"
 									class='form-control rounded loc-comment' placeholder='댓글 입력'
 									aria-label='Search' aria-describedby='search-addon' />
-								<button class="loc-Submit-btn b" type='button'>등록</button>
+								<button class="loc-Submit-btn b"
+									onclick="locSubmit(${lostAni.lostNo})">
+									<i style="font-size: 2ch;" class="bi bi-send"></i>
+								</button>
 							</div>
 						</div>
 						<!-- 댓글 작성 창 구현 : 종료 -->
@@ -303,89 +374,107 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 	<script>
 	// 댓글 삭제 버튼		
-	function locDelete (locNo, del_id) {
+	function locDelete(locNo, del_id) {
 				
 		$.ajax({
-		    url: "LostCommentDeleteCon.do",
 		    type: "post",
-	        data: { locNo: locNo
-	        },
+	        data: { locNo: locNo },
+		    url: "LostCommentDeleteCon.do",
 	        dataType : 'json',
 	        success: function(result) {
-				$(del_id).detach();
-				alert(result);
+				if(result > 0){
+	        		alert("success");
+	        		$(del_id).remove();
+	        	}else{
+	        		alert("con-댓글삭제 실패");
+	        	}
 	        },
 		    error: function() {
-	    		console.log("err");
+	            alert("ajax-실패");
 	    	}
 		});
-		
+
 	}
 	
-			
-	//작성 버튼 눌리면 작동하는 기능	
-	
-	$(".loc-Submit-btn").on("click", function() {
-		
-    $.ajax({
-        type: "post",
-        data: {
-            lostNo: <%=lostNo%>,
-            content: $('.loc-comment').val()
-        },
-        url: "LostCommentCreateCon.do",
-        dataType: "json",
-        success: function (result) {
-
-        	let code = '';
-			// 받아온 데이터를 테이블에 추가해ㄷ주세요
-			for (let i = 0; i < result.length; i++) {
-				// 현재 배열의 원소를 사용가능한 객체로 변환한 후, 
-				let loc = JSON.parse(result[i]);
+	// 대댓글 삭제 버튼		
+	function lcocoDelete(coNo, del_id) {
 				
-				code += '<div id="aComment-box' + loc.locNo + '" class="aComment-box ' + loc.locNo + '">';
-                code += '    <div class="loc-img-space b">';
-                code += '        <c:set var="locNick" value="' + loc.nick +
-                        '" scope="request" />';
-                <% String locNick = (String) request.getAttribute("locNick");
-								MemberDTO loc_m = m_dao.memberInfo(locNick);
-								pageContext.setAttribute("loc_m", loc_m); %>
-                code += ' <img class="loc-img img-fluid rounded-circle img-thumbnail" src="${loc_m.getPicAddress()}"';
-                code += ' onerror="this.onerror=null; this.src=\'https://cdn.pixabay.com/photo/2018/11/' +
-                        '13/21/43/instagram-3814049_960_720.png\';" alt="">';
-                code += '    </div><div class="loc-item-box b"><div class="loc-content-box">';
-                code += '<p class="loc-nick h6 "><b>' + loc.nick + '</b> </p><p class="loc-content h6 b' +
-                        '">' + loc.content + '</p>';
-                code += ' <span class="loc-bottom"> 작성일 ${fn:substring(' + ${loc.coDate} +
-                        ',0,11)}</span>';
-                code += '<span class="">${fn:substring(' + ${loc.coUpdate} + ',0,11)}</span>';
-                code += '<a class="write_cocomment">답글쓰기</a></div></div>';
-                
-                code += '<c:if test="${requestScope.lcocoNum >0}"><a class="h6 lcocoNum' + loc.locNo + ' b">답글수${requestScope.lcocoNum}</a>';
-                code += '    </c:if></div>';
-           
-                    
-        }
-        code += '<div><div class="input-group rounded"><input type="text" name="loc-comment" class="form-control rounded loc-comment" placeholder="댓글 입력"'+
-        'aria-label="Search"aria-describedby="search-addon" />' +
-        '<button class="loc-Submit-btn b" type="button" onclick="locSubmit(${loc.locNo})">등록</button></div></div>';
-        
-        $("#collapseExample").html(code);        
-		alert("success");
-        
-        },error: function () {
-            alert("ajax-실패");
-        }
-    });
-
-});
-			
+		$.ajax({
+		    type: "post",
+	        data: { coNo: coNo },
+		    url: "LostCoCommentDeleteCon.do",
+	        dataType : 'json',
+	        success: function(result) {
+				if(result > 0){
+	        		alert("success");
+	        		$(del_id).remove();
+	        		location.reload();
+	        		
+	        	}else{
+	        		alert("con-대댓글삭제 실패");
+	        	}
+	        },
+		    error: function() {
+	            alert("ajax-실패");
+	    	}
+		});
+	}
+	
+	
+	// 댓글 등록 버튼 > db 등록 > 페이지 새로고침;	
+	function locSubmit(lostNo) {
 		
-
+		console.log(lostNo);
+		console.log($('.loc-comment').val());
+		
+	    $.ajax({
+	        type: "post",
+	        data: {
+	            lostNo: lostNo,
+	            content: $('.loc-comment').val()
+	        },
+	        url: "LostCommentCreateCon.do",
+	        dataType: "json",
+	        success: function (result) {
+	        	if(result > 0){
+	        		alert("success");
+	        		location.reload();
+	        	}else{
+	        		alert("con 댓글 작성 실패");
+	        	}
+	        },error: function () {
+	            alert("ajax-실패");
+	        }
+	    });
+	}
+		
+	// 대댓글 작성 등록 ajax
+	function lcocoSubmit(lostNo, locNo, submitId){
+		
+		 $.ajax({
+		        type: "post",
+		        data: {
+		            lostNo: lostNo,
+		            locNo: locNo,
+		            content: $(submitId).val()
+		        },
+		        url: "LostCoCommentCreateCon.do",
+		        dataType: "json",
+		        success: function (result) {
+		        	if(result > 0){
+		        		alert("success");
+		        		location.reload();
+		        	}else{
+		        		alert("con 대댓글 작성 실패");
+		        	}
+		        },error: function () {
+		            alert("ajax-실패");
+		        }
+		    });
+		}
+		
 		
 	
-
-		
 	</script>
 </body>
 </html>

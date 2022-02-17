@@ -15,34 +15,30 @@ import com.kittypuppy.model.MemberDTO;
 public class LostCoCommentCreateCon implements iCommand {
 
 	LostCoCommentDAO dao = new LostCoCommentDAO();
-	LostCoCommentDTO lostComment = null;
+	LostCoCommentDTO lostCoComment = null;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// post 방식으로 입력값 넘겨 받음.
 		request.setCharacterEncoding("utf-8");
-		String content = request.getParameter("content");
-		int lostNo = Integer.parseInt(request.getParameter("lostNo"));
-
-		// 쿼리스트링으로 locNo 받음
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
+		int lostNo = Integer.parseInt(request.getParameter("lostNo"));
+		String content = request.getParameter("content");
 
 		// 세션에서 로그인한 사용자 nick 가져오려고 선언
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 
 		int cnt = dao.lostCoCommentCreate(new LostCoCommentDTO(0, locNo, lostNo, member.getNick(), content, null, null));
+		PrintWriter out = response.getWriter();
 
 		if (cnt > 0) {
-			response.sendRedirect("mypage.jsp");
+			System.out.println("대댓글작성 성공"); // 추후 기능확인 후 지우기
+			out.print(cnt);
 		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('대댓글 작성 실패');");
-			out.print("location.href='mypage.jsp';");
-			out.print("</script>");
+			System.out.println("대댓글작성 실패"); // 추후 기능확인 후 지우기
+			out.print(cnt);
 		}
 	}
 
