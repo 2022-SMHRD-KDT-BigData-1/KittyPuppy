@@ -87,6 +87,12 @@ public class MemberDTO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-
+	public MemberDTO(String id, String pw, String birth) {
+		// 비밀번호 설정
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.birth = birth;
+	}
 	
 }

@@ -18,6 +18,8 @@ public class MUpdatePw implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset = UTF-8");
+		
 		HttpSession session = request.getSession();
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -29,15 +31,15 @@ public class MUpdatePw implements iCommand {
 				
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.forgetPW(new MemberDTO(id, pw, birth);
+		int cnt = dao.updatePw(new MemberDTO(id, pw, birth), id, pw, birth);
 
 		if (cnt > 0) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("login.jsp"); // 설정 완료 시 로그인 페이지 이동
 		} else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('비밀번호 설정 실패');");  //실패시 비밀번호 설정 페이지 이동
+			out.print("alert('비밀번호 설정 실패');");  //실패시 다시 비밀번호 설정 페이지 이동
 			out.print("location.href='updatePw.jsp';");
 			out.print("</script>");
 		}
