@@ -22,18 +22,21 @@ public class DMDeleteAllCon implements iCommand {
 
 		String sendnick = request.getParameter("sendnick");
 		String receivenick = request.getParameter("receivenick");
+		System.out.println(sendnick);
 		PrintWriter out = response.getWriter();
 		int cnt = dao.DMDeleteAll(sendnick, receivenick);
-		int result = dao.DMSend(new DMDTO(0, sendnick, receivenick, null, null));
+		
+		
 		if (cnt > 0) {
 			
-			out.print(result);
+		
 			System.out.println("성공");
 		} else {
 			System.out.println("실패");
 
 		}
-
+		System.out.println(cnt);
+		out.print(cnt);
 	}
 
 }

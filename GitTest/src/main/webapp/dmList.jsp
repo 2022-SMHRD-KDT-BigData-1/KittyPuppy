@@ -625,7 +625,7 @@ img {
 							</div>
 							</a>
 							<div style="" class="Vmore b">
-							<button onclick="DMDeleteAll('<%=sendnick%>,<%=list.get(i)%>')">
+							<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
 								
 									<svg id="i-ellipsis-horizontal"
 										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
@@ -663,7 +663,7 @@ function DMDeleteAll(sendnick,receivenick) {
 			receivenick : receivenick
 		},
 		dataType : 'json',
-		success : function(result) {
+		success : function(cnt) {
 			location.reload();
 			console.log('성공')
 		},
