@@ -24,6 +24,7 @@ public class FeedSearchCon implements iCommand {
 		
 		if (search.length() != 0) {
 			if (search.substring(0, 1).equals("#")) {
+				search = search.substring(1);
 				FeedDAO fdao = new FeedDAO();
 				ArrayList<String> tagList = fdao.tagSearch(search);
 				request.setAttribute("searchType", "tag");
@@ -34,7 +35,7 @@ public class FeedSearchCon implements iCommand {
 				request.setAttribute("searchType", "nick");
 				request.setAttribute("searchList", memberList);
 			}
-			
+			request.setAttribute("search", search);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");
 			dispatcher.forward(request, response);
 		} else {

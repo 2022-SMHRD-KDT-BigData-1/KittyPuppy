@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import='java.util.ArrayList' import='com.kittypuppy.model.*'%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix='fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,61 +147,58 @@ div {
 			<c:choose>
 				<c:when test = '${searchType == "nick"}'>
 					<!-- 닉네임 검색 결과-->
-					<a href='otherpage.jsp'>
-						<div>
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								class="rounded-circle img-thumbnail img-fluid float-start">
-							<br> <strong> 닉네임1</strong>
-						</div>
-					</a>
-					<a href='otherpage.jsp'>
-						<div>
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								class="rounded-circle img-thumbnail img-fluid float-start">
-							<br> <strong> 닉네임2</strong>
-						</div>
-					</a>
-					<a href='otherpage.jsp'>
-						<div>
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								class="rounded-circle img-thumbnail img-fluid float-start">
-							<br> <strong> 닉네임3</strong>
-						</div>
-					</a>
-					<a href='otherpage.jsp'>
-						<div>
-							<img
-								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-								class="rounded-circle img-thumbnail img-fluid float-start">
-							<br> <strong> 닉네임4</strong>
-						</div>
-					</a>
+					<!--  SRNick : search result nick -->
+					<c:choose>
+						<c:when test ='${empty searchList}'>
+							<p>검색 결과가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<p>${search}에 대한 검색결과</p>
+							<c:forEach var = 'SRNick' items='${searchList}'>
+								<c:set var = 'SRNick' value='${SRNick}' scope = 'request'/>
+								<%
+									String SRNick = (String)request.getAttribute("SRNick");
+									MemberDTO SRMember = dao.memberInfo(SRNick);
+									pageContext.setAttribute("SRMember", SRMember);
+								%>
+								<a href='otherpage.jsp?nick=${SRNick}'>
+									<div>
+										<c:choose>
+											<c:when test='${empty SRMember.picAddress}'>
+												<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
+											</c:when>
+											<c:otherwise>
+												<img src="${SRMember.picAddress}" class="rounded-circle img-thumbnail img-fluid float-start">
+											</c:otherwise>
+										</c:choose>	
+										<br> <strong>  ${SRNick}</strong>
+									</div>
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>	
 				</c:when>
 				<c:otherwise>
 					<!-- 태그 검색 결과-->
-					<a href='searchResult.jsp?search='>
-						<div>
-							<i class="hash bi bi-hash"></i> <strong> 태그1</strong>
-						</div>
-					</a>
-					<a href='searchResult.jsp?search='>
-						<div>
-							<i class="hash bi bi-hash"></i> <strong> 태그2</strong>
-						</div>
-					</a>
-					<a href='searchResult.jsp?search='>
-						<div>
-							<i class="hash bi bi-hash"></i> <strong> 태그3</strong>
-						</div>
-					</a>
-					<a href='searchResult.jsp?search='>
-						<div>
-							<i class="hash bi bi-hash"></i> <strong> 태그4</strong>
-						</div>
-					</a>
+					<!--  SRTag : search result tag -->
+					<c:choose>
+						<c:when test ='${empty searchList}'>
+							<p>검색 결과가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<p>${search}에 대한 검색결과</p>
+							<c:forEach var = 'SRTag' items='${searchList}'>
+							<c:set var = 'SRTag' value = '${SRTag}' scope='request'/>
+							<c:set var = 'SRTagChange' value='${fn:replace(SRTag,"#","놷갼셧뱗")}' scope = 'request'/>
+							<c:set var = 'SRTagChange' value='${fn:replace(SRTagChange," ","럃귤꾤꺖")}' scope = 'request'/>
+								<a href='searchResult.jsp?tag=${SRTagChange}'>
+									<div>
+										<i class="hash bi bi-hash"></i> <strong> ${SRTag}</strong>
+									</div>
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>	
 				</c:otherwise>
 			</c:choose>
 		</div>

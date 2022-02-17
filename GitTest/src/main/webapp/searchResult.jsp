@@ -221,15 +221,11 @@ body {
   	MemberDTO member = (MemberDTO)session.getAttribute("member");
   	String nick = member.getNick();
   	fwdao.followingShow(nick);
-  	pageContext.setAttribute("nick",nick);
-  	
-  	ArrayList<FeedDTO> feedList = null;
-  	ArrayList<String> followList = fwdao.followingShow(nick);
-  	if (followList.size() == 0) {
-  		feedList = fdao.feedShowAll();
-  	} else {
-  		feedList = fdao.feedShow(followList);
-  	}
+ 	String tag = request.getParameter("tag");
+ 	tag = tag.replaceAll("놷갼셧뱗", "#");
+ 	tag = tag.replaceAll("럃귤꾤꺖", " ");
+  	System.out.print(tag);
+  	ArrayList<FeedDTO> feedList = fdao.feedSearchByTag(tag);
   	pageContext.setAttribute("feedList",feedList);
   	
   	// 개행 처리
