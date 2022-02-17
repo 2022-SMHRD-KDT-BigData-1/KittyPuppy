@@ -111,11 +111,7 @@
                         <button type="submit" class="btn my-2" style="background-color: #25aa90;">완료</button>
                     </div>
 
-                    <hr class="my-1">
-
-                    <div class="d-grid gap-2 col-12 mx-auto">
-                        <button type="button" class="btn my-2" style="background-color: #25aa90;" onclick="location.href='login.jsp'">로그인으로 돌아가기</button>
-                    </div>
+                   
 
 
 
@@ -145,11 +141,11 @@
                 success: function (result) {
                     if (result == 0) {
                         document.getElementById('checkId').style.display = 'block';
-                        $("#checkId").html('등록 된 아이디입니다');
+                        $("#checkId").html('등록된 아이디입니다');
                         $("#checkId").css('color', '#25aa90');
                     } else {
                         document.getElementById('checkId').style.display = 'block';
-                        $("#checkId").html('미등록 된 아이디입니다');
+                        $("#checkId").html('미등록된 아이디입니다');
                         $("#checkId").css('color', 'red');
                     }
                 },

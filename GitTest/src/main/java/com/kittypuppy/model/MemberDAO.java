@@ -162,7 +162,7 @@ public class MemberDAO {
 
 	}
 
-	// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..
+// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..
 	public int forgetPW(String id, String birth, String pw) {
 
 		int cnt = 0;
@@ -182,6 +182,9 @@ public class MemberDAO {
 		return cnt;
 
 	}
+	
+	
+
 
 //아이디 중복 체크
 	public int memberIdCheck(String id) {
@@ -235,7 +238,7 @@ public class MemberDAO {
 		int check = 0;
 		connect();
 		try {				
-			String sql = "select id, birth from member where id = ? and birth = ?"; ;
+			String sql = "select * from member where birth = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, birth);
 			rs = psmt.executeQuery();
@@ -275,4 +278,5 @@ public class MemberDAO {
 		}
 		return members;
 	}
+
 }

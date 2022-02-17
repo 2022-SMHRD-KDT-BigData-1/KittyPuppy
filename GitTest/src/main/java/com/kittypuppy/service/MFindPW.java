@@ -31,13 +31,19 @@ public class MFindPW implements iCommand {
 			System.out.println("이미 존재하는 아이디입니다.");
 			if(checkBirth == 0) {
 				System.out.println("등록 된 생년월일 입니다.");
-				out.print("location.href= 'login.jsp';");
+				out.print("<script>");
+				out.print("location.href= 'updatePw.jsp';");
+				out.print("</script>");
 			}else {
 				System.out.println("미등록 된 생년월일 입니다.");
+				out.print("<script>");
+				out.print("alert('회원정보가 일치하지 않아 회원가입을 해주세요.');");
+				out.print("location.href= 'join.jsp';");
+				out.print("</script>");
 			}
 		}else {
 			System.out.println("사용 가능한 아이디입니다.");
 		}
-		out.print(checkBirth + "");  //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
+		out.print(checkId + "");  //ajax결과 값인 result 가 됨, String으로 값을 내보낼수 있도록 ""로 해준다
 	}
 }
