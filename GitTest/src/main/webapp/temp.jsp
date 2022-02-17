@@ -223,10 +223,13 @@ div {
 	session.setAttribute("feedNo", feedNo);
 	session.setAttribute("nick", nick);
 	session.setAttribute("feed", feed);
+	
+	// 개행 처리
+	pageContext.setAttribute("enter","\r\n");
 	%>
 
 	<!--  피드 댓글 창 -->
-	<div class='comment' id='comment${feed.feedNo}'>
+	<div class='comment' id='tempComment'>
 		<div class='comment_body' align='left'>
 			<c:set var='feedNo' value='${feed.feedNo}' scope='session' />
 			<%

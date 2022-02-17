@@ -255,28 +255,26 @@ public class MemberDAO {
 		return check;
 	}
 
-	// 멤버 리스트 받아오기
-	public ArrayList<MemberDTO> memberList(String nick) {
+	// 멤버 리스트 받아오기 닉네임만
+		public ArrayList<String> memberList(String nick) {
 
-		ArrayList<MemberDTO> members = null;
-		MemberDTO member = null;
-		connect();
-		try {
-			String sql = "select * from member where nick = %?%";
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, nick);
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				member = new MemberDTO(rs.getString("id"), null, rs.getString("picaddress"), null, null, null, null,
-						null);
-				members.add(member);
+			ArrayList<String> members = new ArrayList<String>();
+			connect();
+			try {
+				String sql = "select nick from member where nick like ?";
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, "%"+nick+"%");
+				rs = psmt.executeQuery();
+				while (rs.next()) {
+					members.add(rs.getString("nick"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
+			return members;
 		}
-		return members;
-	}
+
 
 }

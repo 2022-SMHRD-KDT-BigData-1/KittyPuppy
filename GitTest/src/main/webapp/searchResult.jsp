@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page
+	import = 'java.util.ArrayList'
+	import = 'com.kittypuppy.model.*'
+%>
+<%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = 'fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,189 +46,395 @@
 <script src="js/bootstrap.min.js"></script>
 <style>
 
-    html, body {
-        height: 100%;
-    }
+    <style>
+html, body {
+	height: 100%;
+}
 
-    body{
-        background-color: #ffffff;
-        display: flex;
-        padding: 10px;
-    }
+body {
+	background-color: #ffffff;
+	padding: 10px;
+}
 
-    h1{
-        font-family: 'Dancing Script', cursive;
-        font-size: 35px;
-        color: #25aa90;
-    }
-
-    .ls {
-        margin: atuo;
-        max-width: 442px;
-        margin: auto;
-    }
-    
-    a {	
-    
+/* 로고 글꼴, 색상 설정 */
+	h1 {
+		font-family: 'Dancing Script', cursive;
+		font-size: 35px;
+		color: #25aa90;
+		display: inline;
+	}
+	
+	.hidden {
+		color: #f5e172;
+		font-size: 4ch;
+		visibility: hidden;
+	}
+	
+	.report {
+		color: #f5e172;
+		font-size: 4ch;
+	}
+	
+	/* 아이콘 설정 */
+	.icon {
+		font-size : 5ch;
+		color : #000000;
+	}
+	
+	.bi {
+		font-size: 40px;
+	}
+	
+	/* 상단 로고 고정 */
+	.header-logo {
+		position: fixed;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 5rem;
+		background-color: white;
+		padding-top: 15px;
+		width: 100%;
+		text-align: center;
+		z-index: 3;
+	}
+	
+	/* 상단 메뉴바 고정 */
+	.header-menu {
+		position: fixed;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: 5rem;
+		height: 5rem;
+		background-color: white;
+		padding-top: 15px;
+		width: 100%;
+		z-index:3;
+	}
+	
+	/* 바깥 컨테이너 설정 */
+	.container.out {
+		width: 100%;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 15px;;
+		padding-top: 9rem;
+		margin: auto;
+		display: block;
+		max-width: 470px;
+	}
+	
+	a {	
 		color: #000000;
 		text-decoration-line: none;
 	}
 	
-    i {
-        font-size : 2ch;
-        color: #25aa90;
-    }
-
-    .hidden {
-        color : #dbc925;
-        font-size : 4ch;
-        float: left;
-        margin-left: 15px;
-        visibility: hidden;
-    }
-
-    .report {
-        color : #dbc925;
-        font-size : 4ch;
-        float: right;
-        margin-right: 15px;
-    }
-
-    .footer {
-        font-size: 5ch;
-    }
-
-    button {
-        border: 0cm;
-        background-color: #ffffff;
-    }
-    
-    .info {
-        font-size: 12px;
-    }
-
-    .container{
-        width: 100%;
-        max-width: 492px;
-        padding:15px;
-        margin: auto;
-        display:block;
-    }
-
-    .row {
-	    align-items: center;
-    }
-
-    .col-sm-6 {
-	    width: 492px;
-    }
-
-    .col-sm-6 > img {
-        width : 100%;
-    }
-
-    .img-thumbnail{
-            max-width:70px;
-            max-height:70px;
-    }
-
-    @media (min-width: 1050px) {
-        .img-thumbnail{
-            max-width:100px;
-            max-height:150px;
-        }
-
-        .container{
-            max-width:1200px;
-        }
-
-        .ls {
-            max-width: 1000px;
-        }
-
-    }
-
-	    div{
-        display:block;
-    }
-    
-    .bi-chevron-left {
-    	font-size: 3ch;
-    }
+	i {
+		color: #25aa90;
+	}
+	
+	.ls {
+		margin: atuo;
+		max-width: 442px;
+		margin: auto;
+	}
+	
+	.lcs {
+		font-size: 2ch;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	
+	#cursor {
+		color: #25aa90;
+	}
+	
+	button {
+		border: 0cm;
+		background-color: #ffffff;
+	}
+	
+	.info {
+		font-size: 12px;
+	}
+	
+	.row {
+		align-items: center;
+	}
+	
+	.col-sm-6 {
+		width: 492px;
+	}
+	
+	.col-sm-6>img {
+		width: 100%;
+	}
+	
+	.img-thumbnail {
+		max-width: 70px;
+		max-height: 70px;
+	}
+	
+	div {
+		display: block;
+	}
+	
+	.comment {
+		display: block;
+	}
+	
+	.comment_body {
+		hegiht : 300px;
+		overflow : auto;
+	}
+	
+	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
+	@media ( min-width : 1050px) {
+		/* 바깥 컨테이너 설정 */
+		.container.out {
+			max-width: 1200px;
+		}
+	
+		.img-thumbnail {
+			max-width: 100px;
+			max-height: 100px;
+		}
+		.ls {
+			max-width: 1000px;
+		}
+	}
     
 </style>
 </head>
 <body>
-<div class="container">
+<%	
+  	FeedDAO fdao = new FeedDAO();
+  	FollowDAO fwdao = new FollowDAO();
+  	FeedLikeDAO fldao = new FeedLikeDAO();
+  	MemberDAO dao = new MemberDAO(); 
+  	FeedCommentDAO fcdao = new FeedCommentDAO();
+  	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
+  	ScrapDAO sdao = new ScrapDAO();
+  	
+  	MemberDTO member = (MemberDTO)session.getAttribute("member");
+  	String nick = member.getNick();
+  	fwdao.followingShow(nick);
+  	pageContext.setAttribute("nick",nick);
+  	
+  	ArrayList<FeedDTO> feedList = null;
+  	ArrayList<String> followList = fwdao.followingShow(nick);
+  	if (followList.size() == 0) {
+  		feedList = fdao.feedShowAll();
+  	} else {
+  		feedList = fdao.feedShow(followList);
+  	}
+  	pageContext.setAttribute("feedList",feedList);
+  	
+  	// 개행 처리
+	pageContext.setAttribute("enter","\r\n");
+ %>
+<div class="container out">
     
     <div>
         <!-- 검색창 -->
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class="ls input-group rounded">
 	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon" style = "background-color :#ffffff"><i class="bi bi-chevron-left"></i></a>
-	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
+	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색(태그는 #태그명으로 검색)" aria-label="Search" aria-describedby="search-addon" />
 	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
 	        		<i class="fas fa-search"> <input type="submit" hidden></i>
 	    		</label>
 	        </div>
         </form>
 
-        <!-- 피드 -->
-        <div class="row mt-3 text-center">
-            <div class="row justify-content-center">
-                <div class="d-grid gap-sm-1 col-sm-6">
-                    <!-- 게시자 정보 -->
-                    <div class = 'col-4'>
-                        <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                        <strong>닉네임</strong><br/>
-                        게시일
-                    </div>
-                    <!-- 첨부된 사진-->
-                    <img src="data:image/jpeg;base64,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" class="">
-                </div>
-                <!-- 피드 내용-->
-                <div class="col-sm-6">
-                    <div align = 'left'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
-                    <div align = 'left'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
-                    <div class = 'navbar'>
-                        <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
-                        <button><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap()'> 스크랩</i></button>
-                        <!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 피드 -->
-        <div class="row mt-3 text-center">
-            <div class="row justify-content-center">
-                <div class="d-grid gap-sm-1 col-sm-6">
-                    <!-- 게시자 정보 -->
-                    <div class = 'col-4'>
-                        <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                        <strong>닉네임</strong><br/>
-                        게시일
-                    </div>
-                    <!-- 첨부된 사진-->
-                    <img src="data:image/jpeg;base64,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" class="">
-                </div>
-                <!-- 피드 내용-->
-                <div class="col-sm-6">
-                    <div align = 'left' id = 'content'>간식 냠냠...<button class = 'info' onclick = 'more()'>더보기</button></div>
-                    <div align = 'left' id = 'comment'>좋아요 10 댓글 10 <button class = 'info' onclick = 'entire()'>전체보기</button></div>
-                    <div>
-                        <button><i class = 'fa fa-paw lcs' onclick = 'like()'> 좋아요</i></button>
-                        <!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-                        <button><i class = "bi bi-chat-dots lcs" onclick = 'comment()'> 댓글</i></button>
-                        <button><i class = "bi bi-bookmark-fill lcs" onclick = 'scrap()'> 스크랩</i></button>
-                        <!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+    
+     <c:forEach var ='feed' items = '${feedList}'>
+        	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
+        	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>
+			<div class='row mt-3 text-center'>
+				<div class='row justify-content-center'>
+	                <div class='d-grid gap-sm-1 col-sm-6'>
+	                    <!-- 게시자 정보 -->
+	                    <%
+	                    	String fnick = (String) request.getAttribute("fnick");
+	                    	MemberDTO fm = dao.memberInfo(fnick);
+	                    	pageContext.setAttribute("fm",fm);
+	                    %>
+	                    <a href = 'otherpage.jsp?nick=${feed.nick}'>
+		                    <div class = 'col-6'>
+		                    	<c:choose>
+		                    		<c:when test = "${empty fm.picAddress}">
+		                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    		</c:otherwise>
+		                    	</c:choose>
+		                        <div align ='left'>
+			                        <strong>${feed.nick}</strong><br/>
+			                        ${feed.feedDate}
+		                        </div>
+		                    </div>
+	                    </a>
+	                    
+	                    <!-- 첨부된 사진-->
+	                    <div id="carouselExampleControls${feed.feedNo}"  class="carousel slide" data-bs-interval="false">
+	                    	<div class="carousel-inner">
+	                    		<c:set var = 'temp' value = '1' scope = 'request'/>
+	                    		<c:forEach var ='src' items='${fn:split(feed.picAddress,",")}'>
+	                    			<c:choose>
+	                    				<c:when test="${requestScope.temp==1}">
+	                    					<c:set var = 'temp' value = '2' scope = 'request'/>
+	                    					<div class="carousel-item active" style = 'height:600px;'>
+												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
+											</div>
+	                    				</c:when>
+	                    				<c:otherwise>
+		                    				<div class="carousel-item" style = 'height:600px;'>
+												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
+											</div>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    		</c:forEach>
+	                    	</div>
+	                    	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls${feed.feedNo}" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls${feed.feedNo}" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+	                    </div>
+	                </div>
+	                <!-- 피드 내용-->
+	                <div class='col-sm-6'>
+	                	
+	                	<!-- 피드 본문 -->
+	                    <div class = 'content' align = 'left'>${fn:substring(feed.content, 0, 4)}...<button class = 'info btn' type = 'button' data-bs-toggle="collapse" data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button></div>
+	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+	                    
+	                    <!--  해시 태그 -->
+	                    <div class = 'tag' align = 'left'>${feed.tag}
+	                    
+	                    <!-- 좋아요 댓글 정보 -->
+	                    <%
+	                    	int fdn = (int)request.getAttribute("fdn");
+	                    	int cnt = fldao.feedLikeShow(fdn).size();
+	                    	int comCnt = fcdao.feedCommentShow(fdn).size()+fccdao.feedCoCommentShowByFeedNo(fdn).size();
+	                    %>
+	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${feed.feedNo}'>댓글 <%= comCnt%></span></div>
+	                    
+	                    <!--  피드 댓글 창 -->
+	                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
+	                    	<div class = 'comment_body' align = 'left'>
+	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
+	                    		<%
+	                    			ArrayList<FeedCommentDTO> cs = null;
+	                    			int feedNo = (int) session.getAttribute("feedNo");
+	                    			cs = fcdao.feedCommentShow(feedNo);
+	                    			pageContext.setAttribute("cs", cs);
+	                    		%>
+	                    		<c:forEach var ='com' items = '${cs}'>
+	                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate}
+	                    				<button type = 'button' data-bs-toggle="collapse" data-bs-target="#coCom${com.fcNo}" aria-expanded="false"><i class="bi bi-reply" style = 'font-size : 15px;'></i></button>
+	                    				<c:choose>
+	                    					<c:when test = "${nick == com.nick}">
+	                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+	                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+	                    					</c:when>
+	                    					<c:otherwise>
+	                    					</c:otherwise>
+	                    				</c:choose>
+	                    			</div>
+	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
+	                    				<div class = 'collapse' id = 'coCom${com.fcNo}'>
+				                    		<%
+				                    			ArrayList<FeedCoCommentDTO> ccs = null;
+				                    			int fcNo = (int) session.getAttribute("fcNo");
+				                    			ccs = fccdao.feedCoCommentShow(fcNo);
+				                    			pageContext.setAttribute("ccs", ccs);
+				                    		%>
+					                    	<c:forEach var ='cocom' items = '${ccs}'>
+						                    	<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate}
+						                   			<c:choose>
+						                 				<c:when test = "${nick == cocom.nick}">
+				                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+				                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+				                    					</c:when>
+				                    					<c:otherwise>
+				                    					</c:otherwise>
+				                    				</c:choose>
+				                    			</div>
+				                    		</c:forEach>
+				                    		<!--  대댓글 입력  -->
+				                    		<div class='input-group rounded' style = 'padding-left:20px'>
+									        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
+												<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
+											</div>
+					                    </div>
+	                    		</c:forEach>
+	                    	</div>
+	                    	<!--  댓글 입력  -->
+	                    	<div>
+	                    		<div class='input-group rounded'>
+						        	<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
+									<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+								</div>
+		                    </div>
+	                    </div>
+	                    
+	                    <!-- 피드 배너 -->
+	                    <div class = 'navbar'>
+	                    	<%
+	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
+	                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,fdn,null,nick));
+	                    	
+	                    		if (check) {
+	                    			pageContext.setAttribute("check",1);
+	                    		} else {
+	                    			pageContext.setAttribute("check",0);
+	                    		}
+	                    		
+	                    		if (checkS) {
+	                    			pageContext.setAttribute("checkS",1);
+	                    		} else {
+	                    			pageContext.setAttribute("checkS",0);
+	                    		}
+	                    		
+	                    		
+	                    	%>
+	                    	<div id = 'likeCheck${feed.feedNo}'>
+		                    	<c:choose>
+		                    		<c:when test="${check==1}">
+		                    			<button onclick='likeDelete(${feed.feedNo},"#like${feed.feedNo}","#likeCheck${feed.feedNo}")'><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<button onclick='like(${feed.feedNo},"#like${feed.feedNo}","#likeCheck${feed.feedNo}")'><i class = 'fal fa-paw lcs'> 좋아요</i></button>
+		                    		</c:otherwise>
+		                    	</c:choose>
+	                    	</div>
+	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+	                        <div id ='scrap${feed.feedNo}'>
+	                        	<c:choose>
+	                        		<c:when test="${checkS==1}">
+	                        			<button onclick ='scrapDelete(${feed.feedNo},"#scrap${feed.feedNo}")'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<button onclick ='scrap(${feed.feedNo},"#scrap${feed.feedNo}")'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </div>
+	                    </div>
+	                    
+	                </div>
+	            </div>
+	        </div>
+        	</div>
+        </c:forEach>
 
 </div>
 
@@ -235,5 +447,239 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src='jquery-3.6.0.min.js'></script>
+	<script type='text/javascript'>
+		
+		// 좋아요 개수 세기
+		function likeCount(feedNo,id){
+			 $.ajax({
+				async: false,
+			    url: "FeedLikeCountCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo },
+		        dataType : 'json',
+		        success: function(result) {
+		        	console.log(id);
+		        	$(id).html("좋아요 " + result);
+		        	console.log($(id).html);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 좋아요 체크
+		function likeCheck(feedNo,id){
+			 $.ajax({
+				async: false,
+			    url: "FeedLikeCheckCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo },
+		        dataType : 'json',
+		        success: function(result) {
+		        	if (result == 0) {
+		        		console.log("안좋은데..");
+		        		$(id).html("<button onclick='like("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fal fa-paw lcs'> 좋아요</i></button>");
+		        	} else {
+		        		console.log("좋아요♥");
+		        		$(id).html("<button onclick='likeDelete("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fa fa-paw lcs'> 좋아요</i></button>");
+		        	}
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 좋아요 누르기
+		function like(feedNo,id1,id2){
+			 $.ajax({
+			    url: "FeedLikeCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	likeCount(feedNo,id1);
+		        	likeCheck(feedNo,id2);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 좋아요 취소
+		function likeDelete(feedNo,id1,id2){
+			 $.ajax({
+			    url: "FeedLikeDeleteCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	likeCount(feedNo,id1);
+		        	likeCheck(feedNo,id2);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 스크랩 체크
+		function scrapCheck(feedNo,id){
+			 $.ajax({
+				async: false,
+			    url: "ScrapCheckCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo },
+		        dataType : 'json',
+		        success: function(result) {
+		        	if (result == 0) {
+		        		$(id).html("<button onclick ='scrap("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>");
+		        	} else {
+		        		$(id).html("<button onclick ='scrapDelete("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>");
+		        	}
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 스크랩 하기
+		function scrap(feedNo,id){
+			 $.ajax({
+			    url: "ScrapCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	scrapCheck(feedNo,id);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 스크랩 취소하기
+		function scrapDelete(feedNo,id){
+			 $.ajax({
+			    url: "ScrapDeleteCon.do",
+			    type: "post",
+		        data: { feedNo: feedNo
+		        },
+		        dataType : 'json',
+		        success: function(result) {
+		        	scrapCheck(feedNo,id);
+		        },
+			    error: function() {
+		    		console.log("err");
+		    	}
+			});
+		};
+		
+		// 댓글 & 대댓글 개수 세기
+		function feedComCount(feedNo,id) {
+			$.ajax({
+				url: "FeedComCountCon.do",
+				type: "post",
+				data: {feedNo: feedNo},
+				dataType: 'json',
+				success: function(result) {
+					$(id).html("댓글 "+result);
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
+		};
+		
+
+		// 댓글 새로고침
+		function feedComLoad(feedNo,nick,id) {
+			$(id).empty();
+			$(id).load("temp.jsp "+id,{feedNo:feedNo, nick:nick});
+		}
+		
+		// 댓글 작성
+		function feedComCreate(feedNo,nick,id1,id2,id3) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCommentCreateCon.do",
+				type: "post",
+				data: {feedNo: feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 댓글 수정
+		
+		// 댓글 삭제
+		function feedComDelete(feedNo,fcNo,nick,id,id2) {
+			$.ajax({
+				url: "FeedCommentDeleteCon.do",
+				type: "post",
+				data: {fcNo: fcNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 작성
+		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCoCommentCreateCon.do",
+				type: "post",
+				data: {fcNo: fcNo, feedNo:feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 수정
+		
+		// 대댓글 삭제
+		function feedCoComDelete(feedNo,coNo,nick,id,id2) {
+			$.ajax({
+				url: "FeedCoCommentDeleteCon.do",
+				type: "post",
+				data: {coNo: coNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+	</script>
 </body>
 </html>

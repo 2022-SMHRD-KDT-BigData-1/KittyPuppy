@@ -242,7 +242,7 @@ body {
     <div class='ls navbar header-logo'>
         <i class='bi bi-exclamation-octagon-fill hidden'></i>
         <h1 class='text-center'>KittyPuppy</h1>
-        <a href =''><i class='bi bi-exclamation-octagon-fill report'></i></a>
+        <a href ='lostAniReport.html'><i class='bi bi-exclamation-octagon-fill report'></i></a>
     </div>
         
     <br>
@@ -264,7 +264,7 @@ body {
         <!-- 검색창 -->
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class='ls input-group rounded'>
-	            <input name ='search' type='search' class='form-control rounded' placeholder='닉네임 또는 태그 검색' aria-label='Search' aria-describedby='search-addon' />
+	            <input name ='search' type='search' class='form-control rounded' placeholder='닉네임 또는 태그 검색(태그는 #태그명으로 검색)' aria-label='Search' aria-describedby='search-addon' />
 	        	<label class='btn btn-default input-group-text border-0' id='search-addon' style='font-size: 30px;'>
 	        		<i class='fas fa-search'> <input type='submit' hidden></i>
 	    		</label>
@@ -623,7 +623,7 @@ body {
 		// 댓글 새로고침
 		function feedComLoad(feedNo,nick,id) {
 			$(id).empty();
-			$(id).load("temp.jsp "+id,{feedNo:feedNo, nick:nick});
+			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
 		}
 		
 		// 댓글 작성

@@ -185,7 +185,27 @@ public class FeedDAO {
 		
 	}
 	
-
+	// 피드 안에서 태그 검색하기
+	public ArrayList<String> tagSearch(String tag){
+		
+		ArrayList<String> tagList= new ArrayList<String>();
+		connect();
+		try {
+			String sql = "select distinct tag from feed where tag like ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "%"+tag+"%");
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				tagList.add(rs.getString("tag"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return tagList;
+	}
+	
 	// 태그로 피드 게시물 검색하기
 	public ArrayList<FeedDTO> feedSearchByTag(String tag) {
 		
@@ -195,7 +215,7 @@ public class FeedDAO {
 		try {
 			String sql = "select * from feed where tag = ? order by feeddate desc";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, "%"+tag+"%");
+			psmt.setString(1, tag);
 			rs =  psmt.executeQuery();
 			while (rs.next()) {
 				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import='java.util.ArrayList' import='com.kittypuppy.model.*'%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +24,18 @@
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
 
-    <!-- 아이콘 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://bootsnipp.com/dist/bootsnipp.min.css" crossorigin="anonymouse">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<!-- 아이콘 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://bootsnipp.com/dist/bootsnipp.min.css"
+	crossorigin="anonymouse">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
 
 <title>WebKittyPuppy</title>
 
@@ -39,185 +47,183 @@
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 <script src="js/bootstrap.min.js"></script>
 <style>
+html, body {
+	height: 100%;
+}
 
-    html, body {
-        height: 100%;
-    }
+body {
+	background-color: #ffffff;
+	display: flex;
+	padding: 10px;
+}
 
-    body{
-        background-color: #ffffff;
-        display: flex;
-        padding: 10px;
-    }
+a {
+	color: #000000;
+	text-decoration-line: none;
+}
 
-    a {
-        color : #000000;
-        text-decoration-line: none;
-    }
+.ls {
+	margin: atuo;
+	max-width: 442px;
+	margin: auto;
+}
 
-    .ls {
-        margin: atuo;
-        max-width: 442px;
-        margin: auto;
-    }
-    
-    i {
-        color: #25aa90;
-    }
+i {
+	color: #25aa90;
+}
 
-    .hash {
-        font-size : 5ch;
-        color : #000000;
-    }
+.hash {
+	font-size: 5ch;
+	color: #000000;
+}
 
-    .container{
-        width: 100%;
-        max-width: 492px;
-        padding:15px;
-        margin: auto;
-        display:block;
-    }
+.container {
+	width: 100%;
+	max-width: 492px;
+	padding: 15px;
+	margin: auto;
+	display: block;
+}
 
-    .btn{
-            background-color: #25aa90;
-            color:white
-    }
+.btn {
+	background-color: #25aa90;
+	color: white
+}
 
-    .row {
-	    align-items: center;
-    }
+.row {
+	align-items: center;
+}
 
-    .img-thumbnail{
-            max-width:60px;
-            max-height:60px;
-    }
+.img-thumbnail {
+	max-width: 60px;
+	max-height: 60px;
+}
 
-    @media (min-width: 1050px) {
+@media ( min-width : 1050px) {
+	.container {
+		max-width: 1200px;
+	}
+	.ls {
+		max-width: 700px;
+	}
+}
 
-        .container{
-            max-width:1200px;
-        }
+.bi-chevron-left {
+	font-size: 3ch;
+}
 
-        .ls {
-            max-width: 700px;
-        }
+div {
+	display: block;
+}
 
-
-    }
-    
-    .bi-chevron-left {
-    	font-size: 3ch;
-    }
-
-    div{
-        display:block;
-    }
-    
-    #search-addon {
-    	background-color: white;
-    	
-    }
-
+#search-addon {
+	background-color: white;
+}
 </style>
 </head>
 <body>
-<div class="container ls d-grid gap-3">
-    
-	 <!-- 검색창 -->
-       <form action = 'FeedSearchCon.do' method = 'post'>
-       		<div class="input-group rounded">
-	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon"><i class="bi bi-chevron-left"></i></a>
-	            <input name ='search' type="search" class="form-control rounded" style="margin-right: 5px;" placeholder="닉네임 또는 태그 검색" aria-label="Search" aria-describedby="search-addon" />
-	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px; padding:0px; margin :5px">
-	        		<i class="fas fa-search"> <input type="submit" hidden></i>
-	    		</label>
-	        </div>
-       </form>
+	<%
+		MemberDAO dao = new MemberDAO();
+	%>
+	<div class="container ls d-grid gap-3">
 
-       <div class="row">
-           <button class="col btn me-1">회원정보 수정</button>
-           <button class="col btn ms-1">게시물 작성</button>
-       </div>
+		<!-- 검색창 -->
+		<form action='FeedSearchCon.do' method='post'>
+			<div class="input-group rounded">
+				<a href='feed.jsp' class="input-group-text border-0"
+					id="search-addon"><i class="bi bi-chevron-left"></i></a> <input
+					name='search' type="search" class="form-control rounded"
+					style="margin-right: 5px;" placeholder="닉네임 또는 태그 검색"
+					aria-label="Search" aria-describedby="search-addon" /> <label
+					class="btn btn-default input-group-text border-0" id="search-addon"
+					style="font-size: 30px; padding: 0px; margin: 5px"> <i
+					class="fas fa-search"> <input type="submit" hidden></i>
+				</label>
+			</div>
+		</form>
+		<!--  검색 결과 -->
+		<div class="row mt-3">
+			<c:choose>
+				<c:when test = '${searchType == "nick"}'>
+					<!-- 닉네임 검색 결과-->
+					<a href='otherpage.jsp'>
+						<div>
+							<img
+								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+								class="rounded-circle img-thumbnail img-fluid float-start">
+							<br> <strong> 닉네임1</strong>
+						</div>
+					</a>
+					<a href='otherpage.jsp'>
+						<div>
+							<img
+								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+								class="rounded-circle img-thumbnail img-fluid float-start">
+							<br> <strong> 닉네임2</strong>
+						</div>
+					</a>
+					<a href='otherpage.jsp'>
+						<div>
+							<img
+								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+								class="rounded-circle img-thumbnail img-fluid float-start">
+							<br> <strong> 닉네임3</strong>
+						</div>
+					</a>
+					<a href='otherpage.jsp'>
+						<div>
+							<img
+								src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+								class="rounded-circle img-thumbnail img-fluid float-start">
+							<br> <strong> 닉네임4</strong>
+						</div>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<!-- 태그 검색 결과-->
+					<a href='searchResult.jsp?search='>
+						<div>
+							<i class="hash bi bi-hash"></i> <strong> 태그1</strong>
+						</div>
+					</a>
+					<a href='searchResult.jsp?search='>
+						<div>
+							<i class="hash bi bi-hash"></i> <strong> 태그2</strong>
+						</div>
+					</a>
+					<a href='searchResult.jsp?search='>
+						<div>
+							<i class="hash bi bi-hash"></i> <strong> 태그3</strong>
+						</div>
+					</a>
+					<a href='searchResult.jsp?search='>
+						<div>
+							<i class="hash bi bi-hash"></i> <strong> 태그4</strong>
+						</div>
+					</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
 
-       <!-- 닉네임 검색 결과-->
-       <div class="row mt-3">
-           <a href ='otherpage.jsp'>
-               <div>
-                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                   <br>
-                   <strong> 닉네임1</strong>
-               </div>
-           </a>
-           
-           <a href ='otherpage.jsp'>
-               <div>
-                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                   <br>
-                   <strong> 닉네임2</strong>
-               </div>
-           </a>
+	</div>
 
-           <a href ='otherpage.jsp'>
-               <div>
-                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                   <br>
-                   <strong> 닉네임3</strong>
-               </div>
-           </a>
+	<!-- Optional JavaScript; choose one of the two! -->
 
-           <a href ='otherpage.jsp'>
-               <div>
-                   <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start">
-                   <br>
-                   <strong> 닉네임4</strong>
-               </div>
-           </a>
-       </div>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 
-       <!-- 태그 검색 결과-->
+	<!-- Option 2: Separate Popper and Bootstrap JS -->
 
-       <div class="row mt-3">
-
-           <a href ='searchResult.jsp?search='>
-               <div>
-                   <i class="hash bi bi-hash"></i>
-                   <strong> 태그1</strong>
-               </div>
-           </a>
-
-           <a href ='searchResult.jsp?search='>
-               <div>
-                   <i class="hash bi bi-hash"></i>
-                   <strong> 태그2</strong>
-               </div>
-           </a>
-
-           <a href ='searchResult.jsp?search='>
-               <div>
-                   <i class="hash bi bi-hash"></i>
-                   <strong> 태그3</strong>
-               </div>
-           </a>
-
-           <a href ='searchResult.jsp?search='>
-               <div>
-                   <i class="hash bi bi-hash"></i>
-                   <strong> 태그4</strong>
-               </div>
-           </a>
-           
-       </div>
-
-</div>
-
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+		crossorigin="anonymous"></script>
 </body>
 </html>
