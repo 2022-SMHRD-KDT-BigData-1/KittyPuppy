@@ -179,7 +179,7 @@
                     <textarea class ='tagArea' name ='tag' placeholder = "# 해시태그입력"></textarea>
                 </div>
                 <div>
-                    <select>
+                    <select name = 'openRange'>
                         <option value = 1>전체 공개</option>
                         <option value = 2>팔로워 공개</option>
                         <option value = 3>비공개</option>
@@ -191,7 +191,7 @@
         <div class ='row'>
    			<div class = 'col-4 g-4 mb-3' align = 'center'>
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddr' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress' type="file" hidden></i>
 	   			</label>
            	</div>
         </div>

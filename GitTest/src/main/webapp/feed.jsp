@@ -354,104 +354,7 @@ body {
 	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${feed.feedNo}'>댓글 <%= comCnt%></span></div>
 	                    
 	                    <!--  피드 댓글 창 -->
-	                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
-	                    	<div class = 'comment_body' align = 'left'>
-	                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
-	                    		<%
-	                    			ArrayList<FeedCommentDTO> cs = null;
-	                    			int feedNo = (int) session.getAttribute("feedNo");
-	                    			cs = fcdao.feedCommentShow(feedNo);
-	                    			pageContext.setAttribute("cs", cs);
-	                    		%>
-	                    		<c:forEach var ='com' items = '${cs}'>
-	                    			<c:set var = 'comNick' value = '${com.nick}' scope = 'request'/>
-	                    			<!-- 댓글 -->
-	                    			<div>
-		                    			<div class = "col-2">
-			                    			<%
-						                    	String comNick = (String) request.getAttribute("comNick");
-						                    	MemberDTO cm = dao.memberInfo(comNick);
-						                    	pageContext.setAttribute("cm",cm);
-						                    %>
-						                    <c:choose>
-					                    		<c:when test = "${empty cm.picAddress}">
-					                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-tn img-fluid float-start'>
-					                    		</c:when>
-					                    		<c:otherwise>
-					                    			<img src='${cm.picAddress}' class='rounded-circle img-tn img-fluid float-start'>
-					                    		</c:otherwise>
-					                    	</c:choose>
-		                    			</div>
-		                    			<div class = "col-10"> <strong> ${com.nick}</strong> ${fn:substring(com.coDate,0,10)}
-		                    				<button type = 'button' data-bs-toggle="collapse" data-bs-target="#coCom${com.fcNo}" aria-expanded="false"><i class="bi bi-reply" style = 'font-size : 15px;'></i></button>
-		                    				<c:choose>
-		                    					<c:when test = "${nick == com.nick}">
-		                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-		                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
-		                    					</c:when>
-		                    					<c:otherwise>
-		                    					</c:otherwise>
-		                    				</c:choose>
-		                    				<br/>
-		                    				${fn:replace(com.content,enter,"<br>")}
-		                    			</div>
-	                    			</div>
-	                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
-	                    				<div class = 'collapse' id = 'coCom${com.fcNo}'>
-				                    		<%
-				                    			ArrayList<FeedCoCommentDTO> ccs = null;
-				                    			int fcNo = (int) session.getAttribute("fcNo");
-				                    			ccs = fccdao.feedCoCommentShow(fcNo);
-				                    			pageContext.setAttribute("ccs", ccs);
-				                    		%>
-					                    	<c:forEach var ='cocom' items = '${ccs}'>
-					                    	<c:set var = 'ccmNick' value = '${cocom.nick}' scope = 'request'/>
-					                    		<!-- 대댓글 -->
-					                    		<div style = 'padding-left:20px'>
-					                    			<div class = "col-2">
-					                    				<%
-									                    	String ccmNick = (String) request.getAttribute("ccmNick");
-									                    	MemberDTO ccm = dao.memberInfo(ccmNick);
-									                    	pageContext.setAttribute("ccm",ccm);
-									                    %>
-									                    <c:choose>
-								                    		<c:when test = "${empty ccm.picAddress}">
-								                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-tn img-fluid float-start'>
-								                    		</c:when>
-								                    		<c:otherwise>
-								                    			<img src='${ccm.picAddress}' class='rounded-circle img-tn img-fluid float-start'>
-								                    		</c:otherwise>
-								                    	</c:choose>
-					                    			</div>
-							                    	<div class = 'col-10'> <strong> ${cocom.nick}</strong> ${fn:substring(cocom.coDate,0,10)}
-							                   			<c:choose>
-							                 				<c:when test = "${nick == cocom.nick}">
-					                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-					                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
-					                    					</c:when>
-					                    					<c:otherwise>
-					                    					</c:otherwise>
-					                    				</c:choose>
-					                    				<br/>
-					                    				${fn:replace(cocom.content,enter,"<br>")}
-					                    			</div>
-				                    			</div>
-				                    		</c:forEach>
-				                    		<!--  대댓글 입력  -->
-				                    		<div class='input-group rounded' style = 'padding-left:20px'>
-									        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
-												<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
-											</div>
-					                    </div>
-	                    		</c:forEach>
-	                    	</div>
-	                    	<!--  댓글 입력  -->
-	                    	<div>
-	                    		<div class='input-group rounded'>
-						        	<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-									<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
-								</div>
-		                    </div>
+	                    <div class = 'comment'  id ='comment${feed.feedNo}'>
 	                    </div>
 	                    
 	                    <!-- 피드 배너 -->
@@ -484,7 +387,7 @@ body {
 		                    		</c:otherwise>
 		                    	</c:choose>
 	                    	</div>
-	                        <button class = 'btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+	                        <button onclick='feedComLoad(${feed.feedNo},"${nick}","#comment${feed.feedNo}")'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
 	                        <div id ='scrap${feed.feedNo}'>
 	                        	<c:choose>
 	                        		<c:when test="${checkS==1}">
