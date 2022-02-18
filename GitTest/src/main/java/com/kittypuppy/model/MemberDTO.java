@@ -93,6 +93,7 @@ public class MemberDTO {
 		this.id = id;
 		this.pw = pw;
 		this.birth = birth;
+		System.out.println("dto");
 	}
 	
 }

@@ -34,8 +34,10 @@ public class MUpdatePw implements iCommand {
 		int cnt = dao.updatePw(new MemberDTO(id, pw, birth), id, pw, birth);
 
 		if (cnt > 0) {
+			System.out.println("비밀번호 설정 완료");
 			response.sendRedirect("login.jsp"); // 설정 완료 시 로그인 페이지 이동
 		} else {
+			System.out.println("비밀번호 설정 실패");
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");

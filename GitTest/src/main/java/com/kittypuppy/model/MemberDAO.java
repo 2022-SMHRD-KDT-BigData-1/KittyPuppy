@@ -174,12 +174,17 @@ public class MemberDAO {
 				psmt.setString(2, id);
 				psmt.setString(2, birth);
 				cnt = psmt.executeUpdate();
+				System.out.println("try");
 			} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println("catch");
 			} finally {
 				close();
+				System.out.println("close");
 			}
+			System.out.println("return cnt");
 			return cnt;
+			
 
 		}
 	
