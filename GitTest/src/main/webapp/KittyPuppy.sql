@@ -32,6 +32,7 @@ SELECT * from dm;
 SELECT * from lost_animal;
 SELECT * from lost_comment;
 SELECT * from lost_cocomment;
+select * from all_constraints where owner = 'CAMPUS_F_1_0115' and constraint_name like '%FK';
 
 -- fk 이름을 넣으면 해당 fk로 묶여있는 테이블 이름을 알 수 있음 > 해당 테이블의 데이터를 삭제후 부모테이블의 내용 삭제
 SELECT CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME FROM USER_CONSTRAINTS
@@ -60,17 +61,25 @@ CREATE table animal(
 	animalage INT,
 	animalprofile VARCHAR2(300),
 	constraint animal_pk primary key(nick,animalname),
-	constraint animal_nick_fk foreign key(nick) references member(nick)
+	constraint animal_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table animal drop constraint animal_nick_fk;
+ALTER table animal add constraint animal_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table follow(
 	nick VARCHAR2(20) not null,
 	followernick VARCHAR2(20) not null,
 	followdate DATE default sysdate,
 	constraint follow_pk primary key(nick,followernick),
-	constraint follow_nick_fk foreign key(nick) references member(nick),
-	constraint follow_follower_nick_fk foreign key(followernick) references member(nick)
+	constraint follow_nick_fk foreign key(nick) references member(nick) on delete cascade,
+	constraint follow_follower_nick_fk foreign key(followernick) references member(nick) on delete cascade
 );
+
+ALTER table follow drop constraint follow_nick_fk;
+ALTER table follow drop constraint follow_follower_nick_fk;
+ALTER table follow add constraint follow_nick_fk foreign key(nick) references member(nick) on delete cascade;
+ALTER table follow add constraint follow_follower_nick_fk foreign key(followernick) references member(nick) on delete cascade;
 
 CREATE table feed(
 	feedno INT not null,
@@ -82,16 +91,24 @@ CREATE table feed(
 	feedupdate DATE,
 	openrange INT not null,
 	constraint feed_feedno_pk primary key(feedno),
-	constraint feed_nick_fk foreign key(nick) references member(nick)
+	constraint feed_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table feed drop constraint feed_nick_fk;
+ALTER table feed add constraint feed_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table feed_like(
 	feedno INT not null,
 	nick VARCHAR2(20) not null,
 	constraint feed_like_pk primary key(feedno,nick),
-	constraint feed_like_feedno_fk foreign key(feedno) references feed(feedno),
-	constraint feed_like_nick_fk foreign key(nick) references member(nick)
+	constraint feed_like_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade,
+	constraint feed_like_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table feed_like drop constraint feed_like_feedno_fk;
+ALTER table feed_like drop constraint feed_like_nick_fk;
+ALTER table feed_like add constraint feed_like_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade;
+ALTER table feed_like add constraint feed_like_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table feed_comment(
 	fcno INT not null,
@@ -101,9 +118,14 @@ CREATE table feed_comment(
 	codate DATE default sysdate not null,
 	coupdate DATE,
 	constraint feed_comment_fcno_pk primary key(fcno),
-	constraint feed_comment_feedno_fk foreign key(feedno) references feed(feedno),
-	constraint feed_comment_nick_fk foreign key(nick) references member(nick)
+	constraint feed_comment_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade,
+	constraint feed_comment_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table feed_comment drop constraint feed_comment_feedno_fk;
+ALTER table feed_comment drop constraint feed_comment_nick_fk;
+ALTER table feed_comment add constraint feed_comment_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade;
+ALTER table feed_comment add constraint feed_comment_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table feed_cocomment(
 	cono INT not null,
@@ -114,19 +136,31 @@ CREATE table feed_cocomment(
 	codate DATE default sysdate,
 	coupdate DATE,
 	constraint fcomment_cono_pk primary key(cono),
-	constraint fcomment_fcno_fk foreign key(fcno) references feed_comment(fcno),
-	constraint fcomment_feedno_fk foreign key(feedno) references feed(feedno),
-	constraint fcomment_nick_fk foreign key(nick) references member(nick)
+	constraint fcomment_fcno_fk foreign key(fcno) references feed_comment(fcno) on delete cascade,
+	constraint fcomment_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade,
+	constraint fcomment_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table feed_cocomment drop constraint fcomment_fcno_fk;
+ALTER table feed_cocomment drop constraint fcomment_feedno_fk;
+ALTER table feed_cocomment drop constraint fcomment_nick_fk;
+ALTER table feed_cocomment add constraint fcomment_fcno_fk foreign key(fcno) references feed_comment(fcno) on delete cascade;
+ALTER table feed_cocomment add constraint fcomment_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade;
+ALTER table feed_cocomment add constraint fcomment_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table scrap(
 	nick VARCHAR2(20) not null,
 	feedno INT not null,
 	scrapdate DATE default sysdate not null,
 	constraint scrap_pk primary key(nick,feedno),
-	constraint scrap_nick_fk foreign key(nick) references member(nick),
-	constraint scarp_feedno_fk foreign key(feedno) references feed(feedno)
+	constraint scrap_nick_fk foreign key(nick) references member(nick) on delete cascade,
+	constraint scarp_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade
 );
+
+ALTER table scrap drop constraint scrap_nick_fk;
+ALTER table scrap drop constraint scarp_feedno_fk;
+ALTER table scrap add constraint scrap_nick_fk foreign key(nick) references member(nick) on delete cascade;
+ALTER table scrap add constraint scarp_feedno_fk foreign key(feedno) references feed(feedno) on delete cascade;
 
 CREATE table dm(
 	dmno INT not null,
@@ -135,9 +169,14 @@ CREATE table dm(
 	content VARCHAR2(500),
 	senddate DATE default sysdate not null,
 	constraint dm_dmno_pk primary key(dmno),
-	constraint dm_sendnick_fk foreign key(sendnick) references member(nick),
-	constraint dm_receivenick_fk foreign key(receivenick) references member(nick)
+	constraint dm_sendnick_fk foreign key(sendnick) references member(nick) on delete cascade,
+	constraint dm_receivenick_fk foreign key(receivenick) references member(nick) on delete cascade
 );
+
+ALTER table dm drop constraint dm_sendnick_fk;
+ALTER table dm drop constraint dm_receivenick_fk;
+ALTER table dm add constraint dm_sendnick_fk foreign key(sendnick) references member(nick) on delete cascade;
+ALTER table dm add constraint dm_receivenick_fk foreign key(receivenick) references member(nick) on delete cascade;
 
 CREATE table lost_animal(
 	lostno INT not null,
@@ -156,8 +195,11 @@ CREATE table lost_animal(
 	ladate DATE default sysdate not null,
 	laupdate DATE,
 	constraint lost_animal_lostno_pk primary key(lostno),
-	constraint lost_animal_nick_fk foreign key(nick) references member(nick)
+	constraint lost_animal_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table lost_animal DROP constraint lost_animal_nick_fk;
+ALTER table lost_animal add constraint lost_animal_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table lost_comment(
 	locno INT not null,
@@ -167,9 +209,14 @@ CREATE table lost_comment(
 	codate DATE default sysdate not null,
 	coupdate DATE,
 	constraint lost_animal_comment_locno_pk primary key(locno),
-	constraint lost_animal_comment_lostno_fk foreign key(lostno) references lost_animal(lostno),
-	constraint lost_animal_comment_nick_fk foreign key(nick) references member(nick)
+	constraint lost_animal_comment_lostno_fk foreign key(lostno) references lost_animal(lostno) on delete cascade,
+	constraint lost_animal_comment_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table lost_comment DROP constraint lost_animal_comment_lostno_fk;
+ALTER table lost_comment DROP constraint lost_animal_comment_nick_fk;
+ALTER table lost_comment add constraint lost_animal_comment_lostno_fk foreign key(lostno) references lost_animal(lostno) on delete cascade;
+ALTER table lost_comment add constraint lost_animal_comment_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE table lost_cocomment(
 	cono INT not null,
@@ -180,10 +227,17 @@ CREATE table lost_cocomment(
 	codate DATE default sysdate not null,
 	coupdate DATE,
 	constraint lcomment_cono_pk primary key(cono),
-	constraint lcomment_locno_fk foreign key(locno) references lost_comment(locno),
-	constraint lcomment_lostno_fk foreign key(lostno) references lost_animal(lostno),
-	constraint lcomment_nick_fk foreign key(nick) references member(nick)
+	constraint lcomment_locno_fk foreign key(locno) references lost_comment(locno) on delete cascade,
+	constraint lcomment_lostno_fk foreign key(lostno) references lost_animal(lostno) on delete cascade,
+	constraint lcomment_nick_fk foreign key(nick) references member(nick) on delete cascade
 );
+
+ALTER table lost_cocomment DROP constraint lcomment_locno_fk;
+ALTER table lost_cocomment DROP constraint lcomment_lostno_fk;
+ALTER table lost_cocomment DROP constraint lcomment_nick_fk;
+ALTER table lost_cocomment add constraint lcomment_locno_fk foreign key(locno) references lost_comment(locno) on delete cascade;
+ALTER table lost_cocomment add constraint lcomment_lostno_fk foreign key(lostno) references lost_animal(lostno) on delete cascade;
+ALTER table lost_cocomment add constraint lcomment_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE view feed_scrap_view AS
 SELECT f.*, s.nick AS snick FROM feed f, scrap s
@@ -377,6 +431,7 @@ insert into follow values ('sample', '하양맘', sysdate);
 
 -- DM ------
 insert into dm values(dm_dmno_seq.NEXTVAL, 'mushroom10' ,'태경' ,'1-2'  , default);
+insert into dm values(dm_dmno_seq.NEXTVAL, 'mushroom10' ,'태경' ,'ㅎㅇ'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, '태경' , '하양맘'  ,'2-3'   , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, '하양맘' ,  'bamtol', '3-4'  , default);
 insert into dm values(dm_dmno_seq.NEXTVAL, 'bamtol' , 'sample','4-5'  , default);
