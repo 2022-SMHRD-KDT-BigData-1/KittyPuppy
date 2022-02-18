@@ -226,6 +226,7 @@ body {
  	tag = tag.replaceAll("럃귤꾤꺖", " ");
   	System.out.print(tag);
   	ArrayList<FeedDTO> feedList = fdao.feedSearchByTag(tag);
+  	pageContext.setAttribute("nick",nick);
   	pageContext.setAttribute("feedList",feedList);
   	
   	// 개행 처리
@@ -599,7 +600,7 @@ body {
 		// 댓글 새로고침
 		function feedComLoad(feedNo,nick,id) {
 			$(id).empty();
-			$(id).load("temp.jsp "+id,{feedNo:feedNo, nick:nick});
+			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
 		}
 		
 		// 댓글 작성

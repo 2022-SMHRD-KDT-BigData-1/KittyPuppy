@@ -302,13 +302,8 @@ div {
 		<!--  댓글 입력  -->
 		<div>
 			<div class='input-group rounded'>
-				<input id='text${feed.feedNo}' type='text'
-					class='form-control rounded' placeholder='댓글 입력'
-					aria-label='Search' aria-describedby='search-addon' />
-				<button
-					onclick='feedComCreate(${feed.feedNo},"#text${feed.feedNo}","${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}"))'>
-					<i style="font-size: 3ch;" class="bi bi-send"></i>
-				</button>
+			<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
+			<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
 			</div>
 		</div>
 	</div>
