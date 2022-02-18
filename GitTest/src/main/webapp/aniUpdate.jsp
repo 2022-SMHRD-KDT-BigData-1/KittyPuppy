@@ -166,11 +166,11 @@
 
                 <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select" name="upKind">
+                    <select id="upKind" class="form-select" name="upKind">
                         <option>반려동물 대분류</option>
-                        <option>고양이</option>
-                        <option>개</option>
-                        <option>동물</option>
+                        <option value="고양이">고양이</option>
+                        <option value="개">개</option>
+                        <option value="동물">동물</option>
                         <!--  <option value=""></option> 추가 하면 됨 -->
 
                     </select>
@@ -183,10 +183,10 @@
 
                 <div class="mb-3">
 
-                    <select id="disabledSelect" class="form-select" name="animalSex">
+                    <select id="animalSex" class="form-select" name="animalSex">
                         <option>성별</option>
-                        <option value="">여아</option>
-                        <option value="">남아</option>
+                        <option value="암">여아</option>
+                        <option value="수">남아</option>
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
                 </div>
@@ -206,7 +206,25 @@
 </form>
     </div>
 
-
+	<script src='jquery-3.6.0.min.js'></script>
+	<script>
+	
+		if("${ani.upKind}" == "고양이"){
+			$("#upKind").val("고양이").prop("selected",true);
+		}else if("${ani.upKind}" == "개"){
+			$("#upKind").val("개").prop("selected",true);
+		}else{
+			$("#upKind").val("동물").prop("selected",true);
+		}
+		
+		if("${ani.animalSex}" == "수"){
+			$("#animalSex").val("수").prop("selected",true);
+		}else if("${ani.animalSex}" == "암"){
+			$("#animalSex").val("암").prop("selected",true);
+		}
+		
+	
+	</script>
 
 </body>
 </html>

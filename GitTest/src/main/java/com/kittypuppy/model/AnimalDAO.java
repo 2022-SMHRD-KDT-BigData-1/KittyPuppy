@@ -123,13 +123,14 @@ public class AnimalDAO {
 			String sql = "";
 			if (upKind.equals("개") || upKind.equals("고양이")) {
 				sql = "select * from animal where nick = ? and upkind = ?";
+				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, nick);
 				psmt.setString(2, upKind);
 			} else {
 				sql = "select * from animal where nick = ? and upkind not IN('개','고양이')";
+				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, nick);
 			}
-			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getInt("animalage"),rs.getString("animalprofile"));
@@ -149,9 +150,17 @@ public class AnimalDAO {
 		AnimalDTO animal = null;
 		connect();
 		try {
-			String sql = "select * from animal where nick = '" + nick+"'";
-			// psmt.setString(1, nick);
+			// SQL문 준비
+			String sql = "select * from animal where nick = ?";
+			
+			// SQL문을 실행 할 수 있는 상태 준비
 			psmt = conn.prepareStatement(sql);
+			// 순서가 바뀌여 있었죠??
+			
+			// 준비된 상태에서 ? 채워주기
+			psmt.setString(1, nick);
+			
+			
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				animal = new AnimalDTO(rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),rs.getString("upkind"),rs.getString("kind"),rs.getString("animalsex"),rs.getInt("animalage"),rs.getString("animalprofile"));

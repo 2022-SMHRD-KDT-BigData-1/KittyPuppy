@@ -321,7 +321,7 @@ values
 --feed-----
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/피드사진1.jpg','밤톨이 화보','#고양이 #코숏 #고양이일상',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/피드사진1.jpg, ./assets/img/피드사진2.jpg, ./assets/img/피드사진3.jpg','밤톨이 화보','#고양이 #코숏 #고양이일상',default,null,'1')
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
@@ -348,7 +348,7 @@ values(feed_feedno_seq.NEXTVAL,'하양맘','./assets/img/dog(feed).jpg','하양이 귀�
 
 insert into feed (FEEDNO, NICK, PICADDRESS, CONTENT, TAG, FEEDDATE, FEEDUPDATE, OPENRANGE)
 values
-(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/피드사진2.jpg','창밖구경하기','#고양이 #코숏 #고양이일상 #키티퍼피',default,null,'1')
+(feed_feedno_seq.NEXTVAL,'bamtol','./assets/img/피드사진4.jpg, ./assets/img/피드사진5.jpg, ./assets/img/피드사진6.jpg','창밖구경하기','#고양이 #코숏 #고양이일상 #키티퍼피',default,null,'1')
 
 
 --feed_comment---
