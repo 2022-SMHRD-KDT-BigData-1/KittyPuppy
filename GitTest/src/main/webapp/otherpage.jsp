@@ -58,15 +58,15 @@
     <br>
     <!-- 상단 고정된 메뉴바 -->
     <div class='text-center banner header-menu'>
-        <a><i class = "bi bi-phone icon"></i></a>
+        <a href="feed.jsp"><i class = "bi bi-phone icon"></i></a>
 
-        <a><i class="bi bi-megaphone icon"></i></a>
+        <a href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a>
 
-        <a><i class="bi bi-geo-alt icon"></i></a>
+        <a href="maps.jsp"><i class="bi bi-geo-alt icon"></i></a>
 
-        <a><i class="bi bi-person icon"></i></a>
+        <a href="mypage.jsp"><i class="bi bi-person icon"></i></a>
 
-        <a><i class = "bi bi-chat-dots icon"></i></a>
+        <a href="dmList.jsp"><i class = "bi bi-chat-dots icon"></i></a>
     </div>
     
     <%

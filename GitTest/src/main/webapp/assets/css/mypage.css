@@ -65,7 +65,7 @@ h1 {
 }
 
 /* 탭을 클릭했을 때 */
-.nav-link.active {
+.nav-link.a.active {
 	background-color: #25aa90 !important;
 	padding-left: 13px;
 	padding-right: 13px;
@@ -74,7 +74,7 @@ h1 {
 }
 
 /* 탭에 마우스를 올렸을 때 */
-.nav-link {
+.nav-link.a {
 	color: white;
 	background-color: #25aa8f7e !important;
 	padding-left: 13px;
@@ -83,14 +83,14 @@ h1 {
 	padding-bottom: 7px;
 }
 
-.nav-link:hover {
+.nav-link.a:hover {
 	color: white !important;
 }
 
-.btn:hover {
-	/* background-color: #25aa8f7e !important; */
+/* .btn:hover {
+	background-color: #25aa8f7e !important;
 	color: white !important;
-}
+} */
 
 .btn {
 	background-color: #25aa90;
@@ -199,6 +199,93 @@ a{
 	max-height: 77px;
 }
 
+/*------------------------------------이하 모달 창 관련 --------------------------------------------------------------*/
+#modal.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	z-index: 3;
+}
+
+#modal .modal-window {
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 400px;
+	height: 500px;
+	position: relative;
+	top: -100px;
+	padding: 10px;
+	z-index: 3;
+}
+
+
+.modal-container {
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;;
+	padding-top: 10px;
+	margin: 0px auto;
+	display: block;
+	max-width: 430px;
+	min-width: 385px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.container-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.back {
+	font-size: 15px;
+	color: #25aa90;
+	margin-left: 5px;
+	width: 70px;
+}
+
+.tab-content .b{
+	padding: 0px ;
+}
+
+.bb{
+	font-family: 'Dancing Script', cursive;
+	font-size: 30px;
+	color: #25aa8f7e;
+	width:180px;
+}
+
+.bb.active {
+	color: #25aa90 !important;
+}
+
+
+
+.bb
+
+.list{
+	display: flex;
+	align-items: center;
+}
+
 @media ( min-width : 992px) {
 	.img-thumbnail {
 		max-width: 150px;
@@ -277,10 +364,20 @@ a{
 	.btn.update, .btn.write {
 		width: 135px;
 	}
+	
+	/* 이하 모달창 관련  */
+	.modal-container {
+		width: 100%;
+		max-width: 750px;
+		margin: auto;
+		display: auto;
+	}	
 }
 
 ul {
 	padding-right: 0px !important;
+	list-style:none;
+	padding-left:0px;
 }
 
 .row {

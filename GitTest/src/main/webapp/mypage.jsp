@@ -77,6 +77,9 @@
 <%
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
+	if(member == null){
+		response.sendRedirect("login.jsp");
+	}
 	String nick = member.getNick();
 	// System.out.println(nick);
 	
@@ -120,11 +123,11 @@
 	<br>
 	<!-- 상단 고정된 메뉴바 -->
 	<div class='text-center banner header-menu'>
-		<a href="feed.jsp"><i class="bi bi-phone icon"></i></a> <a
-			href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a> <a
-			href=""><i class="bi bi-geo-alt icon"></i></a> <a href="mypage.jsp"><i
-			class="bi bi-person-fill icon"></i></a> <a href=""><i
-			class="bi bi-chat-dots icon"></i></a>
+		<a href="feed.jsp"><i class="bi bi-phone icon"></i></a>
+		<a href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a>
+		<a href="maps.jsp"><i class="bi bi-geo-alt icon"></i></a>
+		<a href="mypage.jsp"><i	class="bi bi-person-fill icon"></i></a>
+		<a href="dmList.jsp"><i class="bi bi-chat-dots icon"></i></a>
 	</div>
 
 
@@ -226,12 +229,12 @@
 		<div class="tab row">
 			<ul class="nav nav-pills" id="myTab" role="tablist">
 				<li class="nav-item col me-1" role="presentation">
-					<button class="nav-link active w-100 btn" href="#userinfo"
+					<button class="nav-link a active w-100 btn" href="#userinfo"
 						id="userinfo-tab" data-bs-toggle="tab" " type="button" role="tab"
 						aria-controls="userinfo" aria-selected="true">스토리</button>
 				</li>
 				<li class="nav-item col ms-1" role="presentation">
-					<button class="nav-link w-100 btn" id="myreview-tab"
+					<button class="nav-link a w-100 btn" id="myreview-tab"
 						data-bs-toggle="tab" data-bs-target="#myreview" type="button"
 						role="tab" aria-controls="myreview" aria-selected="false">스크랩</button>
 				</li>
@@ -262,14 +265,15 @@
 						    %>
 								<c:choose>
 									<c:when test = "${empty fm.picAddress} ">
-										<img
-									src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-									class="rounded-circle img-thumbnail feed img-fluid float-start">
+										<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+										class="rounded-circle img-thumbnail feed img-fluid float-start">
 									</c:when>
+									<c:otherwise>
+										<img src="${fm.picAddress}"
+										class="rounded-circle img-thumbnail feed img-fluid float-start">
+									</c:otherwise>
 								</c:choose>
-								<img
-									src="${fm.picAddress}"
-									class="rounded-circle img-thumbnail feed img-fluid float-start">
+								
 								<div align="left">
 									<strong>${feed.nick}</strong><br />
 									${feed.feedDate}
@@ -551,6 +555,83 @@
 
 		
 	</div>
+	
+	<!-- 팔로워, 팔로잉 명단 탭 -->
+	<div id="modal" class="modal-overlay">
+		<div class="modal-window">
+			<div class="modal-container">
+				
+				<!-- header 박스 -->
+				<header class="container-head">
+					<div class="item back b">
+						<i class="bi bi-chevron-left"></i>
+					</div>
+					<div class="item">${member.nick}</div>
+					<div class="item back b" style="visibility: hidden;">
+						<i class="bi bi-chevron-left"></i>
+					</div>
+				</header>
+				
+			
+				<!-- 팔로우 리스트 탭 메뉴 -->
+				<section>
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				  <li class="nav-item" role="presentation">
+				    <button class="nav-link bb active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Follower</button>
+				  </li>
+				  <li class="nav-item" role="presentation">
+				    <button class="nav-link bb" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Following</button>
+				  </li>
+				</ul>
+				
+				<!-- 팔로우 리스트 탭 내용 -->
+				<div class="tab-content b" id="myTabContent" style="padding: 0px;">
+				  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				  	<ul>
+				  		<c:forEach var = "follower" items="${followerList }">
+				  			<%-- <c:set var="fwNick" value= "${follower}" scope="page"/> --%>
+		
+				  			<%
+				  				System.out.println(pageContext.getAttribute("follower").toString());
+				  				MemberDTO fmember = dao.memberInfo(pageContext.getAttribute("follower").toString());
+				  				pageContext.setAttribute("fmember", fmember);
+				  			%>
+				  		
+					  		<li class="list">
+					  			<a href="otherpage.jsp?nick=${follower}" class="item">
+						  			<c:choose>
+										<c:when test = "${empty fmember.picAddress} ">
+											<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+											class="rounded-circle img-thumbnail feed img-fluid float-start">
+										</c:when>
+										<c:otherwise>
+											<img src="${fmember.picAddress}"
+											class="rounded-circle img-thumbnail feed img-fluid float-start">
+										</c:otherwise>
+									</c:choose>
+					  			</a>
+					  			<div class="item">${fmember.nick}</div>
+					  		</li>
+					  		<hr>
+					  	</c:forEach>
+				  	</ul>
+				  	
+				  </div>
+				  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				  	<ul>
+				  		<c:forEach var = "following" items="${followingList }">
+					  		<li>
+					  			<div>${following}</div>
+					  			<hr>
+					  		</li>
+					  	</c:forEach>
+				  	</ul>
+				  </div>
+				</div>
+				</section>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- Optional JavaScript; choose one of the two! -->
@@ -568,6 +649,33 @@
 	
 	<script src='jquery-3.6.0.min.js'></script>
 	<script type='text/javascript'>
+	
+		// 모달 창 켜기
+		const modal = document.getElementById("modal");
+		const search = document.querySelector(".follower");
+	
+		search.addEventListener("click", e => {
+		    modal.style.display = "flex";
+		});
+	
+	
+		// 모달 창 끄기 1. x 버튼 누르기  2. 모달 바깥 영역 클릭
+	
+		//1. x 버튼 누르기
+		const back = modal.querySelector(".back");
+	
+		back.addEventListener("click", e => {
+		    modal.style.display = "none";
+		});
+	
+		//2. 모달 바깥 영역 클릭
+		modal.addEventListener("click", e => {
+		    const evTarget = e.target;
+		    if(evTarget.classList.contains("modal-overlay")) {
+		        modal.style.display = "none";
+		    }
+		}); 
+		
 	
 		// 좋아요 개수 세기
 		function likeCount(feedNo,id){
