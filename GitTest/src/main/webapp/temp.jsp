@@ -277,7 +277,7 @@ div {
 									<i class="bi bi-pen" style='font-size: 15px;'></i>
 								</button>
 								<button
-									onclick='feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'>
+									onclick='feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 									<i class="bi bi-trash" style='font-size: 15px;'></i>
 								</button>
 							</c:when>
@@ -326,7 +326,7 @@ div {
 											<i class="bi bi-pen" style='font-size: 15px;'></i>
 										</button>
 										<button
-											onclick='feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'>
+											onclick='feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 											<i class="bi bi-trash" style='font-size: 15px;'></i>
 										</button>
 									</c:when>
@@ -344,7 +344,7 @@ div {
 							aria-label='Search' aria-describedby='search-addon'
 							style="font-size: 1.5ch;" />
 						<button
-							onclick='feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'>
+							onclick='feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 							<i style="font-size: 2ch;" class="bi bi-send"></i>
 						</button>
 					</div>
@@ -355,7 +355,7 @@ div {
 		<div>
 			<div class='input-group rounded'>
 			<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-			<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+			<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
 			</div>
 		</div>
 	</div>

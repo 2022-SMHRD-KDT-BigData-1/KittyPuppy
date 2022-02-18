@@ -387,7 +387,9 @@ body {
 		                    		</c:otherwise>
 		                    	</c:choose>
 	                    	</div>
-	                        <button onclick='feedComLoad(${feed.feedNo},"${nick}","#comment${feed.feedNo}")'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+	                    	<div id = 'comLoad${feed.feedNo}'>
+	                        	<button onclick='feedComLoad(${feed.feedNo},"${nick}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+	                        </div>
 	                        <div id ='scrap${feed.feedNo}'>
 	                        	<c:choose>
 	                        		<c:when test="${checkS==1}">
@@ -571,13 +573,20 @@ body {
 		
 
 		// 댓글 새로고침
-		function feedComLoad(feedNo,nick,id) {
+		function feedComLoad(feedNo,nick,id,id2) {
 			$(id).empty();
 			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
+			$(id2).html("<button onclick='feedComClear("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
+		}
+		
+		// 댓글 창 비우기
+		function feedComClear(feedNo,nick,id,id2) {
+			$(id).empty();
+			$(id2).html("<button onclick='feedComLoad("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
 		}
 		
 		// 댓글 작성
-		function feedComCreate(feedNo,nick,id1,id2,id3) {
+		function feedComCreate(feedNo,nick,id1,id2,id3,id4) {
 			var text = $(id1).val();
 			$.ajax({
 				url: "FeedCommentCreateCon.do",
@@ -586,7 +595,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id2);
-					feedComLoad(feedNo,nick,id3);
+					feedComLoad(feedNo,nick,id3,id4);
 				},
 				error : function(){
 					console.log('err');
@@ -594,10 +603,8 @@ body {
 			});
 		};
 		
-		// 댓글 수정
-		
 		// 댓글 삭제
-		function feedComDelete(feedNo,fcNo,nick,id,id2) {
+		function feedComDelete(feedNo,fcNo,nick,id,id2,id3) {
 			$.ajax({
 				url: "FeedCommentDeleteCon.do",
 				type: "post",
@@ -605,7 +612,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id);
-					feedComLoad(feedNo,nick,id2);
+					feedComLoad(feedNo,nick,id2,id3);
 				},
 				error : function(){
 					console.log('err');
@@ -614,7 +621,7 @@ body {
 		};
 		
 		// 대댓글 작성
-		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3) {
+		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3,id4) {
 			var text = $(id1).val();
 			$.ajax({
 				url: "FeedCoCommentCreateCon.do",
@@ -623,7 +630,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id2);
-					feedComLoad(feedNo,nick,id3);
+					feedComLoad(feedNo,nick,id3,id4);
 				},
 				error : function(){
 					console.log('err');
@@ -631,10 +638,8 @@ body {
 			});
 		};
 		
-		// 대댓글 수정
-		
 		// 대댓글 삭제
-		function feedCoComDelete(feedNo,coNo,nick,id,id2) {
+		function feedCoComDelete(feedNo,coNo,nick,id,id2,id3) {
 			$.ajax({
 				url: "FeedCoCommentDeleteCon.do",
 				type: "post",
@@ -642,7 +647,7 @@ body {
 				dataType: 'json',
 				success: function(result) {
 					feedComCount(feedNo,id);
-					feedComLoad(feedNo,nick,id2);
+					feedComLoad(feedNo,nick,id2,id3);
 				},
 				error : function(){
 					console.log('err');
