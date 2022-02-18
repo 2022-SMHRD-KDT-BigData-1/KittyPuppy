@@ -107,7 +107,7 @@ html, body {
 						 <span id="checkpw" size="2"></span> 
 						 <input type="password" id="pw2" class="form-control" placeholder="비밀번호 확인">
 						 <span id="pw-success" size="2" style="display: none;">비밀번호가 일치합니다.</span>
-						 <span id="pw-danger" style="display: none; color: #d92742; font-weight: bold;">비밀번호가 일치하지 않습니다.</span>
+						 <span id="pw-danger" style="display: none; color: #d92742;">비밀번호가 일치하지 않습니다.</span>
 					<div class="d-grid gap-2 col-12 mx-auto">
 						<button type="submit" class="btn my-2" style="background-color: #25aa90;">완료</button>
 					</div>
@@ -117,7 +117,7 @@ html, body {
 		</form>
 	</div>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	<!--비밀번호 일치 체크  -->
 	<script>
 		$('.form-control').focusout(function() {
 			var pwd1 = $("#pw").val();
@@ -138,13 +138,15 @@ html, body {
 		});
 	</script>
 
+<!-- 비밀번호 설정 조건 -->
+
 <script>
-        // $("checkpw").one("keyup", function () {
+        
         $('.form-control').one("keyup", function () {	
-        //function checkpw() {
+        
             var pw = $("#pw").val();		//입력한 패스워드 값 가져옴
             var checkpw = $("#checkpw").val();		// 결과를 출력할 공간
-            //let checkpw2 = document.getElementById("checkpw2");
+            
 
             var num = pw.search(/[0-9]/g); //search 문자검색
             var eng = pw.search(/[a-z]/ig);
@@ -153,18 +155,18 @@ html, body {
 
             if (pw.length < 8 || pw.length > 15) {
             	document.getElementById('checkpw').style.display = 'block';
-            	$("#checkpw").css('color', 'red');
+            	$("#checkpw").css('color', '#d92742');
             	$("#checkpw").html("8자리 ~ 15자리 이내로 입력해주세요");
                 //alert("8자리 ~ 15자리 이내로 입력해주세요");
             } else if (pw.search(/\s/) != -1) {		// 공백이 있는지 확인하는 코드
             	document.getElementById('checkpw').style.display = 'block';
-            	$("#checkpw").css('color', 'red');
+            	$("#checkpw").css('color', '#d92742');
             	$("#checkpw").html("비밀번호는 공백 없이 입력해주세요");
                 //checkpw.innerHTML = "비밀번호는 공백 없이 입력해주세요";
                 //alert("비밀번호는 공백 없이 입력해주세요")
             } else if (num < 0 || eng < 0 || spe < 0) {
             	document.getElementById('checkpw').style.display = 'block';
-            	$("#checkpw").css('color', 'red');
+            	$("#checkpw").css('color', '#d92742');
             	$("#checkpw").html("영문, 숫자, 특수문자를 혼합하여 입력해주세요");
                 //checkpw.innerHTML = "영문, 숫자, 특수문자를 혼합하여 입력해주세요";
                 //alert("영문, 숫자, 특수문자를 혼합하여 입력해주세요")
@@ -175,7 +177,7 @@ html, body {
                 //checkpw.innerHTML = "적절한 비밀번호 입니다";
                 //alert("적절한 비밀번호 입니다")
             }
-        }
+        });
 
 
     </script>

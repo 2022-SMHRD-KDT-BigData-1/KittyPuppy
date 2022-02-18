@@ -20,6 +20,7 @@ public class MUpdatePw implements iCommand {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset = UTF-8");
 		
+		
 		HttpSession session = request.getSession();
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
