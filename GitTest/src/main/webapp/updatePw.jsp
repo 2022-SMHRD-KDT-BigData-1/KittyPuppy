@@ -126,7 +126,7 @@ html, body {
 			if (pwd1 != '' && pwd2 == '') {
 				null;
 			} else if (pwd1 != "" || pwd2 != "") {
-				if (pwd1 == pwd2) {
+				if (pwd1 == pwd2) {				//일치 할경우
 					$("#pw-success").css('display', 'inline-block');
 					$("#pw-danger").css('display', 'none');
 				} else {
@@ -146,7 +146,7 @@ html, body {
             var checkpw = $("#checkpw").val();		// 결과를 출력할 공간
             //let checkpw2 = document.getElementById("checkpw2");
 
-            var num = pw.search(/[0-9]/g);
+            var num = pw.search(/[0-9]/g); //search 문자검색
             var eng = pw.search(/[a-z]/ig);
             var spe = pw.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
 

@@ -163,7 +163,7 @@
             let nick = $('#birth').val();
 
             $.ajax({
-                url: "MBirthCheckCon.do",
+                url: "MFindPW.do",
                 type: "post",
                 data: {
                     birth: birth

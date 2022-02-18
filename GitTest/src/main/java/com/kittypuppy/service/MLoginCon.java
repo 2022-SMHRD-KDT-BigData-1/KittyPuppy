@@ -31,14 +31,14 @@ public class MLoginCon implements iCommand {
 			response.sendRedirect("feed.jsp");//메인 피드 수정
 
 		} else {
-			// 로그인 실패 알림창 띄운 후 main.jsp로 이동하기!
+			// 로그인 실패 알림창 띄운 후 login.jsp로 이동하기!
 			// *JoinCon else문 참고
 
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('로그인 실패..!');");
-			out.print("location.href= 'main_jstl.jsp';");// 로그인페이지 수정
+			out.print("location.href= 'login.jsp';");// 로그인페이지 수정
 			out.print("</script>");
 		}
 	}
