@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LostAniDAO {
-	
+
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
-	
+
 	public void connect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -26,7 +26,7 @@ public class LostAniDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void close() {
 		try {
 			if (rs != null) {
@@ -42,9 +42,9 @@ public class LostAniDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int lostAniCreate(LostAniDTO lostAni) {
-		
+
 		int cnt = 0;
 		connect();
 		try {
@@ -62,31 +62,30 @@ public class LostAniDAO {
 			psmt.setString(10, lostAni.getIsTag());
 			psmt.setString(11, lostAni.getFeature());
 			psmt.setString(12, lostAni.getPlace());
-			cnt =  psmt.executeUpdate();
+			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 		return cnt;
-		
+
 	}
-	
+
 	public ArrayList<LostAniDTO> lostAniShow() {
-		
+
 		ArrayList<LostAniDTO> lostList = new ArrayList<LostAniDTO>();
 		LostAniDTO lostAni = null;
 		connect();
 		try {
 			String sql = "select * from lost_animal";
 			psmt = conn.prepareStatement(sql);
-			rs =  psmt.executeQuery();
+			rs = psmt.executeQuery();
 			while (rs.next()) {
-				lostAni = new LostAniDTO(rs.getInt("lostno"),rs.getString("latype"),
-						rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),
-						rs.getString("upkind"),rs.getString("kind"),rs.getString("sex"),
-						rs.getString("color"),rs.getString("animalsize"),rs.getString("istag"),
-						rs.getString("feature"),rs.getString("place"),rs.getString("ladate"),
+				lostAni = new LostAniDTO(rs.getInt("lostno"), rs.getString("latype"), rs.getString("nick"),
+						rs.getString("animalname"), rs.getString("animalpic"), rs.getString("upkind"),
+						rs.getString("kind"), rs.getString("sex"), rs.getString("color"), rs.getString("animalsize"),
+						rs.getString("istag"), rs.getString("feature"), rs.getString("place"), rs.getString("ladate"),
 						rs.getString("laupdate"));
 				lostList.add(lostAni);
 			}
@@ -96,24 +95,23 @@ public class LostAniDAO {
 			close();
 		}
 		return lostList;
-		
+
 	}
-	
+
 	public LostAniDTO lostAniSelect(int lostNo) {
-		
+
 		LostAniDTO lostAni = null;
 		connect();
 		try {
 			String sql = "select * from lost_animal where lostno = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lostNo);
-			rs =  psmt.executeQuery();
+			rs = psmt.executeQuery();
 			while (rs.next()) {
-				lostAni = new LostAniDTO(lostNo,rs.getString("latype"),
-						rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),
-						rs.getString("upkind"),rs.getString("kind"),rs.getString("sex"),
-						rs.getString("color"),rs.getString("animalsize"),rs.getString("istag"),
-						rs.getString("feature"),rs.getString("place"),rs.getString("ladate"),
+				lostAni = new LostAniDTO(lostNo, rs.getString("latype"), rs.getString("nick"),
+						rs.getString("animalname"), rs.getString("animalpic"), rs.getString("upkind"),
+						rs.getString("kind"), rs.getString("sex"), rs.getString("color"), rs.getString("animalsize"),
+						rs.getString("istag"), rs.getString("feature"), rs.getString("place"), rs.getString("ladate"),
 						rs.getString("laupdate"));
 			}
 		} catch (SQLException e) {
@@ -122,11 +120,11 @@ public class LostAniDAO {
 			close();
 		}
 		return lostAni;
-		
+
 	}
 
 	public int lostAniUpdate(LostAniDTO lostAni) {
-		
+
 		int cnt = 0;
 		connect();
 		try {
@@ -146,7 +144,7 @@ public class LostAniDAO {
 			psmt.setString(10, lostAni.getFeature());
 			psmt.setString(11, lostAni.getPlace());
 			psmt.setInt(12, lostAni.getLostNo());
-			cnt =  psmt.executeUpdate();
+			cnt = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -154,9 +152,9 @@ public class LostAniDAO {
 		}
 		return cnt;
 	}
-	
+
 	public int lostAniDelete(int lostNo) {
-		
+
 		int cnt = 0;
 		connect();
 		try {
@@ -164,57 +162,32 @@ public class LostAniDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lostNo);
 			cnt = psmt.executeUpdate();
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 		return cnt;
-		
+
 	}
-	
-	public ArrayList<LostAniDTO> lostAniFilter(LostAniDTO lostAniFilter) {
-		
+
+	public ArrayList<LostAniDTO> lostAniFilter(LostAniDTO lostAniFilter, String addSql) {
+
 		ArrayList<LostAniDTO> lostList = new ArrayList<LostAniDTO>();
 		LostAniDTO lostAni = null;
 		connect();
 		try {
-			String sql = "select * from lost_animal where lostno is not null";
-			if (lostAniFilter.getLaType() != null) {
-				sql += "and latype = "+ lostAniFilter.getLaType();
-			}
-			if (lostAniFilter.getAniName() != null) {
-				sql += "and animalname = "+ lostAniFilter.getAniName();
-			}
-			if (lostAniFilter.getUpKind() != null) {
-				sql += "and upkind = "+ lostAniFilter.getUpKind();
-			}
-			if (lostAniFilter.getKind() != null) {
-				sql += "and kind = "+ lostAniFilter.getKind();
-			}
-			if (lostAniFilter.getSex() != null) {
-				sql += "and sex = "+ lostAniFilter.getSex();
-			}
-			if (lostAniFilter.getAniSize() != null) {
-				sql += "and animalsize = "+ lostAniFilter.getAniSize();
-			}
-			if (lostAniFilter.getIsTag()!= null) {
-				sql += "and istag = "+ lostAniFilter.getIsTag();
-			}
-			if (lostAniFilter.getFeature() != null) {
-				sql += "and feature = "+ lostAniFilter.getFeature();
-			}
-			if (lostAniFilter.getPlace() != null) {
-				sql += "and place = "+ lostAniFilter.getPlace();
-			}
+			String sql = "select * from lost_animal where lostno ";
+
+			sql+= addSql;
 			psmt = conn.prepareStatement(sql);
-			rs =  psmt.executeQuery();
+
+			rs = psmt.executeQuery();
 			while (rs.next()) {
-				lostAni = new LostAniDTO(rs.getInt("lostno"),rs.getString("latype"),
-						rs.getString("nick"),rs.getString("animalname"),rs.getString("animalpic"),
-						rs.getString("upkind"),rs.getString("kind"),rs.getString("sex"),
-						rs.getString("color"),rs.getString("animalsize"),rs.getString("istag"),
-						rs.getString("feature"),rs.getString("place"),rs.getString("ladate"),
+				lostAni = new LostAniDTO(rs.getInt("lostno"), rs.getString("latype"), rs.getString("nick"),
+						rs.getString("animalname"), rs.getString("animalpic"), rs.getString("upkind"),
+						rs.getString("kind"), rs.getString("sex"), rs.getString("color"), rs.getString("animalsize"),
+						rs.getString("istag"), rs.getString("feature"), rs.getString("place"), rs.getString("ladate"),
 						rs.getString("laupdate"));
 				lostList.add(lostAni);
 			}
@@ -223,11 +196,23 @@ public class LostAniDAO {
 		} finally {
 			close();
 		}
+
 		return lostList;
-		
+
 	}
+
 	// 유기동물 신고시 자동으로 위.경도 값 가져오기
 	public void lostAniPlace() {
-		
+
 	}
 }
+
+
+
+
+
+
+
+
+
+

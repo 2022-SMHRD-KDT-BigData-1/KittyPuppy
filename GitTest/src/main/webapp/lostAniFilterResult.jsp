@@ -10,7 +10,8 @@
 MemberDTO member = (MemberDTO) session.getAttribute("member");
 LostAniDAO la_dao = new LostAniDAO();
 ArrayList<LostAniDTO> lostList = null;
-lostList = la_dao.lostAniShow();
+
+lostList = (ArrayList<LostAniDTO>)request.getAttribute("lostAniFilter");
 pageContext.setAttribute("lostList", lostList);
 %>
 
@@ -395,7 +396,7 @@ img {
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
-			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="lostAniBoard.jsp"><i
+			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
 				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
 			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
 				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a

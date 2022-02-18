@@ -159,5 +159,13 @@ public class LostAniDTO {
 	public void setLaUpdate(String laUpdate) {
 		this.laUpdate = laUpdate;
 	}
+
+	@Override
+	public String toString() {
+		return "LostAniDTO [lostNo=" + lostNo + ", laType=" + laType + ", nick=" + nick + ", aniName=" + aniName
+				+ ", aniPic=" + aniPic + ", upKind=" + upKind + ", kind=" + kind + ", sex=" + sex + ", color=" + color
+				+ ", aniSize=" + aniSize + ", isTag=" + isTag + ", feature=" + feature + ", place=" + place
+				+ ", laDate=" + laDate + ", laUpdate=" + laUpdate + "]";
+	}
 	
 }

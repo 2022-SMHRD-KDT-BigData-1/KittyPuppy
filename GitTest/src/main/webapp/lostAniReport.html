@@ -120,16 +120,20 @@
 .b {
 	border: solid 1px violet;
 }
+
+.pageName, .bi-chevron-left {
+	color: #25aa90;
+}
 </style>
 </head>
 
 <body>
 	<div class="report-container b">
-		<form action="LostAniCreateCon.do" method="post" >
+		<form action="LostAniCreateCon.do" method="post">
 			<!-- header 박스 -->
 			<header class="container-head b">
 				<div class="item back b">
-					<i class="bi bi-chevron-left"></i>
+					<a href="lostAniBoard.jsp"><i class="bi bi-chevron-left"></i></a>
 				</div>
 				<div class="item pageName b">유실/유기동물 제보</div>
 				<div class="item submit b">

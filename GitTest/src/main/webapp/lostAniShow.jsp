@@ -98,9 +98,10 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
-			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="lostAniBoard.jsp"><i
-				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
-			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
+			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a
+				href="lostAniBoard.jsp"><i id="megaphone-fill"
+				class="bi bi-megaphone-fill icon megaphone b"></i></a> <a
+				href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
 				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a
 				href="dmList.jsp"><i class="bi bi-chat-dots icon b"></i></a>
 		</div>
@@ -243,7 +244,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 										<c:if test="${member.getNick() == loc.nick}">
 											<button id="loc${loc.locNo}" class="loc-delete-btn btn b"
 												type="button"
-												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}','${member.getNick()}')">
+												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}',${lostAni.lostNo}, '${member.getNick()}')">
 												<i class="bi bi-trash" style='font-size: 15px;'></i>
 											</button>
 										</c:if>
@@ -300,7 +301,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 														<c:if test="${member.getNick() == lcoco.nick}">
 															<button id="lcoco${lcoco.coNo}"
 																class="lcoco-delete-btn b" type="button"
-																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}', '${member.getNick()}')">
+																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}', ${lostAni.lostNo}, '${member.getNick()}')">
 																<i class="bi bi-trash" style='font-size: 15px;'></i>
 															</button>
 														</c:if>
@@ -369,7 +370,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 
 	<script>
 	// 댓글 삭제 버튼		
-	function locDelete(locNo, del_id, nick) {
+	function locDelete(locNo, del_id, lostNo, nick) {
 				
 		$.ajax({
 		    type: "post",
@@ -388,11 +389,11 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	            alert("ajax-실패");
 	    	}
 		});
-
+		$(del_id).remove();
 	}
 	
 	// 대댓글 삭제 버튼		
-	function lcocoDelete(coNo, del_id, nick) {
+	function lcocoDelete(coNo, del_id, lostNo, nick) {
 				
 		$.ajax({
 		    type: "post",
@@ -402,7 +403,6 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
-	        		$(del_id).remove();
 	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con-대댓글삭제 실패");
@@ -412,6 +412,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	            alert("ajax-실패");
 	    	}
 		});
+		$(del_id).remove();
 	}
 	
 	
