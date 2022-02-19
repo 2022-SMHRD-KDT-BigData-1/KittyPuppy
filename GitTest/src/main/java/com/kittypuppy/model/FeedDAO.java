@@ -54,7 +54,7 @@ public class FeedDAO {
 			psmt.setString(2, feed.getPicAddress());
 			psmt.setString(3, feed.getContent());
 			psmt.setString(4, feed.getTag());
-			psmt.setInt(6, feed.getOpenRange());
+			psmt.setInt(5, feed.getOpenRange());
 			cnt =  psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

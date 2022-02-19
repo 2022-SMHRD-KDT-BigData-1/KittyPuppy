@@ -1,11 +1,13 @@
 package com.kittypuppy.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.FeedDAO;
 import com.kittypuppy.model.FeedDTO;
@@ -30,6 +32,10 @@ public class FeedCreateCon implements iCommand{
 		MultipartRequest multi = new MultipartRequest(request, saveDir, 10*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
 		
 		// DB 저장 을 위한 값 받아오기
+		HttpSession session = request.getSession();
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		String nick = member.getNick();
+		
 		String content = multi.getParameter("content");
 		String tag = multi.getParameter("tag");
 		int openRange = Integer.parseInt(multi.getParameter("openRange"));
@@ -59,10 +65,28 @@ public class FeedCreateCon implements iCommand{
 		
 		String picAddress = String.join(",", paList);
 		
+		// 잘 받아왔는지 확인
+		System.out.println(nick);
 		System.out.println(content);
 		System.out.println(tag);
 		System.out.println(openRange);
 		System.out.println(picAddress);
+		
+		// DB 저장
+		FeedDAO fdao = new FeedDAO();
+		int result = fdao.feedCreate(new FeedDTO(0,nick,picAddress,content,tag,null,null,openRange));
+		
+		// DB 저장 여부 체크
+		if (result > 0) {
+			response.sendRedirect("mypage.jsp");
+		} else {
+			response.setContentType("text/html; charset = UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print("<script>");
+			out.print("alert('Feed가 정상적으로 업로드 되지 못했습니다..');");
+			out.print("location.href = 'feedUpload.jsp';");
+			out.print("</script>");
+		}
 	}
 
 }
