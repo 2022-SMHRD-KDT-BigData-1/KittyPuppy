@@ -451,7 +451,23 @@ h1 {
 
 	</div>
 
+<script>
+$(function calAge() {
+	$.ajax({
+		url : 'mapAnilist.do'
+		method : 'post'
+		data : {
+			birth : 'birth'
+		},
+		success : function(age){
+			($);
+		}
+	})
+}
 
+</script>
+
+	
 
 
 

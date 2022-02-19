@@ -163,16 +163,16 @@ public class MemberDAO {
 	}
 
 	// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..
-		public int updatePw(MemberDTO memberDTO, String id, String birth, String pw) {
+		public int updatePw(String id, String birth, MemberDTO memberDTO) {
 
 			int cnt = 0;
 			connect();
 			try {
-				String sql = "update member " + "set pw = ?" + "where id = ? and birth = ?";
+				String sql = "update member set pw = ? where id = ? and birth = ?";
 				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, pw);
+				psmt.setString(1, memberDTO.getPw());
 				psmt.setString(2, id);
-				psmt.setString(2, birth);
+				psmt.setString(3, birth);
 				cnt = psmt.executeUpdate();
 				System.out.println("try");
 			} catch (SQLException e) {

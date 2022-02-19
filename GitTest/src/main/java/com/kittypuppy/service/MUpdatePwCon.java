@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.kittypuppy.model.MemberDAO;
 import com.kittypuppy.model.MemberDTO;
 
-public class MUpdatePw implements iCommand {
+public class MUpdatePwCon implements iCommand {
 	MemberDAO dao = new MemberDAO();
 
 	@Override

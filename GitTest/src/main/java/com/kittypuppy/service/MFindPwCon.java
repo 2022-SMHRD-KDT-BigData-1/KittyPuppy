@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.MemberDAO;
+import com.kittypuppy.model.MemberDTO;
 
-public class MFindPW implements iCommand {
+public class MFindPwCon implements iCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,6 +23,8 @@ public class MFindPW implements iCommand {
 
 		MemberDAO dao = new MemberDAO();
 
+		MemberDTO member = dao.updatePw(id, birth);
+		
 		int checkId = dao.memberIdCheck(id);
 		int checkBirth = dao.memberBirthCheck(birth);
 
