@@ -94,7 +94,7 @@ public class FeedDAO {
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from (select * from feed order by feeddate desc) where rownum >= ? and rownum <= ?";
+			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed order by feedno desc) where rnum >= ? and rnum <= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, startNum);
 			psmt.setInt(2, endNum);
@@ -151,7 +151,7 @@ public class FeedDAO {
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from (select * from feed where nick IN (";
+			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where nick IN (";
 			for (int i = 0; i < followingList.size();i++) {
 				if (i == followingList.size() - 1) {
 					sql += "?";
@@ -159,7 +159,7 @@ public class FeedDAO {
 					sql += "?,";
 				}
 			}
-			sql += ")order by feeddate desc) where rownum >=? and rownum <=?";
+			sql += ")order by feedNo desc) where rnum >=? and rnum <=?";
 			psmt = conn.prepareStatement(sql);
 			for (int i = 0; i < followingList.size();i++) {
 				psmt.setString(i+1, followingList.get(i));

@@ -226,16 +226,15 @@ body {
     	FeedCoCommentDAO fccdao = new FeedCoCommentDAO();
     	ScrapDAO sdao = new ScrapDAO();
     	
-    	MemberDTO member = (MemberDTO)session.getAttribute("member");
-    	String nick = member.getNick();
+    	String nick = request.getParameter("nick");
+    	int startNum = Integer.parseInt(request.getParameter("startNum"));
+    	int endNum = startNum+2;
     	fwdao.followingShow(nick);
     	pageContext.setAttribute("nick",nick);
     	
     	ArrayList<FeedDTO> feedList = null;
     	ArrayList<String> followList = fwdao.followingShow(nick);
     	
-    	int startNum = 1;
-    	int endNum = startNum+2;
         if (followList.size() == 0) {
     		feedList = fdao.feedShowAllLimit3(startNum, endNum);
     	} else {
@@ -243,44 +242,12 @@ body {
     	}
         startNum += 3;
     	pageContext.setAttribute("feedList",feedList);
-    	pageContext.setAttribute("startNum",startNum);
     	
     	// 개행 처리
 		pageContext.setAttribute("enter","\r\n");
     %>
-    
-    <!-- 키티퍼피 로고 -->
-    <div class='ls navbar header-logo'>
-        <i class='bi bi-exclamation-octagon-fill hidden'></i>
-        <h1 class='text-center'>KittyPuppy</h1>
-        <a href ='lostAniReport.html'><i class='bi bi-exclamation-octagon-fill report'></i></a>
-    </div>
-        
-    <br>
-    <!-- 상단 고정된 메뉴바 -->
-    <div class='ls navbar text-center banner header-menu'>
-        <a><i id = 'cursor' class = 'bi bi-phone-fill icon'></i></a>
 
-        <a href = 'lostAniBoard.jsp'><i class='bi bi-megaphone icon'></i></a>
-
-        <a href = 'maps.jsp'><i class='bi bi-geo-alt icon'></i></a>
-
-        <a href = 'mypage.jsp'><i class='bi bi-person icon'></i></a>
-
-        <a href = 'dmList.jsp'><i class = 'bi bi-chat-dots icon'></i></a>
-    </div>
-
-    <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
 	<div class='container out' id ='reload'>
-        <!-- 검색창 -->
-        <form action = 'FeedSearchCon.do' method = 'post'>
-	        <div class='ls input-group rounded'>
-	            <input name ='search' type='search' class='form-control rounded' placeholder='닉네임 또는 태그 검색(태그는 #태그명으로 검색)' aria-label='Search' aria-describedby='search-addon' />
-	        	<label class='btn btn-default input-group-text border-0' id='search-addon' style='font-size: 30px;'>
-	        		<i class='fas fa-search'> <input type='submit' hidden></i>
-	    		</label>
-	        </div>
-        </form>
         <c:forEach var ='feed' items = '${feedList}'>
         	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
         	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>
@@ -413,279 +380,5 @@ body {
         	</div>
         </c:forEach>
     </div>
-	
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p' crossorigin='anonymous'></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    
-    <!-- <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js' integrity='sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB' crossorigin='anonymous'></script>
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' integrity='sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13' crossorigin='anonymous'></script> -->
-    
-	<script src='jquery-3.6.0.min.js'></script>
-	<script type='text/javascript'>
-		
-		// 좋아요 개수 세기
-		function likeCount(feedNo,id){
-			 $.ajax({
-				async: false,
-			    url: "FeedLikeCountCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo },
-		        dataType : 'json',
-		        success: function(result) {
-		        	console.log(id);
-		        	$(id).html("좋아요 " + result);
-		        	console.log($(id).html);
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 좋아요 체크
-		function likeCheck(feedNo,id){
-			 $.ajax({
-				async: false,
-			    url: "FeedLikeCheckCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo },
-		        dataType : 'json',
-		        success: function(result) {
-		        	if (result == 0) {
-		        		console.log("안좋은데..");
-		        		$(id).html("<button onclick='like("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fal fa-paw lcs'> 좋아요</i></button>");
-		        	} else {
-		        		console.log("좋아요♥");
-		        		$(id).html("<button onclick='likeDelete("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fa fa-paw lcs'> 좋아요</i></button>");
-		        	}
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 좋아요 누르기
-		function like(feedNo,id1,id2){
-			 $.ajax({
-			    url: "FeedLikeCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo
-		        },
-		        dataType : 'json',
-		        success: function(result) {
-		        	likeCount(feedNo,id1);
-		        	likeCheck(feedNo,id2);
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 좋아요 취소
-		function likeDelete(feedNo,id1,id2){
-			 $.ajax({
-			    url: "FeedLikeDeleteCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo
-		        },
-		        dataType : 'json',
-		        success: function(result) {
-		        	likeCount(feedNo,id1);
-		        	likeCheck(feedNo,id2);
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 스크랩 체크
-		function scrapCheck(feedNo,id){
-			 $.ajax({
-				async: false,
-			    url: "ScrapCheckCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo },
-		        dataType : 'json',
-		        success: function(result) {
-		        	if (result == 0) {
-		        		$(id).html("<button onclick ='scrap("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>");
-		        	} else {
-		        		$(id).html("<button onclick ='scrapDelete("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>");
-		        	}
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 스크랩 하기
-		function scrap(feedNo,id){
-			 $.ajax({
-			    url: "ScrapCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo
-		        },
-		        dataType : 'json',
-		        success: function(result) {
-		        	scrapCheck(feedNo,id);
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 스크랩 취소하기
-		function scrapDelete(feedNo,id){
-			 $.ajax({
-			    url: "ScrapDeleteCon.do",
-			    type: "post",
-		        data: { feedNo: feedNo
-		        },
-		        dataType : 'json',
-		        success: function(result) {
-		        	scrapCheck(feedNo,id);
-		        },
-			    error: function() {
-		    		console.log("err");
-		    	}
-			});
-		};
-		
-		// 댓글 & 대댓글 개수 세기
-		function feedComCount(feedNo,id) {
-			$.ajax({
-				url: "FeedComCountCon.do",
-				type: "post",
-				data: {feedNo: feedNo},
-				dataType: 'json',
-				success: function(result) {
-					$(id).html("댓글 "+result);
-				},
-				error: function(){
-					console.log("err");
-				}
-			});
-		};
-		
-
-		// 댓글 새로고침
-		function feedComLoad(feedNo,nick,id,id2) {
-			$(id).empty();
-			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
-			$(id2).html("<button onclick='feedComClear("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
-		}
-		
-		// 댓글 창 비우기
-		function feedComClear(feedNo,nick,id,id2) {
-			$(id).empty();
-			$(id2).html("<button onclick='feedComLoad("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
-		}
-		
-		// 댓글 작성
-		function feedComCreate(feedNo,nick,id1,id2,id3,id4) {
-			var text = $(id1).val();
-			$.ajax({
-				url: "FeedCommentCreateCon.do",
-				type: "post",
-				data: {feedNo: feedNo, text: text},
-				dataType: 'json',
-				success: function(result) {
-					feedComCount(feedNo,id2);
-					feedComLoad(feedNo,nick,id3,id4);
-				},
-				error : function(){
-					console.log('err');
-				}
-			});
-		};
-		
-		// 댓글 삭제
-		function feedComDelete(feedNo,fcNo,nick,id,id2,id3) {
-			$.ajax({
-				url: "FeedCommentDeleteCon.do",
-				type: "post",
-				data: {fcNo: fcNo},
-				dataType: 'json',
-				success: function(result) {
-					feedComCount(feedNo,id);
-					feedComLoad(feedNo,nick,id2,id3);
-				},
-				error : function(){
-					console.log('err');
-				}
-			});
-		};
-		
-		// 대댓글 작성
-		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3,id4) {
-			var text = $(id1).val();
-			$.ajax({
-				url: "FeedCoCommentCreateCon.do",
-				type: "post",
-				data: {fcNo: fcNo, feedNo:feedNo, text: text},
-				dataType: 'json',
-				success: function(result) {
-					feedComCount(feedNo,id2);
-					feedComLoad(feedNo,nick,id3,id4);
-				},
-				error : function(){
-					console.log('err');
-				}
-			});
-		};
-		
-		// 대댓글 삭제
-		function feedCoComDelete(feedNo,coNo,nick,id,id2,id3) {
-			$.ajax({
-				url: "FeedCoCommentDeleteCon.do",
-				type: "post",
-				data: {coNo: coNo},
-				dataType: 'json',
-				success: function(result) {
-					feedComCount(feedNo,id);
-					feedComLoad(feedNo,nick,id2,id3);
-				},
-				error : function(){
-					console.log('err');
-				}
-			});
-		};
-		
-		// 스크롤이 끝까지 내려오면 다음 3개의 피드 로드
-		
-		var num1 = 1;
-		var nick1 = "<c:out value='${nick}'/>";
-		
-		$(window).scroll(function() {
-			if($(window).scrollTop() >= $(document).height() - $(window).height()){
-				$.ajax({
-					url: "FeedCountCon.do",
-					type: "post",
-					data: {nick: nick1},
-					dataType: 'json',
-					success: function(result) {
-						num1 += 3;
-						if(result >= num1){
-							console.log(num1);
-							$("#reload").append("<div id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
-						}
-					},
-					error : function(){
-						console.log('err');
-					}
-				});
-			}
-		});
-	</script>
 </body>
 </html>
