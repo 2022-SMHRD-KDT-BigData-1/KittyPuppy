@@ -163,16 +163,16 @@ public class MemberDAO {
 	}
 
 	// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..
-		public int updatePw(String id, String birth, MemberDTO memberDTO) {
+		public int updatePw(MemberDTO member) {
 
 			int cnt = 0;
 			connect();
 			try {
 				String sql = "update member set pw = ? where id = ? and birth = ?";
 				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, memberDTO.getPw());
-				psmt.setString(2, id);
-				psmt.setString(3, birth);
+				psmt.setString(1, member.getPw());
+				psmt.setString(2, member.getId());
+				psmt.setString(3, member.getBirth());
 				cnt = psmt.executeUpdate();
 				System.out.println("try");
 			} catch (SQLException e) {
@@ -187,8 +187,28 @@ public class MemberDAO {
 			
 
 		}
-	
-	
+// 비밀번호 찾기 아이디와 생일로 로그인	
+		public MemberDTO findPw(String id, String birth) {
+			
+			MemberDTO member = null;
+			connect();
+			try {
+				String sql = "select * from member where id = ? and birth = ?";
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, id);
+				psmt.setString(2, birth);
+				rs = psmt.executeQuery();
+				if (rs.next()) {
+					member = new MemberDTO(rs.getString("id"), rs.getString("pw"), rs.getString("picaddress"), rs.getString("nick"),
+							rs.getString("sex"), rs.getString("birth"), rs.getString("address"), rs.getString("profile"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			return member;
+		}
 
 
 //아이디 중복 체크
@@ -280,6 +300,10 @@ public class MemberDAO {
 			}
 			return members;
 		}
+
+		
+
+		
 
 
 }

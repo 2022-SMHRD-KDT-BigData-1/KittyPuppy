@@ -19,8 +19,7 @@ public class MUpdatePwCon implements iCommand {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset = UTF-8");
-		
-		
+				
 		HttpSession session = request.getSession();
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -32,7 +31,7 @@ public class MUpdatePwCon implements iCommand {
 				
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.updatePw(new MemberDTO(id, pw, birth), id, pw, birth);
+		int cnt = dao.updatePw(new MemberDTO(id, pw, birth));
 
 		if (cnt > 0) {
 			System.out.println("비밀번호 설정 완료");

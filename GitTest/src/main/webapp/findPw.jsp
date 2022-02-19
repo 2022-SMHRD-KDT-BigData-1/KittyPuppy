@@ -85,7 +85,7 @@
 
     <div class="container">
        
-       <form action="MFindPW.do" method="post"> 
+       <form action="MFindPwCon.do" method="post"> 
             <div class="row">
 
                 <div class="d-grid gap-2 col-12 mx-auto">

@@ -81,7 +81,7 @@ public class FrontController extends HttpServlet {
 		String command = requestURI.substring(contextPath.length());
 		
 		map.get(command).execute(request, response);
-		System.out.println("서버요청");
+		System.out.println("서버요청 FC");
 	}
 
 }

@@ -90,7 +90,7 @@ html, body {
 
 
 	<div class="container">
-		<form action="MUpdatePw.do" method="post">
+		<form action="MUpdatePwCon.do" method="post">
 
 			<div class="row">
 
