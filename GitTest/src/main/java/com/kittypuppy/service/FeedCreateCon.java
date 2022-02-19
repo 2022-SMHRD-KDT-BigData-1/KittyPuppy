@@ -48,19 +48,19 @@ public class FeedCreateCon implements iCommand{
 		ArrayList<String> paList = new ArrayList<String>();
 		
 		if (picAddress1 != null) {
-			paList.add(".assets/img/"+picAddress1);
+			paList.add("./assets/img/"+picAddress1);
 		}
 		if (picAddress2 != null) {
-			paList.add(".assets/img/"+picAddress2);
+			paList.add("./assets/img/"+picAddress2);
 		}
 		if (picAddress3 != null) {
-			paList.add(".assets/img/"+picAddress3);
+			paList.add("./assets/img/"+picAddress3);
 		}
 		if (picAddress4 != null) {
-			paList.add(".assets/img/"+picAddress4);
+			paList.add("./assets/img/"+picAddress4);
 		}
 		if (picAddress5 != null) {
-			paList.add(".assets/img/"+picAddress5);
+			paList.add("./assets/img/"+picAddress5);
 		}
 		
 		String picAddress = String.join(",", paList);
