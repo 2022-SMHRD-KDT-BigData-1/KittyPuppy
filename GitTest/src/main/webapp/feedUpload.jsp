@@ -144,7 +144,10 @@
 		color : white;
 		font-size : 45px;
 	}
-
+	
+	.hiddenInput {
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -191,29 +194,29 @@
         <div class ='row'>
    			<div class = 'col-4 g-4 mb-3' align = 'center'>
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddress1' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress1' type="file" onchange = 'inputShow("hiddenInput1")' hidden></i>
 	   			</label>
            	</div>
            	
-           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+           	<div id = 'hiddenInput1' class = 'col-4 g-4 mb-3 hiddenInput' align = 'center'>
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddress2' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress2' type="file" onchange = 'inputShow("hiddenInput2")' hidden></i>
 	   			</label>
            	</div>
            	
-           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+           	<div id = 'hiddenInput2' class = 'col-4 g-4 mb-3 hiddenInput' align = 'center'>
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddress3' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress3' type="file" onchange = 'inputShow("hiddenInput3")' hidden></i>
 	   			</label>
            	</div>
            	
-           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+           	<div id = 'hiddenInput3' class = 'col-4 g-4 mb-3 hiddenInput' align = 'center' >
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddress4' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress4' type="file" onchange = 'inputShow("hiddenInput4")' hidden></i>
 	   			</label>
            	</div>
            	
-           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+           	<div id = 'hiddenInput4' class = 'col-4 g-4 mb-3 hiddenInput' align = 'center'>
 				<label class="btn btn-default input">
 	       			<i class="bi bi-plus-square"> <input name = 'picAddress5' type="file" hidden></i>
 	   			</label>
@@ -232,5 +235,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src='jquery-3.6.0.min.js'></script>
+<script type='text/javascript'>
+	
+	function inputShow(id) {
+		document.getElementById(id).style.display = 'block';
+	}
+	
+</script>
+
 </body>
 </html>
