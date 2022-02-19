@@ -254,7 +254,7 @@ a{
 	justify-content: space-between;
 	align-items: center;
 }
-
+/* 뒤로가기 버튼 */
 .back {
 	font-size: 15px;
 	color: #25aa90;
@@ -266,6 +266,7 @@ a{
 	padding: 0px ;
 }
 
+/* follow 탭 아이콘 클릭되지 않은 상태 */
 .bb{
 	font-family: 'Dancing Script', cursive;
 	font-size: 30px;
@@ -273,17 +274,19 @@ a{
 	width:180px;
 }
 
+/* follow 탭 아이콘 클릭했을 때 */
 .bb.active {
 	color: #25aa90 !important;
 }
 
-
-
-.bb
-
-.list{
+.list {
 	display: flex;
 	align-items: center;
+}
+
+.img-thumbnail.follow {
+	max-width: 50px;
+	max-height: 50px;
 }
 
 @media ( min-width : 992px) {

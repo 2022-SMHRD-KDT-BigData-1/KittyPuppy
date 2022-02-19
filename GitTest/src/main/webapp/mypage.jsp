@@ -77,9 +77,7 @@
 <%
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
-	if(member == null){
-		response.sendRedirect("login.jsp");
-	}
+
 	String nick = member.getNick();
 	// System.out.println(nick);
 	
@@ -110,7 +108,11 @@
 	AnimalDAO animal = new AnimalDAO();
 	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
 	pageContext.setAttribute("aniList", aniList);
-
+	
+	// 스크랩
+	ScrapDAO scrap = new ScrapDAO();
+	ArrayList<FeedDTO> scrapList = scrap.scrapShow(nick);
+	pageContext.setAttribute("scrapList", scrapList);
 %>
 
 	<!-- 키티퍼피 로고 -->
@@ -262,17 +264,15 @@
 						      	String fnick = (String) request.getAttribute("fnick");
 						      	MemberDTO fm = dao.memberInfo(fnick);
 						      	pageContext.setAttribute("fm",fm);
+						      	
+						      	// page 영역에 저장된 fm에서 picAddress가져올때 null 나오는지 테스트
+						      	MemberDTO a = (MemberDTO)pageContext.getAttribute("fm");
+						      	System.out.println(a.getPicAddress());
+						      	System.out.println(a.getNick());
 						    %>
-								<c:choose>
-									<c:when test = "${empty fm.picAddress} ">
-										<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-										class="rounded-circle img-thumbnail feed img-fluid float-start">
-									</c:when>
-									<c:otherwise>
-										<img src="${fm.picAddress}"
-										class="rounded-circle img-thumbnail feed img-fluid float-start">
-									</c:otherwise>
-								</c:choose>
+						    
+						    	<img src="${fm.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
+										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 								
 								<div align="left">
 									<strong>${feed.nick}</strong><br />
@@ -280,9 +280,10 @@
 								</div>
 								<div  style="float:right; ">
 									<!-- 삭제 아이콘 -->
-									<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' "><i class="bi bi-x-lg lcs"></i></button>
+										<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' "><i class="bi bi-x-lg lcs"></i></button>
+									</div>
 								</div>
-							</div>
+							
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
                             data-bs-interval="false">
@@ -443,6 +444,8 @@
 	                        	</c:choose>
 	                        </div> --%>
 	                    </div>
+	                    
+	                    
 						</div>
 					</div>
 				</div>
@@ -456,107 +459,222 @@
 			<div class="tab-pane fade" id="myreview" role="tabpanel"
 				aria-labelledby="myreview-tab">
 
-                
-                <%
-	            	// 스크랩
-	            	ScrapDAO scrap = new ScrapDAO();
-	            	ArrayList<FeedDTO> scrapList = scrap.scrapShow(nick);
-	            	if(scrapList.size()==0){ 
-	            		out.print("<h1>저장한 항목 없음</h1>");
-	            	 } else{
-	            		 for(int i = 0; i < scrapList.size(); i++){ 
-	                     	String carouselid = "carouselExampleControls";
-	                     	carouselid += i;
-	             %>
+	            <c:choose>
+	            	<c:when test="${empty scrapList}">
+	            		<h1 style="color:black;">저장한 항목 없음</h1>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var = "scrap" items="${scrapList}">
+	            			<c:set var = "scNo" value="${scrap.feedNo }" scope="page"/> 
+	            			<!-- scNick : 스크랩 게시물을 실제로 작성한 사람 -->
+	            			<c:set var = "scNick" value="${scrap.nick }" scope="page"/>
+	            				
+	            				<!-- 스크랩한 게시물 -->
+	            				<div class="row mt-3 text-center">
+									<div class="row justify-content-center">
+										<div class="d-grid gap-sm-1 col-sm-6">
+											<!-- 게시자 정보 -->
+											<a href = 'otherpage.jsp?nick=${scNick }'>
+												<div class='col-6'>
+													<%
+														String scNick = (String)pageContext.getAttribute("scNick");
+														MemberDTO sm = dao.memberInfo(scNick);
+														pageContext.setAttribute("sm", sm);
+													%>																
+													
+														<img src="${sm.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
+											 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+												
+													
+													<div align="left">
+														<strong>${scrap.nick }</strong>
+														<br />${scrap.feedDate }
+													</div>
+												</div>
+											</a>
+											
+											<!-- 첨부된 사진-->
+											<div id="carouselExampleControls${scrap.feedNo}" class="carousel slide"
+				                            data-bs-interval="false">
+												<div class="carousel-inner" >
+													<c:set var = 'temp' value = '1' scope = 'request'/>
+				                            		<c:forEach var ='src' items='${fn:split(scrap.picAddress,",")}'>
+														<c:choose>
+															<c:when test="${requestScope.temp==1}">
+																<c:set var = 'temp' value = '2' scope = 'request'/>
+																<div class="carousel-item active" style="max-width:500px; max-height:500px;">
+																	<img src="${src}" class="d-block w-100" alt="...">
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div class="carousel-item" style="max-width:500px; max-height:500px;">
+																	<img src="${src}" class="d-block w-100" alt="...">
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+													
+												</div>
+												<button class="carousel-control-prev" type="button"
+													data-bs-target="#carouselExampleControls${scrap.feedNo}" data-bs-slide="prev">
+													<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+													<span class="visually-hidden">Previous</span>
+												</button>
+												<button class="carousel-control-next" type="button"
+													data-bs-target="#carouselExampleControls${scrap.feedNo}" data-bs-slide="next">
+													<span class="carousel-control-next-icon" aria-hidden="true"></span>
+													<span class="visually-hidden">Next</span>
+												</button>
+											</div>
+				
+										</div>
+										<!-- 스크랩 피드 내용--> 
+										<div class="col-sm-6">
+										
+											<!-- 스크랩 피드 본문 -->
+											<div align='left'>
+													${fn:substring(scrap.content, 0, 4)}...
+													<button class='info feed-bt' data-bs-toggle="collapse" 
+													data-bs-target="#collapseExample${scrap.feedNo}" aria-expanded="false">더보기</button>
+												</div>
+												<div class = 'collapse' align = 'left' id ='collapseExample${scrap.feedNo}'>${fn:replace(scrap.content,enter,"<br>")}</div>
+												
+												<!-- 스크랩 해시 태그 -->
+												<div class="tag" align="left">${scrap.tag}</div>
+												
+												<!-- 스크랩 좋아요 댓글 정보 -->
+												<%
+							                    	int scNo = (int)pageContext.getAttribute("scNo");
+							                    	int cnt = fldao.feedLikeShow(scNo).size();
+							                    	int comCnt = fcdao.feedCommentShow(scNo).size()+fccdao.feedCoCommentShowByFeedNo(scNo).size();
+							                    %>
+												<div align='left'>
+													<span id ='like${scrap.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${scrap.feedNo}'>댓글 <%= comCnt%></span>
+												</div>
+												
+												<!-- 스크랩 피드 댓글 창 -->
+												
+							                    <div class = 'comment collapse'  id ='comment${scrap.feedNo}'>
+							                    	<div class = 'comment_body' align = 'left'>
+							                    		<c:set var = 'scrapNo' value = '${scrap.feedNo}' scope = 'session'/>
+							                    		<%
+							                    			ArrayList<FeedCommentDTO> cs = null;
+							                    			int scrapNo = (int) session.getAttribute("scrapNo");
+							                    			cs = fcdao.feedCommentShow(scrapNo);
+							                    			pageContext.setAttribute("cs", cs);
+							                    		%>
+							                    		<c:forEach var ='com' items = '${cs}'>
+							                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate}
+							                    				<button type = 'button' data-bs-toggle="collapse" data-bs-target="#coCom${com.fcNo}" aria-expanded="false"><i class="bi bi-reply" style = 'font-size : 15px;'></i></button>
+							                    				<c:choose>
+							                    					<c:when test = "${nick == com.nick}">
+							                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+							                    						<button onclick = 'feedComDelete(${scrap.feedNo},${com.fcNo},"#comCnt${scrap.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+							                    					</c:when>
+							                    					<c:otherwise>
+							                    					</c:otherwise>
+							                    				</c:choose>
+							                    			</div>
+							                    			<c:set var = 'scfcNo' value = '${com.fcNo}' scope = 'session'/>
+							                    				<div class = 'collapse' id = 'coCom${com.fcNo}'>
+										                    		<%
+										                    			ArrayList<FeedCoCommentDTO> ccs = null;
+										                    			int scfcNo = (int) session.getAttribute("scfcNo");
+										                    			ccs = fccdao.feedCoCommentShow(scfcNo);
+										                    			pageContext.setAttribute("ccs", ccs);
+										                    		%>
+											                    	<c:forEach var ='cocom' items = '${ccs}'>
+												                    	<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate}
+												                   			<c:choose>
+												                 				<c:when test = "${nick == cocom.nick}">
+										                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
+										                    						<button onclick = 'feedCoComDelete(${scrap.feedNo},${cocom.coNo},"#comCnt${scrap.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
+										                    					</c:when>
+										                    					<c:otherwise>
+										                    					</c:otherwise>
+										                    				</c:choose>
+										                    			</div>
+										                    		</c:forEach>
+										                    		<!--  대댓글 입력  -->
+										                    		<div class='input-group rounded' style = 'padding-left:20px'>
+															        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
+																		<button onclick = 'feedCoComCreate(${com.fcNo},${scrap.feedNo},"#comtext${com.fcNo}","#comCnt${scrap.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
+																	</div>
+											                    </div>
+							                    		</c:forEach>
+							                    	</div>
+							                    	<!--  댓글 입력  -->
+							                    	<div>
+							                    		<div class='input-group rounded'>
+												        	<input id = 'text${scrap.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
+															<button onclick = 'feedComCreate(${scrap.feedNo},"#text${scrap.feedNo}","#comCnt${scrap.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+														</div>
+								                    </div>
+							                    </div>
+												
+												
+												<!-- 피드 배너 -->
+							                    <div class = 'navbar'>
+							                    	<%
+							                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(scNo,nick));
+							                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,scNo,null,nick));
+							                    	
+							                    		if (check) {
+							                    			pageContext.setAttribute("check",1);
+							                    		} else {
+							                    			pageContext.setAttribute("check",0);
+							                    		}
+							                    		
+							                    		if (checkS) {
+							                    			pageContext.setAttribute("checkS",1);
+							                    		} else {
+							                    			pageContext.setAttribute("checkS",0);
+							                    		}
+							                    		
+							                    		
+							                    	%>
+							                    	<div id = 'likeCheck${scrap.feedNo}'>
+								                    	<c:choose>
+								                    		<c:when test="${check==1}">
+								                    			<button onclick='likeDelete(${scrap.feedNo},"#like${scrap.feedNo}","#likeCheck${scrap.feedNo}")' class="feed-bt"><i class = 'fa fa-paw lcs'> 좋아요</i></button>
+								                    		</c:when>
+								                    		<c:otherwise>
+								                    			<button onclick='like(${scrap.feedNo},"#like${scrap.feedNo}","#likeCheck${scrap.feedNo}")' class="feed-bt"><i class = 'fal fa-paw lcs'> 좋아요</i></button>
+								                    		</c:otherwise>
+								                    	</c:choose>
+							                    	</div>
+							                        <button class = 'feed-bt btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${scrap.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+							                        <div id ='scrap${scrap.feedNo}'>
+							                        	<c:choose>
+							                        		<c:when test="${checkS==1}">
+							                        			<button onclick ='scrapDelete(${scrap.feedNo},"#scrap${scrap.feedNo}")' class="feed-bt"><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>
+							                        		</c:when>
+							                        		<c:otherwise>
+							                        			<button onclick ='scrap(${scrap.feedNo},"#scrap${scrap.feedNo}")' class="feed-bt"><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>
+							                        		</c:otherwise>
+							                        	</c:choose>
+							                        </div>
+							                    </div>
+										</div>
+									</div>
+								</div>
+	            			
+	            			
+	            			
+	            			
+	            			
+	            			
+	            		</c:forEach>
+	            		
+	            	</c:otherwise>
+	            </c:choose>
 	            	
-				<div class="row mt-3 text-center">
-					<div class="row justify-content-center">
-						<div class="d-grid gap-sm-1 col-sm-6">
-							<!-- 게시자 정보 -->
-							<a href = 'otherpage.jsp?nick=<%=scrapList.get(i).getNick()%>'>
-								<div class='col-6'>
-									<img
-										src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-										class="rounded-circle img-thumbnail feed img-fluid float-start">
-									<div align="left">
-										<strong><%=scrapList.get(i).getNick() %></strong>
-										<br /><%=scrapList.get(i).getFeedDate() %>
-									</div>
-								</div>
-							</a>
-							<!-- 첨부된 사진-->
-							<div id="<%=carouselid %>" class="carousel slide"
-                            data-bs-interval="false">
-								<div class="carousel-inner" >
-								<%
-		                            	String src = scrapList.get(i).getPicAddress();
-		                            	String[] srclist = src.split(",");
-		                            	String item = null;
-		                            	
-		                            	for(int j = 0; j < srclist.length; j++){
-		                            		if(j == 0){
-		                            			item = "carousel-item active";
-		                            		}else{
-		                            			item = "carousel-item";
-		                            		}
-                            		%>
-                            		
-									<div class="<%= item %>" style="max-width:500px; max-height:500px;">
-										<img src="<%=srclist[j] %>" class="d-block img-fluid" alt="..." style="display:inline !important;">
-									</div>
-									
-									<% } %>
-								</div>
-								<% carouselid = "#" + carouselid; %>
-								<button class="carousel-control-prev" type="button"
-									data-bs-target="<%=carouselid %>" data-bs-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Previous</span>
-								</button>
-								<button class="carousel-control-next" type="button"
-									data-bs-target="<%=carouselid %>" data-bs-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Next</span>
-								</button>
-							</div>
-
-						</div>
-						<!-- 피드 내용--> 
-						<div class="col-sm-6">
-							<div align='left'>
-								<%=scrapList.get(i).getContent() %>
-								<button class='info feed-bt' onclick='more()'>더보기</button>
-							</div>
-							<div class="tag" align="left"><%=scrapList.get(i).getTag() %></div>
-							<div align='left'>
-								좋아요 10 댓글 10
-								<button class='info feed-bt' onclick='entire()'>전체보기</button>
-							</div>
-							<div>
-								<button class="feed-bt">
-									<i class='fa fa-paw lcs' onclick='like()'> 좋아요</i>
-								</button>
-								<!-- <button><i class = 'fal fa-paw lcs' onclick = 'likedelete()'> 좋아요</i></button> -->
-								<button class="feed-bt">
-									<i class="bi bi-chat-dots lcs" onclick='comment()'> 댓글</i>
-								</button>
-								<button class="feed-bt">
-									<i class="bi bi-bookmark-fill lcs" onclick='scrap()'> 스크랩</i>
-								</button>
-								<!-- <button><i class = "bi bi-bookmark lcs" onclick = 'scrapdelete()'> 스크랩</i></button> -->
-							</div>
-						</div>
-					</div>
-				</div>
-            <%  }
-	         } %>
-            
             </div>
 
 		
 	</div>
 	
-	<!-- 팔로워, 팔로잉 명단 탭 -->
+	<!-- 팔로워, 팔로잉 명단 모달창 -->
 	<div id="modal" class="modal-overlay">
 		<div class="modal-window">
 			<div class="modal-container">
@@ -589,26 +707,16 @@
 				  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				  	<ul>
 				  		<c:forEach var = "follower" items="${followerList }">
-				  			<%-- <c:set var="fwNick" value= "${follower}" scope="page"/> --%>
 		
 				  			<%
-				  				System.out.println(pageContext.getAttribute("follower").toString());
 				  				MemberDTO fmember = dao.memberInfo(pageContext.getAttribute("follower").toString());
 				  				pageContext.setAttribute("fmember", fmember);
 				  			%>
 				  		
 					  		<li class="list">
 					  			<a href="otherpage.jsp?nick=${follower}" class="item">
-						  			<c:choose>
-										<c:when test = "${empty fmember.picAddress} ">
-											<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-											class="rounded-circle img-thumbnail feed img-fluid float-start">
-										</c:when>
-										<c:otherwise>
-											<img src="${fmember.picAddress}"
-											class="rounded-circle img-thumbnail feed img-fluid float-start">
-										</c:otherwise>
-									</c:choose>
+									<img src="${fmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
+						 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 					  			</a>
 					  			<div class="item">${fmember.nick}</div>
 					  		</li>
@@ -620,10 +728,19 @@
 				  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				  	<ul>
 				  		<c:forEach var = "following" items="${followingList }">
-					  		<li>
-					  			<div>${following}</div>
-					  			<hr>
+					  		<%
+				  				MemberDTO ffmember = dao.memberInfo(pageContext.getAttribute("following").toString());
+				  				pageContext.setAttribute("ffmember", ffmember);
+				  			%>
+				  		
+					  		<li class="list">
+					  			<a href="otherpage.jsp?nick=${following}" class="item">
+									<img src="${ffmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
+						 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+					  			</a>
+					  			<div class="item">${ffmember.nick}</div>
 					  		</li>
+					  		<hr>
 					  	</c:forEach>
 				  	</ul>
 				  </div>
@@ -650,12 +767,22 @@
 	<script src='jquery-3.6.0.min.js'></script>
 	<script type='text/javascript'>
 	
-		// 모달 창 켜기
+		// 모달 창 켜기 - 팔로워 눌렀을 때
 		const modal = document.getElementById("modal");
-		const search = document.querySelector(".follower");
+		const follower = document.querySelector(".follower");
 	
-		search.addEventListener("click", e => {
+		follower.addEventListener("click", e => {
 		    modal.style.display = "flex";
+		});
+		
+		// 모달창 켜기 - 팔로잉 눌렀을 때
+		const following = document.querySelector(".following");
+		following.addEventListener("click", e => {
+		    modal.style.display = "flex";
+		    document.getElementById("profile").className = "tab-pane fade show active";
+		    document.getElementById("home").className = "tab-pane fade";
+		    document.getElementById("profile-tab").className = "nav-link bb active";
+		    document.getElementById("home-tab").className = "nav-link bb";
 		});
 	
 	
@@ -768,9 +895,9 @@
 		        dataType : 'json',
 		        success: function(result) {
 		        	if (result == 0) {
-		        		$(id).html("<button onclick ='scrap("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark lcs'> 스크랩</i></button>");
+		        		$(id).html("<brtton onclick='scrap("+feedNo+","+'"#scrap'+feedNo+'")'+"' class="+'"feed-bt"><i class = '+"'bi bi-bookmark lcs'> 스크랩</i></button>");
 		        	} else {
-		        		$(id).html("<button onclick ='scrapDelete("+feedNo+',"#scrap'+feedNo+'")'+"'><i class = 'bi bi-bookmark-fill lcs'> 스크랩</i></button>");
+		        		$(id).html("<brtton onclick='scrapDelete("+feedNo+","+'"#scrap'+feedNo+'")'+"' class="+'"feed-bt"><i class = '+"'bi bi-bookmark-fill lcs'> 스크랩</i></button>");
 		        	}
 		        },
 			    error: function() {
