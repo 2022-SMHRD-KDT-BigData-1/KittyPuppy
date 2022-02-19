@@ -87,6 +87,30 @@ public class FeedDAO {
 		return feedList;
 	}
 	
+	// 모든 회원의 피드 3개씩 보여주기 (팔로우하고 있는 회원이 없을 때)
+	public ArrayList<FeedDTO> feedShowAllLimit3(int startNum, int endNum){
+		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from (select * from feed order by feeddate desc) where rownum >= ? and rownum <= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, startNum);
+			psmt.setInt(2, endNum);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
+	}
+	
 	// 내가 팔로우 하고 있는 회원들의 피드 보여주기
 	public ArrayList<FeedDTO> feedShow(ArrayList<String> followingList) {
 		
@@ -120,6 +144,41 @@ public class FeedDAO {
 		return feedList;
 	}
 	
+	// 내가 팔로우 하고 있는 회원들의 피드 3개씩 보여주기
+	public ArrayList<FeedDTO> feedShowLimit3(ArrayList<String> followingList, int startNum, int endNum) {
+		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from (select * from feed where nick IN (";
+			for (int i = 0; i < followingList.size();i++) {
+				if (i == followingList.size() - 1) {
+					sql += "?";
+				} else {
+					sql += "?,";
+				}
+			}
+			sql += ")order by feeddate desc) where rownum >=? and rownum <=?";
+			psmt = conn.prepareStatement(sql);
+			for (int i = 0; i < followingList.size();i++) {
+				psmt.setString(i+1, followingList.get(i));
+			}
+			psmt.setInt(followingList.size()+1, startNum);
+			psmt.setInt(followingList.size()+2, endNum);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
+	}
+		
 	// 특정 회원의 피드 보여주기
 	public  ArrayList<FeedDTO> feedSelect(String nick) {
 		

@@ -1,5 +1,6 @@
 <%@ page language='java' contentType='text/html; charset=UTF-8'
     pageEncoding='UTF-8'%>
+<%-- <%@ page errorPage="login.jsp"%> --%>
 <%@ page
 	import = 'java.util.ArrayList'
 	import = 'com.kittypuppy.model.*'
@@ -232,11 +233,16 @@ body {
     	
     	ArrayList<FeedDTO> feedList = null;
     	ArrayList<String> followList = fwdao.followingShow(nick);
-    	if (followList.size() == 0) {
-    		feedList = fdao.feedShowAll();
+    	
+    	int startNum = 1;
+    	int endNum = 3;
+        if (followList.size() == 0) {
+    		feedList = fdao.feedShowAllLimit3(startNum, endNum);
     	} else {
-    		feedList = fdao.feedShow(followList);
+    		feedList = fdao.feedShowLimit3(followList, startNum, endNum);
     	}
+        startNum += 3;
+        endNum += 3;
     	pageContext.setAttribute("feedList",feedList);
     	
     	// 개행 처리
@@ -265,7 +271,7 @@ body {
     </div>
 
     <!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
-	<div class='container out'>
+	<div class='container out' id ='reload'>
         <!-- 검색창 -->
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class='ls input-group rounded'>
@@ -275,7 +281,6 @@ body {
 	    		</label>
 	        </div>
         </form>
-        
         <c:forEach var ='feed' items = '${feedList}'>
         	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
         	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>
@@ -655,6 +660,12 @@ body {
 			});
 		};
 		
+		// 스크롤이 끝까지 내려오면 다음 3개의 피드 로드
+		$(window).scroll(function() {
+			if($(window).scrollTop() >= $(document).height() - $(window).height()){
+				$("#reload").append($("#reload").clone());
+			}
+		});
 	</script>
 </body>
 </html>
