@@ -156,7 +156,7 @@
 		
 	%>
     
-    <form action = 'FeedCreateCon.do' method = 'post' class = 'd-grid gap-2'>
+    <form action = 'FeedCreateCon.do' method="post" enctype="multipart/form-data" class = 'd-grid gap-2'>
         <div class = 'd-grid gap-3'>
             <!-- 상단 메뉴 -->
             <div class="row text-center">
@@ -191,7 +191,31 @@
         <div class ='row'>
    			<div class = 'col-4 g-4 mb-3' align = 'center'>
 				<label class="btn btn-default input">
-	       			<i class="bi bi-plus-square"> <input name = 'picAddress' type="file" hidden></i>
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress1' type="file" hidden></i>
+	   			</label>
+           	</div>
+           	
+           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+				<label class="btn btn-default input">
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress2' type="file" hidden></i>
+	   			</label>
+           	</div>
+           	
+           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+				<label class="btn btn-default input">
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress3' type="file" hidden></i>
+	   			</label>
+           	</div>
+           	
+           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+				<label class="btn btn-default input">
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress4' type="file" hidden></i>
+	   			</label>
+           	</div>
+           	
+           	<div class = 'col-4 g-4 mb-3' align = 'center'>
+				<label class="btn btn-default input">
+	       			<i class="bi bi-plus-square"> <input name = 'picAddress5' type="file" hidden></i>
 	   			</label>
            	</div>
         </div>

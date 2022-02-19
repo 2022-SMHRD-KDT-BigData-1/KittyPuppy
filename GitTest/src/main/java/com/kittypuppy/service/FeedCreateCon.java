@@ -1,16 +1,17 @@
 package com.kittypuppy.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.FeedDAO;
 import com.kittypuppy.model.FeedDTO;
 import com.kittypuppy.model.MemberDTO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class FeedCreateCon implements iCommand{
 
@@ -22,30 +23,46 @@ public class FeedCreateCon implements iCommand{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// post 방식으로 입력값 넘겨 받음.
-		request.setCharacterEncoding("utf-8");
-		String content = request.getParameter("content");
-		String tag = request.getParameter("tag");
-		int openRange = Integer.parseInt(request.getParameter("openRange"));
-		String picAddress = request.getParameter("picAddress");
+		// 저장 경로 지정
+		String saveDir = "C:/Users/smhrd/git/KittyPuppy/GitTest/src/main/webapp/assets/img";
 		
-		// 세션에서 로그인한 사용자 nick 가져오려고 선언
-		HttpSession session = request.getSession();
-		member = (MemberDTO)session.getAttribute("member");
+		// 파일 저장
+		MultipartRequest multi = new MultipartRequest(request, saveDir, 10*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
 		
-		int cnt = dao.feedCreate(new FeedDTO(0, member.getNick(), picAddress, content, tag, null, null, openRange));
+		// DB 저장 을 위한 값 받아오기
+		String content = multi.getParameter("content");
+		String tag = multi.getParameter("tag");
+		int openRange = Integer.parseInt(multi.getParameter("openRange"));
 		
-		if ( cnt > 0 ) {
-			response.sendRedirect("mypage.jsp");
-		}else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('게시글 작성 실패');");
-			out.print("location.href='mypage.jsp';");
-			out.print("</script>");			
+		String picAddress1 = multi.getFilesystemName("picAddress1");
+		String picAddress2 = multi.getFilesystemName("picAddress2");
+		String picAddress3 = multi.getFilesystemName("picAddress3");
+		String picAddress4 = multi.getFilesystemName("picAddress4");
+		String picAddress5 = multi.getFilesystemName("picAddress5");
+		ArrayList<String> paList = new ArrayList<String>();
+		
+		if (picAddress1 != null) {
+			paList.add(".assets/img/"+picAddress1);
+		}
+		if (picAddress2 != null) {
+			paList.add(".assets/img/"+picAddress2);
+		}
+		if (picAddress3 != null) {
+			paList.add(".assets/img/"+picAddress3);
+		}
+		if (picAddress4 != null) {
+			paList.add(".assets/img/"+picAddress4);
+		}
+		if (picAddress5 != null) {
+			paList.add(".assets/img/"+picAddress5);
 		}
 		
+		String picAddress = String.join(",", paList);
+		
+		System.out.println(content);
+		System.out.println(tag);
+		System.out.println(openRange);
+		System.out.println(picAddress);
 	}
 
 }
