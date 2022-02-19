@@ -1,3 +1,4 @@
+<%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@page import="com.kittypuppy.model.FeedDAO"%>
 <%@page import="javax.print.DocFlavor.STRING"%>
 <%@page import="com.kittypuppy.model.DMDTO"%>
@@ -252,6 +253,7 @@ h1 {
 .Vmore {
 	width: 10px;
 	margin-top: 7px
+	
 }
 </style>
 </head>
@@ -265,6 +267,8 @@ h1 {
 	String sendnick = member.getNick();
 
 	DMlist = dao.DMShow(sendnick, receivenick);
+	MemberDAO mdao = new MemberDAO();
+	ArrayList<String> list = dao.DMList(sendnick);
 
 	pageContext.setAttribute("receivenick", receivenick);
 	pageContext.setAttribute("sendnick", sendnick);
@@ -282,36 +286,37 @@ h1 {
 			<a href=""><i class="bi bi-exclamation-octagon-fill report"></i></a>
 		</div>
 	</div>
+	
 	<!-- 프로필 -->
-	<div class="container out">
-		<div class="row mt-6">
-			<div class="row">
-				<div class="row m-3"
-					style="display: inline-block; vertical-align: top">
-					<a href=""> <img
-						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-						class="rounded-circle img-thumbnail img-fluid float-start" /> <strong
-						class="sdiv"> ${receivenick} </strong>
-					</a>
-				</div>
-			</div>
-
+	
+	<div class="container out ">
+		<div class="row m-3 " style="display: inline-block; vertical-align: top">
+		<!-- 프로필 사진 -->
+		<a href="otherpage.jsp?nick=${receivenick}"> 
+		
+    				<%if (mdao.memberInfo(receivenick).getPicAddress() == null) { %>
+   						<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" class="rounded-circle img-thumbnail img-fluid float-start" /> 
+					<%} else {%>
+						<img src="<%= mdao.memberInfo(receivenick).getPicAddress()%>" class="rounded-circle img-thumbnail img-fluid float-start" /> 
+					<%}%>
+					<strong class="sdiv"> ${receivenick} </strong>
+				</a>
+		</div>
+			
+			
+			
 			<!-- 간격 -->
 			<div class="py-3"></div>
 			<!-- 말풍선 -->
 
-			<div class="overflow-auto g-2 p-3"
+			<div class="overflow-auto g-2 p-3 "
 				style="max-height: 500px; max-width: 100%">
-				<div class="row sm-2">
-
-					<%
-					for (int i = 0; i < DMlist.size(); i++) {
-						if (DMlist.get(i).getSendNick().equals(sendnick)) {
-					%>
-
+				<%for (int i = 0; i < DMlist.size(); i++) {%>
+				<%if (DMlist.get(i).getSendNick().equals(sendnick)) { %>
 					<div class="d-flex justify-content-end mb-4 ">
+						<!-- 삭제 -->
 						<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)">
-							<div style="margin-top: 7px" class="Vmore">
+							<div style="margin-top: 8px" class="Vmore">
 								<svg id="i-ellipsis-horizontal"
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
 									width="32" height="32" fill="none" stroke="currentcolor"
@@ -322,20 +327,23 @@ h1 {
 								</svg>
 							</div>
 						</button>
-						<div id="sdm" class="balloon_04 ">
+						
+						
+						<!--send말풍선 -->
+						<div id="sdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_04 ">
 							<%=DMlist.get(i).getContent()%>
-
 						</div>
-
 					</div>
-					<%
-					} else {
-					%>
-
+					
+					
+					<%} else {%>
 					<div class="d-flex justify-content-start mb-4">
-
-						<div id="rdm" class="balloon_03 "><%=DMlist.get(i).getContent()%></div>
+					<!-- receivenick말풍선 -->
+						<div id="rdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_03 ">
+						<%=DMlist.get(i).getContent()%>
+						</div>
 						<button onclick="DMDelete(<%=DMlist.get(i).getDmNo()%>)">
+						<!-- 삭제 -->
 							<div class="Vmore">
 								<svg id="i-ellipsis-horizontal"
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
@@ -346,19 +354,16 @@ h1 {
    								 <circle cx="25" cy="16" r="2" />
 								</svg>
 							</div>
+							
 						</button>
 					</div>
-
-					<%
-					}
-					%>
-					<%
-					}
-					%>
+					<%}%>
+					<%}%>
+					
 
 
 					<!-- 보내기 -->
-					<div class="row mt-3 text-center">
+					<div class="row mt-3 text-center ">
 						<div class="input-group mb-3">
 
 							<input type="text" class="form-control" id="m" autocomplete="off" />
@@ -369,8 +374,11 @@ h1 {
 							</div>
 						</div>
 					</div>
+					
+					
 				</div>
 			</div>
+			
 
 			<script src="jquery-3.6.0.min.js"></script>
 
@@ -384,7 +392,7 @@ h1 {
 							dmNo : dmNo
 						},
 						dataType : 'json',
-						success : function() {
+						success : function(cnt) {
 							location.reload();
 							console.log('성공')
 						},
@@ -404,6 +412,7 @@ h1 {
 							content : $('#m').val()
 						},
 						success : function() {
+							
 							location.reload();
 							console.log('저장성공'); // 성공시 코드
 						},

@@ -17,7 +17,7 @@ public class DMDeleteCon implements iCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int dmNo = Integer.parseInt(request.getParameter("dmNo"));
-
+		PrintWriter out = response.getWriter();
 		int cnt = dao.DMDelete(dmNo);
 
 		if (cnt > 0) {
@@ -26,7 +26,7 @@ public class DMDeleteCon implements iCommand {
 			System.out.println("½ÇÆÐ");	
 
 		}
-
+		out.print(cnt);
 	}
 
 }

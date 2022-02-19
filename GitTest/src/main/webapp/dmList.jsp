@@ -1,3 +1,4 @@
+<%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kittypuppy.model.MemberDTO"%>
 <%@page import="com.kittypuppy.model.DMDTO"%>
@@ -548,21 +549,25 @@ img {
 }
 
 .Vmore {
-	margin-left: 720px
+	margin-left: 1070px
 }
 </style>
 </head>
 <body>
 	<%
 	DMDAO dao = new DMDAO();
-	/* ArrayList<DMDTO> DMlist = null; */
+	MemberDAO mdao = new MemberDAO();
+			/* ArrayList<DMDTO> DMlist = null; */
 	String receivenick = request.getParameter("receivenick");
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
-
+	
 	String sendnick = member.getNick();
 	ArrayList<String> list = dao.DMList(sendnick);
+	
+   
+	
+	
 	int DMlist = 0;
-
 	DMlist = dao.DMDeleteAll(sendnick, receivenick);
 
 	pageContext.setAttribute("DMlist", DMlist);
@@ -600,20 +605,25 @@ img {
 			<div class="inbox_chat mt-4 ">
 
 
-				<div class="chat_list active_chat b">
-					<%
-					for (int i = 0; i < list.size(); i++) {
+				<div class="chat_list active_chat ">
+					<% for (int i = 0; i < list.size(); i++) {
+						
+						String fnick = (String) request.getAttribute("fnick");
+	                	MemberDTO fm = mdao.memberInfo(fnick);
+	                	pageContext.setAttribute("fm", fm);
+
 					%>
 					<a href="dmShow.jsp?receivenick=<%=list.get(i)%>">
-
-						<div class="chat_people b">
-
+						<div class="chat_people">
+							<%if (mdao.memberInfo(list.get(i)).getPicAddress() == null) {%>
 							<div class="chat_img">
-								<img
-									src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-									alt="sunil" />
+								<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" alt="sunil" />
 							</div>
-
+							<%} else {%>
+							<div class="chat_img">
+								<img src="<%=mdao.memberInfo(list.get(i)).getPicAddress()%>" alt="sunil" />
+							</div>
+							<%}%>
 
 							<div class="chat_ib">
 								<%
@@ -623,56 +633,50 @@ img {
 								out.print("<p>" + dao.latestDM(sendnick, list.get(i)).getSendDate() + "</p>");
 								%>
 							</div>
-							</a>
-							<div style="" class="Vmore b">
-							<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
-								
-									<svg id="i-ellipsis-horizontal"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-										width="32" height="32" fill="none" stroke="currentcolor"
-										stroke-linecap="round" stroke-linejoin="round"
-										stroke-width="2">
+					</a>
+					<div class="Vmore">
+						<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
+
+							<svg id="i-ellipsis-horizontal"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+								width="32" height="32" fill="none" stroke="currentcolor"
+								stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     							<circle cx="7" cy="16" r="2" />
    								 <circle cx="16" cy="16" r="2" />
    								 <circle cx="25" cy="16" r="2" />
 								</svg>
-								
-							</button>
-							</div>
-						</div>
-					
-					<%
-					}
-					%>
+
+						</button>
+					</div>
 				</div>
 
+				<%}%>
 			</div>
+
 		</div>
 	</div>
 </body>
 
 <script>
+	function DMDeleteAll(sendnick, receivenick) {
 
-function DMDeleteAll(sendnick,receivenick) {
-
-	$.ajax({
-		url : "DMDeleteAllCon.do",
-		type : "post",
-		data : {
-			sendnick : sendnick ,
-			receivenick : receivenick
-		},
-		dataType : 'json',
-		success : function(cnt) {
-			location.reload();
-			console.log('성공')
-		},
-		error : function() {
-			console.log('err');
-		}
-	});
-};
-
+		$.ajax({
+			url : "DMDeleteAllCon.do",
+			type : "post",
+			data : {
+				sendnick : sendnick,
+				receivenick : receivenick
+			},
+			dataType : 'json',
+			success : function(cnt) {
+				location.reload();
+				console.log('성공')
+			},
+			error : function() {
+				console.log('err');
+			}
+		});
+	};
 </script>
 
 
