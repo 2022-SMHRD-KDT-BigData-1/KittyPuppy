@@ -110,6 +110,7 @@ h1 {
 	max-height: 77px;
 }
 
+
 /* Flexbox 안의 아이템 모바일 */
 .item.img {
 	/* margin-right: 50px; */
@@ -218,6 +219,10 @@ h1 {
 	.img-thumbnail.feed {
 		max-width: 100px;
 		max-height: 100px;
+	}
+	.img-thumbnail.animal {
+		max-width: 90px;
+		max-height: 90px;
 	}
 	.item.img {
 		order: 1;

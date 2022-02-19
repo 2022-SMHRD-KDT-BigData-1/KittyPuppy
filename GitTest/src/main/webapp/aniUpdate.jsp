@@ -111,7 +111,7 @@
 %>
  <div class="container out">
  
- <form action="AniUpdateCon.co" method="post">
+ <form action="AniUpdateCon.do" method="post" enctype="multipart/form-data">
 
         <div class="row">
 
@@ -147,7 +147,7 @@
                     <label class="btn btn-default" style="background-color: white;">
                         <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
                             class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
-                            type="file" hidden></i>
+                            type="file" name="animalPic" hidden></i>
                     </label>
 
                     

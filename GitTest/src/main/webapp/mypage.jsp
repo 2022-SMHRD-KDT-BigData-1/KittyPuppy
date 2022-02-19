@@ -18,6 +18,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
+<!-- 서비스 직전에 -->
+<%-- <%@ page errorPage="login.jsp"%> --%>
+	
 <%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = 'fn' uri = "http://java.sun.com/jsp/jstl/functions" %>
 
@@ -77,7 +80,7 @@
 <%
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
-
+	
 	String nick = member.getNick();
 	// System.out.println(nick);
 	
@@ -117,9 +120,9 @@
 
 	<!-- 키티퍼피 로고 -->
 	<div class="header-logo">
-		<i class="bi bi-exclamation-octagon-fill hidden"></i>
+		<a href="logout.jsp"><i class="bi bi-door-open-fill hidden"></i></a>
 		<h1 class="text-center">KittyPuppy</h1>
-		<a href=''><i class="bi bi-exclamation-octagon-fill report"></i></a>
+		<a href='lostAniReport.html'><i class="bi bi-exclamation-octagon-fill report"></i></a>
 	</div>
 
 	<br>
@@ -265,10 +268,6 @@
 						      	MemberDTO fm = dao.memberInfo(fnick);
 						      	pageContext.setAttribute("fm",fm);
 						      	
-						      	// page 영역에 저장된 fm에서 picAddress가져올때 null 나오는지 테스트
-						      	MemberDTO a = (MemberDTO)pageContext.getAttribute("fm");
-						      	System.out.println(a.getPicAddress());
-						      	System.out.println(a.getNick());
 						    %>
 						    
 						    	<img src="${fm.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"

@@ -16,10 +16,9 @@ h1 {
 }
 
 .hidden {
-	color: #f5e172;
+	color: #25aa8f7e;
 	font-size: 4ch;
 	margin-right: 100px;
-	visibility: hidden;
 }
 
 .report {

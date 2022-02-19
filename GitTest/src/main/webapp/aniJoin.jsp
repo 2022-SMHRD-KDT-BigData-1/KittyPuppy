@@ -1,3 +1,8 @@
+<%@page import="com.kittypuppy.model.AnimalDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kittypuppy.model.AnimalDAO"%>
+<%@page import="com.kittypuppy.model.MemberDTO"%>
+<%@page import="com.kittypuppy.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -78,10 +83,15 @@
 
 </head>
 <body>
+<%
+	MemberDAO dao = new MemberDAO();
+	MemberDTO member = (MemberDTO)session.getAttribute("member");
+	String nick = member.getNick();
+%>
 
  <div class="container out">
  
- <form action="AniJoinCon.do" method="post">
+ <form action="AniJoinCon.do" method="post" enctype="multipart/form-data">
 
         <div class="row">
 
@@ -117,7 +127,7 @@
                     <label class="btn btn-default" style="background-color: white;">
                         <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
                             class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
-                            type="file" hidden></i>
+                            type="file" name="animalPic" hidden ></i>
                     </label>
 
                     
@@ -131,7 +141,7 @@
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <input type="nick" class="form-control" placeholder="닉네임" name="nick"><br>
+                <textarea class="form-control" name="nick">${member.nick }</textarea><br>
                 <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName"><br>
 
 
@@ -164,7 +174,7 @@
                     </select>
                 </div>
 
-                <input type="text" class="form-control" placeholder="나이 ex)2세" name="animalAge"><br>
+                <input type="text" class="form-control" placeholder="나이 ex)2살이면 2, 3살이면 3" name="animalAge"><br>
                 <input type="text" class="form-control" placeholder="반려동물 프로필" name="animalProfile"><br>
 
 

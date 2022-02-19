@@ -73,8 +73,8 @@ public class AnimalDAO {
 		int cnt = 0;
 		connect();
 		try {
-			String sql = "update web_member "
-					+ "set animalname = ?, animal pic = ?, upkind = ?, kind = ?, animalsex= ?, animalage = ?, animalprofile = ? "
+			String sql = "update animal "
+					+ "set animalname = ?, animalpic = ?, upkind = ?, kind = ?, animalsex= ?, animalage = ?, animalprofile = ? "
 					+ "where nick = ? and animalname = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, animal.getAnimalName());
