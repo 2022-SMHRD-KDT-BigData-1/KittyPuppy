@@ -22,16 +22,19 @@ public class MUpdatePwCon implements iCommand {
 				
 		HttpSession session = request.getSession();
 		
+//		String id = request.getParameter("id");
+//		String birth = request.getParameter("birth");
+		 
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
 		
-		String id = member.getId();		
+		String id = member.getId();
 		String birth = member.getBirth();
 		
 		String pw = request.getParameter("pw");
 				
 		MemberDAO dao = new MemberDAO();
 
-		int cnt = dao.updatePw(new MemberDTO(id, pw, birth));
+		int cnt = dao.updatePw(id, pw, birth);
 
 		if (cnt > 0) {
 			System.out.println("비밀번호 설정 완료");

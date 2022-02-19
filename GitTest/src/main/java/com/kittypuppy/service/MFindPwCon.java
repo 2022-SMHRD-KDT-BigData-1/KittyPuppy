@@ -3,6 +3,7 @@ package com.kittypuppy.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,11 @@ public class MFindPwCon implements iCommand {
 		if (member != null) {
 			System.out.println("아이디와 생일 일치");
 
+//			request.setAttribute("id", id);
+//			request.setAttribute("birth", birth);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("updatePw.jsp");
+//			dispatcher.forward(request, response);
+//			
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
 			response.sendRedirect("updatePw.jsp");// 비밀번호 설정페이지 이동

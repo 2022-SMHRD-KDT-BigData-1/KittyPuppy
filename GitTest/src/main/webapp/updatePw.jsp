@@ -102,7 +102,7 @@ html, body {
 					</div>
 					<p>새로운 비밀번호를 설정해주세요.</p>
 
-					<input type="password" id="pw" class="form-control" placeholder="비밀번호">
+					<input type="password" id="pw" class="form-control" placeholder="비밀번호" name="pw">
 						 <span class="pwInfo">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
 						 <span id="checkpw" size="2"></span> 
 						 <input type="password" id="pw2" class="form-control" placeholder="비밀번호 확인">
