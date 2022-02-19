@@ -247,7 +247,7 @@ body {
 		pageContext.setAttribute("enter","\r\n");
     %>
 
-	<div class='container out' id ='reload'>
+	<div id ='reload'>
         <c:forEach var ='feed' items = '${feedList}'>
         	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
         	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>

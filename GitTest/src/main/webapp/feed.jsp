@@ -676,7 +676,7 @@ body {
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
-							$("#reload").append("<div id = 'load"+num1+"''></div>");
+							$("body").append("<div class = 'container out' id = 'load"+num1+"''></div>");
 							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
 						}
 					},
