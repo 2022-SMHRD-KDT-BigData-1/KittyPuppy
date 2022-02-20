@@ -159,7 +159,7 @@ public class MemberDAO {
 
 	// 주소 기준으로 주변 반려인 검색 기능 지도에서..
 	public void memberFindAddr() {
-
+		
 	}
 
 	// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..

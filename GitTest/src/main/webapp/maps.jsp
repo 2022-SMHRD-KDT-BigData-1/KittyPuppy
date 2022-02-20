@@ -5,6 +5,11 @@
 <%@page import="com.kittypuppy.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='fn' uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,15 +217,18 @@ h1 {
 
 </head>
 <body>
-	<%
+<%-- 	<%
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
 	String nick = member.getNick();
-	
-	AnimalDAO animal = new AnimalDAO();
-	ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
-	pageContext.setAttribute("aniList", aniList);
-	%>
+
+	AnimalDAO aniDao = new AnimalDAO();
+	//AnimalDTO animal = null;
+	//ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
+	AnimalDTO animal = aniDao.aniShow(nick, upKind);
+	pageContext.setAttribute("animal", animal);
+	%> --%>
+
 
 	<div class="container">
 		<div class='row'>
@@ -297,7 +305,7 @@ h1 {
 					<li class="nav-item mx-1 col" role="presentation">
 						<button class="nav-link active w-100 btn-sm rounded-pill"
 							href="#kittylist" id="kittylist-tab" data-bs-toggle="tab"
-							type=" button" role="tab" aria-controls="kittylist"
+							type="button" role="tab" aria-controls="kittylist"
 							aria-selected="true">Kitty</button>
 					</li>
 					<li class="nav-item mx-1 col" role="presentation">
@@ -322,38 +330,56 @@ h1 {
 
 					<div class="tab-content" id="myTabContent">
 
-						<%
-						String animalName = (String) request.getAttribute("animalName");
-						AnimalDTO ani  = dao.aniShowAll(animalName);
-						pageContext.setAttribute("ani", ani);
-						%>
-
 						<!-- 고양이 kitty -->
 						<div class="tab-pane fade show active" id="kittylist"
 							role="tabpanel" aria-labelledby="kittylist-tab">
 							<div class="row">
-								<div class="col-7 p-3  g-2">
-									<button type="button"
-										class="btn rounded-pill btn-outline-default "
-										style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류
-										"${ani.upKind}"
-									</button>
-
-									<p style="text-align: left; color: black;">
 
 
-										반려동물 이름"${ani.animalName}"<br> 반려동물 나이"${ani. animalAge}"<br>
-										광주광역시 서구 화정동"${member. address}"<br> 여성"${member.sex}
-										,20~30대 "${member.age}"
-									</p>
-								</div>
+								
+									<div class="col-7 p-3  g-2">
+										
+
+											<!-- <button type="button"
+												class="btn rounded-pill btn-outline-default "
+												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+												<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+											</button> -->
+											<p style="text-align: center; color: black;">현재 회원님의 동네에
+												동물 친구들이 없습니다.</p>
+										
+												<button type="button"
+													class="btn rounded-pill btn-outline-default "
+													style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+													<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+													"${animal.upKind}"
+												</button>
+												<p style="text-align: left; color: black;">
+													"${animal.animalName}"<br> "${animal. animalAge}"<br>
+													"${member. address}"<br> "${member.sex}"<br>
+													"${member.birth}"
+												</p>
+
+									</div>
+								
+
+
 								<div class="col-5 g-4 ">
 									<!-- 사진 클릭시 피드로 이동 -->
-									<a href="otherpage.jsp?nick=${feed.nick}"><img
-										src="${ani.animalPic }"
-										class="img-thumbnail mx-auto d-block"
-										style="width: auto; height: 80%;"></a>
+								
+
+											<a href=""> <img
+												src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
+												class="img-thumbnail mx-auto d-block"
+												 onerror="this.onerror=null; this.src='
+												style="width:auto; height: 80%;"></a>
+
+										
+												<a href="otherpage.jsp?nick=${animal.nick}"><img
+													src="${animal.animalPic }"
+													class="img-thumbnail mx-auto d-block"
+													style="width: auto; height: 80%;"></a>
+											
 								</div>
 							</div>
 						</div>
@@ -365,18 +391,19 @@ h1 {
 									<button type="button"
 										class="btn rounded-pill btn-outline-default "
 										style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${ani.upKind}"
+										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${animal.upKind}"
 									</button>
 									<p style="text-align: left; color: black;">
-										반려동물 이름"${ani.animalName}"<br> 반려동물 나이"${ani. animalAge}"<br>
+										반려동물 이름"${animal.animalName}"<br> 반려동물 나이"${animal. animalAge}"<br>
 										광주광역시 서구 화정동"${member. address}"<br> 여성,"${member.sex}
 										20~30대 "${member.age}"
 									</p>
 								</div>
 								<div class="col-5 g-4 ">
 									<!-- 사진 클릭시 피드로 이동 -->
-									<a href="otherpage.jsp?nick=${feed.nick}">
-									<img src=""${ani.animalPic }" class="img-thumbnail mx-auto d-block"	style="width: auto; height: 80%;"></a>
+									<a href="otherpage.jsp?nick=${animal.nick}"> <img src=""
+										${aniList.animalPic }" class="img-thumbnail mx-auto d-block"
+										style="width: auto; height: 80%;"></a>
 								</div>
 							</div>
 
@@ -394,10 +421,10 @@ h1 {
 									<button type="button"
 										class="btn rounded-pill btn-outline-default "
 										style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${ani.upKind}"
+										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${animal.upKind}"
 									</button>
 									<p style="text-align: left; color: black;">
-										반려동물 이름"${ani.animalName}"<br> 반려동물 나이"${ani. animalAge}"<br>
+										반려동물 이름"${animal.animalName}"<br> 반려동물 나이"${animal. animalAge}"<br>
 										광주광역시 서구 화정동"${member. address}"<br> 여성"${member.sex}",
 										20~30대 "${member.age}"
 									</p>
@@ -405,7 +432,7 @@ h1 {
 								<div class="col-5 g-4 ">
 									<!-- 사진 클릭시 피드로 이동 -->
 									<a href="otherpage.jsp?nick=${feed.nick}"><img
-										src="${ani.animalPic }"
+										src="${animal.animalPic }"
 										class="img-thumbnail mx-auto d-block"
 										style="width: auto; height: 80%;"></a>
 								</div>
@@ -451,23 +478,11 @@ h1 {
 
 	</div>
 
-<script>
-$(function calAge() {
-	$.ajax({
-		url : 'mapAnilist.do'
-		method : 'post'
-		data : {
-			birth : 'birth'
-		},
-		success : function(age){
-			($);
-		}
-	})
-}
+	<script>
+		
+	</script>
 
-</script>
 
-	
 
 
 

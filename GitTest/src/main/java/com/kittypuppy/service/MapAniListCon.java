@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.AnimalDAO;
 import com.kittypuppy.model.AnimalDTO;
+import com.kittypuppy.model.FeedDAO;
+import com.kittypuppy.model.FeedDTO;
 
 public class MapAniListCon implements iCommand {
 
+	AnimalDAO dao = new AnimalDAO();
+	
 	
 	
 	@Override
@@ -24,10 +28,11 @@ public class MapAniListCon implements iCommand {
 		String nick = request.getParameter("nick");
 		
 		AnimalDAO dao = new AnimalDAO();
-		ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
 		
+		String upKind = null;
+		AnimalDTO aniList = dao.aniShow(nick, upKind);
 		
-		aniList = dao.aniShowAll(nick);
+	
 
 		request.setAttribute("aniList", aniList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("maps.jsp");
