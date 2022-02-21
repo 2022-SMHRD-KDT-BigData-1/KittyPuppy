@@ -83,7 +83,7 @@
     <%
     	// 다른사람의 프로필 이미지를 눌렀을때 get방식으로 담겨오는 nick을 받아주는 것
     	String otherNick = request.getParameter("nick");
-    	pageContext.setAttribute("otherNick", otherNick);
+    	session.setAttribute("otherNick", otherNick);
    		MemberDAO dao = new MemberDAO();
      	MemberDTO otherMember = dao.memberInfo(otherNick);
      	pageContext.setAttribute("otherMember", otherMember);
