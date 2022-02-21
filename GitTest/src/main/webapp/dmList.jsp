@@ -51,14 +51,6 @@
 <link href="narrow-jumbotron.css" rel="stylesheet" />
 
 <style>
-html, body {
-	height: 100%;
-}
-
-body {
-	background-color: #ffffff;
-	padding: 10px;
-}
 
 /* 로고 글꼴, 색상 설정 */
 h1 {
@@ -85,7 +77,7 @@ h1 {
 }
 
 /* 상단 로고 고정 */
-.header-logo {
+/* .header-logo {
 	position: fixed;
 	margin: 0 auto;
 	left: 0;
@@ -96,20 +88,20 @@ h1 {
 	padding-top: 15px;
 	width: 100%;
 	text-align: center;
-}
+} */
 
 a {
 	color: #000000;
 	text-decoration-line: none;
 }
 
-i {
+/* i {
 	color: #25aa90;
-}
+} */
 
-.bi {
+/* .bi {
 	font-size: 40px;
-}
+} */
 
 .ls {
 	margin: atuo;
@@ -117,23 +109,23 @@ i {
 	margin: auto;
 }
 
-.lcs {
+/* .lcs {
 	font-size: 2ch;
 	margin-left: 15px;
 	margin-right: 15px;
-}
+} */
 
 #cursor {
 	color: #25aa90;
 }
 
-button {
+ button {
 	border: 0cm;
 	background-color: #ffffff;
-}
+} 
 
 /* 상단 로고 고정 */
-.header-logo {
+/* .header-logo {
 	position: fixed;
 	margin: 0 auto;
 	left: 0;
@@ -145,10 +137,10 @@ button {
 	width: 100%;
 	text-align: center;
 	z-index: 3;
-}
+} */
 
 /* 상단 메뉴바 고정 */
-.header-menu {
+/* .header-menu {
 	position: fixed;
 	margin: 0 auto;
 	left: 0;
@@ -159,43 +151,40 @@ button {
 	padding-top: 15px;
 	width: 100%;
 	z-index: 3;
-}
+} */
 
 /* 아이콘 설정 */
 .icon {
-	font-size: 5ch;
-	color: #000000;
+	font-size: 4ch;
+	color: #25aa90;
 }
 
 /* 탭을 클릭했을 때 */
-.nav-link.active {
+/* .nav-link.active {
 	background-color: #25aa90 !important;
 	padding-left: 13px;
 	padding-right: 13px;
 	padding-top: 7px;
 	padding-bottom: 7px;
-}
+} */
 
 /* 탭에 마우스를 올렸을 때 */
-.nav-link {
+/* .nav-link {
 	color: white;
 	background-color: #25aa8f7e !important;
 	padding-left: 13px;
 	padding-right: 13px;
 	padding-top: 7px;
 	padding-bottom: 7px;
-}
+} */
 
-.nav-link:hover {
+/* .nav-link:hover {
 	color: white !important;
-}
+} */
 
-.btn:hover {
-	/* background-color: #25aa8f7e !important; */
-	color: white !important;
-}
-
-.btn {
+/* .btn:hover {
+	color: white !important; 
+}.btn {
 	background-color: #25aa90;
 	color: white;
 	/* width:190px;
@@ -204,21 +193,24 @@ button {
             padding-right: 13px;
             padding-top: 7px;
             padding-bottom: 7px;
-            border: 0px; */
+            border: 0px; 
 }
+*/
 
-.btn.update, .btn.write {
+
+
+/* .btn.update, .btn.write {
 	width: 215px;
 }
-
+ */
 /* button{
             align-items: stretch !important;
         } */
-.row {
+/* .row {
 	align-items: center;
-}
+} */
 
-.balloon_03 {
+/* .balloon_03 {
 	margin-top: auto;
 	margin-bottom: auto;
 	margin-left: 10px;
@@ -228,15 +220,6 @@ button {
 	width: 400px;
 	position: relative;
 }
-/* .balloon_03 {
-        float: left;
-        position: relative;
-        margin: 50px;
-        width: 400px;
-        height: 100px;
-        background: #ededed;
-        border-radius: 10px;
-      } */
 .balloon_03:after {
 	border-top: 15px solid #ededed;
 	border-left: 15px solid transparent;
@@ -259,18 +242,6 @@ button {
 	padding: 10px;
 	position: relative;
 }
-
-/* .balloon_04 {
-        padding: 10px;
-        float: right;
-        align-items: right;
-        position: relative;
-        margin: 50px;
-        width: 400px;
-        height: 100px;
-        background: #25aa90;
-        border-radius: 10px;
-      } */
 .balloon_04:after {
 	border-top: 15px solid #25aa90;
 	border-left: 0px solid transparent;
@@ -281,39 +252,39 @@ button {
 	top: 10px;
 	right: -15px;
 }
-
-.au {
+ */
+/* .au {
 	overflow: auto;
-}
+} */
 
-.msg_head {
+/* .msg_head {
 	position: relative;
 }
-
-.msg_card_body {
+ */
+/* .msg_card_body {
 	overflow-y: auto;
-}
+} */
 
-.card-header {
+/* .card-header {
 	border-radius: 15px 15px 0 0 !important;
 	border-bottom: 0 !important;
 }
-
-.card-footer {
+ */
+/* .card-footer {
 	border-radius: 0 0 15px 15px !important;
 	border-top: 0 !important;
 }
-
-.img-thumbnail {
+ */
+/* .img-thumbnail {
 	max-width: 70px;
 	max-height: 70px;
 }
-
+ */
 .b {
 	border: 1px solid gold;
 }
 
-.box1 {
+/* .box1 {
 	flex: 1;
 	width: 30%;
 	box-sizing: border-box;
@@ -324,23 +295,23 @@ button {
 	margin: 0px 5%;
 	width: 30%;
 	box-sizing: border-box;
-}
+} */
 
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
 }
 
-.sdiv {
+/* .sdiv {
 	width: 50px;
 	height: 70px;
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
-}
+} */
 /* css */
 .container {
-	max-width: 1170px;
+	max-width: 1160px;
 	margin: auto;
 }
 
@@ -348,20 +319,20 @@ img {
 	max-width: 100%;
 }
 
-.inbox_people {
+/* .inbox_people {
 	background: #f8f8f8 none repeat scroll 0 0;
 	float: left;
 	overflow: hidden;
 	width: 40%;
 	border-right: 1px solid #c4c4c4;
-}
+} */
 
-.inbox_msg {
+/* .inbox_msg {
 	clear: both;
 	overflow: hidden;
-}
+} */
 
-.top_spac {
+/* .top_spac {
 	margin: 20px 0 0;
 }
 
@@ -374,9 +345,9 @@ img {
 	display: inline-block;
 	text-align: right;
 	width: 60%;
-}
+} */
 
-.headind_srch {
+/* .headind_srch {
 	padding: 10px 29px 10px 20px;
 	overflow: hidden;
 	border-bottom: 1px solid #c4c4c4;
@@ -395,8 +366,8 @@ img {
 	padding: 2px 0 4px 6px;
 	background: none;
 }
-
-.srch_bar .input-group-addon button {
+ */
+/* .srch_bar .input-group-addon button {
 	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 	border: medium none;
 	padding: 0;
@@ -417,14 +388,13 @@ img {
 .chat_ib h5 span {
 	font-size: 13px;
 	float: right;
-}
+} */
 
-.chat_ib p {
+ .chat_ib p {
 	font-size: 14px;
 	color: #989898;
 	margin: auto;
 }
-
 .chat_img {
 	float: left;
 	width: 11%;
@@ -441,30 +411,30 @@ img {
 	clear: both;
 }
 
-.chat_list {
+/* .chat_list {
 	border-bottom: 1px solid #c4c4c4;
 	margin: 0;
 	padding: 18px 16px 10px;
 }
-
+ */
 .inbox_chat {
 	height: 550px;
 	overflow-y: scroll;
 }
 
-.incoming_msg_img {
+/* .incoming_msg_img {
 	display: inline-block;
 	width: 6%;
 }
-
-.received_msg {
+ */
+/* .received_msg {
 	display: inline-block;
 	padding: 0 0 0 10px;
 	vertical-align: top;
 	width: 92%;
-}
+} */
 
-.received_withd_msg p {
+/* .received_withd_msg p {
 	background: #ebebeb none repeat scroll 0 0;
 	border-radius: 3px;
 	color: #646464;
@@ -472,26 +442,26 @@ img {
 	margin: 0;
 	padding: 5px 10px 5px 12px;
 	width: 100%;
-}
+} */
 
-.time_date {
+/* .time_date {
 	color: #747474;
 	display: block;
 	font-size: 12px;
 	margin: 8px 0 0;
 }
-
-.received_withd_msg {
+ */
+/* .received_withd_msg {
 	width: 57%;
-}
+} */
 
-.mesgs {
+/* .mesgs {
 	float: left;
 	padding: 30px 15px 0 25px;
 	width: 60%;
 }
-
-.sent_msg p {
+ */
+/* .sent_msg p {
 	background: #05728f none repeat scroll 0 0;
 	border-radius: 3px;
 	font-size: 14px;
@@ -500,32 +470,32 @@ img {
 	padding: 5px 10px 5px 12px;
 	width: 100%;
 }
-
-.outgoing_msg {
+ */
+/* .outgoing_msg {
 	overflow: hidden;
 	margin: 26px 0 26px;
-}
+} */
 
-.sent_msg {
+/* .sent_msg {
 	float: right;
 	width: 46%;
-}
+} */
 
-.input_msg_write input {
+/* .input_msg_write input {
 	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 	border: medium none;
 	color: #4c4c4c;
 	font-size: 15px;
 	min-height: 48px;
 	width: 100%;
-}
+} */
 
-.type_msg {
+/* .type_msg {
 	border-top: 1px solid #c4c4c4;
 	position: relative;
 }
-
-.msg_send_btn {
+ */
+/* .msg_send_btn {
 	background: #05728f none repeat scroll 0 0;
 	border: medium none;
 	border-radius: 50%;
@@ -537,19 +507,19 @@ img {
 	right: 0;
 	top: 11px;
 	width: 33px;
-}
+} */
 
-.messaging {
+/* .messaging {
 	padding: 0 0 50px 0;
-}
+} */
 
-.msg_history {
+/* .msg_history {
 	height: 516px;
 	overflow-y: auto;
 }
-
+ */
 .Vmore {
-	margin-left: 1070px
+	margin-left: 1030px
 }
 </style>
 </head>
@@ -578,34 +548,30 @@ img {
 	%>
 
 	<!-- 키티퍼피 로고 -->
-	<div class="container out">
+	<div class="container out b">
 		<div class="row mt-2 text-center">
 			<div class="mb-4">
 				<i class="bi bi-exclamation-octagon-fill hidden"></i>
 				<h1 class="text-center">KittyPuppy</h1>
-				<a href=""><i class="bi bi-exclamation-octagon-fill report"></i></a>
+				<a href="lostAniReport.html"><i class="bi bi-exclamation-octagon-fill report"></i></a>
 			</div>
 		</div>
 		<!-- 상단 고정된 메뉴바 -->
 
 		<div class='ls navbar text-center banner header-menu'>
-			<a href='feed.jsp'><i class='bi bi-phone-fill icon'></i></a> <a
+			<a href='feed.jsp'><i class='bi bi-phone icon'></i></a> <a
 				href='lostAniBoard.jsp'><i class='bi bi-megaphone icon'></i></a> <a
 				href='maps.jsp'><i class='bi bi-geo-alt icon'></i></a> <a
 				href='mypage.jsp'><i class='bi bi-person icon'></i></a> <a
-				href='dmList.jsp'><i id='cursor' class=' bi bi-chat-dots icon'></i></a>
+				href='dmList.jsp'><i id='cursor' class=' bi bi-chat-dots-fill icon'></i></a>
 		</div>
 
 	</div>
 
 	<!-- 리스트 -->
-	<div class="container ">
-		<div class="inbox_msg">
-			<div class="inbox_people"></div>
-			<div class="inbox_chat mt-4 ">
+	<div class="container out b">
 
 
-				<div class="chat_list active_chat ">
 					<% for (int i = 0; i < list.size(); i++) {
 						
 						String fnick = (String) request.getAttribute("fnick");
@@ -614,7 +580,7 @@ img {
 
 					%>
 					<a href="dmShow.jsp?receivenick=<%=list.get(i)%>">
-						<div class="chat_people">
+						<div class=" chat_people b">
 							<%if (mdao.memberInfo(list.get(i)).getPicAddress() == null) {%>
 							<div class="chat_img">
 								<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" alt="sunil" />
@@ -634,7 +600,7 @@ img {
 								%>
 							</div>
 					</a>
-					<div class="Vmore">
+					<div class="row-3 Vmore b">
 						<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
 
 							<svg id="i-ellipsis-horizontal"
@@ -651,10 +617,7 @@ img {
 				</div>
 
 				<%}%>
-			</div>
 
-		</div>
-	</div>
 </body>
 
 <script>

@@ -281,15 +281,15 @@ h1 {
 
 	<div class="row mt-5 text-center">
 		<div class="mb-4">
-			<i class="bi bi-exclamation-octagon-fill hidden"></i>
+			<a href="dmList.jsp"><i class="bi bi-chevron-left"></i></a>
 			<h1 class="text-center">KittyPuppy</h1>
-			<a href=""><i class="bi bi-exclamation-octagon-fill report"></i></a>
+			<a href="lostAniReport.html"><i class="bi bi-exclamation-octagon-fill report"></i></a>
 		</div>
 	</div>
 	
 	<!-- 프로필 -->
 	
-	<div class="container out ">
+	<div class="container out b">
 		<div class="row m-3 " style="display: inline-block; vertical-align: top">
 		<!-- 프로필 사진 -->
 		<a href="otherpage.jsp?nick=${receivenick}"> 
@@ -309,7 +309,7 @@ h1 {
 			<div class="py-3"></div>
 			<!-- 말풍선 -->
 
-			<div class="overflow-auto g-2 p-3 "
+			<div class="overflow-auto g-2 p-3 b"
 				style="max-height: 500px; max-width: 100%">
 				<%for (int i = 0; i < DMlist.size(); i++) {%>
 				<%if (DMlist.get(i).getSendNick().equals(sendnick)) { %>
