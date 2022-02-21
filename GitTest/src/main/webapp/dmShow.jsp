@@ -70,6 +70,20 @@ h1 {
 	color: #25aa90;
 	display: inline;
 }
+.bi {
+	font-size: 30px;
+	color: #25aa8f7e;
+	display: inline;
+	width: 40px;
+}
+
+.bi-chevron-left {
+	font-size: 35px;
+	margin-left: 5px;
+	width: 40px;
+	color: #25aa8f7e;
+}
+
 
 .hidden {
 	color: #f5e172;
@@ -115,10 +129,10 @@ h1 {
 }
 
 .icon {
-	font-size: 4ch;
 	margin-left: 15px;
 	margin-right: 15px;
 }
+
 
 /* 탭을 클릭했을 때 */
 .nav-link.active {
@@ -136,8 +150,9 @@ h1 {
 	border-radius: 10px;
 	background-color: #ededed;
 	padding: 10px;
-	width: 400px;
+	max-width: 80%;
 	position: relative;
+	word-break: break-all;
 }
 /* .balloon_03 {
         float: left;
@@ -166,9 +181,10 @@ h1 {
 	margin-right: 10px;
 	border-radius: 10px;
 	background-color: #25aa90;
-	width: 400px;
+	max-width: 80%;
 	padding: 10px;
 	position: relative;
+	word-break: break-all;
 }
 
 /* .balloon_04 {
@@ -254,6 +270,9 @@ h1 {
 	width: 10px;
 	margin-top: 7px
 	
+}a{
+text-decoration-line: none;
+    color: #000000;
 }
 </style>
 </head>
@@ -289,7 +308,7 @@ h1 {
 	
 	<!-- 프로필 -->
 	
-	<div class="container out b">
+	<div class="container out ">
 		<div class="row m-3 " style="display: inline-block; vertical-align: top">
 		<!-- 프로필 사진 -->
 		<a href="otherpage.jsp?nick=${receivenick}"> 
@@ -299,7 +318,7 @@ h1 {
 					<%} else {%>
 						<img src="<%= mdao.memberInfo(receivenick).getPicAddress()%>" class="rounded-circle img-thumbnail img-fluid float-start" /> 
 					<%}%>
-					<strong class="sdiv"> ${receivenick} </strong>
+					<strong class="sdiv" style= "decorate:none"> ${receivenick} </strong>
 				</a>
 		</div>
 			
@@ -309,53 +328,32 @@ h1 {
 			<div class="py-3"></div>
 			<!-- 말풍선 -->
 
-			<div class="overflow-auto g-2 p-3 b"
+			<div class="overflow-scroll"
 				style="max-height: 500px; max-width: 100%">
 				<%for (int i = 0; i < DMlist.size(); i++) {%>
 				<%if (DMlist.get(i).getSendNick().equals(sendnick)) { %>
+				<div class="lcoco-content-box b">
+					
 					<div class="d-flex justify-content-end mb-4 ">
 						<!-- 삭제 -->
-						<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)">
-							<div style="margin-top: 8px" class="Vmore">
-								<svg id="i-ellipsis-horizontal"
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-									width="32" height="32" fill="none" stroke="currentcolor"
-									stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    							<circle cx="7" cy="16" r="2" />
-   								 <circle cx="16" cy="16" r="2" />
-   								 <circle cx="25" cy="16" r="2" />
-								</svg>
-							</div>
+					<div>
+					<button  onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)">
+					<i class="bi bi-trash" style='font-size: 15px;'></i>
 						</button>
-						
-						
+				</div>
 						<!--send말풍선 -->
-						<div id="sdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_04 ">
+						<div id="sdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_04  ">
 							<%=DMlist.get(i).getContent()%>
 						</div>
 					</div>
-					
-					
+						</div>
 					<%} else {%>
 					<div class="d-flex justify-content-start mb-4">
 					<!-- receivenick말풍선 -->
 						<div id="rdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_03 ">
 						<%=DMlist.get(i).getContent()%>
 						</div>
-						<button onclick="DMDelete(<%=DMlist.get(i).getDmNo()%>)">
-						<!-- 삭제 -->
-							<div class="Vmore">
-								<svg id="i-ellipsis-horizontal"
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-									width="32" height="32" fill="none" stroke="currentcolor"
-									stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    							<circle cx="7" cy="16" r="2" />
-   								 <circle cx="16" cy="16" r="2" />
-   								 <circle cx="25" cy="16" r="2" />
-								</svg>
-							</div>
-							
-						</button>
+						
 					</div>
 					<%}%>
 					<%}%>
@@ -363,20 +361,22 @@ h1 {
 
 
 					<!-- 보내기 -->
-					<div class="row mt-3 text-center ">
+					
+					
+				</div>
+				<div class="row mt-3 text-center b">
 						<div class="input-group mb-3">
 
 							<input type="text" class="form-control" id="m" autocomplete="off" />
 							<div class="input-group-append">
-								<button id="msg-send" class="btn btn-primary"
-									placeholder="message" style="background-color: #25aa90">
-									보내기</button>
+								<button id="msg-send" class="btn btn"
+									placeholder="message" ">
+								<i style="font-size: 3ch;" class="bi bi-send"></i>
+									</button>
 							</div>
 						</div>
 					</div>
 					
-					
-				</div>
 			</div>
 			
 

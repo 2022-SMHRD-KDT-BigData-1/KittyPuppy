@@ -560,7 +560,7 @@ img {
 
 		<div class='ls navbar text-center banner header-menu'>
 			<a href='feed.jsp'><i class='bi bi-phone icon'></i></a> <a
-				href='lostAniBoard.jsp'><i class='bi bi-megaphone icon'></i></a> <a
+				href='lostAniBoard.jsp'><i class='bi bi-megaphone icon' ></i></a> <a
 				href='maps.jsp'><i class='bi bi-geo-alt icon'></i></a> <a
 				href='mypage.jsp'><i class='bi bi-person icon'></i></a> <a
 				href='dmList.jsp'><i id='cursor' class=' bi bi-chat-dots-fill icon'></i></a>
