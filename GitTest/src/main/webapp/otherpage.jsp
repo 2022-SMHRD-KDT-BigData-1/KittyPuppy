@@ -197,21 +197,15 @@
 				<c:otherwise>
 					<c:forEach var="ani" items="${aniList }">
 						<div class="col-auto">
-							<a href="aniUpdate.jsp?animalName=${ani.animalName }">
 							<img src="${ani.animalPic }"
 								class="rounded-circle img-thumbnail animal float-start"
-								alt="프로필 사진 추가"></a>
+								alt="프로필 사진 추가">
 						</div>
 					</c:forEach>
 					
 				</c:otherwise>
 			</c:choose>
 			
-			
-
-			<div class="col-auto">
-				<a href="aniJoin.jsp"><i class="bi bi-plus-square-dotted"></i></a>
-			</div>
 		</div>
     
         <hr>

@@ -5,6 +5,7 @@ html, body {
 body {
 	background-color: #ffffff;
 	padding: 10px;
+	font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 /* 로고 글꼴, 색상 설정 */
@@ -182,6 +183,7 @@ a{
 
 .item.nick {
 	flex-basis: 100%;
+	font-size:22px;
 }
 
 .item.intro {

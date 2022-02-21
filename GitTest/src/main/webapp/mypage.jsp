@@ -47,6 +47,11 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
+	
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
@@ -176,7 +181,7 @@
 
 			<!-- 닉네임, 프로필 소개글 -->
 
-			<div class="item nick text-start mt-2 mx-2">${member.nick}</div>
+			<div class="item nick text-start mt-2 mx-2"><strong>${member.nick}</strong></div>
 
 
 			<div class="item intro text-start mb-2 mx-2">${member.profile}</div>

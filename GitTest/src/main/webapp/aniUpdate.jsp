@@ -66,8 +66,7 @@
 
         .container h3 {
             text-align: center;
-            color: black;
-            font-size: 20px;
+            color: #25aa90;
             margin-top: 8%;
             margin-bottom: 8%;
         }
@@ -85,6 +84,9 @@
         textarea{
         	height: 38px;
         }
+        
+        
+
         
     </style>
 
@@ -113,23 +115,23 @@
  
  <form action="AniUpdateCon.do" method="post" enctype="multipart/form-data">
 
-        <div class="row">
+        <div class="row align-middle">
 
 
             <div class="d-grid gap-1 col-12 mx-auto">
 
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
-                    <div class="col-2">
-                        <a href="mypage.jsp"><!-- 마이페이지 이동 -->
+                    <div class="col-2 py-4">
+                        <a href="mypage.jsp" class=""><!-- 마이페이지 이동 -->
                         <i class="bi bi-chevron-left"
-                                style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
+                                style="font-size: 2rem; color:#25aa8f7e ; align-items: center;"></i></a>
                             
                        
                     </div>
 
-                    <div class="col-8">
-                        <h3> 반려동물등록</h3>
+                    <div class="col-8" style="color:#25aa90;">
+                        <h3> 반려동물수정</h3>
                     </div>
                     <!-- 아래 col-2가 있어야 text가 중앙으로 올수 있음 -->
                     <div class="col-2">
@@ -145,8 +147,9 @@
                 <div class="text-center ">
                      <!-- 사진업로드 이동 -->
                     <label class="btn btn-default" style="background-color: white;">
-                        <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px;"> <input
+                        <img src="${ani.animalPic }"
+                            class="avatar rounded-circle img-thumbnail" alt="avatar" style="width: 100px; height:100px;"
+                            onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"> <input
                             type="file" name="animalPic" hidden></i>
                     </label>
 
@@ -161,8 +164,8 @@
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <textarea class="form-control" name="nick">${ani.nick }</textarea>
-                <textarea class="form-control" name="animalName">${ani.animalName }</textarea>
+                <textarea class="form-control mb-3" name="nick" readonly>${ani.nick }</textarea>
+                <textarea class="form-control mb-3" name="animalName">${ani.animalName }</textarea>
 
                 <div class="mb-3">
 
@@ -190,8 +193,16 @@
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
                 </div>
-				<textarea class="form-control" name="animalAge">${ani.animalAge }</textarea>
-				<textarea class="form-control" name="animalProfile">${ani.animalProfile }</textarea>
+				<textarea class="form-control mb-3" name="animalAge">${ani.animalAge }</textarea>
+				<c:choose>
+					<c:when test="${ani.animalProfile eq 'null'}">
+						<textarea class="form-control mb-3" name="animalProfile">   </textarea>
+					</c:when>
+					<c:otherwise>
+						<textarea class="form-control mb-3" name="animalProfile">${ani.animalProfile }</textarea>
+					</c:otherwise>
+				</c:choose>
+				
 
 
             </div>

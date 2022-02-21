@@ -63,8 +63,7 @@
 
         .container h3 {
             text-align: center;
-            color: black;
-            font-size: 20px;
+            color: #25aa90;
             margin-top: 8%;
             margin-bottom: 8%;
         }
@@ -77,6 +76,15 @@
         html,
         body {
             height: 100%;
+        }
+        
+        textarea{
+        	height: 38px;
+        }
+        
+        .col-2 > a{
+        	margin-top: 8%;
+            margin-bottom: 8%;
         }
         
     </style>
@@ -100,15 +108,15 @@
 
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
-                    <div class="col-2">
-                        <a href="mypage.jsp"><!-- 마이페이지 이동 -->
+                    <div class="col-2 py-4">
+                        <a href="mypage.jsp" class=""><!-- 마이페이지 이동 -->
                         <i class="bi bi-chevron-left"
-                                style="font-size: 2rem; color: black; align-items: flex-start;"></i></a>
+                                style="font-size: 2rem; color: #25aa8f7e; align-items: flex-start;"></i></a>
                             
                        
                     </div>
 
-                    <div class="col-8">
+                    <div class="col-8" >
                         <h3> 반려동물등록</h3>
                     </div>
                     <!-- 아래 col-2가 있어야 text가 중앙으로 올수 있음 -->
@@ -141,7 +149,7 @@
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <textarea class="form-control" name="nick">${member.nick }</textarea><br>
+                <textarea class="form-control" name="nick" readonly>${member.nick }</textarea><br>
                 <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName"><br>
 
 
