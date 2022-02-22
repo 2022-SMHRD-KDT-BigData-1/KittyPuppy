@@ -97,11 +97,7 @@
 
 
                     </div>
-
-
-
-                    <p> 이메일과 생년월일을 입력하여 <br>
-                        등록이 되어 있는지 확인해주세요.</p>
+                    
                     <input type="email" id="id" class="form-control" placeholder="이메일" name="id">
                     <span id="checkId" size="2"></span>
                     <input type="date" id="birth" class="form-control" placeholder="생년월일" name="birth">

@@ -95,7 +95,7 @@ html, body {
 					<span id="checkId" size="2"></span>
 					<input type="text" id = "nick" class ="form-control" placeholder="닉네임" name="nick">
 					<span id="checkNick" size="2"></span>
-					<input type="password" class="form-control" placeholder="비밀번호" name="pw">
+					<input type="password" class="form-control" placeholder="비밀번호" name="pw" >
 					<input type="password" class="form-control" placeholder="비밀번호 확인">
 
 					<select id="disabledSelect" class="form-select" name="sex">
@@ -104,13 +104,13 @@ html, body {
 						<option>남자</option>
 						<option>여자</option>
 					</select> <input type="date" class="form-control" placeholder="생년월일" name="birth">
-					<input type="text" class="form-control" placeholder="주소(서울특별시 강남구 개포동까지 입력)" name="address">
+					<input type="text" class="form-control" placeholder="주소:서울특별시 강남구 개포동까지 입력" name="address" style="font-size:15px">
 					<input type="text" class="form-control" placeholder="프로필" name="profile">
 				</div>
 
 
 				<div class="d-grid gap-2 col-12 mx-auto my-2 ">
-					<button type="submit" class="btn"
+					<button type="button" class="btn"
 						style="background-color: #25aa90;">완료</button>
 
 				</div>
