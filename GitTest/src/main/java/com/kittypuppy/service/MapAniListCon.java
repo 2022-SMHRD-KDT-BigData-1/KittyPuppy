@@ -7,11 +7,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kittypuppy.model.AnimalDAO;
 import com.kittypuppy.model.AnimalDTO;
 import com.kittypuppy.model.FeedDAO;
 import com.kittypuppy.model.FeedDTO;
+import com.kittypuppy.model.MemberDAO;
+import com.kittypuppy.model.MemberDTO;
 
 public class MapAniListCon implements iCommand {
 
@@ -21,11 +24,17 @@ public class MapAniListCon implements iCommand {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		String nick = request.getParameter("nick");
+		MemberDTO member = (MemberDTO)session.getAttribute("member"); 
+		String nick = member.getNick();
+		String address = member.getAddress();
+		String addr = address.substring(, 0)
+		
+		MemberDAO mdao = new MemberDAO(); 
 		
 		AnimalDAO dao = new AnimalDAO();
 		

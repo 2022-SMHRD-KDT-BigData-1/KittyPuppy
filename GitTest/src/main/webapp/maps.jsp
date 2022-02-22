@@ -228,7 +228,7 @@ a{
 
 </head>
 <body>
-<%-- 	<%
+<%
 	MemberDAO dao = new MemberDAO();
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
 	String nick = member.getNick();
@@ -238,7 +238,7 @@ a{
 	//ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
 	AnimalDTO animal = aniDao.aniShow(nick, upKind);
 	pageContext.setAttribute("animal", animal);
-	%> --%>
+	%>
 
 
 	<div class="container">
@@ -481,7 +481,21 @@ a{
 	</div>
 
 	<script>
-		
+	function mapsList(){
+		 $.ajax({
+		    url: "MapAniListCon.do",
+		    type: "post",
+	        data: { :  },
+	        dataType : 'json',
+	        success: function(result) {
+	        	;
+	        	;
+	        },
+		    error: function() {
+	    		console.log("err");
+	    	}
+		});
+	};
 	</script>
 
 

@@ -121,7 +121,7 @@ public class AnimalDAO {
 		connect();
 		try {
 			String sql = "";
-			if (upKind.equals("개") || upKind.equals("고양이")) {
+			if (upKind.equals("개") || upKind.equals("고양이") || upKind.equals("동물")) {
 				sql = "select * from animal where nick = ? and upkind = ?";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, nick);
