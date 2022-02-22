@@ -24,29 +24,40 @@ public class MapAniListCon implements iCommand {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("member"); 
-		String nick = member.getNick();
 		String address = member.getAddress();
-		String[] addr = address.split(" ");
-		
-		MemberDAO mdao = new MemberDAO();
-		MemberDTO mapsList = mdao.memberFindAddr(addr[addr.length-1]);
-		
-		AnimalDAO dao = new AnimalDAO();
-		
-		String upKind = null;
-		AnimalDTO aniList = dao.aniShow(nick, upKind);
-		
-	
 
-		request.setAttribute("aniList", aniList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("maps.jsp");
-		dispatcher.forward(request, response);
+		// memberDAO 메소드를 통해 현재 로그인한 회원의 주소와 동일한 주소를 가진 회원들의 닉네임리스트 불러오기 
+		MemberDAO mdao = new MemberDAO();
+		ArrayList<String> nickList = mdao.memberFindAddr(address);
+		if(nickList == null) {
+			System.out.println("주변 회원 없음");
+			
+		}else {
+			
+		}
+		
+		String upKind = request.getParameter("upKind");
+		if(upKind == null) {
+			upKind = "kitty";
+		}
+		
+		ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
+		AnimalDTO animal = null;
+		for(int i = 0; i < nickList.size(); i++) {
+			String nick = nickList.get(i);
+			animal = dao.aniShow(nick, upKind);
+			aniList.add(animal);
+		}
+		 
+		session.setAttribute("aniList", aniList);
+		response.sendRedirect("maps.jsp");
 		
 		
 	}

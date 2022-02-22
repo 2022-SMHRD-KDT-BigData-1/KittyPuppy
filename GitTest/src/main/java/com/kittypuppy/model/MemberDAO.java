@@ -158,19 +158,24 @@ public class MemberDAO {
 	}
 
 	// 주소 기준으로 주변 반려인 검색 기능 지도에서..
-	public MemberDTO memberFindAddr(String address) {
-		String addr = null;
+	public ArrayList<String> memberFindAddr(String address) {
+		
+		ArrayList<String> nickList = new ArrayList<String>();
 		connect();
 		try {
-			String sql = "select * from member where address";
+			String sql = "select nick from member where address like ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, address);
+			psmt.setString(1, "%"+address+"%");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				nickList.add(rs.getString("nick"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return null;
+		return nickList;
 	}
 
 	// 비밀번호 분실시 아이디와 생년월일(8자리)을 바탕으로 비빌번호 변경..

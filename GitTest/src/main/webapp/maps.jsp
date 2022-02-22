@@ -229,15 +229,18 @@ a{
 </head>
 <body>
 <%
-	MemberDAO dao = new MemberDAO();
-	MemberDTO member = (MemberDTO) session.getAttribute("member");
-	String nick = member.getNick();
+	MemberDTO member = (MemberDTO)session.getAttribute("member"); 
+	String address = member.getAddress();
+	MemberDAO mdao = new MemberDAO();
+	AnimalDAO dao = new AnimalDAO();
 
-	AnimalDAO aniDao = new AnimalDAO();
-	//AnimalDTO animal = null;
-	//ArrayList<AnimalDTO> aniList = animal.aniShowAll(nick);
-	AnimalDTO animal = aniDao.aniShow(nick, upKind);
-	pageContext.setAttribute("animal", animal);
+	// memberDAO 메소드를 통해 현재 로그인한 회원의 주소와 동일한 주소를 가진 회원들의 닉네임리스트 불러오기 
+	ArrayList<String> nickList = mdao.memberFindAddr(address);
+	if(nickList == null) {
+		System.out.println("주변 회원 없음");
+	}
+	
+	pageContext.setAttribute("nickList", nickList);
 	%>
 
 
@@ -331,82 +334,153 @@ a{
 					style="max-height: 360px; max-width: 100%;">
 
 					<div class="tab-content" id="myTabContent">
+					<%
+						ArrayList<AnimalDTO> catList = new ArrayList<AnimalDTO>();
+						ArrayList<AnimalDTO> dogList = new ArrayList<AnimalDTO>();
+						ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
+						AnimalDTO animal = null;
+						for(int i = 0; i < nickList.size(); i++) {
+							String nick = nickList.get(i);
+							String upKind1 = "고양이";
+							String upKind2 = "개";
+							String upKind3 = "동물";
+							
+							animal = dao.aniShow(nick, upKind1);
+							if(animal != null){
+								catList.add(animal);
+							}
+							
+							animal = dao.aniShow(nick, upKind2);
+							if(animal != null){
+								dogList.add(animal);
+							}
+							
+							animal = dao.aniShow(nick, upKind3);
+							if(animal != null){
+								aniList.add(animal);
+							}
+						}
+						pageContext.setAttribute("catList", catList);
+						pageContext.setAttribute("dogList", dogList);
+						pageContext.setAttribute("aniList", aniList);
+					%>
+					
 
 						<!-- 고양이 kitty -->
 						<div class="tab-pane fade show active" id="kittylist"
 							role="tabpanel" aria-labelledby="kittylist-tab">
 							<div class="row">
-
-
-								
-									<div class="col-7 p-3  g-2">
+								<!-- <button type="button"
+									class="btn rounded-pill btn-outline-default "
+									style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+									<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+								</button> -->
+								<c:choose>
+									<c:when test="${empty catList }">
+										<p style="text-align: center; color: black;">현재 회원님의 동네에
+									동물 친구들이 없습니다.</p>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="cat" items="${catList}">
+										<c:set var='aNick' value='${cat.nick}' scope='request'/>
 										
-
-											<!-- <button type="button"
+										<div class="col-7 p-3  g-2">
+											<button type="button"
 												class="btn rounded-pill btn-outline-default "
 												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-												<i class="fas fa-star pr-2" aria-hidden="true"> </i>
-											</button> -->
-											<p style="text-align: center; color: black;">현재 회원님의 동네에
-												동물 친구들이 없습니다.</p>
-										
-												<button type="button"
-													class="btn rounded-pill btn-outline-default "
-													style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-													<i class="fas fa-star pr-2" aria-hidden="true"> </i>
-													"${animal.upKind}"
-												</button>
-												<p style="text-align: left; color: black;">
-													"${animal.animalName}"<br> "${animal. animalAge}"<br>
-													"${member. address}"<br> "${member.sex}"<br>
-													"${member.birth}"
-												</p>
-
-									</div>
-								
-
-
-								<div class="col-5 g-4 ">
-									<!-- 사진 클릭시 피드로 이동 -->
-								
-
-											<a href=""> <img
-												src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-												class="img-thumbnail mx-auto d-block"
-												 onerror="this.onerror=null; this.src='
-												style="width:auto; height: 80%;"></a>
-
-										
-												<a href="otherpage.jsp?nick=${animal.nick}"><img
-													src="${animal.animalPic }"
-													class="img-thumbnail mx-auto d-block"
-													style="width: auto; height: 80%;"></a>
-											
-								</div>
+												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
+												${cat.kind}
+											</button>
+											<p style="text-align: left; color: black;">
+												${cat.animalName}<br> ${cat.animalAge}살<br>
+												<%
+													String ani_nick = (String)request.getAttribute("aNick");
+													System.out.println(ani_nick);
+													MemberDTO mm = mdao.memberInfo(ani_nick);
+													pageContext.setAttribute("mm", mm);
+													String year = mm.getBirth();
+													year = year.substring(0, 4);
+													String group = null;
+													int age = Integer.parseInt(year);
+													System.out.println(age);
+													if(age <= 2023 && age > 1984){
+														group = "20~30대";
+													}else if(age <= 1983 && age > 1964){
+														group = "40~50대";
+													}else{
+														group = "10대";
+													}
+												%>
+												${mm.address}<br> ${mm.sex}, <%=group %><br>
+												
+											</p>
+										</div>	
+										<div class="col-5 g-4 ">
+										<!-- 사진 클릭시 피드로 이동 -->
+											<a href="otherpage.jsp?nick=${cat.nick}">
+												<img src="${cat.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
+										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+											</a>
+										</div>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						<!-- 강아지 puppy -->
 						<div class="tab-pane fade" id="puppylist" role="tabpanel"
 							aria-labelledby="puppylist-tab">
 							<div class="row">
-								<div class="col-7 p-3  g-2">
-									<button type="button"
-										class="btn rounded-pill btn-outline-default "
-										style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${animal.upKind}"
-									</button>
-									<p style="text-align: left; color: black;">
-										반려동물 이름"${animal.animalName}"<br> 반려동물 나이"${animal. animalAge}"<br>
-										광주광역시 서구 화정동"${member. address}"<br> 여성,"${member.sex}
-										20~30대 "${member.age}"
-									</p>
-								</div>
-								<div class="col-5 g-4 ">
-									<!-- 사진 클릭시 피드로 이동 -->
-									<a href="otherpage.jsp?nick=${animal.nick}"> <img src=""
-										${aniList.animalPic }" class="img-thumbnail mx-auto d-block"
-										style="width: auto; height: 80%;"></a>
-								</div>
+								<c:choose>
+									<c:when test="${empty dogList }">
+										<p style="text-align: center; color: black;">현재 회원님의 동네에
+									동물 친구들이 없습니다.</p>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="ani" items="${dogList}">
+										<c:set var='bNick' value='${dog.nick}' scope='request'/>
+										
+										<div class="col-7 p-3  g-2">
+											<button type="button"
+												class="btn rounded-pill btn-outline-default "
+												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
+												${dog.kind}
+											</button>
+											<p style="text-align: left; color: black;">
+												${dog.animalName}<br> ${dog.animalAge}살<br>
+												<%
+													String ani_nick = (String)request.getAttribute("bNick");
+													System.out.println(ani_nick);
+													MemberDTO mm = mdao.memberInfo(ani_nick);
+													pageContext.setAttribute("mm", mm);
+													String year = mm.getBirth();
+													year = year.substring(0, 4);
+													String group = null;
+													int age = Integer.parseInt(year);
+													System.out.println(age);
+													if(age <= 2023 && age > 1984){
+														group = "20~30대";
+													}else if(age <= 1983 && age > 1964){
+														group = "40~50대";
+													}else{
+														group = "10대";
+													}
+												%>
+												${mm.address}<br> ${mm.sex}, <%=group %><br>
+												
+											</p>
+										</div>	
+										<div class="col-5 g-4 ">
+										<!-- 사진 클릭시 피드로 이동 -->
+											<a href="otherpage.jsp?nick=${dog.nick}">
+												<img src="${dog.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
+										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+											</a>
+										</div>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 
 
@@ -419,25 +493,56 @@ a{
 							aria-labelledby="animalist-tab">
 
 							<div class="row">
-								<div class="col-7 p-3  g-2">
-									<button type="button"
-										class="btn rounded-pill btn-outline-default "
-										style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-										<i class="fas fa-star pr-2" aria-hidden="true"> </i>소분류"${animal.upKind}"
-									</button>
-									<p style="text-align: left; color: black;">
-										반려동물 이름"${animal.animalName}"<br> 반려동물 나이"${animal. animalAge}"<br>
-										광주광역시 서구 화정동"${member. address}"<br> 여성"${member.sex}",
-										20~30대 "${member.age}"
-									</p>
-								</div>
-								<div class="col-5 g-4 ">
-									<!-- 사진 클릭시 피드로 이동 -->
-									<a href="otherpage.jsp?nick=${feed.nick}"><img
-										src="${animal.animalPic }"
-										class="img-thumbnail mx-auto d-block"
-										style="width: auto; height: 80%;"></a>
-								</div>
+								<c:choose>
+									<c:when test="${empty aniList }">
+										<p style="text-align: center; color: black;">현재 회원님의 동네에
+									동물 친구들이 없습니다.</p>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="ani" items="${aniList}">
+										<c:set var='cNick' value='${ani.nick}' scope='request'/>
+										
+										<div class="col-7 p-3  g-2">
+											<button type="button"
+												class="btn rounded-pill btn-outline-default "
+												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
+												${ani.kind}
+											</button>
+											<p style="text-align: left; color: black;">
+												${ani.animalName}<br> ${ani.animalAge}살<br>
+												<%
+													String ani_nick = (String)request.getAttribute("cNick");
+													System.out.println(ani_nick);
+													MemberDTO mm = mdao.memberInfo(ani_nick);
+													pageContext.setAttribute("mm", mm);
+													String year = mm.getBirth();
+													year = year.substring(0, 4);
+													String group = null;
+													int age = Integer.parseInt(year);
+													System.out.println(age);
+													if(age <= 2023 && age > 1984){
+														group = "20~30대";
+													}else if(age <= 1983 && age > 1964){
+														group = "40~50대";
+													}else{
+														group = "10대";
+													}
+												%>
+												${mm.address}<br> ${mm.sex}, <%=group %><br>
+												
+											</p>
+										</div>	
+										<div class="col-5 g-4 ">
+										<!-- 사진 클릭시 피드로 이동 -->
+											<a href="otherpage.jsp?nick=${ani.nick}">
+												<img src="${ani.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
+										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+											</a>
+										</div>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 
 
@@ -481,21 +586,7 @@ a{
 	</div>
 
 	<script>
-	function mapsList(){
-		 $.ajax({
-		    url: "MapAniListCon.do",
-		    type: "post",
-	        data: { :  },
-	        dataType : 'json',
-	        success: function(result) {
-	        	;
-	        	;
-	        },
-		    error: function() {
-	    		console.log("err");
-	    	}
-		});
-	};
+	
 	</script>
 
 
