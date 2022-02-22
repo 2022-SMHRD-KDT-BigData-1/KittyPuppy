@@ -110,7 +110,7 @@ html, body {
 
 
 				<div class="d-grid gap-2 col-12 mx-auto my-2 ">
-					<button type="button" class="btn"
+					<button type="submit" class="btn"
 						style="background-color: #25aa90;">완료</button>
 
 				</div>

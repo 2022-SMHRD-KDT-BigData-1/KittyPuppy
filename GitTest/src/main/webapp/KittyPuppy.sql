@@ -298,9 +298,8 @@ values('1111','1111',null,'테스트용계정','남자','2022-02-10', '광주광역시 동구 �
 -- animal
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
-('bamtol','밤톨이','./assets/img/반려동물.jpg','고양이','코리아숏헤어','암','3살','null')
+('bamtol','밤톨이','./assets/img/반려동물.jpg','고양이','코리아숏헤어','암','3','null')
 
-<<<<<<< HEAD
 insert into animal (nick, animalname, animalpic, upkind, kind, animalsex, animalage, animalprofile)
 values
 ('mushroom10', '리나', './assets/img/img22.jpg','개','골든 리트리버','암','2','null')

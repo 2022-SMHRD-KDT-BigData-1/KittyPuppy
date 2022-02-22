@@ -32,9 +32,10 @@ public class MapAniListCon implements iCommand {
 		MemberDTO member = (MemberDTO)session.getAttribute("member"); 
 		String nick = member.getNick();
 		String address = member.getAddress();
-		String addr = address.substring(, 0)
+		String[] addr = address.split(" ");
 		
-		MemberDAO mdao = new MemberDAO(); 
+		MemberDAO mdao = new MemberDAO();
+		MemberDTO mapsList = mdao.memberFindAddr(addr[addr.length-1]);
 		
 		AnimalDAO dao = new AnimalDAO();
 		
