@@ -283,7 +283,7 @@ body {
 		                    		</c:otherwise>
 		                    	</c:choose>
 		                        <div align ='left' style = "padding-left:10px;">
-			                        <strong>${feed.nick}</strong><br/>
+			                        <br/><strong>${feed.nick}</strong><br/>
 			                        ${fn:substring(feed.feedDate,0,10)}
 		                        </div>
 		                    </div>
@@ -646,7 +646,7 @@ body {
 		$(window).scroll(function() {
 			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
 				$.ajax({
-					url: "FeedSearchReusltCountCon.do",
+					url: "FeedSearchResultCountCon.do",
 					type: "post",
 					data: {tag: tag1},
 					dataType: 'json',
@@ -655,7 +655,7 @@ body {
 						if(result >= num1){
 							console.log(num1);
 							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1,tag: tag1});
+							$("#load"+num1).load("searchResultSub.jsp #reload",{nick: nick1,startNum: num1,tag: tag1});
 						}
 					},
 					error : function(){

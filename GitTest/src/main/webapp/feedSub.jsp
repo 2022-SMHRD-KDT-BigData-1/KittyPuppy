@@ -270,7 +270,7 @@ body {
 		                    		</c:otherwise>
 		                    	</c:choose>
 		                        <div align ='left' style = "padding-left:10px;">
-			                        <strong>${feed.nick}</strong><br/>
+			                        <br/><strong>${feed.nick}</strong><br/>
 			                        ${fn:substring(feed.feedDate,0,10)}
 		                        </div>
 		                    </div>
