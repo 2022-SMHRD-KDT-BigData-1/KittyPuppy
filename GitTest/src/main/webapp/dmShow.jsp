@@ -341,7 +341,7 @@ img {
 		<div class="container overflow-scroll b"
 			style="max-height: 500px; max-width: 100%">
 			<%
-			for (int i = 0; i < DMlist.size(); i++) {
+			for (int i = DMlist.size()-1; i >= 0 ; i--) {
 			%>
 			<%
 			if (DMlist.get(i).getSendNick().equals(sendnick)) {
@@ -480,7 +480,8 @@ img {
 						var nick1 = "<c:out value='${sendnick}'/>";	
 						var nick2 = "<c:out value='${receivenick}'/>";	
 					$(".container").scroll(function() {
-						if(Math.round( $(".container").scrollTop()) == $(document).height() - $(window).height()){
+						console.log($(".container").scrollTop());
+						if(Math.round( $(".container").scrollTop()) == $(document).height() - $(".container").height()){
 							$.ajax({
 								url: "DMCountCon.do",
 								type: "post",

@@ -179,7 +179,7 @@ public class DMDAO {
 		DMDTO dm = null;
 		connect();
 		try {
-			String sql = "select * from (select rownum as rnum, dmno,sendnick,receivenick,content,senddate from DM where  (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?) order by senddate desc) where rnum >= ? and rnum <= ?";
+			String sql = "select * from (select ROW_NUMBER() OVER(ORDER BY dmno desc) as rnum, dmno,sendnick,receivenick,content,senddate from DM where  (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?) order by dmno desc) where rnum >= ? and rnum <= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, sendnick);
 			psmt.setString(2, receivenick);
