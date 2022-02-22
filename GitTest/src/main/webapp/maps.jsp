@@ -57,7 +57,7 @@ html, body {
 .container {
 	width: 70%;
 	padding: 15px;
-	margin: auto;
+	margin-top:150px;
 	display: block;
 	overflow-x: hidden;
 }
@@ -105,8 +105,9 @@ h1 {
 	display: inline;
 }
 
-.bi {
-	font-size: 40px;
+a{
+	color : #000000;
+	text-decoration-line: none;
 }
 
 .hidden {
@@ -165,13 +166,13 @@ h1 {
 	height: 5px;
 }
 
-/* Track */
+/* 스크롤 바 Track */
 ::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 5px white;
 	border-radius: 10px;
 }
 
-/* Handle */
+/* 스크롤 바 Handle */
 ::-webkit-scrollbar-thumb {
 	/* background: #afe6db; */
 	background-color: white;
@@ -189,7 +190,19 @@ h1 {
 	max-width: 442px;
 	margin: auto;
 }
+.icon {
+            font-size: 4ch;
+            margin-left: 15px;
+            margin-right: 15px;
+            color: #25aa8f7e;
+        }
 
+.bi {
+	font-size: 40px;
+}
+.bi-geo-alt-fill {
+            color: #25aa90;
+        }
 /* 상단 메뉴바 고정 */
 .header-menu {
 	position: fixed;
@@ -236,28 +249,19 @@ h1 {
 				<a href='lostAniReport.html'><i
 					class='bi bi-exclamation-octagon-fill report'></i></a>
 			</div>
-		</div>
+    </div>
+		
 
 		<div class="row">
 			<!-- 상단 배너 -->
-			<!-- <div class="col-sm-1">
-                <p></p>
-            </div> -->
-			<div class="g-4 gap-5">
-				<div class='ls navbar text-center banner header-menu'>
-					<a href="feed.jsp" style="color: #25aa90;"><i
-						class="bi bi-phone footer"></i></a> <a href="lostAniBoard.jsp"
-						style="color: #25aa90;"><i class="bi bi-megaphone footer"></i></a>
-					<a href="maps.jsp" style="color: #25aa90;"><i
-						class="bi bi-geo-alt footer"></i></a> <a href="mypage.jsp"
-						style="color: #25aa90;"><i class="bi bi-person footer"></i></a> <a
-						href="dmList.jsp" style="color: #25aa90;"><i
-						class="bi bi-chat-dots footer"></i></a>
-				</div>
-			</div>
-			<!-- <div class="col-sm-1">
-                <p></p>
-            </div> -->
+			<div class='text-center banner header-menu'>
+        <a href="feed.jsp"><i class="bi bi-phone icon"></i></a>
+        <a href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a>
+        <a href="maps.jsp"><i class="bi bi-geo-alt-fill icon"></i></a>
+        <a href="mypage.jsp"><i class="bi bi-person icon"></i></a>
+        <a href="dmList.jsp"><i class="bi bi-chat-dots icon"></i></a>
+    </div>
+			
 		</div>
 
 		<!-- 지도 -->
@@ -288,7 +292,7 @@ h1 {
 
 					<!-- Google map -->
 					<div id="map-container-google-1"
-						class="z-depth-1-half map-container" style="height: 530px">
+						class="z-depth-1-half map-container" style="height: 400px">
 						<iframe
 							src="https://maps.google.com/maps?q=대한민국+광주광역시+동구+예술길+31-15&t=&z=13&ie=UTF8&iwloc=&output=embed"
 							frameborder="0" style="border: 0" allowfullscreen></iframe>
@@ -324,7 +328,7 @@ h1 {
 
 				<!-- 스크롤 기능 overflow -->
 				<div class="overflow-auto g-2 p-3"
-					style="max-height: 500px; max-width: 100%;">
+					style="max-height: 360px; max-width: 100%;">
 
 					<div class="tab-content" id="myTabContent">
 

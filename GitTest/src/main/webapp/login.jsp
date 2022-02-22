@@ -111,9 +111,9 @@ html, body {
 					<div>
 						<div class="d-grid gap-2 col-12">
 							<h1 id="logo">KittyPuppy</h1>
-							<input type="text" name="id" class="form-control" placeholder="Email">
+							<input type="text" name="id" class="form-control" placeholder="이메일">
 							<input type="password" name="pw" class="form-control"
-								placeholder="Password"> 
+								placeholder="비밀번호"> 
 							<a href="findPw.jsp" class="text-end my-2" >비밀번호를 잊으셨나요?</a>
 						</div>
 

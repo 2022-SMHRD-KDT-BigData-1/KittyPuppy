@@ -100,16 +100,16 @@ html, body {
 
 					<select id="disabledSelect" class="form-select" name="sex">
 
-						<option>성별</option>
+						<!-- <option>성별</option> 자세히 알아보기-->
 						<option>남자</option>
 						<option>여자</option>
 					</select> <input type="date" class="form-control" placeholder="생년월일" name="birth">
-					<input type="text" class="form-control" placeholder="주소" name="address">
+					<input type="text" class="form-control" placeholder="주소(서울특별시 강남구 개포동까지 입력)" name="address">
 					<input type="text" class="form-control" placeholder="프로필" name="profile">
 				</div>
 
 
-				<div class="d-grid gap-2 col-12 mx-auto">
+				<div class="d-grid gap-2 col-12 mx-auto my-2 ">
 					<button type="submit" class="btn"
 						style="background-color: #25aa90;">완료</button>
 
@@ -136,11 +136,11 @@ html, body {
             success : function(result) {
                if (result == 0) {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할 수 없는 아이디입니다');
+                  $("#checkId").html('사용할 수 없는 이메일입니다');
                   $("#checkId").css('color', 'red');
                } else {
                   document.getElementById('checkId').style.display = 'block';
-                  $("#checkId").html('사용할 수 있는 아이디입니다');
+                  $("#checkId").html('사용할 수 있는 이메일입니다');
                   $("#checkId").css('color', 'green');
                }
             },
