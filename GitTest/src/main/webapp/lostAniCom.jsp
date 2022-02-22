@@ -87,115 +87,112 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 <body>
 
 	<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
-	<div class="collapse comment-contents row b show" id="collapseExample">
+	<div class="comment-contents row b show" id="commentLoad">
 
 		<!--  댓글 박스 반복문 : 시작 -->
 		<c:forEach var="loc" items="${loc_list}">
 			<div id="aComment-box${loc.locNo}" class="aComment-box ${loc.locNo}">
-
-				<div class="loc-img-space b">
-					<c:set var='locNick' value='${loc.getNick()}' scope='request' />
-					<%
+				<c:set var='locNick' value='${loc.getNick()}' scope='request' />
+				<%
 					String locNick = (String) request.getAttribute("locNick");
 					MemberDTO loc_m = m_dao.memberInfo(locNick);
 					pageContext.setAttribute("loc_m", loc_m);
-					%>
-					<img class="loc-img img-fluid rounded-circle img-thumbnail"
-						src="${loc_m.getPicAddress()}"
-						onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
-						alt="">
-				</div>
-				<div class="loc-item-box b">
-					<div class="loc-content-box">
-						<p class="loc-nick h6 ">
-							<b>${loc.nick}</b>
-						</p>
-						<c:set var="lcocoNum" value="0" scope="request" />
-						<c:forEach var="lcoco" items="${lcoco_list}">
-							<c:if test="${lcoco.locNo == loc.locNo}">
-								<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
-									scope="request" />
-							</c:if>
-						</c:forEach>
-						<p class="loc-content h6 b">${loc.content}</p>
-						<span class="loc-bottom"> 작성일
-							${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
-						<button class='btn cocomment-btn b h6' type='button'
-							data-bs-toggle="collapse"
-							data-bs-target="#collapse-loc${loc.locNo}" aria-expanded="true"
-							aria-controls="collapseCocoWrite">
-							답글
-							<c:if test="${requestScope.lcocoNum > 0}">${requestScope.lcocoNum}</c:if>
-							<i class="bi bi-reply" style='font-size: 15px;'></i>
-						</button>
-
-						<c:if test="${member.getNick() == loc.nick}">
-							<button id="loc${loc.locNo}" class="loc-delete-btn btn b"
-								type="button"
-								onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">
-								<i class="bi bi-trash" style='font-size: 15px;'></i>
+				%>
+				<table>
+					<tr>
+						<td rowspan=3 style ="text-align:center; vertical-align:top;'">
+							<img class="loc-img img-fluid rounded-circle img-thumbnail"
+							src="${loc_m.getPicAddress()}"
+							onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
+							alt="">
+						</td>
+						<td>
+							<strong>${loc.nick}</strong>
+							답글 <c:if test="${requestScope.lcocoNum > 0}">${requestScope.lcocoNum}</c:if>
+							<button class='btn cocomment-btn' type='button'
+								data-bs-toggle="collapse"
+								data-bs-target="#collapse-loc${loc.locNo}" aria-expanded="true"
+								aria-controls="collapseCocoWrite">
+								<i class="bi bi-reply" style='font-size: 15px;'></i>
 							</button>
-						</c:if>
-					</div>
-				</div>
-
-
-
+							<c:if test="${member.getNick() == loc.nick}">
+								<button id="loc${loc.locNo}" class="loc-delete-btn btn"
+									type="button" 
+									onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">
+									<i class="bi bi-trash" style='font-size: 15px;'></i>
+								</button>
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							${loc.content}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							작성일 : ${fn:substring(loc.coDate,0,11)}
+						</td>
+					</tr>
+				</table>
+					
 				<!--  대댓글 박스 반복문 :댓글에 if 대댓이 있으, collapse로 대댓 생성 -->
 
 
 				<div class="collapse CoComment-contents row b"
 					id="collapse-loc${loc.locNo}">
-					<!-- 대댓글 입력창 -->
-					<div class='input-group rounded '>
-						<input type='text' name="lcoco-comment"
-							id="lcoco-comment${loc.locNo}"
-							class='form-control rounded lcoco-comment' placeholder='대댓글 입력'
-							aria-label='Search' aria-describedby='search-addon' />
-						<button class="lcoco-Submit-btn b" type='button'
-							onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}' )">
-							<i style="font-size: 1.5ch;" class="bi bi-send"></i>
-						</button>
-					</div>
 					<c:forEach var="lcoco" items="${lcoco_list}">
 						<c:if test="${loc.locNo == lcoco.locNo}">
 							<div id="lcoco-Comment-box${lcoco.coNo}"
 								class="lcoco-Comment-box ${lcoco.coNo}">
-
-								<div class="lcoco-img-space b">
-									<c:set var='lcocoNick' value='${lcoco.getNick()}'
+								<c:set var='lcocoNick' value='${lcoco.getNick()}'
 										scope='request' />
-									<%
+								<%
 									String lcocoNick = (String) request.getAttribute("lcocoNick");
 									MemberDTO lcoco_m = m_dao.memberInfo(lcocoNick);
 									pageContext.setAttribute("lcoco_m", lcoco_m);
-									%>
-									<img class="lcoco-img img-fluid rounded-circle img-thumbnail"
-										src="${lcoco_m.getPicAddress()}"
-										onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
-										alt="">
-								</div>
-								<div class="lcoco-item-box b">
-									<div class="lcoco-content-box">
-										<p class="lcoco-nick h6 ">
-											<b>${lcoco.nick}</b>
-										</p>
-										<p class="lcoco-content h6 b">${lcoco.content}</p>
-										<span class="lcoco-bottom"> 작성일
-											${fn:substring(lcoco.coDate,0,11)}</span> <span class="">${fn:substring(lcoco.coUpdate,0,11)}</span>
-
-										<c:if test="${member.getNick() == lcoco.nick}">
-											<button id="lcoco${lcoco.coNo}" class="lcoco-delete-btn b"
-												type="button"
-												onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}')">
-												<i class="bi bi-trash" style='font-size: 15px;'></i>
-											</button>
-										</c:if>
-									</div>
-								</div>
+								%>
+								<table>
+									<tr>
+										<td rowspan=3
+											style="text-align: center; vertical-align: top;'">
+											<img class="lcoco-img img-fluid rounded-circle img-thumbnail"
+											src="${lcoco_m.getPicAddress()}"
+											onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
+											alt="">
+										</td>
+										<td>
+											<strong>${lcoco.nick}</strong> 답글
+											<c:if test="${member.getNick() == lcoco.nick}">
+												<button id="lcoco${lcoco.coNo}" class="lcoco-delete-btn b"
+													type="button" style = "background-color:#ffffff; outline:0; border:0;"
+													onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}')">
+													<i class="bi bi-trash" style='font-size: 15px;'></i>
+												</button>
+											</c:if>
+										</td>
+									</tr>
+									<tr>
+										<td>${lcoco.content}</td>
+									</tr>
+									<tr>
+										<td>작성일 : ${fn:substring(lcoco.coDate,0,11)}</td>
+									</tr>
+								</table>
 							</div>
 						</c:if>
 					</c:forEach>
+					<!-- 대댓글 입력창 -->
+					<div class='input-group rounded' style = "padding-left:45px">
+						<input type='text' name="lcoco-comment"
+							id="lcoco-comment${loc.locNo}"
+							class='form-control rounded lcoco-comment' placeholder='대댓글 입력'
+							aria-label='Search' aria-describedby='search-addon' />
+						<button class="lcoco-Submit-btn b" type='button' style = "background-color:#ffffff; outline:0; border:0; font-size:3ch;"
+							onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}' )">
+							<i style="font-size: 1.5ch;" class="bi bi-send"></i>
+						</button>
+					</div>
 				</div>
 
 
@@ -211,7 +208,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 				<input type='text' name="loc-comment"
 					class='form-control rounded loc-comment' placeholder='댓글 입력'
 					aria-label='Search' aria-describedby='search-addon' />
-				<button class="loc-Submit-btn b"
+				<button class="loc-Submit-btn b" style = "background-color:#ffffff; outline:0; border:0; font-size:3ch;"
 					onclick="locSubmit(${lostAni.lostNo})">
 					<i style="font-size: 2ch;" class="bi bi-send"></i>
 				</button>

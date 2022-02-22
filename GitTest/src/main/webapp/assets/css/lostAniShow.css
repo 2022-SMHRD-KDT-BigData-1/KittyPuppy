@@ -209,10 +209,9 @@ img {
 }
 
 .loc-img, .lcoco-img {
-	position: relative;
-	height: 2.5rem;
+	height: 40px;
 	border-radius: 50%;
-	width: 2.5rem;
+	width: 40px;
 }
 
 .loc-item-box, .lcoco-item-box {
