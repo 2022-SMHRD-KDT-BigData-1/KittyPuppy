@@ -288,6 +288,31 @@ public class FeedDAO {
 		return feedList;
 	}
 	
+	// 태그로 피드 게시물 3개씩 검색하기
+	public ArrayList<FeedDTO> feedSearchByTagLimit3(String tag,int startNum, int endNum) {
+		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where tag = ? order by feedno desc) where rnum >= ? and rnum <= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tag);
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
+	}
+	
 	// 게시물번호로 피드 게시물 검색하기
 	public FeedDTO feedSearchByNo(int feedNo) {
 

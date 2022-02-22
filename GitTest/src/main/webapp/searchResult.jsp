@@ -127,6 +127,10 @@ body {
 		max-width: 470px;
 	}
 	
+	.container.out.load {
+		padding-top:0px;
+	}
+	
 	a {	
 		color: #000000;
 		text-decoration-line: none;
@@ -230,9 +234,11 @@ body {
  	String tag = request.getParameter("tag");
  	tag = tag.replaceAll("놷갼셧뱗", "#");
  	tag = tag.replaceAll("럃귤꾤꺖", " ");
-  	System.out.print(tag);
-  	ArrayList<FeedDTO> feedList = fdao.feedSearchByTag(tag);
+ 	int startNum = 1;
+ 	int endNum = startNum+2;
+  	ArrayList<FeedDTO> feedList = fdao.feedSearchByTagLimit3(tag,startNum,endNum);
   	pageContext.setAttribute("nick",nick);
+  	pageContext.setAttribute("tag",tag);
   	pageContext.setAttribute("feedList",feedList);
   	
   	// 개행 처리
@@ -630,6 +636,33 @@ body {
 				}
 			});
 		};
+		
+		// 다음 3개 검색결과 불러오기
+		var num1 = 1;
+		var nick1 = "<c:out value='${nick}'/>";
+		var tag1 = "<c:out value='${tag}'/>";
+		
+		$(window).scroll(function() {
+			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
+				$.ajax({
+					url: "FeedSearchResultCountCon.do",
+					type: "post",
+					data: {nick: nick1 tag:tag1},
+					dataType: 'json',
+					success: function(result) {
+						num1 += 3;
+						if(result >= num1){
+							console.log(num1);
+							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
+							$("#load"+num1).load("searchResultSub.jsp #reload",{nick: nick1,startNum: num1,tag: tag1});
+						}
+					},
+					error : function(){
+						console.log('err');
+					}
+				});
+			}
+		});
 		
 	</script>
 </body>
