@@ -394,12 +394,11 @@ a {
 }
 .chat_img {
 	float: left;
-	width: 11%;
+	width: 7%;
 }
 
 .chat_ib {
 	float: left;
-	padding: 0 0 0 15px;
 	width: 88%;
 }
 
@@ -583,12 +582,12 @@ width: 70px;
 								<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" alt="sunil" class = "rounded-circle img-thumbnail img-fluid float-start"/>
 							</div>
 							<%} else {%>
-							<div class="chat_img">
+							<div class="chat_img ">
 								<img src="<%=mdao.memberInfo(list.get(i)).getPicAddress()%>" alt="sunil" class = "rounded-circle "/>
 							</div>
 							<%}%>
 
-							<div class="chat_ib people ">
+							<div class="chat_ib people mb-3">
 								<%
 								out.print(list.get(i));
 								out.print("<p>" + dao.latestDM(sendnick, list.get(i)).getContent() + "</p>"); %>
