@@ -228,7 +228,7 @@
 										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 								<div align="left">
 									<strong>${feed.nick}</strong><br />
-									${feed.feedDate}
+									${fn:substring(feed.feedDate,0,10)}
 								</div>
 							</div>
 							<!-- 첨부된 사진-->
@@ -785,14 +785,14 @@
 				$.ajax({
 					url: "OtherpageCountCon.do",
 					type: "post",
-					data: {nick: nick1},
+					data: {otherNick: nick2},
 					dataType: 'json',
 					success: function(result) {
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
 							$(".tab-content").append("<div id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("otherpageSub.jsp #reload",{nick: nick1,otherNick: nick2, startNum: num1});
+							$("#load"+num1).load("otherpageSub.jsp #reload",{nick: nick1, otherNick: nick2, startNum: num1});
 						}
 					},
 					error : function(){

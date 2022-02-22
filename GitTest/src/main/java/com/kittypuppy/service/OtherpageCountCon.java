@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.FeedDAO;
 import com.kittypuppy.model.FeedDTO;
-import com.kittypuppy.model.FollowDAO;
 
 public class OtherpageCountCon implements iCommand{
 
@@ -18,22 +17,12 @@ public class OtherpageCountCon implements iCommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		String nick = request.getParameter("nick");
-		
+		String otherNick = request.getParameter("otherNick");
 		FeedDAO fdao = new FeedDAO();
-    	FollowDAO fwdao = new FollowDAO();
     	
-		ArrayList<FeedDTO> feedList = null;
-    	ArrayList<String> followList = fwdao.followingShow(nick);
-    	
-        if (followList.size() == 0) {
-    		feedList = fdao.feedShowAll();
-    	} else {
-    		feedList = fdao.feedShow(followList);
-    	}
+		ArrayList<FeedDTO> feedList = fdao.feedSelect(otherNick);
         
         int result = feedList.size();
-        
         PrintWriter out = response.getWriter();
         out.print(result);
 	}

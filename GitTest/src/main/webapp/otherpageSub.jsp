@@ -91,7 +91,7 @@
      	pageContext.setAttribute("otherMember", otherMember);
        		
    		FeedDAO feed = new FeedDAO();
-   		ArrayList<FeedDTO> feedList = feed.feedSelect(otherNick);
+   		ArrayList<FeedDTO> feedList = feed.feedSelectLimit3(otherNick,startNum,startNum+2);
    		
    		
    		
@@ -128,7 +128,7 @@
 										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 								<div align="left">
 									<strong>${feed.nick}</strong><br />
-									${feed.feedDate}
+									${fn:substring(feed.feedDate,0,10)}
 								</div>
 							</div>
 							<!-- 첨부된 사진-->

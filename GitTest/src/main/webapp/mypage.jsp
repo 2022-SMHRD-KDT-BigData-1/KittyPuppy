@@ -428,7 +428,7 @@
 													
 													<div align="left">
 														<strong>${scrap.nick }</strong>
-														<br />${scrap.feedDate }
+														<br />${fn:substring(scrap.feedDate,0,10)}
 													</div>
 												</div>
 											</a>
