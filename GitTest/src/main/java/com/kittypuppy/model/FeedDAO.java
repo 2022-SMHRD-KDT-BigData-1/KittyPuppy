@@ -94,7 +94,7 @@ public class FeedDAO {
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed order by feedno desc) where rnum >= ? and rnum <= ?";
+			String sql = "select * from (select ROW_NUMBER() OVER(ORDER BY feedno desc) as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed order by feedno desc) where rnum >= ? and rnum <= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, startNum);
 			psmt.setInt(2, endNum);
@@ -151,7 +151,7 @@ public class FeedDAO {
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where nick IN (";
+			String sql = "select * from (select ROW_NUMBER() OVER(ORDER BY feedno desc) as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where nick IN (";
 			for (int i = 0; i < followingList.size();i++) {
 				if (i == followingList.size() - 1) {
 					sql += "?";
@@ -295,7 +295,7 @@ public class FeedDAO {
 		FeedDTO feed = null;
 		connect();
 		try {
-			String sql = "select * from (select rownum as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where tag = ? order by feedno desc) where rnum >= ? and rnum <= ?";
+			String sql = "select * from (select ROW_NUMBER() OVER(ORDER BY feedno desc) as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where tag = ? order by feedno desc) where rnum >= ? and rnum <= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, tag);
 			psmt.setInt(2, startNum);

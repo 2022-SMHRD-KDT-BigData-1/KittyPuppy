@@ -289,62 +289,7 @@
 							</div>
 							
 							<!--  피드 댓글 창 -->
-		                    <div class = 'comment collapse'  id ='comment${feed.feedNo}'>
-		                    	<div class = 'comment_body' align = 'left'>
-		                    		<c:set var = 'feedNo' value = '${feed.feedNo}' scope = 'session'/>
-		                    		<%
-		                    			ArrayList<FeedCommentDTO> cs = null;
-		                    			int feedNo = (int) session.getAttribute("feedNo");
-		                    			cs = fcdao.feedCommentShow(feedNo);
-		                    			pageContext.setAttribute("cs", cs);
-		                    		%>
-		                    		<c:forEach var ='com' items = '${cs}'>
-		                    			<div>${fn:replace(com.content,enter,"<br>")} ${com.nick} ${com.coDate}
-		                    				<button type = 'button' data-bs-toggle="collapse" data-bs-target="#coCom${com.fcNo}" aria-expanded="false"><i class="bi bi-reply" style = 'font-size : 15px;'></i></button>
-		                    				<c:choose>
-		                    					<c:when test = "${nick == com.nick}">
-		                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-		                    						<button onclick = 'feedComDelete(${feed.feedNo},${com.fcNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
-		                    					</c:when>
-		                    					<c:otherwise>
-		                    					</c:otherwise>
-		                    				</c:choose>
-		                    			</div>
-		                    			<c:set var = 'fcNo' value = '${com.fcNo}' scope = 'session'/>
-		                    				<div class = 'collapse' id = 'coCom${com.fcNo}'>
-					                    		<%
-					                    			ArrayList<FeedCoCommentDTO> ccs = null;
-					                    			int fcNo = (int) session.getAttribute("fcNo");
-					                    			ccs = fccdao.feedCoCommentShow(fcNo);
-					                    			pageContext.setAttribute("ccs", ccs);
-					                    		%>
-						                    	<c:forEach var ='cocom' items = '${ccs}'>
-							                    	<div style = 'padding-left: 20px;'>↳${fn:replace(cocom.content,enter,"<br>")}  ${cocom.nick} ${cocom.coDate}
-							                   			<c:choose>
-							                 				<c:when test = "${nick == cocom.nick}">
-					                    						<button onclick = ''><i class="bi bi-pen" style = 'font-size:15px;'></i></button>
-					                    						<button onclick = 'feedCoComDelete(${feed.feedNo},${cocom.coNo},"#comCnt${feed.feedNo}")'><i class="bi bi-trash" style = 'font-size : 15px;'></i></button>
-					                    					</c:when>
-					                    					<c:otherwise>
-					                    					</c:otherwise>
-					                    				</c:choose>
-					                    			</div>
-					                    		</c:forEach>
-					                    		<!--  대댓글 입력  -->
-					                    		<div class='input-group rounded' style = 'padding-left:20px'>
-										        	<input id = 'comtext${com.fcNo}' type='text' class='form-control rounded' placeholder='대댓글 입력' aria-label='Search' aria-describedby='search-addon' style = "font-size:1.5ch;"/>
-													<button onclick = 'feedCoComCreate(${com.fcNo},${feed.feedNo},"#comtext${com.fcNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 2ch;" class="bi bi-send"></i></button>
-												</div>
-						                    </div>
-		                    		</c:forEach>
-		                    	</div>
-		                    	<!--  댓글 입력  -->
-		                    	<div>
-		                    		<div class='input-group rounded'>
-							        	<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-										<button onclick = 'feedComCreate(${feed.feedNo},"#text${feed.feedNo}","#comCnt${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
-									</div>
-			                    </div>
+		                    <div class = 'comment'  id ='comment${feed.feedNo}'>
 		                    </div>
 							
 							<!-- 피드 배너 -->
@@ -378,7 +323,9 @@
 			                    		</c:otherwise>
 			                    	</c:choose>
 		                    	</div>
-		                        <button class = 'feed-bt btn'  type = 'button' data-bs-toggle="collapse" data-bs-target="#comment${feed.feedNo}" aria-expanded="false"><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+		                    	<div id = 'comLoad${feed.feedNo}'>
+		                        	<button class = 'feed-bt btn'  type = 'button' onclick='feedComLoad(${feed.feedNo},"${nick}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
+		                        </div>
 		                        <div id ='scrap${feed.feedNo}'>
 		                        	<c:choose>
 		                        		<c:when test="${checkS==1}">
@@ -726,6 +673,133 @@
     			}
     		});
     	};
+    	
+    	// 댓글 & 대댓글 개수 세기
+		function feedComCount(feedNo,id) {
+			$.ajax({
+				url: "FeedComCountCon.do",
+				type: "post",
+				data: {feedNo: feedNo},
+				dataType: 'json',
+				success: function(result) {
+					$(id).html("댓글 "+result);
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
+		};
+		
+
+		// 댓글 새로고침
+		function feedComLoad(feedNo,nick,id,id2) {
+			$(id).empty();
+			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
+			$(id2).html("<button class = 'feed-bt btn'  type = 'button' onclick='feedComClear("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
+		}
+		
+		// 댓글 창 비우기
+		function feedComClear(feedNo,nick,id,id2) {
+			$(id).empty();
+			$(id2).html("<button class = 'feed-bt btn'  type = 'button' onclick='feedComLoad("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
+		}
+		
+		// 댓글 작성
+		function feedComCreate(feedNo,nick,id1,id2,id3,id4) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCommentCreateCon.do",
+				type: "post",
+				data: {feedNo: feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3,id4);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 댓글 삭제
+		function feedComDelete(feedNo,fcNo,nick,id,id2,id3) {
+			$.ajax({
+				url: "FeedCommentDeleteCon.do",
+				type: "post",
+				data: {fcNo: fcNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2,id3);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 작성
+		function feedCoComCreate(fcNo,feedNo,nick,id1,id2,id3,id4) {
+			var text = $(id1).val();
+			$.ajax({
+				url: "FeedCoCommentCreateCon.do",
+				type: "post",
+				data: {fcNo: fcNo, feedNo:feedNo, text: text},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id2);
+					feedComLoad(feedNo,nick,id3,id4);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 대댓글 삭제
+		function feedCoComDelete(feedNo,coNo,nick,id,id2,id3) {
+			$.ajax({
+				url: "FeedCoCommentDeleteCon.do",
+				type: "post",
+				data: {coNo: coNo},
+				dataType: 'json',
+				success: function(result) {
+					feedComCount(feedNo,id);
+					feedComLoad(feedNo,nick,id2,id3);
+				},
+				error : function(){
+					console.log('err');
+				}
+			});
+		};
+		
+		// 스크롤이 끝까지 내려오면 다음 3개의 피드 로드
+		
+		var num1 = 1;
+		var nick1 = "<c:out value='${nick}'/>";
+		
+		$(window).scroll(function() {
+			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
+				$.ajax({
+					url: "FeedCountCon.do",
+					type: "post",
+					data: {nick: nick1},
+					dataType: 'json',
+					success: function(result) {
+						num1 += 3;
+						if(result >= num1){
+							console.log(num1);
+							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
+							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
+						}
+					},
+					error : function(){
+						console.log('err');
+					}
+				});
+			}
+		});
     
     </script>
 </body>

@@ -259,25 +259,27 @@ div {
 									<c:when test="${empty cm.picAddress}">
 										<img
 											src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+											style = "width:40px; height:40px;"
 											class='rounded-circle img-tn img-fluid float-start'>
 									</c:when>
 									<c:otherwise>
 										<img src='${cm.picAddress}'
+											style = "width:40px; height:40px;"
 											class='rounded-circle img-tn img-fluid float-start'>
 									</c:otherwise>
 								</c:choose>
 							</td>
 							<td>
 								<strong> ${com.nick}</strong>
-								<button type='button' data-bs-toggle="collapse"
+								<button type='button' data-bs-toggle="collapse" style = "background-color:#ffffff; outline:0; border:0px;"
 									data-bs-target="#coCom${com.fcNo}" aria-expanded="false">
 									<i class="bi bi-reply" style='font-size: 15px;'></i>
 								</button> <c:choose>
 									<c:when test="${nick == com.nick}">
-										<button onclick=''>
+										<button onclick='' style = "background-color:#ffffff; outline:0; border:0px;">
 											<i class="bi bi-pen" style='font-size: 15px;'></i>
 										</button>
-										<button
+										<button style = "background-color:#ffffff; outline:0; border:0px;"
 											onclick='feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 											<i class="bi bi-trash" style='font-size: 15px;'></i>
 										</button>
@@ -323,10 +325,12 @@ div {
 										<c:when test="${empty ccm.picAddress}">
 											<img
 												src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+												style = "width:40px; height:40px;"
 												class='rounded-circle img-tn img-fluid float-start'>
 										</c:when>
 										<c:otherwise>
 											<img src='${ccm.picAddress}'
+												style = "width:40px; height:40px;"
 												class='rounded-circle img-tn img-fluid float-start'>
 										</c:otherwise>
 									</c:choose>
@@ -335,10 +339,10 @@ div {
 									<strong> ${cocom.nick}</strong>
 									<c:choose>
 										<c:when test="${nick == cocom.nick}">
-											<button onclick=''>
+											<button onclick='' style = "background-color:#ffffff; outline:0; border:0px;">
 												<i class="bi bi-pen" style='font-size: 15px;'></i>
 											</button>
-											<button
+											<button style = "background-color:#ffffff; outline:0; border:0px;"
 												onclick='feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 												<i class="bi bi-trash" style='font-size: 15px;'></i>
 											</button>
@@ -367,7 +371,7 @@ div {
 							class='form-control rounded' placeholder='대댓글 입력'
 							aria-label='Search' aria-describedby='search-addon'
 							style="font-size: 1.5ch;" />
-						<button
+						<button style = "background-color:#ffffff; outline:0; border:0px;"
 							onclick='feedCoComCreate(${com.fcNo},${feed.feedNo},"${nick}","#comtext${com.fcNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
 							<i style="font-size: 2ch;" class="bi bi-send"></i>
 						</button>
@@ -379,7 +383,7 @@ div {
 		<div>
 			<div class='input-group rounded'>
 			<input id = 'text${feed.feedNo}' type='text' class='form-control rounded' placeholder='댓글 입력' aria-label='Search' aria-describedby='search-addon' />
-			<button onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
+			<button style = "background-color:#ffffff; outline:0; border:0px;" onclick = 'feedComCreate(${feed.feedNo},"${nick}","#text${feed.feedNo}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i style = "font-size: 3ch;" class="bi bi-send"></i></button>
 			</div>
 		</div>
 	</div>
