@@ -127,6 +127,10 @@ body {
 		max-width: 470px;
 	}
 	
+	.container.out.load {
+		padding-top:0px;
+	}
+	
 	a {	
 		color: #000000;
 		text-decoration-line: none;
@@ -303,9 +307,9 @@ body {
 		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail img-fluid float-start'>
 		                    		</c:otherwise>
 		                    	</c:choose>
-		                        <div align ='left'>
+		                        <div align ='left' style = "padding-left:10px;">
 			                        <strong>${feed.nick}</strong><br/>
-			                        ${feed.feedDate}
+			                        ${fn:substring(feed.feedDate,0,10)}
 		                        </div>
 		                    </div>
 	                    </a>
@@ -344,8 +348,7 @@ body {
 	                <div class='col-sm-6'>
 	                	
 	                	<!-- 피드 본문 -->
-	                    <div class = 'content' align = 'left'>${fn:substring(feed.content, 0, 4)}...<button class = 'info btn' type = 'button' data-bs-toggle="collapse" data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button></div>
-	                    <div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+	                    <div align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
 	                    
 	                    <!--  해시 태그 -->
 	                    <div class = 'tag' align = 'left'>${feed.tag}
@@ -666,7 +669,7 @@ body {
 		var nick1 = "<c:out value='${nick}'/>";
 		
 		$(window).scroll(function() {
-			if($(window).scrollTop() >= $(document).height() - $(window).height()){
+			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
 				$.ajax({
 					url: "FeedCountCon.do",
 					type: "post",
@@ -676,7 +679,7 @@ body {
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
-							$("body").append("<div class = 'container out' id = 'load"+num1+"''></div>");
+							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
 							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
 						}
 					},
