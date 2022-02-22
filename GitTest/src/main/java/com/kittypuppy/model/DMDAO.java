@@ -172,4 +172,32 @@ public class DMDAO {
 		return cnt;
 		
 	}
+//	dmshow 10∞≥ ∫∏ø©¡‹
+	public ArrayList<DMDTO> DMShow10(String sendnick, String receivenick,int num1,int num2) {
+		
+		ArrayList<DMDTO> dmList = new ArrayList<DMDTO>();
+		DMDTO dm = null;
+		connect();
+		try {
+			String sql = "select * from (select rownum as rnum, dmno,sendnick,receivenick,content,senddate from DM where  (sendnick = ? and receivenick = ?) or (sendnick = ? and receivenick = ?) order by senddate desc) where rnum >= ? and rnum <= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, sendnick);
+			psmt.setString(2, receivenick);
+			psmt.setString(3, receivenick);
+			psmt.setString(4, sendnick);
+			psmt.setInt(5, num1);
+			psmt.setInt(6, num2);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				dm = new DMDTO(rs.getInt("dmno"),rs.getString("sendnick"),rs.getString("receivenick"),rs.getString("content"),rs.getString("senddate"));
+				dmList.add(dm);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return dmList;
+		
+	}
 }

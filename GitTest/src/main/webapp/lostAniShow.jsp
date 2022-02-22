@@ -198,146 +198,16 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 					</div>
 
 					<!-- 댓글 보이는 창 : 댓글 버튼(class="comment-btn-line") 작동시 펼쳐짐 /bootstrap collapse 기능 -->
-					<div class="collapse comment-contents row b" id="collapseExample">
-
-						<!--  댓글 박스 반복문 : 시작 -->
-						<c:forEach var="loc" items="${loc_list}">
-							<div id="aComment-box${loc.locNo}"
-								class="aComment-box ${loc.locNo}">
-
-								<div class="loc-img-space b">
-									<c:set var='locNick' value='${loc.getNick()}' scope='request' />
-									<%
-									String locNick = (String) request.getAttribute("locNick");
-									MemberDTO loc_m = m_dao.memberInfo(locNick);
-									pageContext.setAttribute("loc_m", loc_m);
-									%>
-									<img class="loc-img img-fluid rounded-circle img-thumbnail"
-										src="${loc_m.getPicAddress()}"
-										onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
-										alt="">
-								</div>
-								<div class="loc-item-box b">
-									<div class="loc-content-box">
-										<p class="loc-nick h6 ">
-											<b>${loc.nick}</b>
-										</p>
-										<c:set var="lcocoNum" value="0" scope="request" />
-										<c:forEach var="lcoco" items="${lcoco_list}">
-											<c:if test="${lcoco.locNo == loc.locNo}">
-												<c:set var="lcocoNum" value="${requestScope.lcocoNum + 1}"
-													scope="request" />
-											</c:if>
-										</c:forEach>
-										<p class="loc-content h6 b">${loc.content}</p>
-										<span class="loc-bottom"> 작성일
-											${fn:substring(loc.coDate,0,11)}</span> <span class="">${fn:substring(loc.coUpdate,0,11)}</span>
-										<button class='btn cocomment-btn b h6' type='button'
-											data-bs-toggle="collapse"
-											data-bs-target="#collapse-loc${loc.locNo}"
-											aria-expanded="false" aria-controls="collapseCocoWrite">
-											답글
-											<c:if test="${requestScope.lcocoNum > 0}">${requestScope.lcocoNum}</c:if>
-											<i class="bi bi-reply" style='font-size: 15px;'></i>
-										</button>
-
-										<c:if test="${member.getNick() == loc.nick}">
-											<button id="loc${loc.locNo}" class="loc-delete-btn btn b"
-												type="button"
-												onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}',${lostAni.lostNo}, '${member.getNick()}')">
-												<i class="bi bi-trash" style='font-size: 15px;'></i>
-											</button>
-										</c:if>
-									</div>
-								</div>
-
-
-
-								<!--  대댓글 박스 반복문 :댓글에 if 대댓이 있으, collapse로 대댓 생성 -->
-
-
-								<div class="collapse CoComment-contents row b"
-									id="collapse-loc${loc.locNo}">
-									<!-- 대댓글 입력창 -->
-									<div class='input-group rounded '>
-										<input type='text' name="lcoco-comment"
-											id="lcoco-comment${loc.locNo}"
-											class='form-control rounded lcoco-comment'
-											placeholder='대댓글 입력' aria-label='Search'
-											aria-describedby='search-addon' />
-										<button class="lcoco-Submit-btn b" type='button'
-											onclick="lcocoSubmit( ${lostAni.lostNo}, ${loc.locNo}, '#lcoco-comment${loc.locNo}','${member.getNick()}')">
-											<i style="font-size: 1.5ch;" class="bi bi-send"></i>
-										</button>
-									</div>
-									<c:forEach var="lcoco" items="${lcoco_list}">
-										<c:if test="${loc.locNo == lcoco.locNo}">
-											<div id="lcoco-Comment-box${lcoco.coNo}"
-												class="lcoco-Comment-box ${lcoco.coNo}">
-
-												<div class="lcoco-img-space b">
-													<c:set var='lcocoNick' value='${lcoco.getNick()}'
-														scope='request' />
-													<%
-													String lcocoNick = (String) request.getAttribute("lcocoNick");
-													MemberDTO lcoco_m = m_dao.memberInfo(lcocoNick);
-													pageContext.setAttribute("lcoco_m", lcoco_m);
-													%>
-													<img
-														class="lcoco-img img-fluid rounded-circle img-thumbnail"
-														src="${lcoco_m.getPicAddress()}"
-														onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';"
-														alt="">
-												</div>
-												<div class="lcoco-item-box b">
-													<div class="lcoco-content-box">
-														<p class="lcoco-nick h6 ">
-															<b>${lcoco.nick}</b>
-														</p>
-														<p class="lcoco-content h6 b">${lcoco.content}</p>
-														<span class="lcoco-bottom"> 작성일
-															${fn:substring(lcoco.coDate,0,11)}</span> <span class="">${fn:substring(lcoco.coUpdate,0,11)}</span>
-
-														<c:if test="${member.getNick() == lcoco.nick}">
-															<button id="lcoco${lcoco.coNo}"
-																class="lcoco-delete-btn b" type="button"
-																onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}', ${lostAni.lostNo}, '${member.getNick()}')">
-																<i class="bi bi-trash" style='font-size: 15px;'></i>
-															</button>
-														</c:if>
-													</div>
-												</div>
-											</div>
-										</c:if>
-									</c:forEach>
-								</div>
-								<!--  답글(대댓글) 반복박스  : 종료 -->
-							</div>
-							<!--  댓글 내부 반복박스  : 종료 -->
-
-						</c:forEach>
-						<!-- 댓글 작성 창 구현 : 가져옴-->
-						<div>
-							<div class='input-group rounded'>
-								<input type='text' name="loc-comment"
-									class='form-control rounded loc-comment' placeholder='댓글 입력'
-									aria-label='Search' aria-describedby='search-addon' />
-								<button class="loc-Submit-btn b"
-									onclick="locSubmit(${lostAni.lostNo},'${member.getNick()}')">
-									<i style="font-size: 2ch;" class="bi bi-send"></i>
-								</button>
-							</div>
-						</div>
-						<!-- 댓글 작성 창 구현 : 종료 -->
+					<div class="comment-contents row b" id="commentLoad">
 					</div>
 					<!-- 댓글 버튼 : 작성자일 경우 글 수정 버튼 생성 -->
 					<div class="comment-btn-line b">
 
-						<button class='btn comment-btn b' type='button'
-							data-bs-toggle="collapse" data-bs-target="#collapseExample"
-							aria-expanded="false" aria-controls="collapseExample">
-							<i class='bi bi-chat-dots lcs'> 댓글</i>
-						</button>
+						<div id ="rep">
+							<button onclick = 'lostComLoad(${lostAni.lostNo},"${member.getNick()}")' class='btn comment-btn b' type='button'>
+								<i class='bi bi-chat-dots lcs'> 댓글</i>
+							</button>
+						</div>
 						<c:if test="${member.getNick() == lostAni.nick}">
 							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}"><button
 									class='btn update-btn b' type='button'>
@@ -467,10 +337,16 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		
 	// 댓글 보이기
 	function lostComLoad(lostNo,nick) {
-			$('#collapseExample').empty();
-			$('#collapseExample').load("lostAniCom.jsp #collapseExample",{lostNo:lostNo, nick:nick});
+			$('#commentLoad').empty();
+			$('#commentLoad').load("lostAniCom.jsp #commentLoad",{lostNo:lostNo, nick:nick});
+			$("#rep").html("<button onclick = 'lostComEmpty(${lostAni.lostNo},"+'"${member.getNick()}")'+"' class='btn comment-btn b' type='button'><i class='bi bi-chat-dots lcs'> 댓글</i></button>");
 	}
 	
+	// 댓글 숨기기
+	function lostComEmpty(lostNo,nick){
+		$('#commentLoad').empty();
+		$("#rep").html("<button onclick = 'lostComLoad(${lostAni.lostNo},"+'"${member.getNick()}")'+"' class='btn comment-btn b' type='button'><i class='bi bi-chat-dots lcs'> 댓글</i></button>");
+	}
 	</script>
 </body>
 </html>

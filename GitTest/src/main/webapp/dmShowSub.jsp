@@ -286,11 +286,12 @@ img {
 	DMDAO dao = new DMDAO();
 	ArrayList<DMDTO> DMlist = null;
 	String receivenick = request.getParameter("receivenick");
-	MemberDTO member = (MemberDTO) session.getAttribute("member");
-	
-	String sendnick = member.getNick();
+	String sendnick = request.getParameter("sendnick");
+	int num1 = Integer.parseInt(request.getParameter("num1"));	
 
-	DMlist = dao.DMShow10(sendnick, receivenick,1,10);
+	
+	DMlist = dao.DMShow10(sendnick, receivenick,num1,num1+9);
+	
 	MemberDAO mdao = new MemberDAO();
 	ArrayList<String> list = dao.DMList(sendnick);
 
@@ -301,42 +302,6 @@ img {
 
 	System.out.print(receivenick);
 	%>
-	<!-- 키티퍼피 로고 -->
-
-	<div class="row mt-5 text-center">
-		<div class="mb-4 b">
-			<a href="dmList.jsp"><i class="bi bi-chevron-left"></i></a>
-			<h1 class="text-center">KittyPuppy</h1>
-			<a href="lostAniReport.html"><i
-				class="bi bi-exclamation-octagon-fill report"></i></a>
-		</div>
-	</div>
-
-	<!-- 프로필 -->
-
-	<div class="container out ">
-		<div class="row m-3 "
-			style="display: inline-block; vertical-align: top">
-			<!-- 프로필 사진 -->
-			<a href="otherpage.jsp?nick=${receivenick}"> <%
- if (mdao.memberInfo(receivenick).getPicAddress() == null) {
- %> <img
-				src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"
-				class="rounded-circle img-thumbnail img-fluid float-start" /> <%
- } else {
- %> <img src="<%=mdao.memberInfo(receivenick).getPicAddress()%>"
-				class="rounded-circle img-thumbnail img-fluid float-start" /> <%
- }
- %> <strong class="sdiv" style="decorate: none"> ${receivenick}
-			</strong>
-			</a>
-		</div>
-
-
-
-		<!-- 간격 -->
-		<div class="py-3"></div>
-		<!-- 말풍선 -->
 
 		<div class="container overflow-scroll b"
 			style="max-height: 500px; max-width: 100%">
@@ -383,126 +348,6 @@ img {
 			}
 			%>
 			</div>
-
-
-			<!-- 보내기 -->
-
-
-		
-		<div class="row mt-3 text-center b">
-			<div class="input-group mb-3">
-
-				<input type="text" class="form-control" id="m" autocomplete="off" />
-				<div class="input-group-append">
-					<button id="msg-send" class="btn btn" placeholder="message">
-						<i style="font-size: 3ch;" class="bi bi-send"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-
-	<script src="jquery-3.6.0.min.js"></script>
-
-	<script>
-	/* 삭제 */
-				function DMDelete(dmNo) {
-
-					$.ajax({
-						url : "DMDeleteCon.do",
-						type : "post",
-						data : {
-							dmNo : dmNo
-						},
-						dataType : 'json',
-						success : function(cnt) {
-							location.reload();
-							console.log('성공')
-						},
-						error : function() {
-							console.log('err');
-						}
-					});
-				};
-	
-				/* 보내기 */
-				 $(document).ready(function() {
-			            $("#m").keydown(function(key) {
-			                if (key.keyCode == 13) {
-			              $("#msg-send").click();
-			                }
-			            });
-				 
-				 $('#msg-send').on('click', function() {
-						$.ajax({
-							url : 'DMSendCon.do', // 서버에 전달할 파일명
-							type : 'post',
-							data : {
-								sendNick : '${sendnick}', // 전송할 파라미터 1
-								receiveNick : '${receivenick}', // 전송할 파라미터 1
-								content : $('#m').val()
-							},
-							success : function() {
-								
-								location.reload();
-								console.log('저장성공'); // 성공시 코드
-							},
-							error : function() {
-								alert("저장실패");
-							}
-						});
-					}); 
-				 
-			     });
-				 
-				 
-				 /* 스크롤 */
-			 	/* var isLoading = false;
-				function loadNewPage() {
-  					var temp = $(document).height();
-    				$(".container").prepend($(".sksk"));
-    				$(document).scrollTop($(document).height()-temp);
-   				 	isLoading = false;
-				}
-						$(document).scroll(function() {
-  						if($(document).scrollTop() < 60 && !isLoading) {
-   	 					isLoading = true;
-    					setTimeout(loadNewPage, 1200);
- 				 }
-				});
-						console.log("아아아아아아앙아아");		
-						$(document).scrollTop($(document).height());  */
-					
-					/* 스크롤 2 */			
-					var num1 = 1;
-						var nick1 = "<c:out value='${sendnick}'/>";	
-						var nick2 = "<c:out value='${receivenick}'/>";	
-					$(".container").scroll(function() {
-						if(Math.round( $(".container").scrollTop()) == $(document).height() - $(window).height()){
-							$.ajax({
-								url: "DMCountCon.do",
-								type: "post",
-								data: {sendnick:nick1,
-										receivenick: nick2 },
-								dataType: 'json',
-								success: function(result) {
-									num1 += 10;
-									if(result >= num1){
-										console.log(num1);
-										$("body").prepend("<div class='lcoco-content-box' id = 'load"+num1+"''>" + "</div>");
-										$("#load"+num1).load("dmShowSub.jsp .container",{sendnick:nick1, receivenick: nick2,num1:num1});
-									}
-								},
-								error : function(){
-									console.log('err');
-								}
-							});
-						}
-					});	
-					 
-	</script>
 
 </body>
 </html>

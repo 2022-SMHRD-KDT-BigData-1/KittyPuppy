@@ -247,45 +247,57 @@ div {
 			<c:set var = 'comNick' value = '${com.nick}' scope = 'request'/>
 				<!-- 댓글 -->
 				<div>
-					<div class="col-2">
-						<%
-						String comNick = (String) request.getAttribute("comNick");
-						MemberDTO cm = dao.memberInfo(comNick);
-						pageContext.setAttribute("cm", cm);
-						%>
-						<c:choose>
-							<c:when test="${empty cm.picAddress}">
-								<img
-									src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-									class='rounded-circle img-tn img-fluid float-start'>
-							</c:when>
-							<c:otherwise>
-								<img src='${cm.picAddress}'
-									class='rounded-circle img-tn img-fluid float-start'>
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div class="col-10">
-						<strong> ${com.nick}</strong> ${fn:substring(com.coDate,0,10)}
-						<button type='button' data-bs-toggle="collapse"
-							data-bs-target="#coCom${com.fcNo}" aria-expanded="false">
-							<i class="bi bi-reply" style='font-size: 15px;'></i>
-						</button>
-						<c:choose>
-							<c:when test="${nick == com.nick}">
-								<button onclick=''>
-									<i class="bi bi-pen" style='font-size: 15px;'></i>
-								</button>
-								<button
-									onclick='feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
-									<i class="bi bi-trash" style='font-size: 15px;'></i>
-								</button>
-							</c:when>
-							<c:otherwise>
-							</c:otherwise>
-						</c:choose>
-						<br /> ${fn:replace(com.content,enter,"<br>")}
-					</div>
+					<%
+					String comNick = (String) request.getAttribute("comNick");
+					MemberDTO cm = dao.memberInfo(comNick);
+					pageContext.setAttribute("cm", cm);
+					%>
+					<table>
+						<tr>
+							<td rowspan=3 style = "text-align:center; vertical-align :top;">
+								<c:choose>
+									<c:when test="${empty cm.picAddress}">
+										<img
+											src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+											class='rounded-circle img-tn img-fluid float-start'>
+									</c:when>
+									<c:otherwise>
+										<img src='${cm.picAddress}'
+											class='rounded-circle img-tn img-fluid float-start'>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>
+								<strong> ${com.nick}</strong>
+								<button type='button' data-bs-toggle="collapse"
+									data-bs-target="#coCom${com.fcNo}" aria-expanded="false">
+									<i class="bi bi-reply" style='font-size: 15px;'></i>
+								</button> <c:choose>
+									<c:when test="${nick == com.nick}">
+										<button onclick=''>
+											<i class="bi bi-pen" style='font-size: 15px;'></i>
+										</button>
+										<button
+											onclick='feedComDelete(${feed.feedNo},${com.fcNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
+											<i class="bi bi-trash" style='font-size: 15px;'></i>
+										</button>
+									</c:when>
+									<c:otherwise>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								${fn:replace(com.content,enter,"<br>")}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								작성일 : ${fn:substring(com.coDate,0,10)}
+							</td>
+						</tr>
+					</table>
 				</div>
 				<c:set var='fcNo' value='${com.fcNo}' scope='session' />
 				<div class='collapse' id='coCom${com.fcNo}'>
@@ -298,47 +310,59 @@ div {
 					<c:forEach var='cocom' items='${ccs}'>
 						<c:set var = 'ccmNick' value = '${cocom.nick}' scope = 'request'/>
 						<!-- 대댓글 -->
-						<div style='padding-left: 20px'>
-							<div class="col-2">
-								<%
-								String ccmNick = (String) request.getAttribute("ccmNick");
-								MemberDTO ccm = dao.memberInfo(ccmNick);
-								pageContext.setAttribute("ccm", ccm);
-								%>
-								<c:choose>
-									<c:when test="${empty ccm.picAddress}">
-										<img
-											src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-											class='rounded-circle img-tn img-fluid float-start'>
-									</c:when>
-									<c:otherwise>
-										<img src='${ccm.picAddress}'
-											class='rounded-circle img-tn img-fluid float-start'>
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div class='col-10'>
-								<strong> ${cocom.nick}</strong>
-								${fn:substring(cocom.coDate,0,10)}
-								<c:choose>
-									<c:when test="${nick == cocom.nick}">
-										<button onclick=''>
-											<i class="bi bi-pen" style='font-size: 15px;'></i>
-										</button>
-										<button
-											onclick='feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
-											<i class="bi bi-trash" style='font-size: 15px;'></i>
-										</button>
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>
-								<br /> ${fn:replace(cocom.content,enter,"<br>")}
-							</div>
-						</div>
+						<%
+							String ccmNick = (String) request.getAttribute("ccmNick");
+							MemberDTO ccm = dao.memberInfo(ccmNick);
+							pageContext.setAttribute("ccm", ccm);
+						%>
+					<div style = "padding-left:40px">
+						<table>
+							<tr>
+								<td rowspan=3 style = "text-align:center; vertical-align :top;">
+									<c:choose>
+										<c:when test="${empty ccm.picAddress}">
+											<img
+												src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+												class='rounded-circle img-tn img-fluid float-start'>
+										</c:when>
+										<c:otherwise>
+											<img src='${ccm.picAddress}'
+												class='rounded-circle img-tn img-fluid float-start'>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<strong> ${cocom.nick}</strong>
+									<c:choose>
+										<c:when test="${nick == cocom.nick}">
+											<button onclick=''>
+												<i class="bi bi-pen" style='font-size: 15px;'></i>
+											</button>
+											<button
+												onclick='feedCoComDelete(${feed.feedNo},${cocom.coNo},"${nick}","#comCnt${feed.feedNo}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'>
+												<i class="bi bi-trash" style='font-size: 15px;'></i>
+											</button>
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${fn:replace(cocom.content,enter,"<br>")}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									작성일 : ${fn:substring(cocom.coDate,0,10)}
+								</td>
+							</tr>
+						</table>
+					</div>
 					</c:forEach>
 					<!--  대댓글 입력  -->
-					<div class='input-group rounded' style='padding-left: 20px'>
+					<div class='input-group rounded' style='padding-left: 82px'>
 						<input id='comtext${com.fcNo}' type='text'
 							class='form-control rounded' placeholder='대댓글 입력'
 							aria-label='Search' aria-describedby='search-addon'
