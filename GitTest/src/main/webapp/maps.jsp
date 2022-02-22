@@ -27,7 +27,9 @@
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+	rel="stylesheet">
 <!-- 아이콘 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -57,7 +59,7 @@ html, body {
 .container {
 	width: 70%;
 	padding: 15px;
-	margin-top:150px;
+	margin-top: 150px;
 	display: block;
 	overflow-x: hidden;
 }
@@ -105,8 +107,8 @@ h1 {
 	display: inline;
 }
 
-a{
-	color : #000000;
+a {
+	color: #000000;
 	text-decoration-line: none;
 }
 
@@ -190,19 +192,21 @@ a{
 	max-width: 442px;
 	margin: auto;
 }
+
 .icon {
-            font-size: 4ch;
-            margin-left: 15px;
-            margin-right: 15px;
-            color: #25aa8f7e;
-        }
+	font-size: 4ch;
+	margin-left: 15px;
+	margin-right: 15px;
+	color: #25aa8f7e;
+}
 
 .bi {
 	font-size: 40px;
 }
+
 .bi-geo-alt-fill {
-            color: #25aa90;
-        }
+	color: #25aa90;
+}
 /* 상단 메뉴바 고정 */
 .header-menu {
 	position: fixed;
@@ -228,18 +232,18 @@ a{
 
 </head>
 <body>
-<%
-	MemberDTO member = (MemberDTO)session.getAttribute("member"); 
+	<%
+	MemberDTO member = (MemberDTO) session.getAttribute("member");
 	String address = member.getAddress();
 	MemberDAO mdao = new MemberDAO();
 	AnimalDAO dao = new AnimalDAO();
 
 	// memberDAO 메소드를 통해 현재 로그인한 회원의 주소와 동일한 주소를 가진 회원들의 닉네임리스트 불러오기 
 	ArrayList<String> nickList = mdao.memberFindAddr(address);
-	if(nickList == null) {
+	if (nickList == null) {
 		System.out.println("주변 회원 없음");
 	}
-	
+
 	pageContext.setAttribute("nickList", nickList);
 	%>
 
@@ -252,19 +256,19 @@ a{
 				<a href='lostAniReport.html'><i
 					class='bi bi-exclamation-octagon-fill report'></i></a>
 			</div>
-    </div>
-		
+		</div>
+
 
 		<div class="row">
 			<!-- 상단 배너 -->
 			<div class='text-center banner header-menu'>
-        <a href="feed.jsp"><i class="bi bi-phone icon"></i></a>
-        <a href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a>
-        <a href="maps.jsp"><i class="bi bi-geo-alt-fill icon"></i></a>
-        <a href="mypage.jsp"><i class="bi bi-person icon"></i></a>
-        <a href="dmList.jsp"><i class="bi bi-chat-dots icon"></i></a>
-    </div>
-			
+				<a href="feed.jsp"><i class="bi bi-phone icon"></i></a> <a
+					href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a> <a
+					href="maps.jsp"><i class="bi bi-geo-alt-fill icon"></i></a> <a
+					href="mypage.jsp"><i class="bi bi-person icon"></i></a> <a
+					href="dmList.jsp"><i class="bi bi-chat-dots icon"></i></a>
+			</div>
+
 		</div>
 
 		<!-- 지도 -->
@@ -274,36 +278,81 @@ a{
 
 				<div class="map">
 
-					<!--구글 map플랫폼에서 가져옴 Async script executes immediately and must be after any DOM elements used in callback. 
-                    <script
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACh8pWLz6hMAzNdtVVUXqnXvqmoHvx5zI&callback=initMap&v=weekly"
-                        async></script>
-                    <script>
-                        function initMap() {
-                            const myLatLng = { lat: 35.15005247338198, lng: 126.91990479977245 };  위도 경도 입력
-                            const map = new google.maps.Map(document.getElementById("map"), {
-                                zoom: 20,
-                                center: myLatLng,
-                            });
-                            new google.maps.Marker({
-                                position: myLatLng,
-                                map,
-                                title: "Hello World!",
-                            });
-                        }
-                    </script>-->
+					<!-- 지도를 표시할 div 입니다 -->
 
-					<!-- Google map -->
-					<div id="map-container-google-1"
-						class="z-depth-1-half map-container" style="height: 400px">
-						<iframe
-							src="https://maps.google.com/maps?q=대한민국+광주광역시+동구+예술길+31-15&t=&z=13&ie=UTF8&iwloc=&output=embed"
-							frameborder="0" style="border: 0" allowfullscreen></iframe>
+					<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+					<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
+
+					
+						<div id="map" style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
+
+						
+						
+						<div id="clickLatlng"></div>
+
+						<script>
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							mapOption = {
+								center : new kakao.maps.LatLng(33.450701,
+										126.570667), // 지도의 중심좌표
+								level : 3
+							// 지도의 확대 레벨
+							};
+
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer,
+									mapOption);
+
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+
+							// 주소로 좌표를 검색합니다
+							geocoder
+									.addressSearch(
+											'광주광역시 동구 충장동',
+											function(result, status) { //member.address
+
+												// 정상적으로 검색이 완료됐으면 
+												if (status === kakao.maps.services.Status.OK) {
+
+													var coords = new kakao.maps.LatLng(
+															result[0].y,
+															result[0].x);
+													var message = 'latlng: new kakao.maps.<br>LatLng('
+															+ result[0].y
+															+ ', ';
+													message += result[0].x
+															+ ')';
+
+													var resultDiv = document
+															.getElementById('clickLatlng');
+													resultDiv.innerHTML = message;
+
+													// 결과값으로 받은 위치를 마커로 표시합니다
+													var marker = new kakao.maps.Marker(
+															{
+																map : map,
+																position : coords
+															});
+
+													// 인포윈도우로 장소에 대한 설명을 표시합니다
+													var infowindow = new kakao.maps.InfoWindow(
+															{
+																content : '<div style="width:150px;text-align:center;padding:6px 0;">충장동</div>' //member.address + 같은동 친구 수 
+															});
+													infowindow
+															.open(map, marker);
+
+													// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+													map.setCenter(coords);
+												}
+											});
+						</script>
+
 					</div>
-
 				</div>
-			</div>
-
+			
 			<!-- 주변 반려동물 리스트 탭 상단 -->
 			<div class="col-sm-6 g-2">
 				<ul class="nav nav-pills" id="myTab" role="tablist">
@@ -334,37 +383,37 @@ a{
 					style="max-height: 360px; max-width: 100%;">
 
 					<div class="tab-content" id="myTabContent">
-					<%
+						<%
 						ArrayList<AnimalDTO> catList = new ArrayList<AnimalDTO>();
 						ArrayList<AnimalDTO> dogList = new ArrayList<AnimalDTO>();
 						ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
 						AnimalDTO animal = null;
-						for(int i = 0; i < nickList.size(); i++) {
+						for (int i = 0; i < nickList.size(); i++) {
 							String nick = nickList.get(i);
 							String upKind1 = "고양이";
 							String upKind2 = "개";
 							String upKind3 = "동물";
-							
+
 							animal = dao.aniShow(nick, upKind1);
-							if(animal != null){
+							if (animal != null) {
 								catList.add(animal);
 							}
-							
+
 							animal = dao.aniShow(nick, upKind2);
-							if(animal != null){
+							if (animal != null) {
 								dogList.add(animal);
 							}
-							
+
 							animal = dao.aniShow(nick, upKind3);
-							if(animal != null){
+							if (animal != null) {
 								aniList.add(animal);
 							}
 						}
 						pageContext.setAttribute("catList", catList);
 						pageContext.setAttribute("dogList", dogList);
 						pageContext.setAttribute("aniList", aniList);
-					%>
-					
+						%>
+
 
 						<!-- 고양이 kitty -->
 						<div class="tab-pane fade show active" id="kittylist"
@@ -378,23 +427,23 @@ a{
 								<c:choose>
 									<c:when test="${empty catList }">
 										<p style="text-align: center; color: black;">현재 회원님의 동네에
-									동물 친구들이 없습니다.</p>
+											동물 친구들이 없습니다.</p>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="cat" items="${catList}">
-										<c:set var='aNick' value='${cat.nick}' scope='request'/>
-										
-										<div class="col-7 p-3  g-2">
-											<button type="button"
-												class="btn rounded-pill btn-outline-default "
-												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
-												${cat.kind}
-											</button>
-											<p style="text-align: left; color: black;">
-												${cat.animalName}<br> ${cat.animalAge}살<br>
-												<%
-													String ani_nick = (String)request.getAttribute("aNick");
+											<c:set var='aNick' value='${cat.nick}' scope='request' />
+
+											<div class="col-7 p-3  g-2">
+												<button type="button"
+													class="btn rounded-pill btn-outline-default "
+													style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+													<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+													${cat.kind}
+												</button>
+												<p style="text-align: left; color: black;">
+													${cat.animalName}<br> ${cat.animalAge}살<br>
+													<%
+													String ani_nick = (String) request.getAttribute("aNick");
 													System.out.println(ani_nick);
 													MemberDTO mm = mdao.memberInfo(ani_nick);
 													pageContext.setAttribute("mm", mm);
@@ -403,25 +452,28 @@ a{
 													String group = null;
 													int age = Integer.parseInt(year);
 													System.out.println(age);
-													if(age <= 2023 && age > 1984){
+													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
-													}else if(age <= 1983 && age > 1964){
+													} else if (age <= 1983 && age > 1964) {
 														group = "40~50대";
-													}else{
+													} else {
 														group = "10대";
 													}
-												%>
-												${mm.address}<br> ${mm.sex}, <%=group %><br>
-												
-											</p>
-										</div>	
-										<div class="col-5 g-4 ">
-										<!-- 사진 클릭시 피드로 이동 -->
-											<a href="otherpage.jsp?nick=${cat.nick}">
-												<img src="${cat.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
-										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-											</a>
-										</div>
+													%>
+													${mm.address}<br> ${mm.sex},
+													<%=group%><br>
+
+												</p>
+											</div>
+											<div class="col-5 g-4 ">
+												<!-- 사진 클릭시 피드로 이동 -->
+												<a href="otherpage.jsp?nick=${cat.nick}"> <img
+													src="${cat.animalPic}"
+													class="rounded-circle img-thumbnail feed img-fluid float-start"
+													style="width: auto; height: 80%;"
+													onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+												</a>
+											</div>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
@@ -434,23 +486,23 @@ a{
 								<c:choose>
 									<c:when test="${empty dogList }">
 										<p style="text-align: center; color: black;">현재 회원님의 동네에
-									동물 친구들이 없습니다.</p>
+											동물 친구들이 없습니다.</p>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="ani" items="${dogList}">
-										<c:set var='bNick' value='${dog.nick}' scope='request'/>
-										
-										<div class="col-7 p-3  g-2">
-											<button type="button"
-												class="btn rounded-pill btn-outline-default "
-												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
-												${dog.kind}
-											</button>
-											<p style="text-align: left; color: black;">
-												${dog.animalName}<br> ${dog.animalAge}살<br>
-												<%
-													String ani_nick = (String)request.getAttribute("bNick");
+											<c:set var='bNick' value='${dog.nick}' scope='request' />
+
+											<div class="col-7 p-3  g-2">
+												<button type="button"
+													class="btn rounded-pill btn-outline-default "
+													style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+													<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+													${dog.kind}
+												</button>
+												<p style="text-align: left; color: black;">
+													${dog.animalName}<br> ${dog.animalAge}살<br>
+													<%
+													String ani_nick = (String) request.getAttribute("bNick");
 													System.out.println(ani_nick);
 													MemberDTO mm = mdao.memberInfo(ani_nick);
 													pageContext.setAttribute("mm", mm);
@@ -459,25 +511,28 @@ a{
 													String group = null;
 													int age = Integer.parseInt(year);
 													System.out.println(age);
-													if(age <= 2023 && age > 1984){
+													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
-													}else if(age <= 1983 && age > 1964){
+													} else if (age <= 1983 && age > 1964) {
 														group = "40~50대";
-													}else{
+													} else {
 														group = "10대";
 													}
-												%>
-												${mm.address}<br> ${mm.sex}, <%=group %><br>
-												
-											</p>
-										</div>	
-										<div class="col-5 g-4 ">
-										<!-- 사진 클릭시 피드로 이동 -->
-											<a href="otherpage.jsp?nick=${dog.nick}">
-												<img src="${dog.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
-										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-											</a>
-										</div>
+													%>
+													${mm.address}<br> ${mm.sex},
+													<%=group%><br>
+
+												</p>
+											</div>
+											<div class="col-5 g-4 ">
+												<!-- 사진 클릭시 피드로 이동 -->
+												<a href="otherpage.jsp?nick=${dog.nick}"> <img
+													src="${dog.animalPic}"
+													class="rounded-circle img-thumbnail feed img-fluid float-start"
+													style="width: auto; height: 80%;"
+													onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+												</a>
+											</div>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
@@ -496,23 +551,23 @@ a{
 								<c:choose>
 									<c:when test="${empty aniList }">
 										<p style="text-align: center; color: black;">현재 회원님의 동네에
-									동물 친구들이 없습니다.</p>
+											동물 친구들이 없습니다.</p>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="ani" items="${aniList}">
-										<c:set var='cNick' value='${ani.nick}' scope='request'/>
-										
-										<div class="col-7 p-3  g-2">
-											<button type="button"
-												class="btn rounded-pill btn-outline-default "
-												style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
-												<i class="fas fa-star pr-2" aria-hidden="true">  </i>
-												${ani.kind}
-											</button>
-											<p style="text-align: left; color: black;">
-												${ani.animalName}<br> ${ani.animalAge}살<br>
-												<%
-													String ani_nick = (String)request.getAttribute("cNick");
+											<c:set var='cNick' value='${ani.nick}' scope='request' />
+
+											<div class="col-7 p-3  g-2">
+												<button type="button"
+													class="btn rounded-pill btn-outline-default "
+													style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
+													<i class="fas fa-star pr-2" aria-hidden="true"> </i>
+													${ani.kind}
+												</button>
+												<p style="text-align: left; color: black;">
+													${ani.animalName}<br> ${ani.animalAge}살<br>
+													<%
+													String ani_nick = (String) request.getAttribute("cNick");
 													System.out.println(ani_nick);
 													MemberDTO mm = mdao.memberInfo(ani_nick);
 													pageContext.setAttribute("mm", mm);
@@ -521,25 +576,28 @@ a{
 													String group = null;
 													int age = Integer.parseInt(year);
 													System.out.println(age);
-													if(age <= 2023 && age > 1984){
+													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
-													}else if(age <= 1983 && age > 1964){
+													} else if (age <= 1983 && age > 1964) {
 														group = "40~50대";
-													}else{
+													} else {
 														group = "10대";
 													}
-												%>
-												${mm.address}<br> ${mm.sex}, <%=group %><br>
-												
-											</p>
-										</div>	
-										<div class="col-5 g-4 ">
-										<!-- 사진 클릭시 피드로 이동 -->
-											<a href="otherpage.jsp?nick=${ani.nick}">
-												<img src="${ani.animalPic}" class="rounded-circle img-thumbnail feed img-fluid float-start" style="width: auto; height: 80%;"
-										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-											</a>
-										</div>
+													%>
+													${mm.address}<br> ${mm.sex},
+													<%=group%><br>
+
+												</p>
+											</div>
+											<div class="col-5 g-4 ">
+												<!-- 사진 클릭시 피드로 이동 -->
+												<a href="otherpage.jsp?nick=${ani.nick}"> <img
+													src="${ani.animalPic}"
+													class="rounded-circle img-thumbnail feed img-fluid float-start"
+													style="width: auto; height: 80%;"
+													onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+												</a>
+											</div>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
@@ -586,7 +644,7 @@ a{
 	</div>
 
 	<script>
-	
+		
 	</script>
 
 
