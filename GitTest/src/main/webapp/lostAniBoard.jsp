@@ -67,7 +67,7 @@ pageContext.setAttribute("lostList", lostList);
 <style>
 /*------------------------------------이하 모달 창 관련 --------------------------------------------------------------*/
 #modal.modal-overlay {
-	width: 100%;
+	width: 100%; 
 	height: 100%;
 	position: absolute;
 	left: 0;
