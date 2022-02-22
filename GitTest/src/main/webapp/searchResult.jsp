@@ -297,7 +297,7 @@ body {
 	                    			<c:choose>
 	                    				<c:when test="${requestScope.temp==1}">
 	                    					<c:set var = 'temp' value = '2' scope = 'request'/>
-	                    					<div class="carousel-item active" style = 'height:600px;'>
+	                    					<div class="carousel-item active" style = 'max-height:600px;'>
 												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
 											</div>
 	                    				</c:when>
@@ -637,7 +637,8 @@ body {
 			});
 		};
 		
-		// 다음 3개 검색결과 불러오기
+		// 스크롤이 끝까지 내려오면 다음 3개의 피드 로드
+		
 		var num1 = 1;
 		var nick1 = "<c:out value='${nick}'/>";
 		var tag1 = "<c:out value='${tag}'/>";
@@ -645,16 +646,16 @@ body {
 		$(window).scroll(function() {
 			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
 				$.ajax({
-					url: "FeedSearchResultCountCon.do",
+					url: "FeedSearchReusltCountCon.do",
 					type: "post",
-					data: {nick: nick1 tag:tag1},
+					data: {tag: tag1},
 					dataType: 'json',
 					success: function(result) {
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
 							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("searchResultSub.jsp #reload",{nick: nick1,startNum: num1,tag: tag1});
+							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1,tag: tag1});
 						}
 					},
 					error : function(){

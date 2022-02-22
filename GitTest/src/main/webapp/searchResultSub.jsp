@@ -285,7 +285,7 @@ div {
 									<c:choose>
 										<c:when test="${requestScope.temp==1}">
 											<c:set var='temp' value='2' scope='request' />
-											<div class="carousel-item active" style='height: 600px;'>
+											<div class="carousel-item active" style='max-height: 600px;'>
 												<img src="${src}" style='max-width: 100%; max-height: 100%;'
 													class="d-block w-100 img-fluid" alt="...">
 											</div>
