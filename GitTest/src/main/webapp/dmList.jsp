@@ -315,9 +315,6 @@ a {
 	margin: auto;
 }
 
-img {
-	max-width: 100%;
-}
 
 /* .inbox_people {
 	background: #f8f8f8 none repeat scroll 0 0;
@@ -518,8 +515,11 @@ img {
 	overflow-y: auto;
 }
  */
-.Vmore {
-	margin-left: 1030px
+
+img{
+height: 70px;
+width: 70px;
+
 }
 </style>
 </head>
@@ -548,7 +548,7 @@ img {
 	%>
 
 	<!-- 키티퍼피 로고 -->
-	<div class="container out b">
+	<div class="container out ">
 		<div class="row mt-2 text-center">
 			<div class="mb-4">
 				<i class="bi bi-exclamation-octagon-fill hidden"></i>
@@ -569,51 +569,37 @@ img {
 	</div>
 
 	<!-- 리스트 -->
-	<div class="container out b">
-
-
+	<div class="container out ">
 					<% for (int i = 0; i < list.size(); i++) {
-						
 						String fnick = (String) request.getAttribute("fnick");
 	                	MemberDTO fm = mdao.memberInfo(fnick);
 	                	pageContext.setAttribute("fm", fm);
-
 					%>
+					
 					<a href="dmShow.jsp?receivenick=<%=list.get(i)%>">
-						<div class=" chat_people b">
+						<div class=" chat_people ">
 							<%if (mdao.memberInfo(list.get(i)).getPicAddress() == null) {%>
-							<div class="chat_img">
-								<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" alt="sunil" />
+							<div class="chat_img ">
+								<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" alt="sunil" class = "rounded-circle img-thumbnail img-fluid float-start"/>
 							</div>
 							<%} else {%>
 							<div class="chat_img">
-								<img src="<%=mdao.memberInfo(list.get(i)).getPicAddress()%>" alt="sunil" />
+								<img src="<%=mdao.memberInfo(list.get(i)).getPicAddress()%>" alt="sunil" class = "rounded-circle "/>
 							</div>
 							<%}%>
 
-							<div class="chat_ib">
+							<div class="chat_ib people ">
 								<%
 								out.print(list.get(i));
-								out.print("<p>" + dao.latestDM(sendnick, list.get(i)).getContent() + "</p>");
-
-								out.print("<p>" + dao.latestDM(sendnick, list.get(i)).getSendDate() + "</p>");
-								%>
+								out.print("<p>" + dao.latestDM(sendnick, list.get(i)).getContent() + "</p>"); %>
+								<p> <%=dao.latestDM(sendnick, list.get(i)).getSendDate()%>  
+								<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
+                           <i class="bi bi-trash icon" style='font-size: 15px;'></i>
+						</button>
+								</p>
 							</div>
 					</a>
-					<div class="row-3 Vmore b">
-						<button onclick="DMDeleteAll('<%=sendnick%>','<%=list.get(i)%>')">
-
-							<svg id="i-ellipsis-horizontal"
-								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-								width="32" height="32" fill="none" stroke="currentcolor"
-								stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    							<circle cx="7" cy="16" r="2" />
-   								 <circle cx="16" cy="16" r="2" />
-   								 <circle cx="25" cy="16" r="2" />
-								</svg>
-
-						</button>
-					</div>
+					
 				</div>
 
 				<%}%>

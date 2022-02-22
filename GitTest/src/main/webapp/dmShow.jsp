@@ -274,6 +274,13 @@ h1 {
 text-decoration-line: none;
     color: #000000;
 }
+img{
+ height: 70px;
+ width: 70px;
+ 
+}
+
+
 </style>
 </head>
 <body>
@@ -299,7 +306,7 @@ text-decoration-line: none;
 	<!-- 키티퍼피 로고 -->
 
 	<div class="row mt-5 text-center">
-		<div class="mb-4">
+		<div class="mb-4 b">
 			<a href="dmList.jsp"><i class="bi bi-chevron-left"></i></a>
 			<h1 class="text-center">KittyPuppy</h1>
 			<a href="lostAniReport.html"><i class="bi bi-exclamation-octagon-fill report"></i></a>
@@ -334,13 +341,17 @@ text-decoration-line: none;
 				<%if (DMlist.get(i).getSendNick().equals(sendnick)) { %>
 				<div class="lcoco-content-box b">
 					
-					<div class="d-flex justify-content-end mb-4 ">
+					<div class="d-flex justify-content-end mb-4 sksk b">
 						<!-- 삭제 -->
-					<div>
-					<button  onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)">
-					<i class="bi bi-trash" style='font-size: 15px;'></i>
-						</button>
-				</div>
+				 <table>
+				 <tr>
+                     <td style = "vertical-align:bottom;">
+                        <button  onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)" style="border:none; background-color: white;">
+                           <i class="bi bi-trash" style='font-size: 15px; '></i>
+                        </button>
+                     </td>
+                  </tr>
+               </table>
 						<!--send말풍선 -->
 						<div id="sdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_04  ">
 							<%=DMlist.get(i).getContent()%>
@@ -370,8 +381,8 @@ text-decoration-line: none;
 							<input type="text" class="form-control" id="m" autocomplete="off" />
 							<div class="input-group-append">
 								<button id="msg-send" class="btn btn"
-									placeholder="message" ">
-								<i style="font-size: 3ch;" class="bi bi-send"></i>
+									placeholder="message">
+								<i style="font-size: 3ch;" class="bi bi-send" ></i>
 									</button>
 							</div>
 						</div>
@@ -402,25 +413,35 @@ text-decoration-line: none;
 					});
 				};
 
-				$('#msg-send').on('click', function() {
-					$.ajax({
-						url : 'DMSendCon.do', // 서버에 전달할 파일명
-						type : 'post',
-						data : {
-							sendNick : '${sendnick}', // 전송할 파라미터 1
-							receiveNick : '${receivenick}', // 전송할 파라미터 1
-							content : $('#m').val()
-						},
-						success : function() {
-							
-							location.reload();
-							console.log('저장성공'); // 성공시 코드
-						},
-						error : function() {
-							alert("저장실패");
-						}
-					});
-				});
+				 $(document).ready(function() {
+			            $("#m").keydown(function(key) {
+			                if (key.keyCode == 13) {
+			              $("#msg-send").click();
+			                }
+			            });
+				 
+				 $('#msg-send').on('click', function() {
+						$.ajax({
+							url : 'DMSendCon.do', // 서버에 전달할 파일명
+							type : 'post',
+							data : {
+								sendNick : '${sendnick}', // 전송할 파라미터 1
+								receiveNick : '${receivenick}', // 전송할 파라미터 1
+								content : $('#m').val()
+							},
+							success : function() {
+								
+								location.reload();
+								console.log('저장성공'); // 성공시 코드
+							},
+							error : function() {
+								alert("저장실패");
+							}
+						});
+					}); 
+				 
+			     });
 			</script>
+			
 </body>
 </html>
