@@ -328,7 +328,7 @@ a {
 							console.log(address);
 							var nickList = $("#nickList").html();
 							
-							var size = $("#size").html();
+							//var size = $("#size").html();
 							
 							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 							mapOption = {
@@ -377,7 +377,7 @@ a {
 													// 인포윈도우로 장소에 대한 설명을 표시합니다
 													var infowindow = new kakao.maps.InfoWindow(
 															{
-																content : '<div style="width:150px;text-align:center;padding:6px 0;">'+address+', '+size+'</div>' //member.address + 같은동 친구 수 
+																content : '<div style="width:150px;text-align:center;padding:6px 0;">'+address+'</div>' //member.address + 같은동 친구 수 
 															});
 													infowindow
 															.open(map, marker);
