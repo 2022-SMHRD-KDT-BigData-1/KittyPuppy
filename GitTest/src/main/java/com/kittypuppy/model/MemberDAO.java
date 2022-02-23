@@ -319,7 +319,4 @@ public class MemberDAO {
 
 		
 
-		
-
-
 }

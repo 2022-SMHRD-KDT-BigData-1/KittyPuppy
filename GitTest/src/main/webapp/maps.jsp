@@ -237,7 +237,7 @@ a {
 	String address = member.getAddress();
 	MemberDAO mdao = new MemberDAO();
 	AnimalDAO dao = new AnimalDAO();
-
+	
 	// memberDAO 메소드를 통해 현재 로그인한 회원의 주소와 동일한 주소를 가진 회원들의 닉네임리스트 불러오기 
 	ArrayList<String> nickList = mdao.memberFindAddr(address);
 	if (nickList == null) {
@@ -245,9 +245,41 @@ a {
 	}
 
 	pageContext.setAttribute("nickList", nickList);
+	
+	ArrayList<AnimalDTO> catList = new ArrayList<AnimalDTO>();
+	ArrayList<AnimalDTO> dogList = new ArrayList<AnimalDTO>();
+	ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
+	AnimalDTO animal = null;
+	for (int i = 0; i < nickList.size(); i++) {
+		String nick = nickList.get(i);
+		String upKind1 = "고양이";
+		String upKind2 = "개";
+		String upKind3 = "동물";
+
+		animal = dao.aniShow(nick, upKind1);
+		if (animal != null) {
+			catList.add(animal);
+		}
+
+		animal = dao.aniShow(nick, upKind2);
+		if (animal != null) {
+			dogList.add(animal);
+		}
+
+		animal = dao.aniShow(nick, upKind3);
+		if (animal != null) {
+			aniList.add(animal);
+		}
+	}
+	int size = catList.size() + dogList.size() + aniList.size();
+	pageContext.setAttribute("catList", catList);
+	pageContext.setAttribute("dogList", dogList);
+	pageContext.setAttribute("aniList", aniList);
+	
 	%>
 
-
+	<p id = 'addr' style= "display:none;"><%= address %></p>
+	<p id = 'size' style= "display:none;"><%= size %></p>
 	<div class="container">
 		<div class='row'>
 			<div class='ls navbar header-logo'>
@@ -270,7 +302,7 @@ a {
 			</div>
 
 		</div>
-
+		
 		<!-- 지도 -->
 		<div class="row">
 
@@ -292,6 +324,12 @@ a {
 						<div id="clickLatlng"></div>
 
 						<script>
+							var address = $("#addr").html();
+							console.log(address);
+							var nickList = $("#nickList").html();
+							
+							var size = $("#size").html();
+							
 							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 							mapOption = {
 								center : new kakao.maps.LatLng(33.450701,
@@ -310,7 +348,7 @@ a {
 							// 주소로 좌표를 검색합니다
 							geocoder
 									.addressSearch(
-											'광주광역시 동구 충장동',
+											address,
 											function(result, status) { //member.address
 
 												// 정상적으로 검색이 완료됐으면 
@@ -339,7 +377,7 @@ a {
 													// 인포윈도우로 장소에 대한 설명을 표시합니다
 													var infowindow = new kakao.maps.InfoWindow(
 															{
-																content : '<div style="width:150px;text-align:center;padding:6px 0;">충장동</div>' //member.address + 같은동 친구 수 
+																content : '<div style="width:150px;text-align:center;padding:6px 0;">'+address+', '+size+'</div>' //member.address + 같은동 친구 수 
 															});
 													infowindow
 															.open(map, marker);
@@ -383,36 +421,7 @@ a {
 					style="max-height: 360px; max-width: 100%;">
 
 					<div class="tab-content" id="myTabContent">
-						<%
-						ArrayList<AnimalDTO> catList = new ArrayList<AnimalDTO>();
-						ArrayList<AnimalDTO> dogList = new ArrayList<AnimalDTO>();
-						ArrayList<AnimalDTO> aniList = new ArrayList<AnimalDTO>();
-						AnimalDTO animal = null;
-						for (int i = 0; i < nickList.size(); i++) {
-							String nick = nickList.get(i);
-							String upKind1 = "고양이";
-							String upKind2 = "개";
-							String upKind3 = "동물";
-
-							animal = dao.aniShow(nick, upKind1);
-							if (animal != null) {
-								catList.add(animal);
-							}
-
-							animal = dao.aniShow(nick, upKind2);
-							if (animal != null) {
-								dogList.add(animal);
-							}
-
-							animal = dao.aniShow(nick, upKind3);
-							if (animal != null) {
-								aniList.add(animal);
-							}
-						}
-						pageContext.setAttribute("catList", catList);
-						pageContext.setAttribute("dogList", dogList);
-						pageContext.setAttribute("aniList", aniList);
-						%>
+						
 
 
 						<!-- 고양이 kitty -->
