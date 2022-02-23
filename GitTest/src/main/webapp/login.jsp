@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebKittyPuppy</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -21,85 +22,27 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-
-<title>WebKittyPuppy</title>
-
-
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 <script src="js/bootstrap.min.js"></script>
-
-<style>
-body {
-	background-color: #ffffff;
-	display: flex;
-	padding: 15px;
-	margin: auto;
-}
-
-.container {
-	text-align: center;
-	width: 80%;
-	max-width: 1200px;
-	min-width: 300px;
-	padding: 15px;
-	margin: auto;
-	display: auto;
-}
-
-.container h1 {
-	text-align: center;
-	font-size: 60px;
-	color: #25aa90;
-	font-family: 'Dancing Script', cursive;
-}
-
-.container .btn {
-	background-color: #25aa90;
-	color: #fff;
-}
-
-html, body {
-	height: 100%;
-}
-
-.b {
-	border: solid 1px violet;
-	width: 300px;
-}
-
-.row {
-	align-items: center;
-}
-
-.col-sm-6 {
-	width: 400px;
-}
-
-
-
-#logo {
-	margin-top: 40px;
-	margin-bottom: 40px;
-}
-</style>
-
 </head>
 
 <body>
 
-
-
 	<div class="container">
 
 		<div class="row justify-content-center">
-		
-				<!--모바일 크기에는 사진 없어짐 d-none d-sm-block d-sm-none d-md-block -->
-			<div class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block d-grid gap-sm-1 col-sm-6 ">
-			
+
+			<!--모바일 크기에는 사진 없어짐 d-none d-sm-block d-sm-none d-md-block -->
+			<div
+				class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block d-grid gap-sm-1 col-sm-6 ">
+
 				<img class="img-fluid"
 					src="http://www.animaltogether.com/news/photo/202012/3614_7974_1835.jpg"
 					alt="IMG">
@@ -111,28 +54,25 @@ html, body {
 					<div>
 						<div class="d-grid gap-2 col-12">
 							<h1 id="logo">KittyPuppy</h1>
-							<input type="text" name="id" class="form-control" placeholder="이메일">
-							<input type="password" name="pw" class="form-control"
-								placeholder="비밀번호"> 
-							<a href="findPw.jsp" class="text-end my-2" >비밀번호를 잊으셨나요?</a>
+							<input type="text" name="id" class="form-control"
+								placeholder="이메일"> <input type="password" name="pw"
+								class="form-control" placeholder="비밀번호"> <a
+								href="findPw.jsp" class="text-end my-2">비밀번호를 잊으셨나요?</a>
 						</div>
 
 						<div class="d-grid gap-2 col-12 mx-auto">
 							<button type="submit" class="btn"
 								style="background-color: #25aa90;">로그인</button>
-							<button type="button" class="btn" onclick="location.href='join.jsp'"
+							<button type="button" class="btn"
+								onclick="location.href='join.jsp'"
 								style="background-color: #25aa8f7e;">회원가입</button>
-								
-								
+
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-
 	</div>
-
-
 
 </body>
 

@@ -119,6 +119,8 @@ body {
 	width: 400px;
 	margin: auto;
 	margin-top: 15px;
+	padding-left: 12px;
+	padding-right: 12px;
 	display: block;
 }
 
@@ -128,7 +130,9 @@ body {
 		width: 800px;
 		margin: auto;
 		margin-top: 15px;
+		padding-left: 12px;
 		display: block;
+		padding-right: 12px;
 	}
 	.placeInput {
 		flex: 1 1 auto;
