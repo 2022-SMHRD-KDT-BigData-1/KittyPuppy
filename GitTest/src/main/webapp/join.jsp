@@ -38,7 +38,7 @@ body {
 	display: flex;
 }
 span{
-	display: none;
+	display: none ;
 }
 
 
