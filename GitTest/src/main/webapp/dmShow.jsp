@@ -518,7 +518,15 @@ img {
 							});
 						}
 					});	
-					 
+					
+					/* null 처리 */
+				/* 	unction formSubmit() {
+					 if(document.getElementById("#m").value == "" ) {
+  					alert('내용을 작성해 주세요');
+ 					 return;
+ 					}
+ 					document.f1.submit();
+						} */
 	</script>
 
 </body>

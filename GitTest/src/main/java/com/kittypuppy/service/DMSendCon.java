@@ -20,9 +20,14 @@ public class DMSendCon implements iCommand {
 		String sendNick = request.getParameter("sendNick");
 		String receiveNick = request.getParameter("receiveNick");
 		String content = request.getParameter("content");
+		int cnt = 0;
+		if(content.equals("")) {
 		
-		int cnt = dao.DMSend(new DMDTO(0, sendNick, receiveNick, content, null));
-
+		}else {
+		cnt = dao.DMSend(new DMDTO(0, sendNick, receiveNick, content, null));
+		
+		}
+		
 		if (cnt > 0) {
 			System.out.println("¼º°ø");
 			
