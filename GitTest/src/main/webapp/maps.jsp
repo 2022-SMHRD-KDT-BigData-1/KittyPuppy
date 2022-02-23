@@ -313,8 +313,7 @@ a {
 					<!-- 지도를 표시할 div 입니다 -->
 
 					<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
+					
 
 					
 						<div id="map" style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
@@ -332,39 +331,28 @@ a {
 							
 							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 							mapOption = {
-								center : new kakao.maps.LatLng(33.450701,
-										126.570667), // 지도의 중심좌표
+								center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 								level : 3
 							// 지도의 확대 레벨
 							};
 
 							// 지도를 생성합니다    
-							var map = new kakao.maps.Map(mapContainer,
-									mapOption);
+							var map = new kakao.maps.Map(mapContainer, mapOption);
 
 							// 주소-좌표 변환 객체를 생성합니다
 							var geocoder = new kakao.maps.services.Geocoder();
 
 							// 주소로 좌표를 검색합니다
-							geocoder
-									.addressSearch(
-											address,
-											function(result, status) { //member.address
+							geocoder.addressSearch(	address, function(result, status) { //member.address
 
 												// 정상적으로 검색이 완료됐으면 
 												if (status === kakao.maps.services.Status.OK) {
 
-													var coords = new kakao.maps.LatLng(
-															result[0].y,
-															result[0].x);
-													var message = 'latlng: new kakao.maps.<br>LatLng('
-															+ result[0].y
-															+ ', ';
-													message += result[0].x
-															+ ')';
+													var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+													var message = 'latlng: new kakao.maps.<br>LatLng('+ result[0].y	+ ', ';
+													message += result[0].x + ')';
 
-													var resultDiv = document
-															.getElementById('clickLatlng');
+													var resultDiv = document.getElementById('clickLatlng');
 													resultDiv.innerHTML = message;
 
 													// 결과값으로 받은 위치를 마커로 표시합니다
@@ -379,8 +367,7 @@ a {
 															{
 																content : '<div style="width:150px;text-align:center;padding:6px 0;">'+address+'</div>' //member.address + 같은동 친구 수 
 															});
-													infowindow
-															.open(map, marker);
+													infowindow.open(map, marker);
 
 													// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 													map.setCenter(coords);
@@ -626,7 +613,8 @@ a {
 	</div>
 
 
-
+<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
 
 
 	<!-- 밑에 script src 있어야 탭 적용 가능 -->
