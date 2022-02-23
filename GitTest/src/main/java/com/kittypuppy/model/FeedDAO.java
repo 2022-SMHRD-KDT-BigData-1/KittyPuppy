@@ -201,6 +201,31 @@ public class FeedDAO {
 		}
 		return feedList;
 	}
+	
+	// 특정 회원의 피드 3개씩 보여주기
+	public  ArrayList<FeedDTO> feedSelectLimit3(String nick, int startNum, int endNum) {
+		
+		ArrayList<FeedDTO> feedList = new ArrayList<FeedDTO>();
+		FeedDTO feed = null;
+		connect();
+		try {
+			String sql = "select * from (select ROW_NUMBER() OVER(ORDER BY feedno desc) as rnum, feedno,nick,picaddress,content,tag,feeddate,feedupdate,openrange from feed where nick = ? order by feedno desc) where rnum >= ? and rnum <= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			psmt.setInt(2,startNum);
+			psmt.setInt(3,endNum);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				feed = new FeedDTO(rs.getInt("feedno"),rs.getString("nick"),rs.getString("picaddress"),rs.getString("content"),rs.getString("tag"),rs.getString("feeddate"),rs.getString("feedupdate"),rs.getInt("openrange"));
+				feedList.add(feed);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return feedList;
+	}
 
 	public int feedUpdate(FeedDTO feed) {
 		

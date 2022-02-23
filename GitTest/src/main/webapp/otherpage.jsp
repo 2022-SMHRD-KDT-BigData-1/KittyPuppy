@@ -87,9 +87,10 @@
    		MemberDAO dao = new MemberDAO();
      	MemberDTO otherMember = dao.memberInfo(otherNick);
      	pageContext.setAttribute("otherMember", otherMember);
-       		
+       	int startNum = 1;
+       	int endNum = startNum+2;
    		FeedDAO feed = new FeedDAO();
-   		ArrayList<FeedDTO> feedList = feed.feedSelect(otherNick);
+   		ArrayList<FeedDTO> feedList = feed.feedSelectLimit3(otherNick, startNum, endNum);
    		
    		// 현재 로그인중인 회원
    		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -211,7 +212,6 @@
         <hr>
 
     </div>
-    
     <div class="tab-content">
     	<!-- 스토리 : 내 피드 -->
              
@@ -228,7 +228,7 @@
 										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 								<div align="left">
 									<strong>${feed.nick}</strong><br />
-									${feed.feedDate}
+									${fn:substring(feed.feedDate,0,10)}
 								</div>
 							</div>
 							<!-- 첨부된 사진-->
@@ -778,20 +778,21 @@
 		
 		var num1 = 1;
 		var nick1 = "<c:out value='${nick}'/>";
+		var nick2 = "<c:out value='${otherNick}'/>";
 		
 		$(window).scroll(function() {
 			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
 				$.ajax({
-					url: "FeedCountCon.do",
+					url: "OtherpageCountCon.do",
 					type: "post",
-					data: {nick: nick1},
+					data: {otherNick: nick2},
 					dataType: 'json',
 					success: function(result) {
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
-							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
+							$(".tab-content").append("<div id = 'load"+num1+"''></div>");
+							$("#load"+num1).load("otherpageSub.jsp #reload",{nick: nick1, otherNick: nick2, startNum: num1});
 						}
 					},
 					error : function(){
