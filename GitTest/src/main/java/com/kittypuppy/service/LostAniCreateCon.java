@@ -11,46 +11,64 @@ import javax.servlet.http.HttpSession;
 import com.kittypuppy.model.LostAniDAO;
 import com.kittypuppy.model.LostAniDTO;
 import com.kittypuppy.model.MemberDTO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class LostAniCreateCon implements iCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// post 방식으로 입력값 넘겨 받음.
-		request.setCharacterEncoding("utf-8");
-		String laType = request.getParameter("laType");
-		String aniName = request.getParameter("aniName");
-		String aniPic = request.getParameter("aniPic");
-		String upKind = request.getParameter("upKind");
-		String kind = request.getParameter("kind");
-		String sex = request.getParameter("sex");
-		String color = request.getParameter("color");
-		String aniSize = request.getParameter("aniSize");
-		String isTag = request.getParameter("isTag");
-		String feature = request.getParameter("feature");
-		String place = request.getParameter("place");
+		// 저장 경로 지정
+		String saveDir = "C:/Users/smhrd/git/KittyPuppy/GitTest/src/main/webapp/assets/img";
 
-		// 세션에서 로그인한 사용자 nick 가져오려고 선언
+		// 파일 저장
+		MultipartRequest multi = new MultipartRequest(request, saveDir, 10 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
+
+		// DB 저장 을 위한 값 받아오기
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		String nick = member.getNick();
 		
-		// dto에 맞는 순서로 값을 배치
-		LostAniDAO dao = new LostAniDAO();
-		int cnt = dao.lostAniCreate(new LostAniDTO(0, laType, member.getNick(), aniName, aniPic, upKind, kind, sex,
-				color, aniSize, isTag, feature, place, null, null));
+		String laType = multi.getParameter("laType");
+		String aniName = multi.getParameter("aniName");
+		String upkind = multi.getParameter("upkind");
+		String kind = multi.getParameter("kind");
+		String color = multi.getParameter("color");
+		String laSize = multi.getParameter("laSize");
+		String isTag = multi.getParameter("isTag");
+		String sex = multi.getParameter("sex");
+		String feature = multi.getParameter("feature");
+		String place = multi.getParameter("place");
+		String picAddress ="./assets/img/"+multi.getFilesystemName("picAddress");
 
-		if (cnt > 0) {
+		System.out.println(laType);
+		System.out.println(aniName);
+		System.out.println(upkind);
+		System.out.println(kind);
+		System.out.println(color);
+		System.out.println(laSize);
+		System.out.println(isTag);
+		System.out.println(sex);
+		System.out.println(feature);
+		System.out.println(place);
+		System.out.println(picAddress);
+		System.out.println(nick);
+		// DB 저장
+		LostAniDAO ldao = new LostAniDAO();
+		int result = ldao.lostAniCreate(new LostAniDTO(0,  laType,  nick,  aniName,  picAddress,  upkind, kind,  sex,  color,  laSize,  isTag,  feature,place, null, null));
+
+		// DB 저장 여부 체크
+		if (result > 0) {
 			response.sendRedirect("lostAniBoard.jsp");
 		} else {
-			response.setContentType("text/html; charset=utf-8");
+			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
-			out.print("alert('게시글 작성 실패');");
-			out.print("location.href='lostAniBoard.jsp';");
+			out.print("alert('정상적으롤 제보하지 못했습니다.');");
+			out.print("location.href = 'lostAniReport.html';");
 			out.print("</script>");
 		}
-
 	}
 
 }

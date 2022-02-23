@@ -40,7 +40,7 @@
 
 <body>
 	<div class="report-container b">
-		<form action="LostAniCreateCon.do" method="post">
+		<form action="LostAniCreateCon.do" method="post" enctype="multipart/form-data">
 			<!-- header 박스 -->
 			<header class="container-head b">
 				<div class="item back b">
@@ -92,7 +92,7 @@
 			<section class="container-section2 b">
 				<div class="item2">
 					<textarea class="form-control item2"
-						id="exampleFormControlTextarea1" rows="5" placeholder="특징 및 내용 "></textarea>
+						id="exampleFormControlTextarea1" rows="5" placeholder="특징 및 내용 " name ="feature"></textarea>
 				</div>
 				<div class="placeInvolved">
 					<input type="text" name="place" id="input_place"
@@ -105,12 +105,11 @@
 
 			<!-- 사진 등록 버튼 : 3개까지 한 줄..-->
 			<div class='row'>
-
-				<div class='col-4 g-4 mb-3'>
-					<label for="formFileMultiple" class="form-label file">사진 추가</label>
-					<input class="form-control file" type="file" id="formFileMultiple"
-						multiple>
-				</div>
+				<div class = 'col-4 g-4 mb-3' align = 'center'>
+					<label class="btn-default input" >
+		       			<i class="bi bi-plus-square" id = "reg"> <input name = 'picAddress' type="file" hidden></i>
+		   			</label>
+           		</div>
 			</div>
 		</form>
 	</div>

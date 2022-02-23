@@ -124,6 +124,16 @@ body {
 	display: block;
 }
 
+.input {
+		background-color: #ffffff;
+		color : #25aa90;
+		font-size : 45px;
+}
+
+#reg{
+	font-size:45px;
+}
+
 @media ( min-width : 800px) {
 	/* 바깥 컨테이너 설정 */
 	.report-container {
@@ -138,6 +148,15 @@ body {
 		flex: 1 1 auto;
 		width: 680px;
 	}
+	
+	 .input {
+        	font-size : 100px;
+     }
+     
+     #reg{
+		font-size: 100px;
+	}
+     
 }
 
 .remove {
@@ -167,6 +186,7 @@ body {
 .file {
 	margin: 5px;
 }
+
 
 /* .b {
 	border: solid 1px violet;
