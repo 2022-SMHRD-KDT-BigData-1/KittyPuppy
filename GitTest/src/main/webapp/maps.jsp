@@ -315,7 +315,7 @@ a {
 					<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 					
 					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=04190b979a6d181ca1953e1db631e885&libraries=services,clusterer,drawing"></script>
 					
 						<div id="map" style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 

@@ -22,9 +22,7 @@
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
@@ -105,7 +103,7 @@ html, body {
 						<!-- <option>성별</option> 자세히 알아보기-->
 						<option>남자</option>
 						<option>여자</option>
-					</select> <input type="date" class="form-control" placeholder="생년월일"
+					</select> <input type="date" class="form-control" placeholder="생년월일" value="생년월일"
 						name="birth"> <input type="text" class="form-control"
 						placeholder="주소:서울특별시 강남구 개포동까지 입력" name="address"
 						style="font-size: 15px"> <input type="text"
