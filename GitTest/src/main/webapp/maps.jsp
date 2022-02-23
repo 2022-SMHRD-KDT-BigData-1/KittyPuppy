@@ -314,7 +314,8 @@ a {
 
 					<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 					
-
+					<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
 					
 						<div id="map" style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 
@@ -613,8 +614,7 @@ a {
 	</div>
 
 
-<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec635f5912f221b0179ac8521e7d1882&libraries=services,clusterer,drawing"></script>
+
 
 
 	<!-- 밑에 script src 있어야 탭 적용 가능 -->

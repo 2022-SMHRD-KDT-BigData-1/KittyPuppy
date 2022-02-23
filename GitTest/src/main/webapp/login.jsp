@@ -45,7 +45,7 @@
 				class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block d-grid gap-sm-1 col-sm-6 ">
 
 				<img class="img-fluid"
-					src="http://www.animaltogether.com/news/photo/202012/3614_7974_1835.jpg"
+					src="./assets/img/kittypuppyLoginImg.jpg"
 					alt="IMG">
 			</div>
 
