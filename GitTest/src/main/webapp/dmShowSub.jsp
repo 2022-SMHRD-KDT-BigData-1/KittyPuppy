@@ -208,19 +208,19 @@ h1 {
 	right: -15px;
 }
 
-.au {
+/* .au {
 	overflow: auto;
-}
+} */
 
-.msg_head {
+/* .msg_head {
 	position: relative;
 }
 
 .msg_card_body {
-	overflow-y: auto;
+	overflow-y: auto; */
 }
 
-.card-header {
+/* .card-header {
 	border-radius: 15px 15px 0 0 !important;
 	border-bottom: 0 !important;
 }
@@ -233,12 +233,10 @@ h1 {
 .img-thumbnail {
 	max-width: 70px;
 	max-height: 70px;
-}
+} */
 
-.b {
-	border: 1px solid gold;
-}
 
+/* 
 .box1 {
 	flex: 1;
 	width: 30%;
@@ -250,14 +248,14 @@ h1 {
 	margin: 0px 5%;
 	width: 30%;
 	box-sizing: border-box;
-}
+} */
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
-}
+} */
 
-.sdiv {
+/* .sdiv {
 	width: 50px;
 	height: 70px;
 	text-align: center;
@@ -278,7 +276,8 @@ a {
 img {
 	height: 70px;
 	width: 70px;
-}
+} */
+ 
 </style>
 </head>
 <body>
@@ -302,11 +301,9 @@ img {
 
 	System.out.print(receivenick);
 	%>
-
-		<div class="container overflow-scroll b"
-			style="max-height: 500px; max-width: 100%">
+<div class="container2">
 			<%
-			for (int i = 0; i < DMlist.size(); i++) {
+			for (int i = DMlist.size()-1; i >= 0 ; i--) {
 			%>
 			<%
 			if (DMlist.get(i).getSendNick().equals(sendnick)) {
@@ -315,7 +312,7 @@ img {
 
 				<div class="d-flex justify-content-end mb-4 sksk ">
 					<!-- 삭제 -->
-					<table>
+					<table class = "tb">
 						<tr>
 							<td style="vertical-align: bottom;">
 								<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)"
@@ -348,6 +345,7 @@ img {
 			}
 			%>
 			</div>
+
 
 </body>
 </html>

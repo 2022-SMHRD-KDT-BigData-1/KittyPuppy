@@ -18,16 +18,19 @@ public class DMCountCon implements iCommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		String sendNick = request.getParameter("sendNick");
-		String receiveNick = request.getParameter("receiveNick");
+		String sendnick = request.getParameter("sendnick");
+		String receivenick = request.getParameter("receivenick");
 		
 		DMDAO ddao = new DMDAO();
-    	
-		ArrayList<DMDTO> DMList = ddao.DMShow(sendNick, receiveNick);
+		System.out.println(sendnick);
+        System.out.println(receivenick);
+		ArrayList<DMDTO> DMList = ddao.DMShow(sendnick, receivenick);
       
         int result = DMList.size();
         
         PrintWriter out = response.getWriter();
+        System.out.println("test"+result);
+        
         out.print(result);
 	}
 
