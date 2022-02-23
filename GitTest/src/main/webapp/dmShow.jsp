@@ -5,6 +5,7 @@
 <%@page import="com.kittypuppy.model.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kittypuppy.model.DMDAO"%>
+<%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -208,6 +209,7 @@ h1 {
 	right: -15px;
 }
 
+
 .au {
 	overflow: auto;
 }
@@ -235,9 +237,9 @@ h1 {
 	max-height: 70px;
 }
 
-.b {
+/* .b {
 	border: 1px solid gold;
-}
+} */
 
 .box1 {
 	flex: 1;
@@ -252,10 +254,12 @@ h1 {
 	box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-}
+ .container1 {
+	overflow-y: scroll; 
+	max-height: 500px; max-width: 100%;
+	overflow-x: hidden
+
+} 
 
 .sdiv {
 	width: 50px;
@@ -304,7 +308,7 @@ img {
 	<!-- 키티퍼피 로고 -->
 
 	<div class="row mt-5 text-center">
-		<div class="mb-4 b">
+		<div class="mb-4 ">
 			<a href="dmList.jsp"><i class="bi bi-chevron-left"></i></a>
 			<h1 class="text-center">KittyPuppy</h1>
 			<a href="lostAniReport.html"><i
@@ -314,7 +318,7 @@ img {
 
 	<!-- 프로필 -->
 
-	<div class="container out ">
+	<div class="container out a">
 		<div class="row m-3 "
 			style="display: inline-block; vertical-align: top">
 			<!-- 프로필 사진 -->
@@ -338,8 +342,8 @@ img {
 		<div class="py-3"></div>
 		<!-- 말풍선 -->
 
-		<div class="container overflow-scroll b"
-			style="max-height: 500px; max-width: 100%">
+		<div class="container1"
+			style="height: 500px; width: 100% ">
 			<%
 			for (int i = DMlist.size()-1; i >= 0 ; i--) {
 			%>
@@ -350,7 +354,7 @@ img {
 
 				<div class="d-flex justify-content-end mb-4 sksk ">
 					<!-- 삭제 -->
-					<table>
+					<table class = "tb">
 						<tr>
 							<td style="vertical-align: bottom;">
 								<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)"
@@ -389,7 +393,7 @@ img {
 
 
 		
-		<div class="row mt-3 text-center b">
+		<div class="row mt-3 text-center ">
 			<div class="input-group mb-3">
 
 				<input type="text" class="form-control" id="m" autocomplete="off" />
@@ -447,6 +451,7 @@ img {
 							success : function() {
 								
 								location.reload();
+								
 								console.log('저장성공'); // 성공시 코드
 							},
 							error : function() {
@@ -456,6 +461,11 @@ img {
 					}); 
 				 
 			     });
+				/* 스크롤 밑으로 내리기 */
+				 $(document).ready(function() {
+				 const $messageTextBox = $('.container1');
+					$messageTextBox.scrollTop($messageTextBox[0].scrollHeight);
+				   });
 				 
 				 
 				 /* 스크롤 */
@@ -477,11 +487,15 @@ img {
 					
 					/* 스크롤 2 */			
 					var num1 = 1;
-						var nick1 = "<c:out value='${sendnick}'/>";	
-						var nick2 = "<c:out value='${receivenick}'/>";	
-					$(".container").scroll(function() {
-						console.log($(".container").scrollTop());
-						if(Math.round( $(".container").scrollTop()) == $(document).height() - $(".container").height()){
+						var num = 138;
+						var nick1 = "<c:out value= '${sendnick}'/>";	
+						var nick2 = "<c:out value= '${receivenick}'/>";	
+					$(".container1").scroll(function() {
+						 console.log($(".container1").scrollTop())
+						/*  console.log($(window).height())
+						console.log($(".container").height())   */
+														/* 수직위치 */
+						if(Math.round($(this).scrollTop()) == 0){
 							$.ajax({
 								url: "DMCountCon.do",
 								type: "post",
@@ -489,11 +503,13 @@ img {
 										receivenick: nick2 },
 								dataType: 'json',
 								success: function(result) {
+									console.log("numtest")
 									num1 += 10;
 									if(result >= num1){
 										console.log(num1);
-										$("body").prepend("<div class='lcoco-content-box' id = 'load"+num1+"''>" + "</div>");
-										$("#load"+num1).load("dmShowSub.jsp .container",{sendnick:nick1, receivenick: nick2,num1:num1});
+										$(".container1 ").prepend("<div id ='load"+num1+"''>" + "</div>");
+										$("#load"+num1).load("dmShowSub.jsp .container2",{sendnick:nick1, receivenick: nick2,num1:num1});
+										
 									}
 								},
 								error : function(){
