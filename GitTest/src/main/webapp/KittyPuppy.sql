@@ -33,7 +33,7 @@ SELECT * from lost_animal;
 SELECT * from lost_comment;
 SELECT * from lost_cocomment;
 select * from all_constraints where owner = 'CAMPUS_F_1_0115' and constraint_name like '%FK';
-
+select * from feed_scrap_view where snick = 'muinise'
 -- fk 이름을 넣으면 해당 fk로 묶여있는 테이블 이름을 알 수 있음 > 해당 테이블의 데이터를 삭제후 부모테이블의 내용 삭제
 SELECT CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME FROM USER_CONSTRAINTS
 WHERE CONSTRAINT_NAME = 'FEED_LIKE_FEEDNO_FK'
@@ -240,7 +240,7 @@ ALTER table lost_cocomment add constraint lcomment_lostno_fk foreign key(lostno)
 ALTER table lost_cocomment add constraint lcomment_nick_fk foreign key(nick) references member(nick) on delete cascade;
 
 CREATE view feed_scrap_view AS
-SELECT f.*, s.nick AS snick FROM feed f, scrap s
+SELECT f.*, s.nick AS snick, s.scrapdate FROM feed f, scrap s
 WHERE f.feedno = s.feedno;
  
 SELECT * from feed_scrap_view WHERE SNICK = 'bamtol';

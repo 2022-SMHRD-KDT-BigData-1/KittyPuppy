@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.FeedDAO;
 import com.kittypuppy.model.FeedDTO;
-import com.kittypuppy.model.FollowDAO;
+import com.kittypuppy.model.ScrapDAO;
 
 public class MypageCountCon implements iCommand{
 
@@ -19,19 +19,17 @@ public class MypageCountCon implements iCommand{
 		
 		request.setCharacterEncoding("utf-8");
 		String nick = request.getParameter("nick");
+		String type = request.getParameter("type");
 		
 		FeedDAO fdao = new FeedDAO();
-    	FollowDAO fwdao = new FollowDAO();
+		ScrapDAO sdao = new ScrapDAO();
     	
 		ArrayList<FeedDTO> feedList = null;
-    	ArrayList<String> followList = fwdao.followingShow(nick);
-    	
-        if (followList.size() == 0) {
-    		feedList = fdao.feedShowAll();
-    	} else {
-    		feedList = fdao.feedShow(followList);
-    	}
-        
+		if (type.equals("feed")) {
+			feedList = fdao.feedSelect(nick);
+		} else {
+			feedList = sdao.scrapShow(nick);
+		}
         int result = feedList.size();
         
         PrintWriter out = response.getWriter();
