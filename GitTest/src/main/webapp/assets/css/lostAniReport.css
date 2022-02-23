@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
+}
+/************ 이하 모달창  */
+#modal.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	z-index: 3;
+}
+
+#modal .modal-window {
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 400px;
+	height: 500px;
+	position: relative;
+	top: -100px;
+	padding: 10px;
+	z-index: 3;
+}
+
+.locationPage {
+	font-size: 30px;
+	color: #25aa90;
+	display: inline;
+}
+
+#map {
+	margin-top: 10px;
+	height: 330px;
+	width: 378px;
+}
+
+.mapDiv {
+	justify-content: center;
+	text-align: center;
+}
+
+#guide {
+	color: #25aa90;
+	margin: 10px;
+	text-align: center;
+}
+
+.custom-map-control-button {
+	border: 0;
+	font-size: 1rem;
+	font-weight: bold;
+	margin: 5px;
+	background-color: white;
+	color: gray;
+	padding: 10px;
+	border-radius: 2px;
+}
+
+/************ 이상 모달창 */
+.btn {
+	background-color: #25aa90;
+	color: #fff;
+	margin-right: 5px;
+}
+
+.back {
+	font-size: 25px;
+	margin-left: 5px;
+	margin-right: 40px;
+}
+
+.container-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.container-section1 {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+.item1 {
+	flex: 1 1 40%;
+	margin: 5px;
+	max-width: 50%;
+}
+
+.container-section2 {
+	justify-content: center;
+	align-content: flex-start;
+	align-items: flex-start;
+}
+
+.item2 {
+	width: 99%;
+	margin: 2px;
+}
+
+.report-container {
+	width: 400px;
+	margin: auto;
+	margin-top: 15px;
+	display: block;
+}
+
+@media ( min-width : 800px) {
+	/* 바깥 컨테이너 설정 */
+	.report-container {
+		width: 800px;
+		margin: auto;
+		margin-top: 15px;
+		display: block;
+	}
+	.placeInput {
+		flex: 1 1 auto;
+		width: 680px;
+	}
+}
+
+.remove {
+	font-size: 2px;
+	position: absolute;
+}
+
+.pageName, .bi-chevron-left {
+	font-size: 25px;
+	color: #25aa90;
+}
+
+.placeInvolved {
+	display: flex;
+	justify-content: space-between;
+}
+
+.placeInput {
+	flex: 1 1 auto;
+	min-width: 310px;
+}
+
+.findLocation {
+	flex: 0 0 40px;
+}
+
+.file {
+	margin: 5px;
+}
+
+/* .b {
+	border: solid 1px violet;
+} */
