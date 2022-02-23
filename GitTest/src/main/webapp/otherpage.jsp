@@ -268,12 +268,7 @@
 						<!-- 피드 내용-->
 						<div class="col-sm-6">
 							<!-- 피드 본문 -->
-							<div align='left'>
-								${fn:substring(feed.content, 0, 4)}...
-								<button class='info feed-bt' data-bs-toggle="collapse" 
-								data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button>
-							</div>
-							<div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+							<div align = 'left'>${fn:replace(feed.content,enter,"<br>")}</div>
 							
 							<!-- 해시 태그 -->
 							<div class="tag" align="left">${feed.tag}</div>

@@ -87,11 +87,12 @@
 	MemberDTO member = (MemberDTO)session.getAttribute("member");
 	
 	String nick = member.getNick();
-	// System.out.println(nick);
 	
+	int startNum = 1;
+	int endNum = startNum+2;
 	FeedDAO feed = new FeedDAO();
-	// 내가 팔로우 하고 있는 사람들의 게시물 리스트
-	ArrayList<FeedDTO> feedList = feed.feedSelect(nick);
+	// 내가 게시한 피드
+	ArrayList<FeedDTO> feedList = feed.feedSelectLimit3(nick,startNum,endNum);
 	
 	FollowDAO follow = new FollowDAO();
 	// 나를 팔로우 하는 사람들
@@ -119,7 +120,7 @@
 	
 	// 스크랩
 	ScrapDAO scrap = new ScrapDAO();
-	ArrayList<FeedDTO> scrapList = scrap.scrapShow(nick);
+	ArrayList<FeedDTO> scrapList = scrap.scrapShowLimit3(nick,startNum,endNum);
 	pageContext.setAttribute("scrapList", scrapList);
 %>
 
@@ -257,7 +258,7 @@
 	<div class="tab-content" id="myTabContent">
 		<div class="tab-pane fade show active" id="userinfo" role="tabpanel"
 			aria-labelledby="userinfo-tab">
-			
+			<p style = "display:none;">feed</p>
 			<c:forEach var = 'feed'	items = '${feedList }'>
 				<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
         		<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>	
@@ -325,12 +326,7 @@
 						<div class="col-sm-6">
 						
 							<!-- 피드 본문 -->
-							<div align='left'>
-								${fn:substring(feed.content, 0, 4)}...
-								<button class='info feed-bt' data-bs-toggle="collapse" 
-								data-bs-target="#collapseExample${feed.feedNo}" aria-expanded="false">더보기</button>
-							</div>
-							<div class = 'collapse' align = 'left' id ='collapseExample${feed.feedNo}'>${fn:replace(feed.content,enter,"<br>")}</div>
+							<div align = 'left'>${fn:replace(feed.content,enter,"<br>")}</div>
 							
 							<!-- 해시 태그 -->
 							<div class="tag" align="left">${feed.tag}</div>
@@ -398,7 +394,7 @@
 			<!-- 스크랩 -->
 			<div class="tab-pane fade" id="myreview" role="tabpanel"
 				aria-labelledby="myreview-tab">
-
+				<p style = "display:none;">scrap</p>
 	            <c:choose>
 	            	<c:when test="${empty scrapList}">
 	            		<h1 style="color:black;">저장한 항목 없음</h1>
@@ -472,12 +468,7 @@
 										<div class="col-sm-6">
 										
 											<!-- 스크랩 피드 본문 -->
-											<div align='left'>
-													${fn:substring(scrap.content, 0, 4)}...
-													<button class='info feed-bt' data-bs-toggle="collapse" 
-													data-bs-target="#collapseExample${scrap.feedNo}" aria-expanded="false">더보기</button>
-												</div>
-												<div class = 'collapse' align = 'left' id ='collapseExample${scrap.feedNo}'>${fn:replace(scrap.content,enter,"<br>")}</div>
+												<div align = 'left'>${fn:replace(scrap.content,enter,"<br>")}</div>
 												
 												<!-- 스크랩 해시 태그 -->
 												<div class="tag" align="left">${scrap.tag}</div>
@@ -929,21 +920,33 @@
 		// 스크롤이 끝까지 내려오면 다음 3개의 피드 로드
 		
 		var num1 = 1;
+		var num2 = 1;
 		var nick1 = "<c:out value='${nick}'/>";
-		
+		var type ="ㅇㅇ";
 		$(window).scroll(function() {
 			if(Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()){
+				type = $(".tab-pane.fade.show.active>p").html();
+				console.log(type);
 				$.ajax({
-					url: "FeedCountCon.do",
+					url: "MypageCountCon.do",
 					type: "post",
-					data: {nick: nick1},
+					data: {nick: nick1, type: type},
 					dataType: 'json',
 					success: function(result) {
-						num1 += 3;
-						if(result >= num1){
-							console.log(num1);
-							$("body").append("<div class = 'container out load' id = 'load"+num1+"''></div>");
-							$("#load"+num1).load("feedSub.jsp #reload",{nick: nick1,startNum: num1});
+						if(type=='feed') {
+							num1 += 3;
+							if(result >= num1){
+								console.log(num1);
+								$(".tab-pane.fade.show.active").append("<div class = 'load' id = 'loadMy"+num1+"''></div>");
+								$("#loadMy"+num1).load("mypageSubMy.jsp #reload",{nick: nick1,startNum: num1});
+							}
+						} else {
+							num2 += 3;
+							if(result >= num2){
+								console.log(num2);
+								$(".tab-pane.fade.show.active").append("<div class = 'load' id = 'loadScrap"+num2+"''></div>");
+								$("#loadScrap"+num2).load("mypageSubScrap.jsp #reload",{nick: nick1,startNum: num2});
+							}
 						}
 					},
 					error : function(){
