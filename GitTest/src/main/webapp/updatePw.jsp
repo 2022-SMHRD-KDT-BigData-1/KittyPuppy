@@ -24,21 +24,27 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
 	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
 <!-- 아이콘 -->
-ㅜㄴ
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
-<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다)
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-     모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-<!-- <script src="js/bootstrap.min.js"></script> -->
+<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <style>
+html, body {
+	height: 100%;
+}
+
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	background-color: #ffffff;
-	font-size: 10px;
+	font-size: 13px;
 	color: #25aa90;
 	display: flex;
 }
@@ -47,8 +53,8 @@ body {
             display: none;
         } */
 .container {
-	width: 100%;
-	max-width: 330px;
+	width: 360px;
+	min-width: 360px;
 	padding: 15px;
 	margin: auto;
 	/* display: block; */
@@ -71,24 +77,12 @@ body {
 	color: #fff;
 }
 
-html, body {
-	height: 100%;
-}
-
 .pwInfo {
-	font-size: 10px;
+	font-size: 13px;
 }
 </style>
-
-
-
-
-
 </head>
-
 <body>
-
-
 
 	<div class="container">
 		<form action="MUpdatePwCon.do" method="post">
@@ -104,10 +98,10 @@ html, body {
 					<p>새로운 비밀번호를 설정해주세요.</p>
 
 					<input type="password" id="pw" class="form-control"
-						placeholder="비밀번호" name="pw"> <span class="pwInfo">8~16자
-						영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> <span id="checkpw" size="2"></span> <input
+						placeholder="비밀번호" name="pw" /> <span class="pwInfo">8~16자
+						영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> <span id="checkpw"></span> <input
 						type="password" id="pw2" class="form-control"
-						placeholder="비밀번호 확인"> <span id="pw-success" size="2"
+						placeholder="비밀번호 확인" /> <span id="pw-success"
 						style="display: none;">비밀번호가 일치합니다.</span> <span id="pw-danger"
 						style="display: none; color: #d92742;">비밀번호가 일치하지 않습니다.</span>
 					<div class="d-grid gap-2 col-12 mx-auto">
@@ -119,24 +113,25 @@ html, body {
 			</div>
 		</form>
 	</div>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!--비밀번호 일치 체크  -->
+
+
 	<script>
 	
+	let pw, pw2, checkpw;
+	<!--비밀번호 일치 체크  -->
 		$('.form-control').focusout(function() {
-			var pwd1 = $("#pw").val();
-			var pwd2 = $("#pw2").val();
+			pw = $("#pw").val();
+			pw2 = $("#pw2").val();
 
-			if (pwd1 != '' && pwd2 == '') {
+			if (pw != '' && pw2 == '') {
 				null;
-			} else if (pwd1 != "" || pwd2 != "") {
+			} else if (pw != "" || pw2 != "") {
 				
-				submit.click.function(){
-				if (pwd1 == pwd2) {				//일치 할경우
+				//일치 할경우
+				if (pw == pw2) {				
 					$("#pw-success").css('display', 'inline-block');
 					$("#pw-danger").css('display', 'none');
 					$("#")
-					
 					
 				} else {
 					//alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
@@ -146,20 +141,19 @@ html, body {
 				}
 			}
 		});
-	
-	</script>
 
-	<!-- 비밀번호 설정 조건 -->
-
-	<script>
-        
-       /*  $('.form-control').one("keyup", function () {	 */
+		<!-- 비밀번호 설정 조건 -->
         	$('.form-control').focusout(function() {
-            var pw = $("#pw").val();		//입력한 패스워드 값 가져옴
-            var checkpw = $("#checkpw").val();		// 결과를 출력할 공간
-            var pw2 = $("#pw2").val();
+       		
+       		//입력한 패스워드 값 가져옴
+            pw = $("#pw").val();		
+            pw2 = $("#pw2").val();
+        	
+            // 결과를 출력할 공간	
+            checkpw = $("#checkpw").val();		
 
-            var num = pw.search(/[0-9]/g); //search 문자검색
+            //search 문자검색
+            var num = pw.search(/[0-9]/g); 
             var eng = pw.search(/[a-z]/ig);
             var spe = pw.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
 
@@ -170,6 +164,7 @@ html, body {
             	$("#checkpw").html("8자리 ~ 15자리 이내로 입력해주세요");
                 //alert("8자리 ~ 15자리 이내로 입력해주세요");
                 return;
+                
             } else if (pw.search(/\s/) != -1) {		// 공백이 있는지 확인하는 코드
             	document.getElementById('checkpw').style.display = 'block';
             	$("#checkpw").css('color', '#d92742');
@@ -177,6 +172,7 @@ html, body {
             	return;
                 //checkpw.innerHTML = "비밀번호는 공백 없이 입력해주세요";
                 //alert("비밀번호는 공백 없이 입력해주세요")
+                
             } else if (num < 0 || eng < 0 || spe < 0) {
             	document.getElementById('checkpw').style.display = 'block';
             	$("#checkpw").css('color', '#d92742');
@@ -184,26 +180,17 @@ html, body {
             	return;
                 //checkpw.innerHTML = "영문, 숫자, 특수문자를 혼합하여 입력해주세요";
                 //alert("영문, 숫자, 특수문자를 혼합하여 입력해주세요")
+                
             } else {
             	document.getElementById('checkpw').style.display = 'block';
             	$("#checkpw").css('color', 'green');
             	$("#checkpw").html("적절한 비밀번호 입니다");
                 //checkpw.innerHTML = "적절한 비밀번호 입니다";
                 //alert("적절한 비밀번호 입니다")
-                
-            	
             }
         });
 
-
-    </script>
-
-<script>
-
 </script>
 
-
-
 </body>
-
 </html>

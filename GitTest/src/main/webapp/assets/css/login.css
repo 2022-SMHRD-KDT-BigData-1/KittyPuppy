@@ -10,7 +10,7 @@ html, body {
 .container {
 	text-align: center;
 	max-width: 800px;
-	min-width: 400px;
+	min-width: 360px;
 	padding: 12px;
 	margin: auto;
 	display: auto;
@@ -38,10 +38,5 @@ html, body {
 }
 
 .col-sm-6 {
-	width: 400px;
-}
-
-.b {
-	border: solid 1px violet;
-	width: 300px;
+	width: 360px;
 }
