@@ -252,12 +252,14 @@ a {
 	AnimalDTO animal = null;
 	for (int i = 0; i < nickList.size(); i++) {
 		String nick = nickList.get(i);
+		System.out.println(nick);
 		String upKind1 = "고양이";
 		String upKind2 = "개";
 		String upKind3 = "동물";
 
 		animal = dao.aniShow(nick, upKind1);
 		if (animal != null) {
+			System.out.println(animal.getNick());
 			catList.add(animal);
 		}
 
@@ -448,7 +450,6 @@ a {
 													year = year.substring(0, 4);
 													String group = null;
 													int age = Integer.parseInt(year);
-													System.out.println(age);
 													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
 													} else if (age <= 1983 && age > 1964) {
@@ -486,7 +487,7 @@ a {
 											동물 친구들이 없습니다.</p>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="ani" items="${dogList}">
+										<c:forEach var="dog" items="${dogList}">
 											<c:set var='bNick' value='${dog.nick}' scope='request' />
 
 											<div class="col-7 p-3  g-2">
@@ -507,7 +508,6 @@ a {
 													year = year.substring(0, 4);
 													String group = null;
 													int age = Integer.parseInt(year);
-													System.out.println(age);
 													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
 													} else if (age <= 1983 && age > 1964) {
@@ -572,7 +572,6 @@ a {
 													year = year.substring(0, 4);
 													String group = null;
 													int age = Integer.parseInt(year);
-													System.out.println(age);
 													if (age <= 2023 && age > 1984) {
 														group = "20~30대";
 													} else if (age <= 1983 && age > 1964) {
