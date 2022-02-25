@@ -6,7 +6,7 @@
 	
 	function initMap() {
 		// 기본 샘플 주소 값: 스인개
-		let smhrd = {lat: 35.14972, lng: 126.91987};searchLatLng
+		let smhrd = {lat: 35.14972, lng: 126.91987};
 	
 		// 지도 켜기 
 		// 지도 중괄호 속성

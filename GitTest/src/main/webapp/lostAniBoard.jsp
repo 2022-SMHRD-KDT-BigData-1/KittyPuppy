@@ -31,14 +31,16 @@ pageContext.setAttribute("lostList", lostList);
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-	
+
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
@@ -53,9 +55,11 @@ pageContext.setAttribute("lostList", lostList);
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-	
+<link rel='stylesheet' href='https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
+    integrity='sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p' crossorigin='anonymous' />
+
 <!-- lostAniBoard css 파일 -->
-<link href="./assets/css/lostAniBoard.css" rel="stylesheet">
+<link href="./assets/css/lostAniBoard.css?ver=0.9.0.1" rel="stylesheet">
 
 </head>
 <body>
@@ -79,21 +83,20 @@ pageContext.setAttribute("lostList", lostList);
 				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a
 				href="dmList.jsp"><i class="bi bi-chat-dots icon b"></i></a>
 		</div>
-
+		
 		<!-- 검색 바... : 거대한 검색 버튼... 이거 좀 바꿔야 할 듯 -->
-		<div id="search" class="row b justify-content-center">
+		<div id="search" class=" b justify-content-center input-group rounded ">
 			<div class="input-group searchInput b">
-				<div class="input-group-prepend">
-					<span class="input-group-text material-icons" id="basic-addon3">
-						search </span>
-				</div>
-				<input type="text" class="form-control" id="basic-url"
-					aria-describedby="basic-addon3" />
+				<input name='search' type='search' class='form-control rounded'/>
+					
+				 <span class="material-icons" style="font-size:40px;">
+                search
+            	</span>
 			</div>
 		</div>
 
 		<!-- 상단 로고,메뉴바 밑의 내용들 담고 있는 컨테이너 -->
-		<div class="row innerContainer b">
+		<div class="innerContainer b">
 
 			<c:choose>
 				<c:when test="${empty lostList}">
@@ -104,20 +107,37 @@ pageContext.setAttribute("lostList", lostList);
 						<div class="card">
 							<a href='lostAniShow.jsp?lostNo=${lost.getLostNo()}'> <img
 								src='${fn:split(lost.aniPic,",")[0]}'
-								class="img-fluid card-img-top"
+								class=" card-img-top"
 								onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
 								alt="이미지가 등록되지 않았습니다."></a>
 							<div class="card-body">
 								<h5 class="card-title">
-									<span class="laType">${lost.getLaType()}</span><span
-										class="lakind">${lost.getKind()}</span>
+								<c:choose>
+									<c:when test="${lost.laType eq '목격'}">
+										<span class="laType"style="color:#ff4032;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '실종'}">
+										<span class="laType"style="color:#ffc60a;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '보호중'}">
+										<span class="laType"style="color:#73d873;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '완료'}">
+										<span class="laType"style="color:#bdbdbd;">[${lost.laType}]</span>
+									</c:when>		
+									<c:otherwise >
+										<span class="laType"style="color:#bdbdbd;">[${lost.laType}]</span>
+									</c:otherwise>
+								</c:choose>
+									<span
+										class="lakind">${lost.kind}</span>
 								</h5>
 								<p class="card-text">
-									<span>${lost.getSex()}</span> <span>${lost.getAniSize()}</span><br>
+									<span>${lost.sex}</span> <span>${lost.aniSize}</span> <span>${lost.aniName }</span><br>
 									<sapn> <i class="bi bi-calendar3 innerIcon"></i> 등록일: </sapn>
-									<span class="boardDate"> ${lost.getLaDate()}</span> <br> <span
+									<span class="boardDate"> ${lost.laDate}</span> <br> <span
 										class="material-icons innerIcon">location_on</span><span>위치
-										: ${lost.getPlace()} </span>
+										: ${lost.place} </span>
 								</p>
 							</div>
 						</div>
@@ -139,17 +159,17 @@ pageContext.setAttribute("lostList", lostList);
 						</div>
 						<div class="item searchPage b">Search</div>
 						<div class="item submit b">
-							<button type="submit" class="btn">검색</button>
+							<button type="submit" class="btn2 btn">검색</button>
 						</div>
 					</header>
 
 					<!-- section1 박스: 게시글 등록유형~ 성별까지 다단 나눈 8개, 4줄 -->
 					<section class="container-section1 b">
 						<select id="laType" class="form-select item1" name="laType">
-							<option value="find" selected>목격</option>
-							<option value="lost">실종</option>
-							<option value="null">보호중null</option>
-							<option value="null">완료null</option>
+							<option value="목격" selected>목격</option>
+							<option value="실종">실종</option>
+							<option value="보호중">보호중</option>
+							<option value="완료">완료</option>
 						</select> <input type="text" name="aniName" id="input_aniName"
 							class="form-control item1" placeholder="반려동물 이름"> <select
 							id="laUpkind" class="form-select item1" name="upKind">
@@ -160,12 +180,14 @@ pageContext.setAttribute("lostList", lostList);
 						</select> <input type="text" name="kind" id="input_kind"
 							class="form-control item1" placeholder="반려동물 소분류"> <select
 							id="laSize" class="form-select item1" name="aniSize">
+							<option value="null" selected>크기</option>
 							<option value="대형">대형</option>
 							<option value="중형">중형</option>
-							<option value="소형" selected>소형</option>
+							<option value="소형">소형</option>
 						</select> <select id="isTag" class="form-select item1" name="isTag">
+							<option value="null" selected>인식표 여부</option>
 							<option value="true">인식표 있음</option>
-							<option value="false" selected>인식표 없음</option>
+							<option value="false">인식표 없음</option>
 						</select> <select id="sex" class="form-select item1" name="sex">
 							<option value="null" selected>성별</option>
 							<option value="수컷">수컷</option>

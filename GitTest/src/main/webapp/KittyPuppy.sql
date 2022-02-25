@@ -405,11 +405,11 @@ values('하양맘','1',default)
 
 
 --lostAnimal
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'bamtol', '이름모름', './assets/img/유기동물.jpg', '개', '믹스견', '수컷', '흰색', '소형', 'false', '목줄을 하고 있어요. 많이 말랐네요 ㅠ 잃어버리신분 연락주세요', '광주광역시 동구 충장동', sysdate, null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', 'mushroom10',null,null,'개','보더콜리',null,null,'소형', null, '줄 비슷한 게 있음','대구광역시 남구',sysdate,null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', '하양맘','하양이친구','./assets/img/img1.jpg','개','믹스견','수컷','하얀색','소형',null,'귀가 접혀짐','광주 동명동',sysdate, null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'find', '태경','박춘삼','./assets/img/춘삼이.jpg','개','프렌치불독','수컷','흰색','소형','false','눈이 크고 얼굴에 점이 있음',' 충장로',sysdate,null);
-insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, 'lost', 'sample','sampleani',null,'인류','미국인','수컷','흰색','대형','false','금발머리','광주시 충장동',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, '목격', 'bamtol', '이름모름', './assets/img/유기동물.jpg', '개', '믹스견', '수컷', '흰색', '소형', 'false', '목줄을 하고 있어요. 많이 말랐네요 ㅠ 잃어버리신분 연락주세요', '광주광역시 동구 충장동', sysdate, null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, '목격', 'mushroom10',null,null,'개','보더콜리',null,null,'소형', null, '줄 비슷한 게 있음','대구광역시 남구',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, '목격', '하양맘','하양이친구','./assets/img/img1.jpg','개','믹스견','수컷','하얀색','소형',null,'귀가 접혀짐','광주 동명동',sysdate, null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, '목격', '태경','박춘삼','./assets/img/춘삼이.jpeg','개','프렌치불독','수컷','흰색','소형','false','눈이 크고 얼굴에 점이 있음',' 충장로',sysdate,null);
+insert into lost_animal values(lost_animal_lostno_seq.NEXTVAL, '실종', 'sample','sampleani',null,'인류','미국인','수컷','흰색','대형','false','금발머리','광주시 충장동',sysdate,null);
 
 --follow
 insert into follow values ('태경', 'mushroom10', sysdate);

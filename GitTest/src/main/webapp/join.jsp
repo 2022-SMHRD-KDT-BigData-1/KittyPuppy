@@ -22,18 +22,18 @@
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2? family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-<script src="js/bootstrap.min.js"></script>
 
 <style>
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif; 
 	background-color: #ffffff;
-	font-size: 10px;
+	font-size: 13px;
 	color: #25aa90;
 	display: flex;
 }
@@ -43,11 +43,10 @@ span {
 }
 
 .container {
-	width: 100%;
-	max-width: 330px;
-	padding: 15px;
+	width: 360px;
+	min-width:360px;
 	margin: auto;
-	/* display: block; */
+	
 }
 
 .container p {

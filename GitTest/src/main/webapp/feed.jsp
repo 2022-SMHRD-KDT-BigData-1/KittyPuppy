@@ -28,6 +28,7 @@
 <link
 	href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap'
 	rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <!-- 아이콘 -->
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css'>
@@ -47,176 +48,9 @@
 
 <title>WebKittyPuppy</title>
 
-<style>
-html, body {
-	height: 100%;
-}
+<!-- feed.css -->
+<link href='./assets/css/feed.css' rel='stylesheet'>
 
-body {
-	background-color: #ffffff;
-	padding: 10px;
-}
-
-/* 로고 글꼴, 색상 설정 */
-	h1 {
-		font-family: 'Dancing Script', cursive;
-		font-size: 35px;
-		color: #25aa90;
-		display: inline;
-	}
-	
-	.hidden {
-		color: #f5e172;
-		font-size: 4ch;
-		visibility: hidden;
-	}
-	
-	.report {
-		color: #f5e172;
-		font-size: 4ch;
-	}
-	
-	/* 아이콘 설정 */
-	.icon {
-		font-size : 5ch;
-		color : #000000;
-	}
-	
-	.bi {
-		font-size: 40px;
-	}
-	
-	/* 상단 로고 고정 */
-	.header-logo {
-		position: fixed;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: 0;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		text-align: center;
-		z-index: 3;
-	}
-	
-	/* 상단 메뉴바 고정 */
-	.header-menu {
-		position: fixed;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: 5rem;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		z-index:3;
-	}
-	
-	/* 바깥 컨테이너 설정 */
-	.container.out {
-		width: 100%;
-		padding-left: 15px;
-		padding-right: 15px;
-		padding-bottom: 15px;;
-		padding-top: 9rem;
-		margin: auto;
-		display: block;
-		max-width: 470px;
-	}
-	
-	.container.out.load {
-		padding-top:0px;
-	}
-	
-	a {	
-		color: #000000;
-		text-decoration-line: none;
-	}
-	
-	i {
-		color: #25aa90;
-	}
-	
-	.ls {
-		margin: atuo;
-		max-width: 442px;
-		margin: auto;
-	}
-	
-	.lcs {
-		font-size: 2ch;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-	
-	#cursor {
-		color: #25aa90;
-	}
-	
-	button {
-		border: 0cm;
-		background-color: #ffffff;
-	}
-	
-	.info {
-		font-size: 12px;
-	}
-	
-	.row {
-		align-items: center;
-	}
-	
-	.col-sm-6 {
-		width: 492px;
-	}
-	
-	.col-sm-6>img {
-		width: 100%;
-	}
-	
-	.img-thumbnail {
-		max-width: 70px;
-		max-height: 70px;
-	}
-	
-	.img-tn {
-		width: 40px;
-		height: 40px;
-	}
-	
-	div {
-		display: block;
-	}
-	
-	.comment {
-		display: block;
-	}
-	
-	.comment_body {
-		hegiht : 300px;
-		overflow : auto;
-	}
-	
-	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
-	@media ( min-width : 1050px) {
-		/* 바깥 컨테이너 설정 */
-		.container.out {
-			max-width: 1200px;
-		}
-	
-		.img-thumbnail {
-			max-width: 100px;
-			max-height: 100px;
-		}
-		.ls {
-			max-width: 1000px;
-		}
-	}
-	
-</style>
 
 </head>
 
@@ -279,7 +113,7 @@ body {
         <!-- 검색창 -->
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class='ls input-group rounded'>
-	            <input name ='search' type='search' class='form-control rounded' placeholder='닉네임 또는 태그 검색(태그는 #태그명으로 검색)' aria-label='Search' aria-describedby='search-addon' />
+	            <input name ='search' type='search' class='form-control rounded' placeholder='"닉네임" 또는 "#태그" 검색' aria-label='Search' aria-describedby='search-addon' />
 	        	<label class='btn btn-default input-group-text border-0' id='search-addon' style='font-size: 30px;'>
 	        		<i class='fas fa-search'> <input type='submit' hidden></i>
 	    		</label>
@@ -297,22 +131,25 @@ body {
 	                    	MemberDTO fm = dao.memberInfo(fnick);
 	                    	pageContext.setAttribute("fm",fm);
 	                    %>
-	                    <a href = 'otherpage.jsp?nick=${feed.nick}'>
 		                    <div class = 'col-6'>
+                 	            <a href = 'otherpage.jsp?nick=${feed.nick}'>
 		                    	<c:choose>
 		                    		<c:when test = "${empty fm.picAddress}">
 		                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
 		                    		</c:when>
 		                    		<c:otherwise>
-		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail img-fluid float-start'>
+		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail float-start'>
 		                    		</c:otherwise>
 		                    	</c:choose>
-		                        <div align ='left' style = "padding-left:10px;">
+		                    	</a>
+		                        <div align ='left' class="otherPageNick">
+                                	<a href = 'otherpage.jsp?nick=${feed.nick}'>
 			                        <br/><strong>${feed.nick}</strong><br/>
-			                        ${fn:substring(feed.feedDate,0,10)}
+			                        ${fn:substring(feed.feedDate,0,10)} 
+									</a>                    
 		                        </div>
 		                    </div>
-	                    </a>
+	                    
 	                    
 	                    <!-- 첨부된 사진-->
 	                    <div id="carouselExampleControls${feed.feedNo}"  class="carousel slide" data-bs-interval="false">
@@ -366,7 +203,7 @@ body {
 	                    </div>
 	                    
 	                    <!-- 피드 배너 -->
-	                    <div class = 'navbar'>
+	                    <div class = 'navbar like-com-scr-bar'>
 	                    	<%
 	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
 	                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,fdn,null,nick));
@@ -398,6 +235,7 @@ body {
 	                    	<div id = 'comLoad${feed.feedNo}'>
 	                        	<button onclick='feedComLoad(${feed.feedNo},"${nick}","#comment${feed.feedNo}","#comLoad${feed.feedNo}")'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>
 	                        </div>
+	                        
 	                        <div id ='scrap${feed.feedNo}'>
 	                        	<c:choose>
 	                        		<c:when test="${checkS==1}">
@@ -427,7 +265,6 @@ body {
     <!-- <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js' integrity='sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB' crossorigin='anonymous'></script>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' integrity='sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13' crossorigin='anonymous'></script> -->
     
-	<script src='jquery-3.6.0.min.js'></script>
 	<script type='text/javascript'>
 		
 		// 좋아요 개수 세기
@@ -460,10 +297,12 @@ body {
 		        success: function(result) {
 		        	if (result == 0) {
 		        		console.log("안좋은데..");
-		        		$(id).html("<button onclick='like("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fal fa-paw lcs'> 좋아요</i></button>");
+		        		$(id).html("<button onclick='like("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'
+		        				+"'><i class = 'fal fa-paw lcs'> 좋아요</i></button>");
 		        	} else {
 		        		console.log("좋아요♥");
-		        		$(id).html("<button onclick='likeDelete("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'+"'><i class = 'fa fa-paw lcs'> 좋아요</i></button>");
+		        		$(id).html("<button onclick='likeDelete("+feedNo+","+'"#like'+feedNo+'","#likeCheck'+feedNo+'")'
+		        				+"'><i class = 'fa fa-paw lcs'> 좋아요</i></button>");
 		        	}
 		        },
 			    error: function() {
@@ -582,7 +421,6 @@ body {
 
 		// 댓글 새로고침
 		function feedComLoad(feedNo,nick,id,id2) {
-			$(id).empty();
 			$(id).load("temp.jsp #tempComment",{feedNo:feedNo, nick:nick});
 			$(id2).html("<button onclick='feedComClear("+feedNo+","+'"'+nick+'"'+","+'"#comment'+feedNo+'","#comLoad'+feedNo+'")'+"'><i class = 'bi bi-chat-dots lcs'> 댓글</i></button>");
 		}

@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 body {
+	margin: auto;
 	font-family: 'IBM Plex Sans KR', sans-serif;
 }
 /************ 이하 모달창  */
@@ -30,11 +31,11 @@ body {
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 400px;
-	height: 500px;
+	width: 360px;
+	height: 480px;
 	position: relative;
 	top: -100px;
-	padding: 10px;
+	padding: 5px;
 	z-index: 3;
 }
 
@@ -47,7 +48,7 @@ body {
 #map {
 	margin-top: 10px;
 	height: 330px;
-	width: 378px;
+	width: 340px;
 }
 
 .mapDiv {
@@ -82,7 +83,7 @@ body {
 .back {
 	font-size: 25px;
 	margin-left: 5px;
-	margin-right: 40px;
+	margin-right: 5px;
 }
 
 .container-head {
@@ -116,7 +117,7 @@ body {
 }
 
 .report-container {
-	width: 400px;
+	width: 360px;
 	margin: auto;
 	margin-top: 15px;
 	padding-left: 12px;
@@ -125,13 +126,13 @@ body {
 }
 
 .input {
-		background-color: #ffffff;
-		color : #25aa90;
-		font-size : 45px;
+	background-color: #ffffff;
+	color: #25aa90;
+	font-size: 45px;
 }
 
-#reg{
-	font-size:45px;
+#reg {
+	font-size: 45px;
 }
 
 @media ( min-width : 800px) {
@@ -148,15 +149,15 @@ body {
 		flex: 1 1 auto;
 		width: 680px;
 	}
-	
-	 .input {
-        	font-size : 100px;
-     }
-     
-     #reg{
+	.input {
 		font-size: 100px;
 	}
-     
+	#reg {
+		font-size: 100px;
+	}
+	.back{
+		margin-right: 30px;
+	}
 }
 
 .remove {
@@ -176,7 +177,7 @@ body {
 
 .placeInput {
 	flex: 1 1 auto;
-	min-width: 310px;
+	min-width: 270px;
 }
 
 .findLocation {
@@ -186,7 +187,6 @@ body {
 .file {
 	margin: 5px;
 }
-
 
 /* .b {
 	border: solid 1px violet;

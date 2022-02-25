@@ -38,7 +38,7 @@ pageContext.setAttribute("lostList", lostList);
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -65,322 +65,10 @@ pageContext.setAttribute("lostList", lostList);
 <!-- Custom styles for this template -->
 <link href="narrow-jumbotron.css" rel="stylesheet">
 
-<style>
-/*------------------------------------이하 모달 창 관련 --------------------------------------------------------------*/
-#modal.modal-overlay {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
-	display: none;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0, 0, 0, 0.25);
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-	backdrop-filter: blur(1.5px);
-	-webkit-backdrop-filter: blur(1.5px);
-	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.18);
-	z-index: 3;
-}
+<!-- lostAniBoard css 파일 -->
+<link href="./assets/css/lostAniBoard.css" rel="stylesheet">
 
-#modal .modal-window {
-	background: rgba(255, 255, 255, 1);
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-	backdrop-filter: blur(13.5px);
-	-webkit-backdrop-filter: blur(13.5px);
-	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 400px;
-	height: 500px;
-	position: relative;
-	top: -100px;
-	padding: 10px;
-	z-index: 3;
-}
 
-.btn {
-	background-color: #25aa90;
-	color: #fff;
-	margin-right: 5px;
-	width: 70px;
-}
-
-.searchPage {
-	font-family: 'Dancing Script', cursive;
-	font-size: 35px;
-	color: #25aa90;
-	display: inline;
-}
-
-.back {
-	font-size: 15px;
-	color: #25aa90;
-	margin-left: 5px;
-	width: 70px;
-}
-
-.container-head {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.container-section1 {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	align-content: flex-start;
-}
-
-.item1 {
-	flex: 1 1 40%;
-	margin: 5px;
-	max-width: 50%;
-}
-
-.container-section2 {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	align-content: flex-start;
-}
-
-.item2 {
-	flex: 1 1 80%;
-	width: 98%;
-	margin: 5px;
-}
-
-.report-container {
-	width: 100%;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;;
-	padding-top: 10px;
-	margin: 0px auto;
-	display: block;
-	max-width: 430px;
-	min-width: 385px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-}
-
-@media ( min-width : 800px) {
-	/* 바깥 컨테이너 설정 */
-	.report-container {
-		width: 100%;
-		max-width: 750px;
-		margin: auto;
-		display: auto;
-	}
-}
-
-/*------------------------------------이상 모달 창 관련 --------------------------------------------------------------*/
-/* 공통 사항 @media 위에 작성함. */
-.material-icons, #megaphone-fill, .bi-calendar3 {
-	color: #25aa90;
-}
-
-html, body {
-	height: 100%;
-}
-
-body {
-	background-color: #ffffff;
-	padding: 10px;
-}
-
-/* 로고 글꼴, 색상 설정 */
-h1 {
-	font-family: 'Dancing Script', cursive;
-	font-size: 35px;
-	color: #25aa90;
-	display: inline;
-}
-
-.hidden {
-	color: #f5e172;
-	font-size: 4ch;
-	margin-right: 10px;
-	visibility: hidden;
-}
-
-#report {
-	color: #f5e172;
-	font-size: 4ch;
-	margin-right: 15px;
-}
-
-/* 아이콘 설정 */
-.icon {
-	margin-left: 15px;
-	margin-right: 15px;
-}
-
-.bi {
-	font-size: 40px;
-	color: #25aa8f7e;
-}
-
-/* 상단 로고 고정 */
-.header-logo {
-	position: fixed; /*상단에 고정된 플렉스 박스 */
-	left: 0;
-	right: 0;
-	top: 0;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	height: 5rem;
-	background-color: white;
-	padding-top: 15px;
-	width: 100%;
-	text-align: center;
-	max-width: 430px;
-	min-width: 385px;
-	z-index: 2;
-}
-
-/* 상단 메뉴바 고정 */
-.header-menu {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 5rem;
-	margin: auto;
-	height: 5rem;
-	background-color: white;
-	padding-top: 15px;
-	width: 100%;
-	min-width: 385px;
-	max-width: 750px;
-	z-index: 2;
-}
-
-/* 바깥 컨테이너 설정 */
-.container.out {
-	width: 100%;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom: 15px;;
-	padding-top: 9rem;
-	margin: auto;
-	display: block;
-	max-width: 430px;
-	min-width: 385px;
-	padding-right: 15px;
-	padding-bottom: 15px;
-}
-/* 유실 유기동물 카드 관련 */
-.innerContainer {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	align-content: flex-start;
-}
-
-.card {
-	flex: 1 1 45%;
-	border: solid 1px Gainsboro;
-	max-width: 200px;
-	height: 255px;
-	padding: 1px;
-	margin: 4px;
-}
-
-img {
-	border-radius: 2%;
-}
-
-.card>a {
-	margin: auto;
-}
-
-.card-img-top {
-	max-mwidth: 163px;
-	max-height: 163px;
-}
-
-.card-body {
-	padding: 5px;
-}
-
-.innerIcon, .card-text {
-	font-size: 12px;
-}
-
-/* 화면크기가 800px이 넘어갔을때 적용되는 css */
-@media ( min-width : 800px) {
-	/* 바깥 컨테이너 설정 */
-	.container.out {
-		width: 100%;
-		max-width: 750px;
-		margin: auto;
-		display: auto;
-		z-index: 2;
-	}
-	/* 상단 로고 고정 */
-	.header-logo {
-		display: flex;
-		position: fixed;
-		justify-content: space-between;
-		margin: auto;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		text-align: center;
-		max-width: 750px;
-		z-index: 2;
-	}
-	/* 상단 로고 관련 설정 */
-	.hidden {
-		margin-right: 10px;
-	}
-	#report {
-		margin-right: 15px;
-	}
-
-	/* 상단 메뉴바 설정 */
-	.icon {
-		font-size: 40px;
-		margin-left: 30px;
-		margin-right: 30px;
-	}
-	/* 제보현황 4개 보이기*/
-	.innerContainer {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		align-content: flex-start;
-	}
-	.card {
-		flex: 1 1 25%;
-		border: solid 1px gainsboro;
-		max-width: 180px;
-		height: 255px;
-		padding: 1px;
-		margin: 2px;
-	}
-}
-
-.top {
-	width: 650px;
-}
-
-.searchInput {
-	text-align: center;
-	max-width: 650px;
-}
-
-/* grid 구분 확인을 위한 css 설정
-.b {
-	border: solid 1px violet;
-}*/
-</style>
 </head>
 <body>
 	<div class="container out b">
@@ -396,7 +84,7 @@ img {
 		<br>
 		<!-- 상단 고정된 메뉴바 -->
 		<div class='text-center banner header-menu b'>
-			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="#"><i
+			<a href="feed.jsp"><i class="bi bi-phone icon b"></i></a> <a href="lostAniBoard.jsp"><i
 				id="megaphone-fill" class="bi bi-megaphone-fill icon megaphone b"></i></a>
 			<a href="maps.jsp"><i class="bi bi-geo-alt icon b"></i></a> <a
 				href="mypage.jsp"><i class="bi bi-person icon b"></i></a> <a
@@ -426,13 +114,31 @@ img {
 					<c:forEach var="lost" items="${lostList}">
 						<div class="card">
 							<a href='lostAniShow.jsp?lostNo=${lost.getLostNo()}'> <img
-								src='${fn:split(lost.aniPic,",")[0]}' class="img-fluid card-img-top"
+								src='${fn:split(lost.aniPic,",")[0]}'
+								class=" card-img-top"
 								onerror="this.onerror=null; this.src='./assets/img/no-image-icon.jpg';"
 								alt="이미지가 등록되지 않았습니다."></a>
 							<div class="card-body">
 								<h5 class="card-title">
-									<span class="laType">${lost.getLaType()}</span><span
-										class="lakind">${lost.getKind()}</span>
+								<c:choose>
+									<c:when test="${lost.laType eq '목격'}">
+										<span class="laType"style="color:#ff4032;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '실종'}">
+										<span class="laType"style="color:#ffc60a;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '보호중'}">
+										<span class="laType"style="color:#73d873;">[${lost.laType}]</span>
+									</c:when>
+									<c:when test="${lost.laType eq '완료'}">
+										<span class="laType"style="color:#bdbdbd;">[${lost.laType}]</span>
+									</c:when>		
+									<c:otherwise >
+										<span class="laType"style="color:#bdbdbd;">[${lost.laType}]</span>
+									</c:otherwise>
+								</c:choose>
+									<span
+										class="lakind">${lost.kind}</span>
 								</h5>
 								<p class="card-text">
 									<span>${lost.getSex()}</span> <span>${lost.getAniSize()}</span><br>
@@ -468,34 +174,29 @@ img {
 					<!-- section1 박스: 게시글 등록유형~ 성별까지 다단 나눈 8개, 4줄 -->
 					<section class="container-section1 b">
 						<select id="laType" class="form-select item1" name="laType">
-							<option value="null" selected>게시글 등록유형</option>
-							<option value="find">목격</option>
-							<option value="lost">실종</option>
-							<option value="null">보호중null</option>
-							<option value="null">완료null</option>
+							<option value="목격" selected>목격</option>
+							<option value="실종">실종</option>
+							<option value="보호중">보호중</option>
+							<option value="완료">완료</option>
 						</select> <input type="text" name="aniName" id="input_aniName"
-							class="form-control item1" placeholder="반려동물 이름"> 
-						<select
+							class="form-control item1" placeholder="반려동물 이름"> <select
 							id="laUpkind" class="form-select item1" name="upKind">
 							<option value="null" selected>반려동물 대분류</option>
-							<option value ="개">개</option>
-							<option value ="고양이">고양이</option>
+							<option value="개">개</option>
+							<option value="고양이">고양이</option>
 							<option value="기타">다른 동물</option>
-						</select> 
-						<input type="text" name="kind" id="input_kind" 
-							class="form-control item1" placeholder="반려동물 소분류"> 
-						<select
+						</select> <input type="text" name="kind" id="input_kind"
+							class="form-control item1" placeholder="반려동물 소분류"> <select
 							id="laSize" class="form-select item1" name="aniSize">
-							<option value="null" selected>동물 사이즈</option>
-							<option value ="대형">대형</option>
-							<option value ="중형">중형</option>
-							<option value ="소형">소형</option>
+							<option value="null" selected>크기</option>
+							<option value="대형">대형</option>
+							<option value="중형">중형</option>
+							<option value="소형">소형</option>
 						</select> <select id="isTag" class="form-select item1" name="isTag">
 							<option value="null" selected>인식표 여부</option>
 							<option value="true">인식표 있음</option>
 							<option value="false">인식표 없음</option>
-						</select> 
-						<select id="sex" class="form-select item1" name="sex">
+						</select> <select id="sex" class="form-select item1" name="sex">
 							<option value="null" selected>성별</option>
 							<option value="수컷">수컷</option>
 							<option value="암컷">암컷</option>

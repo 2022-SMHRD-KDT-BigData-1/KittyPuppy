@@ -1,0 +1,187 @@
+@charset "UTF-8";
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	background-color: #ffffff;
+	padding: 10px;
+}
+
+/* 로고 글꼴, 색상 설정 */
+	h1 {
+		font-family: 'Dancing Script', cursive;
+		font-size: 35px;
+		color: #25aa90;
+		display: inline;
+	}
+	
+	.hidden {
+		color: #f5e172;
+		font-size: 4ch;
+		visibility: hidden;
+	}
+	
+	.report {
+		color: #f5e172;
+		font-size: 4ch;
+	}
+	
+	/* 아이콘 설정 */
+	.icon {
+		font-size : 5ch;
+		color : #000000;
+	}
+	
+	.bi {
+		font-size: 40px;
+	}
+	
+	/* 상단 로고 고정 */
+	.header-logo {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		position: fixed;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 5rem;
+		background-color: white;
+		padding-top: 15px;
+		padding-bottom: 0px;
+		width: 360px;
+		text-align: center;
+		z-index: 3;
+	}
+	
+	/* 상단 메뉴바 고정 */
+	.header-menu {
+		position: fixed;
+		margin: 0 auto;
+		left: 0; 
+		right: 0;
+		top: 5rem;
+		height: 5rem;
+		background-color: white;
+		padding-top: 15px;
+		width: 360px;
+		z-index:3;
+	}
+	.header-menu a i{
+		color: #25aa8f7e;
+	}
+	/* 바깥 컨테이너 설정 */
+	.container.out {
+		width: 360px;
+		padding-left: 12px;
+		padding-right: 12px;
+		padding-bottom: 15px;;
+		padding-top: 9rem;
+		margin: auto;
+		display: block;
+		min-width: 360px;
+	}
+	
+	.container.out.load {
+		padding-top:0px;
+	}
+	
+	a {	
+		color: #000000;
+		text-decoration-line: none;
+	}
+	
+	i {
+		color: #25aa90;
+	}
+	
+	.ls {
+		margin: atuo;
+		max-width: 360px;
+		min-width: 360px;
+	}
+	
+	.lcs {
+		font-size: 2ch;
+	}
+	
+	#cursor {
+		color: #25aa90;
+	}
+	
+	button {
+		border: 0cm;
+		background-color: #ffffff;
+	}
+	
+	.info {
+		font-size: 12px;
+	}
+	
+	.row {
+		align-items: center;
+	}
+	
+	.col-sm-6 {
+		width: 346px;
+	}
+	
+	.col-sm-6>img {
+		width: 100%;
+	}
+	.otherPageNick{
+		margin-left:80px;
+		width:220px;
+	}
+	.img-thumbnail {
+		width: 70px;
+		height: 70px;
+	}
+	
+	.img-tn {
+		width: 40px;
+		height: 40px;
+	}
+	
+	div {
+		display: block;
+	}
+	.like-com-scr-bar{
+		flex-wrap: nowrap;
+	}
+	.comment {
+		display: block;
+	}
+	
+	.comment_body {
+		hegiht : 300px;
+		overflow : auto;
+	}
+	
+	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
+	@media ( min-width : 800px) {
+	
+		.header-logo {
+			max-width:800px;
+		}
+		.header-menu {
+			display:flex;
+			justify-content: space-evenly;
+			max-width:800px;
+		}
+		.rounded {
+		max-width: 750px;
+		}
+		/* 바깥 컨테이너 설정 */
+		.container.out {
+			width: 800px;
+		}
+	
+		.ls {
+			width: 800px;
+		}
+	}
+	
