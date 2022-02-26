@@ -81,7 +81,16 @@ a {
 	width: 360px;
 	min-width: 360px;
 	max-width: 360px;
-	padding: 9rem 10px 10px 10px;
+	margin: auto;
+	display: block;
+}
+
+/* 피드 내용 레이아웃 */
+.tab-pane {
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
+	padding: 10px 10px 10px 10px;
 	margin: auto;
 	display: block;
 }
@@ -187,10 +196,14 @@ a {
 
 /* 스크린 사이즈에 따라 썸네일, 컨테이너 max크기 지정 */
 .img-thumbnail {
-	max-width: 77px;
-	max-height: 77px;
+	width: 70px;
+	height: 70px;
 }
 
+.otherPageNick {
+	margin-left: 80px;
+	width: 220px;
+}
 /*--------------------이하 모달 창 관련 --------------------------------------------------------------*/
 #modal.modal-overlay {
 	width: 100%;
@@ -298,6 +311,14 @@ a {
 		min-width: 800px;
 		max-width: 800px;
 	}
+	.tab-pane {
+	width: 380px;
+	min-width: 380px;
+	max-width: 380px;
+	padding: 10px 0px;
+	margin: auto;
+	display: block;
+}
 	/* 상단 로고, 메뉴바, 컨테이너 고정 .*/
 	.img-thumbnail {
 		width: 150px;

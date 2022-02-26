@@ -5,7 +5,7 @@
 <%@page import="com.kittypuppy.model.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kittypuppy.model.DMDAO"%>
-<%@ taglib prefix = 'c' uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -31,6 +31,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script
@@ -60,6 +63,7 @@ html, body {
 }
 
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	background-color: #ffffff;
 	padding: 10px;
 }
@@ -88,7 +92,7 @@ h1 {
 
 .hidden {
 	color: #f5e172;
-	font-size: 4ch;
+	font-size: 40px;
 	/* margin-left: 15px; */
 	margin-right: 100px;
 	visibility: hidden;
@@ -96,14 +100,14 @@ h1 {
 
 .report {
 	color: #f5e172;
-	font-size: 4ch;
-	/* float: right; */
-	/* margin-right: 15px; */
-	margin-left: 100px;
+	font-size: 40px;
 }
 
 /* 상단 로고 고정 */
 .header-logo {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
 	position: fixed;
 	margin: 0 auto;
 	left: 0;
@@ -112,26 +116,18 @@ h1 {
 	height: 5rem;
 	background-color: white;
 	padding-top: 15px;
-	width: 100%;
+	padding-bottom: 0px;
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
 	text-align: center;
+	z-index: 3;
 }
 
-/* 상단 로고 고정 */
-.header-menu {
-	position: fixed;
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: 5rem;
-	height: 5rem;
-	background-color: white;
-	padding-top: 15px;
-	width: 100%;
-}
-
-.icon {
-	margin-left: 15px;
-	margin-right: 15px;
+.profile-thumnail {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 30px;
 }
 
 /* 탭을 클릭했을 때 */
@@ -209,7 +205,6 @@ h1 {
 	right: -15px;
 }
 
-
 .au {
 	overflow: auto;
 }
@@ -240,7 +235,6 @@ h1 {
 /* .b {
 	border: 1px solid gold;
 } */
-
 .box1 {
 	flex: 1;
 	width: 30%;
@@ -254,12 +248,13 @@ h1 {
 	box-sizing: border-box;
 }
 
- .container1 {
-	overflow-y: scroll; 
-	max-height: 500px; max-width: 100%;
+.container1 {
+	overflow-y: scroll;
+	max-height: 500px;
+	max-width: 100%;
 	overflow-x: hidden
-
-} 
+}
+.container1::-webkit-scrollbar{ display:none; }
 
 .sdiv {
 	width: 50px;
@@ -283,6 +278,12 @@ img {
 	height: 70px;
 	width: 70px;
 }
+
+@media ( min-width : 800px) {
+	.header-logo {
+		max-width: 800px;
+	}
+}
 </style>
 </head>
 <body>
@@ -291,10 +292,10 @@ img {
 	ArrayList<DMDTO> DMlist = null;
 	String receivenick = request.getParameter("receivenick");
 	MemberDTO member = (MemberDTO) session.getAttribute("member");
-	
+
 	String sendnick = member.getNick();
 
-	DMlist = dao.DMShow10(sendnick, receivenick,1,10);
+	DMlist = dao.DMShow10(sendnick, receivenick, 1, 10);
 	MemberDAO mdao = new MemberDAO();
 	ArrayList<String> list = dao.DMList(sendnick);
 
@@ -305,10 +306,10 @@ img {
 
 	System.out.print(receivenick);
 	%>
-	<!-- 키티퍼피 로고 -->
 
+	<!-- 키티퍼피 로고 -->
 	<div class="row mt-5 text-center">
-		<div class="mb-4 ">
+		<div class="mb-4 header-logo">
 			<a href="dmList.jsp"><i class="bi bi-chevron-left"></i></a>
 			<h1 class="text-center">KittyPuppy</h1>
 			<a href="lostAniReport.html"><i
@@ -317,10 +318,8 @@ img {
 	</div>
 
 	<!-- 프로필 -->
-
 	<div class="container out a">
-		<div class="row m-3 "
-			style="display: inline-block; vertical-align: top">
+		<div class="row profile-thumnail " style="">
 			<!-- 프로필 사진 -->
 			<a href="otherpage.jsp?nick=${receivenick}"> <%
  if (mdao.memberInfo(receivenick).getPicAddress() == null) {
@@ -336,16 +335,11 @@ img {
 			</a>
 		</div>
 
-
-
-		<!-- 간격 -->
-		<div class="py-3"></div>
 		<!-- 말풍선 -->
 
-		<div class="container1"
-			style="height: 500px; width: 100% ">
+		<div class="container1" style="height: 500px; width: 100%">
 			<%
-			for (int i = DMlist.size()-1; i >= 0 ; i--) {
+			for (int i = DMlist.size() - 1; i >= 0; i--) {
 			%>
 			<%
 			if (DMlist.get(i).getSendNick().equals(sendnick)) {
@@ -354,7 +348,7 @@ img {
 
 				<div class="d-flex justify-content-end mb-4 sksk ">
 					<!-- 삭제 -->
-					<table class = "tb">
+					<table class="tb">
 						<tr>
 							<td style="vertical-align: bottom;">
 								<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)"
@@ -386,13 +380,13 @@ img {
 			<%
 			}
 			%>
-			</div>
+		</div>
 
 
-			<!-- 보내기 -->
+		<!-- 보내기 -->
 
 
-		
+
 		<div class="row mt-3 text-center ">
 			<div class="input-group mb-3">
 

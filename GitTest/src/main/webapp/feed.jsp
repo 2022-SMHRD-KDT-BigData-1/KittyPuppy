@@ -164,7 +164,7 @@
 											</div>
 	                    				</c:when>
 	                    				<c:otherwise>
-		                    				<div class="carousel-item" style = 'height:600px;'>
+		                    				<div class="carousel-item" style = 'max-height:100%'>
 												<img src="${src}" style = 'max-width:100%; max-height:100%;' class="d-block w-100 img-fluid" alt="...">
 											</div>
 	                    				</c:otherwise>

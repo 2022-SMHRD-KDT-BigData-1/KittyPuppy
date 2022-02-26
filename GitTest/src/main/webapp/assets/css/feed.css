@@ -161,7 +161,7 @@ body {
 		overflow : auto;
 	}
 	
-	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
+	/* 화면크기가 800px이 넘어갔을때 적용되는 css */
 	@media ( min-width : 800px) {
 	
 		.header-logo {
