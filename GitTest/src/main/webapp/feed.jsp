@@ -119,6 +119,27 @@
 	    		</label>
 	        </div>
         </form>
+        
+        <!-- 실종동물 공지 -->
+        <div class="row mt-3">
+        	<div class="col-3" style="text-align:center; ">
+        		<i class='bi bi-megaphone icon' style="color:red; "></i>
+        	</div>
+        	<div class="col" >
+        		<span style="color:red; ">내 주변 실종동물 공지사항</span>
+        	</div>
+        </div>
+        <div class="row">
+        	<div class="col-3" style="max-height:100px;">
+        		<img src='./assets/img/고냥이1.jpg' class='rounded-circle img-thumbnail img-fluid float-start'>
+        	</div>
+        	<div class="col" style="max-height:100px;">
+        		<span>스핑크스 니니<br> 광주 동구 필문대로 295번길 1-4</span><br>
+        		<span>실종 날짜 : 2월 26일</span>
+        	</div>
+					   		
+        </div>
+        <hr>
         <c:forEach var ='feed' items = '${feedList}'>
         	<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
         	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>
