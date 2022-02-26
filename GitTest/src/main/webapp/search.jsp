@@ -25,7 +25,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-
+<link
+        href="https://fonts.googleapis.com/css2? family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+        rel="stylesheet">
 <!-- 아이콘 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -54,6 +56,7 @@ html, body {
 }
 
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	background-color: #ffffff;
 	display: flex;
 	padding: 10px;
@@ -80,11 +83,20 @@ i {
 }
 
 .container {
-	width: 100%;
+	/* width: 100%;
 	max-width: 492px;
 	padding: 15px;
 	margin: auto;
-	display: block;
+	display: block; */
+	text-align: left;
+	max-width: 800px;
+	min-width: 360px;
+	padding: 12px;
+	margin: auto;
+	display: auto;
+}
+.mt-3 {
+padding-left:30px ;
 }
 
 .btn {
