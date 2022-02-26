@@ -281,10 +281,13 @@ a {
 }
 
 .follow-list {
-	width: 340px;
-	height: 320px;
-	overflow-y: hidden;
+	width: 320px;
+	height: 310px;
 	overflow: auto;
+}
+
+.follow-list::-webkit-scrollbar {
+	display: none;
 }
 
 .list {
