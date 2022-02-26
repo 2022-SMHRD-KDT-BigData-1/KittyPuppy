@@ -310,13 +310,13 @@ img {
 			%>
 			<div class="lcoco-content-box ">
 
-				<div class="d-flex justify-content-end mb-4 sksk ">
+				<div class="d-flex justify-content-end me-3 mb-4 sksk ">
 					<!-- 삭제 -->
 					<table class = "tb">
 						<tr>
 							<td style="vertical-align: bottom;">
 								<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)"
-									style="border: none; background-color: white;">
+									style="border: none; background-color:#e8fcf87e;">
 									<i class="bi bi-trash" style='font-size: 15px;'></i>
 								</button>
 							</td>
@@ -331,7 +331,7 @@ img {
 			<%
 			} else {
 			%>
-			<div class="d-flex justify-content-start mb-4">
+			<div class="d-flex justify-content-start ms-3 mb-4">
 				<!-- receivenick말풍선 -->
 				<div id="rdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_03 ">
 					<%=DMlist.get(i).getContent()%>

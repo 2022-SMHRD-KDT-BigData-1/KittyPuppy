@@ -144,11 +144,12 @@ h1 {
 	margin-bottom: auto;
 	margin-left: 10px;
 	border-radius: 10px;
-	background-color: #ededed;
+	background-color: #25aa8f7e;
 	padding: 10px;
 	max-width: 80%;
 	position: relative;
 	word-break: break-all;
+	color:white;
 }
 /* .balloon_03 {
         float: left;
@@ -160,7 +161,7 @@ h1 {
         border-radius: 10px;
       } */
 .balloon_03:after {
-	border-top: 15px solid #ededed;
+	border-top: 15px solid #25aa8f7e;
 	border-left: 15px solid transparent;
 	border-right: 0px solid transparent;
 	border-bottom: 0px solid transparent;
@@ -181,6 +182,7 @@ h1 {
 	padding: 10px;
 	position: relative;
 	word-break: break-all;
+	color:white;
 }
 
 /* .balloon_04 {
@@ -252,9 +254,14 @@ h1 {
 	overflow-y: scroll;
 	max-height: 500px;
 	max-width: 100%;
-	overflow-x: hidden
+	overflow-x: hidden;
+	background-color:#e8fcf87e;
 }
 .container1::-webkit-scrollbar{ display:none; }
+
+.container.out{
+	max-width:360px;
+}
 
 .sdiv {
 	width: 50px;
@@ -282,6 +289,10 @@ img {
 @media ( min-width : 800px) {
 	.header-logo {
 		max-width: 800px;
+	}
+	
+	.container.out{
+		max-width:600px;
 	}
 }
 </style>
@@ -346,13 +357,13 @@ img {
 			%>
 			<div class="lcoco-content-box ">
 
-				<div class="d-flex justify-content-end mb-4 sksk ">
+				<div class="d-flex justify-content-end me-3 mb-4 sksk ">
 					<!-- 삭제 -->
 					<table class="tb">
 						<tr>
 							<td style="vertical-align: bottom;">
 								<button onclick=" DMDelete(<%=DMlist.get(i).getDmNo()%>)"
-									style="border: none; background-color: white;">
+									style="border: none; background-color:#e8fcf87e;">
 									<i class="bi bi-trash" style='font-size: 15px;'></i>
 								</button>
 							</td>
@@ -367,7 +378,7 @@ img {
 			<%
 			} else {
 			%>
-			<div class="d-flex justify-content-start mb-4">
+			<div class="d-flex justify-content-start ms-3 mb-4">
 				<!-- receivenick말풍선 -->
 				<div id="rdm(<%=DMlist.get(i).getDmNo()%>)" class="balloon_03 ">
 					<%=DMlist.get(i).getContent()%>
