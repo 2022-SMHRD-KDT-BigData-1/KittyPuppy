@@ -81,6 +81,7 @@ a {
 	width: 360px;
 	min-width: 360px;
 	max-width: 360px;
+	padding: 9rem 10px 10px 10px;
 	margin: auto;
 	display: block;
 }
@@ -90,7 +91,6 @@ a {
 	width: 360px;
 	min-width: 360px;
 	max-width: 360px;
-	padding: 10px 10px 10px 10px;
 	margin: auto;
 	display: block;
 }
@@ -204,6 +204,10 @@ a {
 	margin-left: 80px;
 	width: 220px;
 }
+
+.like-com-scr-bar {
+	flex-wrap: nowrap;
+}
 /*--------------------이하 모달 창 관련 --------------------------------------------------------------*/
 #modal.modal-overlay {
 	width: 100%;
@@ -311,18 +315,10 @@ a {
 		min-width: 800px;
 		max-width: 800px;
 	}
-	.tab-pane {
-	width: 380px;
-	min-width: 380px;
-	max-width: 380px;
-	padding: 10px 0px;
-	margin: auto;
-	display: block;
-}
 	/* 상단 로고, 메뉴바, 컨테이너 고정 .*/
 	.img-thumbnail {
-		width: 150px;
-		height: 150px;
+		width: 140px;
+		height: 140px;
 	}
 	.img-thumbnail.animal {
 		width: 90px;
@@ -435,6 +431,4 @@ ul {
 
 .lcs {
 	font-size: 2ch;
-	margin-left: 15px;
-	margin-right: 15px;
 }

@@ -47,10 +47,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-	
-
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
@@ -122,24 +118,29 @@
 						<div class="row justify-content-center">
 							<div class="d-grid gap-sm-1 col-sm-6">
 								<!-- 게시자 정보 -->
-								<a href='otherpage.jsp?nick=${scNick }'>
-									<div class='col-6'>
-										<%
-											String scNick = (String)pageContext.getAttribute("scNick");
-											MemberDTO sm = dao.memberInfo(scNick);
-											pageContext.setAttribute("sm", sm);
-										%>
-
-										<img src="${sm.picAddress}"
-											class="rounded-circle img-thumbnail feed img-fluid float-start"
-											onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-
-
-										<div align="left">
-											<strong>${scrap.nick }</strong> <br />${fn:substring(scrap.feedDate,0,10)}
+									<%
+										String scNick = (String) request.getAttribute("scNick");
+										MemberDTO sm = dao.memberInfo(scNick);
+										pageContext.setAttribute("sm", sm);
+									%>
+									<div>
+										<a href='otherpage.jsp?nick=${scrap.nick}'> 
+											<c:choose>
+												<c:when test="${empty sm.picAddress}">
+													<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+														 class='rounded-circle img-thumbnail feed img-fluid float-start'>
+												</c:when>
+												<c:otherwise>
+													<img src='${sm.picAddress}' class='rounded-circle img-thumbnail float-start'>
+												</c:otherwise>
+											</c:choose>
+										</a>
+										<div align='left' class="otherPageNick">
+											<a href='otherpage.jsp?nick=${scrap.nick}'> <br /> <strong>${scrap.nick}</strong>
+												<br />${fn:substring(scrap.feedDate,0,10)}
+											</a>
 										</div>
 									</div>
-								</a>
 
 								<!-- 첨부된 사진-->
 								<div id="carouselExampleControls${scrap.feedNo}"
@@ -205,7 +206,7 @@
 								<div class='comment' id='comment${scrap.feedNo}'></div>
 
 								<!-- 피드 배너 -->
-								<div class='navbar'>
+								<div class='navbar like-com-scr-bar'>
 									<%
 				                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(scNo,nick));
 				                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,scNo,null,nick));

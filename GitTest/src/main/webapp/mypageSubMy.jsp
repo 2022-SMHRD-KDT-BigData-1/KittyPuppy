@@ -47,10 +47,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-	
-
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
@@ -117,25 +113,37 @@
 					<div class="row justify-content-center">
 						<div class="d-grid gap-sm-1 col-sm-6">
 							<!-- 게시자 정보 -->
-							<div class='col'>
 							<%
 						      	String fnick = (String) request.getAttribute("fnick");
 						      	MemberDTO fm = dao.memberInfo(fnick);
 						      	pageContext.setAttribute("fm",fm);
 						    %>
-						    
-						    	<img src="${fm.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
-										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-								
-								<div align="left">
-									<strong>${feed.nick}</strong><br />
-									${fn:substring(feed.feedDate,0,10)}
+							<div>
+								<!-- 게시자 썸네일 -->
+								<a href='otherpage.jsp?nick=${feed.nick}'> 
+									<c:choose>
+										<c:when test="${empty fm.picAddress}">
+											<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+												 class='rounded-circle img-thumbnail float-start'>
+										</c:when>
+										<c:otherwise>
+											<img src='${fm.picAddress}' class='rounded-circle img-thumbnail feed float-start'>
+										</c:otherwise>
+									</c:choose>
+								</a>
+								<!-- 마이 피드-삭제 아이콘 -->
+								<div style="float: right;">
+									<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' ">
+										<i class="bi bi-x-lg lcs"></i>
+									</button>
 								</div>
-								<div  style="float:right; ">
-									<!-- 삭제 아이콘 -->
-										<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' "><i class="bi bi-x-lg lcs"></i></button>
-									</div>
+								<!-- 닉네임, 게시 날짜 -->
+								<div align='left' class="otherPageNick">
+									<a href='otherpage.jsp?nick=${feed.nick}'> <br /> <strong>${feed.nick}</strong><br />
+										${fn:substring(feed.feedDate,0,10)}
+									</a>
 								</div>
+							</div>
 							
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
@@ -195,7 +203,7 @@
 	                    </div>
 	                    
 						<!-- 피드 배너 -->
-	                    <div class = 'navbar'>
+	                    <div class = 'navbar like-com-scr-bar'>
 	                    	<%
 	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
 	                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,fdn,null,nick));
