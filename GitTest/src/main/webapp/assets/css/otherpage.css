@@ -3,6 +3,7 @@ html, body {
 }
 
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	background-color: #ffffff;
 	padding: 10px;
 }
@@ -18,34 +19,21 @@ h1 {
 .hidden {
 	color: #f5e172;
 	font-size: 4ch;
-	margin-right: 100px;
 	visibility: hidden;
 }
 
 .report {
 	color: #f5e172;
 	font-size: 4ch;
-	margin-left: 100px;
-}
-
-/* 아이콘 설정 */
-.icon {
-	margin-left: 15px;
-	margin-right: 15px;
-	color: #25aa8f7e;
-}
-
-.bi {
-	font-size: 40px;
-}
-
-i {
-	color: #25aa90;
 }
 
 /* 상단 로고 고정 */
 .header-logo {
 	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	text-align: center;
 	margin: 0 auto;
 	left: 0;
 	right: 0;
@@ -53,35 +41,47 @@ i {
 	height: 5rem;
 	background-color: white;
 	padding-top: 15px;
-	width: 100%;
-	text-align: center;
+	width: 360px;
 	z-index: 3;
 }
 
 /* 상단 메뉴바 고정 */
 .header-menu {
+	text-align: center;
 	position: fixed;
-	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
 	left: 0;
 	right: 0;
 	top: 5rem;
+	margin: 0 auto;
 	height: 5rem;
 	background-color: white;
 	padding-top: 15px;
-	width: 100%;
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
 	z-index: 3;
+}
+
+/* 아이콘 설정 */
+.icon {
+	font-size: 40px;
+	color: #25aa8f7e;
+}
+
+i {
+	color: #25aa90;
 }
 
 /* 바깥 컨테이너 설정 */
 .container.out {
-	width: 100%;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom: 15px;;
-	padding-top: 9rem;
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
+	padding: 9rem 10px 10px 10px;
 	margin: auto;
 	display: block;
-	max-width: 470px;
 }
 
 /* 프로필 컨테이너 설정 - flexbox */
@@ -110,8 +110,8 @@ i {
 
 /* 프로필 썸네일 설정 */
 .img-thumbnail {
-	max-width: 77px;
-	max-height: 77px;
+	width: 70px;
+	height: 70px;
 }
 
 
@@ -125,15 +125,15 @@ i {
 }
 
 .item.post {
-	flex-basis: 25%;
+	flex-basis: 20%;
 }
 
 .item.follower {
-	flex-basis: 25%;
+	flex-basis: 20%;
 }
 
 .item.following {
-	flex-basis: 25%;
+	flex-basis: 20%;
 }
 
 .item.nick {
@@ -145,7 +145,7 @@ i {
 }
 
 .item.update, .item.write {
-	flex-basis: 220px;
+	flex-basis: 161px;
 }
 
 .btn:hover {
@@ -158,13 +158,14 @@ i {
 	color: white;
 }
 
+
 .btn.follow, .btn.message {
-	width: 215px;
+	width: 166px;
 }
 
 .btn.unfollow{
 	background-color: #25aa8f7e !important;
-	width: 215px;
+	width: 166px;
 }
 
 .row {
@@ -182,8 +183,6 @@ i {
 
 .lcs {
 	font-size: 2ch;
-	margin-left: 15px;
-	margin-right: 15px;
 }
 
 .feed-bt {
@@ -221,7 +220,7 @@ i {
 
 
 
-/*------------------------------------이하 모달 창 관련 --------------------------------------------------------------*/
+/*-----------이하 모달 창 관련 --------------------------------------------------------------*/
 #modal.modal-overlay {
 	width: 100%;
 	height: 100%;
@@ -248,27 +247,19 @@ i {
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 400px;
-	height: 500px;
+	width: 360px;
+	height: 480px;
 	position: relative;
 	top: -100px;
 	padding: 10px;
 	z-index: 3;
 }
 
-
 .modal-container {
 	width: 100%;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;;
-	padding-top: 10px;
+	padding: 10px;
 	margin: 0px auto;
 	display: block;
-	max-width: 430px;
-	min-width: 385px;
-	padding-right: 10px;
-	padding-bottom: 10px;
 }
 
 .container-head {
@@ -284,13 +275,43 @@ i {
 	width: 70px;
 }
 
-.tab-content .b{
-	padding: 0px ;
+.tab-content .b {
+	padding: 0px;
+}
+
+/* follow 탭 아이콘 클릭되지 않은 상태 */
+.bb {
+	font-family: 'Dancing Script', cursive;
+	font-size: 30px;
+	color: #25aa8f7e;
+	width: 155px;
+}
+
+/* follow 탭 아이콘 클릭했을 때 */
+.bb.active {
+	color: #25aa90 !important;
+}
+
+.follow-list {
+	width: 340px;
+	height: 320px;
+	overflow-y: hidden;
+	overflow: auto;
+}
+
+.list {
+	display: flex;
+	align-items: center;
+}
+
+.img-thumbnail.follow {
+	width: 50px;
+	height: 50px;
 }
 
 
 /* 화면크기가 992px이 넘어갔을때 적용되는 css */
-@media ( min-width : 992px) {
+@media ( min-width : 800px) {
 	/* 바깥 컨테이너 설정 */
 	.container.out {
 		max-width: 700px;
@@ -323,12 +344,12 @@ i {
 
 	/* 프로필 썸네일 설정 */
 	.img-thumbnail {
-		max-width: 150px;
-		max-height: 150px;
+		width: 70px;
+		height: 70px;
 	}
 	.img-thumbnail.feed {
-		max-width: 100px;
-		max-height: 100px;
+		width: 70px;
+		height: 70px;
 	}
 	.item.img {
 		order: 1;
@@ -377,8 +398,8 @@ i {
 
 	/* 반려동물 썸네일 설정 */
 	.img-thumbnail.animal {
-		max-width: 90px;
-		max-height: 90px;
+		width: 70px;
+		height: 70px;
 	}
 	
 	/* 이하 모달창 관련  */
@@ -388,4 +409,8 @@ i {
 		margin: auto;
 		display: auto;
 	}	
+}
+
+.navbar{
+	flex-wrap:nowrap;	
 }
