@@ -428,7 +428,7 @@
 					<c:forEach var="scrap" items="${scrapList}">
 						<c:set var="scNo" value="${scrap.feedNo }" scope="page" />
 						<!-- scNick : 스크랩 게시물을 실제로 작성한 사람 -->
-						<c:set var="scNick" value="${scrap.nick }" scope="page" />
+						<c:set var="scNick" value="${scrap.nick }" scope="request" />
 
 						<!-- 스크랩한 게시물 -->
 						<div class="row mt-3 text-center">
@@ -436,7 +436,8 @@
 								<div class="d-grid gap-sm-1 col-sm-6">
 									<!-- 게시자 정보 -->
 									<%
-										String scNick = (String) request.getAttribute("scNick");
+										String scNick = (String)request.getAttribute("scNick");
+										System.out.println(scNick);
 										MemberDTO sm = dao.memberInfo(scNick);
 										pageContext.setAttribute("sm", sm);
 									%>

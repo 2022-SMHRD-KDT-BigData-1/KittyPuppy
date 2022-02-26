@@ -123,10 +123,10 @@
         <!-- 실종동물 공지 -->
         <div class="row mt-3">
         	<div class="col-3" style="text-align:center; ">
-        		<i class='bi bi-megaphone icon' style="color:red; "></i>
+        		<i class='bi bi-megaphone icon' style="color:#FF8181; "></i>
         	</div>
         	<div class="col" >
-        		<span style="color:red; ">내 주변 실종동물 공지사항</span>
+        		<span style="color:#FF8181; ">내 주변 실종동물 공지사항</span>
         	</div>
         </div>
         <div class="row">
