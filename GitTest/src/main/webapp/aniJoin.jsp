@@ -19,6 +19,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@00&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2? family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap"
+        rel="stylesheet">
     <!-- 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
@@ -30,6 +33,7 @@
     <style>
     
            body {
+            font-family: 'IBM Plex Sans KR', sans-serif;
             background-color: #ffffff;
             font-size: 10px;
             color: #25aa90;
@@ -39,20 +43,15 @@
         }
 
         .container {
-            width: 100%;
-            padding: 15px;
-
-            display: block;
+            width: 360px;
+            min-width: 360px;
+            margin: auto;
         }
 
         @media (min-width: 992px) {
             .img-thumbnail {
                 max-width: 100px;
                 max-height: 100px;
-            }
-
-            .container {
-                max-width: 800px;
             }
         }
 
@@ -116,7 +115,7 @@
                        
                     </div>
 
-                    <div class="col-8" >
+                    <div class="col-8 g-3" >
                         <h3> 반려동물등록</h3>
                     </div>
                     <!-- 아래 col-2가 있어야 text가 중앙으로 올수 있음 -->
@@ -175,9 +174,8 @@
                 <div class="mb-3">
 
                     <select id="disabledSelect" class="form-select" name="animalSex">
-                        <option>성별</option>
-                        <option value="">여아</option>
-                        <option value="">남아</option>
+                        <option value="">암컷</option>
+                        <option value="">수컷</option>
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
                 </div>
