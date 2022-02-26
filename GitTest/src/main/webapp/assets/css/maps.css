@@ -118,7 +118,7 @@ h1 {
 #map {
 	height: 100%;
 	width: 340px;
-	height: 450px;
+	height: 340px;
 	overflow: hidden;
 }
 /* 지도 단 끝*/
@@ -176,8 +176,8 @@ h1 {
 }
 
 .img-thumbnail {
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 100px;
 }
 
 @media ( min-width : 800px) {

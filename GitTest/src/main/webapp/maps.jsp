@@ -130,7 +130,7 @@
 					<!-- 지도를 표시할 div 입니다 -->
 					<!--상민팀장님 04190b979a6d181ca1953e1db631e885 -->
 					<div id="map" style=""></div>
-					<div id="clickLatlng"></div>
+					<div id="clickLatlng" style="display:none;"></div>
 				</div>
 
 				<!-- 주변 반려동물 리스트 탭 상단 -->
@@ -182,7 +182,7 @@
 											<c:forEach var="cat" items="${catList}">
 												<c:set var='aNick' value='${cat.nick}' scope='request' />
 	
-												<div class="col-7 p-3  g-2">
+												<div class="col-7 p-2  g-2">
 													<button type="button"
 														class="btn rounded-pill btn-outline-default "
 														style="outline-style: inherit; background-color: rgb(238, 247, 247); color: #000000; font: size 9px;">
