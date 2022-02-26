@@ -62,7 +62,7 @@ public class DMDAO {
 		return cnt;
 		
 	}
-	// DM 주고받은 회원 리스트 보여주기
+	// DM을 주고받은 회원 리스트 보여주기
 	public ArrayList<String> DMList(String sendnick) {
 		
 		ArrayList<String> list = new ArrayList<String>();
@@ -75,6 +75,13 @@ public class DMDAO {
 			while (rs.next()) {
 				list.add(rs.getString("receivenick"));
 			}
+			ArrayList<String> list2 = DMList2(sendnick);
+			for (int i = 0; i < list2.size(); i++) {
+				if (list.contains(list2.get(i))) {
+				} else {
+					list.add(list2.get(i));
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -83,6 +90,29 @@ public class DMDAO {
 		return list;
 		
 	}
+	
+	// 나에게 DM을 보낸 회원 리스트 보여주기
+	public ArrayList<String> DMList2(String sendnick) {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		connect();
+		try {
+			String sql = "select distinct sendnick from dm where receivenick = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, sendnick);
+			rs =  psmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("sendnick"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+		
+	}
+	
 	// DM 주고받은 내역보여주기
 	public ArrayList<DMDTO> DMShow(String sendnick, String receivenick) {
 		
