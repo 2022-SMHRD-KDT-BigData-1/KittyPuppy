@@ -103,7 +103,7 @@
         <div class="row">
 
 
-            <div class="d-grid gap-0 col-12 mx-auto">
+            <div class="d-grid my-0 col-12 mx-auto">
 
                 <div class="row">
                     <!-- 뒤로가기 아이콘 -->
@@ -144,17 +144,15 @@
 
                 </div>
 
-
+				<div class="d-grid gap-2 col-12 mx-auto">
 
                 <!-- 정보 변경 -->
                 <!-- 닉네임 자동으로 채워지기 -->
-                <textarea class="form-control" name="nick" readonly>${member.nick }</textarea><br>
-                <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName"><br>
+                <textarea class="form-control" name="nick" readonly>${member.nick }</textarea>
+                <input type="text" class="form-control" placeholder="반려동물 이름" name="animalName">
 
 
-                <div class="mb-3">
-
-                    <select id="disabledSelect" class="form-select" name="upKind">
+                <select id="disabledSelect" class="form-select" name="upKind">
                         <option>반려동물 대분류</option>
                         <option>고양이</option>
                         <option>개</option>
@@ -162,39 +160,25 @@
                         <!--  <option value=""></option> 추가 하면 됨 -->
 
                     </select>
-                </div>
+                
 
-                <div class="mb-3">
-
-				<input type="text" class="form-control" placeholder="반려동물 소분류 ex)푸들 or 샴" name="kind">
+                <input type="text" class="form-control" placeholder="반려동물 소분류 ex)푸들 or 샴" name="kind">
                     
-                </div>
-
-
-                <div class="mb-3">
-
+                
                     <select id="disabledSelect" class="form-select" name="animalSex">
                         <option value="">암컷</option>
                         <option value="">수컷</option>
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
-                </div>
+                
 
-                <input type="text" class="form-control" placeholder="나이 ex)2살이면 2, 3살이면 3" name="animalAge"><br>
-                <input type="text" class="form-control" placeholder="반려동물 프로필" name="animalProfile"><br>
-
-
-
+                <input type="text" class="form-control" placeholder="나이 ex)2살이면 2, 3살이면 3" name="animalAge">
+                <input type="text" class="form-control" placeholder="반려동물 프로필" name="animalProfile">
+				
 
 
-
-            </div>
-
-
-            <div class="d-grid gap-2 col-12 mx-auto">
                 <button type="submit" class="btn" style="background-color: #25aa90;">완료</button>
-
-            </div>
+				</div>
 
         </div>
 </form>

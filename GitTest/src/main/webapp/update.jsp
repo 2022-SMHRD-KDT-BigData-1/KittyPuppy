@@ -60,8 +60,7 @@
         /* 회원가입수정 문구 */
         .container h3 {
             text-align: center;
-            color: black;
-            font-size: 20px;
+            color: #25aa90;
             margin-top: 8%;
             margin-bottom: 8%;
         }
@@ -91,19 +90,19 @@
 
                     <div class="row">
                         <!-- 뒤로가기 아이콘 -->
-                        <div class="col-sm-2">
+                        <div class="col-2 py-4">
                             <a href="mypage.jsp">
                                 <!-- 마이페이지 이동 -->
                                 <i class="bi bi-chevron-left"
-                                    style="font-size: 2rem; color: black; align-items: flex-start;"></i>
+                                    style="font-size: 2rem; color: #25aa90; align-items: flex-start;"></i>
                             </a>
                         </div>
 
-                        <div class="col-sm-8">
+                        <div class="col-8 g-3" style="color:#25aa90;">
                             <h3> 회원정보수정</h3>
                         </div>
                         <!-- 아래 col-2가 있어야 text가 중앙으로 올수 있음 -->
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <h3> </h3>
                         </div>
 
