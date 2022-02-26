@@ -81,7 +81,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 <!-- Custom styles for this template -->
 <link href="narrow-jumbotron.css" rel="stylesheet">
 <!-- css 파일 -->
-<link rel="stylesheet" href="./assets/css/lostAniShow.css">
+<link rel="stylesheet" href="./assets/css/lostAniShow.css?ver=0.9.0.1">
 <title>lostTemp</title>
 </head>
 <body>

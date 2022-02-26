@@ -131,24 +131,24 @@
 	                    	MemberDTO fm = dao.memberInfo(fnick);
 	                    	pageContext.setAttribute("fm",fm);
 	                    %>
-		                    <div class = 'col-6'>
-                 	            <a href = 'otherpage.jsp?nick=${feed.nick}'>
-		                    	<c:choose>
-		                    		<c:when test = "${empty fm.picAddress}">
-		                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
-		                    		</c:when>
-		                    		<c:otherwise>
-		                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail float-start'>
-		                    		</c:otherwise>
-		                    	</c:choose>
-		                    	</a>
-		                        <div align ='left' class="otherPageNick">
-                                	<a href = 'otherpage.jsp?nick=${feed.nick}'>
-			                        <br/><strong>${feed.nick}</strong><br/>
-			                        ${fn:substring(feed.feedDate,0,10)} 
-									</a>                    
-		                        </div>
-		                    </div>
+	                    <div>
+                	            <a href = 'otherpage.jsp?nick=${feed.nick}'>
+	                    	<c:choose>
+	                    		<c:when test = "${empty fm.picAddress}">
+	                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail float-start'>
+	                    		</c:otherwise>
+	                    	</c:choose>
+	                    	</a>
+	                        <div align ='left' class="otherPageNick">
+                               	<a href = 'otherpage.jsp?nick=${feed.nick}'>
+		                        <br/><strong>${feed.nick}</strong><br/>
+		                        ${fn:substring(feed.feedDate,0,10)} 
+								</a>                    
+	                        </div>
+	                    </div>
 	                    
 	                    
 	                    <!-- 첨부된 사진-->

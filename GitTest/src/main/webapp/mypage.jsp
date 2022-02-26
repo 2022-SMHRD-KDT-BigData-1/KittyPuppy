@@ -31,7 +31,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>KittyPuppy</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -40,17 +40,12 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<title>KittyPuppy</title>
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
 	rel="stylesheet">
-	
-
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
@@ -77,8 +72,6 @@
 
 <!-- css 파일 -->
 <link rel="stylesheet" href="./assets/css/mypage.css">
-
-
 
 </head>
 <body>
@@ -154,7 +147,7 @@
 				<c:choose>
 					<c:when test="${empty member.picAddress }">
 						<img
-						src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" 
+						srxc="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png" 
 						class="rounded-circle img-thumbnail img-fluid float-start">
 					</c:when>
 					<c:otherwise>
@@ -410,24 +403,24 @@
 									<div class="row justify-content-center">
 										<div class="d-grid gap-sm-1 col-sm-6">
 											<!-- 게시자 정보 -->
-											<a href = 'otherpage.jsp?nick=${scNick }'>
-												<div class='col-6'>
-													<%
-														String scNick = (String)pageContext.getAttribute("scNick");
-														MemberDTO sm = dao.memberInfo(scNick);
-														pageContext.setAttribute("sm", sm);
-													%>																
-													
-														<img src="${sm.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
-											 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-												
-													
-													<div align="left">
-														<strong>${scrap.nick }</strong>
-														<br />${fn:substring(scrap.feedDate,0,10)}
-													</div>
-												</div>
-											</a>
+											<div>
+				                	            <a href = 'otherpage.jsp?nick=${feed.nick}'>
+						                    		<c:choose>
+							                    		<c:when test = "${empty fm.picAddress}">
+							                    			<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png' class='rounded-circle img-thumbnail img-fluid float-start'>
+							                    		</c:when>
+							                    		<c:otherwise>
+							                    			<img src='${fm.picAddress}' class='rounded-circle img-thumbnail float-start'>
+							                    		</c:otherwise>
+						                    		</c:choose>
+						                    	</a>
+						                        <div align ='left' class="otherPageNick">
+					                               	<a href = 'otherpage.jsp?nick=${feed.nick}'>
+								                        <br/><strong>${feed.nick}</strong>
+								                        <br/>${fn:substring(feed.feedDate,0,10)} 
+													</a>                    
+						                        </div>
+						                    </div>
 											
 											<!-- 첨부된 사진-->
 											<div id="carouselExampleControls${scrap.feedNo}" class="carousel slide"
@@ -579,49 +572,49 @@
 				  </li>
 				</ul>
 				
-				<!-- 팔로우 리스트 탭 내용 -->
-				<div class="tab-content b" id="myTabContent" style="padding: 0px;">
-				  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-				  	<ul>
-				  		<c:forEach var = "follower" items="${followerList }">
-		
-				  			<%
-				  				MemberDTO fmember = dao.memberInfo(pageContext.getAttribute("follower").toString());
-				  				pageContext.setAttribute("fmember", fmember);
-				  			%>
-				  		
-					  		<li class="list">
-					  			<a href="otherpage.jsp?nick=${follower}" class="item">
-									<img src="${fmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
-						 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-					  			</a>
-					  			<div class="item">${fmember.nick}</div>
-					  		</li>
-					  		<hr>
-					  	</c:forEach>
-				  	</ul>
-				  	
-				  </div>
-				  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-				  	<ul>
-				  		<c:forEach var = "following" items="${followingList }">
-					  		<%
-				  				MemberDTO ffmember = dao.memberInfo(pageContext.getAttribute("following").toString());
-				  				pageContext.setAttribute("ffmember", ffmember);
-				  			%>
-				  		
-					  		<li class="list">
-					  			<a href="otherpage.jsp?nick=${following}" class="item">
-									<img src="${ffmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
-						 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-					  			</a>
-					  			<div class="item">${ffmember.nick}</div>
-					  		</li>
-					  		<hr>
-					  	</c:forEach>
-				  	</ul>
-				  </div>
-				</div>
+					<!-- 팔로우 리스트 탭 내용 -->
+					<div class="tab-content b follow-list" id="myTabContent " style="padding: 0px;">
+					  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					  	<ul>
+					  		<c:forEach var = "follower" items="${followerList }">
+			
+					  			<%
+					  				MemberDTO fmember = dao.memberInfo(pageContext.getAttribute("follower").toString());
+					  				pageContext.setAttribute("fmember", fmember);
+					  			%>
+					  		
+						  		<li class="list">
+						  			<a href="otherpage.jsp?nick=${follower}" class="item">
+										<img src="${fmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
+							 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+						  			</a>
+						  			<div class="item">${fmember.nick}</div>
+						  		</li>
+						  		<hr>
+						  	</c:forEach>
+					  	</ul>
+					  	
+					  </div>
+					  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					  	<ul>
+					  		<c:forEach var = "following" items="${followingList }">
+						  		<%
+					  				MemberDTO ffmember = dao.memberInfo(pageContext.getAttribute("following").toString());
+					  				pageContext.setAttribute("ffmember", ffmember);
+					  			%>
+					  		
+						  		<li class="list">
+						  			<a href="otherpage.jsp?nick=${following}" class="item">
+										<img src="${ffmember.picAddress}" class="rounded-circle img-thumbnail follow img-fluid float-start"
+							 			onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
+						  			</a>
+						  			<div class="item">${ffmember.nick}</div>
+						  		</li>
+						  		<hr>
+						  	</c:forEach>
+					  	</ul>
+					  </div>
+					</div>
 				</section>
 			</div>
 		</div>
@@ -641,7 +634,6 @@
 	<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
 	
-	<script src='jquery-3.6.0.min.js'></script>
 	<script type='text/javascript'>
 	
 		// 모달 창 켜기 - 팔로워 눌렀을 때
