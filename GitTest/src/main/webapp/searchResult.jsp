@@ -45,7 +45,7 @@
 <!-- Custom styles for this template -->
 <link href='narrow-jumbotron.css' rel='stylesheet'>
 
-<title>WebKittyPuppy</title>
+<title>KittyPuppy</title>
 
 <style>
 html, body {
@@ -251,7 +251,7 @@ body {
         <form action = 'FeedSearchCon.do' method = 'post'>
 	        <div class="ls input-group rounded">
 	        	<a href = 'feed.jsp' class="input-group-text border-0" id="search-addon" style = "background-color :#ffffff"><i class="bi bi-chevron-left"></i></a>
-	            <input name ='search' type="search" class="form-control rounded" placeholder="닉네임 또는 태그 검색(태그는 #태그명으로 검색)" aria-label="Search" aria-describedby="search-addon" />
+	            <input name ='search' type="search" class="form-control rounded" placeholder="'닉네임' 또는 '#태그' 검색" aria-label="Search" aria-describedby="search-addon" />
 	        	<label class="btn btn-default input-group-text border-0" id="search-addon" style="font-size: 30px;">
 	        		<i class="fas fa-search"> <input type="submit" hidden></i>
 	    		</label>

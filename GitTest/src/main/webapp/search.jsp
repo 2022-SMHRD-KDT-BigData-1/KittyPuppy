@@ -39,7 +39,7 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 
-<title>WebKittyPuppy</title>
+<title>KittyPuppy</title>
 
 
 
@@ -135,7 +135,7 @@ div {
 				<a href='feed.jsp' class="input-group-text border-0"
 					id="search-addon"><i class="bi bi-chevron-left"></i></a> <input
 					name='search' type="search" class="form-control rounded"
-					style="margin-right: 5px;" placeholder="닉네임 또는 태그 검색"
+					style="margin-right: 5px;" placeholder="'닉네임' 또는 '#태그' 검색"
 					aria-label="Search" aria-describedby="search-addon" /> <label
 					class="btn btn-default input-group-text border-0" id="search-addon"
 					style="font-size: 30px; padding: 0px; margin: 5px"> <i
