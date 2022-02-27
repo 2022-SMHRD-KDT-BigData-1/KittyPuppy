@@ -259,7 +259,7 @@
 					<c:set var='fnick' value='${feed.nick}' scope='request' />
 	
 					<!-- 스토리 : 내 피드 -->
-					<div class="row mmt-3 text-center">
+					<div class="row mt-3 text-center">
 						<div class="row justify-content-center">
 							<div class="d-grid gap-sm-1 col-sm-6">
 								<!-- 게시자 정보 -->

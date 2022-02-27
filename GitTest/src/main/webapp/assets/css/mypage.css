@@ -97,6 +97,12 @@ a {
 	display: block;
 }
 
+.col-sm-6 {
+	width: 346px;
+	padding: 0px 10px;
+	margin: 10px 0px;
+}
+
 /* 탭을 클릭했을 때 */
 .nav-link.a.active {
 	background-color: #25aa90 !important;
@@ -210,15 +216,7 @@ ul {
 	font-size: 12px;
 }
 
-.col-sm-6 {
-	width: 346px;
-	padding: 0px 10px;
-	margin: 10px 0px;
-}
 
-.col-sm-6>img {
-	width: 100%;
-}
 
 .feed-bt {
 	border: 0cm;
@@ -341,6 +339,15 @@ ul {
 		max-width: 800px;
 	}
 	/* 상단 로고, 메뉴바, 컨테이너 고정 .*/
+	
+	.col-sm-6 {
+	width: 375px;
+	}
+	/* 프로필 컨테이너 설정 */
+	.container.profile {
+		justify-content: flex-end;
+		text-align: left;
+	}
 	.img-thumbnail.my {
 		width: 120px;
 		height: 120px;
@@ -350,11 +357,6 @@ ul {
 		height: 90px;
 	}
 
-	.container.profile {
-		justify-content: flex-end;
-		text-align: left;
-	}
-	
 	.item.img {
 		order: 1;
 		flex-basis: 35%;
@@ -407,7 +409,6 @@ ul {
 	/* 이하 모달창 관련  */
 	.modal-container {
 		width: 100%;
-		max-width: 750px;
 		margin: auto;
 		display: auto;
 	}

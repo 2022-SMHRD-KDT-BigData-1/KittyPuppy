@@ -40,8 +40,6 @@
 
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="js/bootstrap.min.js"></script>
 
     <!-- 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -54,7 +52,7 @@
     <link href="narrow-jumbotron.css" rel="stylesheet">
     
     <!-- css 파일 -->
-	<link rel="stylesheet" href="./assets/css/otherpage.css?ver=0.9.0.1">
+	<link rel="stylesheet" href="./assets/css/otherpage.css?ver=0.9.0.4">
 
 </head>
 <body>
@@ -129,7 +127,7 @@
             
             <span class="item img ">
             <img src="${otherMember.picAddress}"
-                    class="rounded-circle img-thumbnail img-fluid float-start"
+                    class="rounded-circle img-thumbnail my img-fluid float-start"
                     onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
 
 
@@ -186,7 +184,6 @@
                 </div>
             <!-- </div> -->
         </div>
-        <br>
 
         <!-- 반려동물 사진, 추가등록 버튼 -->
 		<div class="animal row">
@@ -214,10 +211,6 @@
     
         <hr>
 
-    </div>
-    <div class="tab-content">
-    	<!-- 스토리 : 내 피드 -->
-             
 			<c:forEach var = 'feed'	items = '${feedList }'>
 				<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
                	<c:set var = 'fnick' value = '${feed.nick}' scope = 'request'/>	
@@ -227,14 +220,16 @@
 						<div class="d-grid gap-sm-1 col-sm-6">
 						
 							<!-- 게시자 정보 -->
-							<div class='col-6'>
+							<div>
 								<img src="${otherMember.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
 										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-								<div align="left"class="other-Nick">
-									<strong>${feed.nick}</strong><br />
+								<div align="left"class="otherPageNick">
+									<br/><strong>${feed.nick}</strong><br />
 									${fn:substring(feed.feedDate,0,10)}
 								</div>
 							</div>
+							
+							
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
                             data-bs-interval="false">
@@ -341,7 +336,7 @@
 				</div>
 				
 			</c:forEach>	
-    </div>
+	</div>
 	
 	<!-- 팔로워, 팔로잉 명단 모달창 -->
 	<div id="modal" class="modal-overlay">
@@ -430,7 +425,6 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
     
-    <script src='jquery-3.6.0.min.js'></script>
     <script>
     
 	 	// 모달 창 켜기 - 팔로워 눌렀을 때

@@ -90,8 +90,8 @@ body {
 	/* 바깥 컨테이너 설정 */
 	.container.out {
 		width: 360px;
-		padding-left: 12px;
-		padding-right: 12px;
+		padding-left: 10px;
+		padding-right: 10px;
 		padding-bottom: 15px;;
 		padding-top: 9rem;
 		margin: auto;
@@ -130,9 +130,6 @@ body {
 		width: 346px;
 	}
 	
-	.col-sm-6>img {
-		width: 100%;
-	}
 	.otherPageNick{
 		margin-left:80px;
 		width:220px;
@@ -181,6 +178,9 @@ body {
 			width: 800px;
 			min-width: 800px;
 			max-width: 800px;
+		}
+		.col-sm-6 {
+			width: 375px;
 		}
 	
 		.ls {

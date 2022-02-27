@@ -26,22 +26,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>KittyPuppy</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>KittyPuppy</title>
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="js/bootstrap.min.js"></script>
 
     <!-- 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -54,7 +51,7 @@
     <link href="narrow-jumbotron.css" rel="stylesheet">
     
     <!-- css 파일 -->
-	<link rel="stylesheet" href="./assets/css/otherpage.css">
+	<link rel="stylesheet" href="./assets/css/otherpage.css?ver=0.9.0.4">
 
 </head>
 <body>
@@ -113,7 +110,6 @@
     %>
 
     <div id = "reload">
-    	<!-- 스토리 : 내 피드 -->
              
 			<c:forEach var = 'feed'	items = '${feedList }'>
 				<c:set var = 'fdn' value = '${feed.feedNo}' scope = 'request'/>
@@ -122,15 +118,17 @@
 				<div class="row mt-3 text-center">
 					<div class="row justify-content-center">
 						<div class="d-grid gap-sm-1 col-sm-6">
+							
 							<!-- 게시자 정보 -->
-							<div class='col-6'>
+							<div>
 								<img src="${otherMember.picAddress}" class="rounded-circle img-thumbnail feed img-fluid float-start"
 										 onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png';">
-								<div align="left">
-									<strong>${feed.nick}</strong><br />
+								<div align="left"class="otherPageNick">
+									<br/><strong>${feed.nick}</strong><br />
 									${fn:substring(feed.feedDate,0,10)}
 								</div>
 							</div>
+							
 							<!-- 첨부된 사진-->
 							<div id="carouselExampleControls${feed.feedNo}"  class="carousel slide"
                             data-bs-interval="false">

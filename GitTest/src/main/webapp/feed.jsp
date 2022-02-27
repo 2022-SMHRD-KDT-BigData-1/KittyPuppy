@@ -49,7 +49,7 @@
 <title>WebKittyPuppy</title>
 
 <!-- feed.css -->
-<link href='./assets/css/feed.css' rel='stylesheet'>
+<link rel='stylesheet' href='./assets/css/feed.css?ver=0.9.0.2'>
 
 
 </head>

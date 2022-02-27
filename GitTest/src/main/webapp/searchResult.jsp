@@ -25,9 +25,8 @@
 <!-- Google Font -->
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-<link
-	href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap'
-	rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <!-- 아이콘 -->
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css'>
@@ -37,10 +36,7 @@
     integrity='sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p' crossorigin='anonymous' />
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-<script
-	src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-<script src='js/bootstrap.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
 
 <!-- Custom styles for this template -->
 <link href='narrow-jumbotron.css' rel='stylesheet'>
@@ -53,6 +49,7 @@ html, body {
 }
 
 body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	background-color: #ffffff;
 	padding: 10px;
 }
@@ -86,34 +83,6 @@ body {
 		font-size: 40px;
 	}
 	
-	/* 상단 로고 고정 */
-	.header-logo {
-		position: fixed;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: 0;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		text-align: center;
-		z-index: 3;
-	}
-	
-	/* 상단 메뉴바 고정 */
-	.header-menu {
-		position: fixed;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: 5rem;
-		height: 5rem;
-		background-color: white;
-		padding-top: 15px;
-		width: 100%;
-		z-index:3;
-	}
 	
 	/* 바깥 컨테이너 설정 */
 	.container.out {
@@ -170,7 +139,7 @@ body {
 	}
 	
 	.col-sm-6 {
-		width: 492px;
+		width: 346px;
 	}
 	
 	.col-sm-6>img {
@@ -178,8 +147,8 @@ body {
 	}
 	
 	.img-thumbnail {
-		max-width: 70px;
-		max-height: 70px;
+		width: 70px;
+		height: 70px;
 	}
 	
 	.img-tn {
@@ -200,19 +169,18 @@ body {
 		overflow : auto;
 	}
 	
-	/* 화면크기가 1050px이 넘어갔을때 적용되는 css */
-	@media ( min-width : 1050px) {
+	/* 화면크기가 800px이 넘어갔을때 적용되는 css */
+	@media ( min-width : 800px) {
 		/* 바깥 컨테이너 설정 */
 		.container.out {
-			max-width: 1200px;
+			max-width: 800px;
 		}
 	
-		.img-thumbnail {
-			max-width: 100px;
-			max-height: 100px;
-		}
 		.ls {
-			max-width: 1000px;
+			max-width: 800px;
+		}
+		.col-sm-6 {
+			width: 375px;
 		}
 	}
 	
