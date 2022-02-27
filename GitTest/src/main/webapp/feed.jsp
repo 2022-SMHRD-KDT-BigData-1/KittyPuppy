@@ -217,14 +217,14 @@
 	                    	int cnt = fldao.feedLikeShow(fdn).size();
 	                    	int comCnt = fcdao.feedCommentShow(fdn).size()+fccdao.feedCoCommentShowByFeedNo(fdn).size();
 	                    %>
-	                    <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${feed.feedNo}'>댓글 <%= comCnt%></span></div>
+	                      <div align = 'left'><span id ='like${feed.feedNo}'>좋아요 <%= cnt %></span> <span id ='comCnt${feed.feedNo}'>댓글 <%= comCnt%></span></div>
 	                    
-	                    <!--  피드 댓글 창 -->
-	                    <div class = 'comment'  id ='comment${feed.feedNo}'>
-	                    </div>
+	                      <!--  피드 댓글 창 -->
+	                      <div class = 'comment'  id ='comment${feed.feedNo}'>
+	                      </div>
 	                    
-	                    <!-- 피드 배너 -->
-	                    <div class = 'navbar like-com-scr-bar'>
+	                      <!-- 피드 배너 -->
+	                      <div class = 'navbar like-com-scr-bar'>
 	                    	<%
 	                    		boolean check = fldao.feedLikeMark(new FeedLikeDTO(fdn,nick));
 	                    		boolean checkS = sdao.scrapMark(new ScrapDTO(null,fdn,null,nick));

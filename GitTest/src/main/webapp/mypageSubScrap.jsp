@@ -31,7 +31,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>KittyPuppy</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -40,7 +40,6 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<title>KittyPuppy</title>
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,7 +71,7 @@
 <link href="narrow-jumbotron.css" rel="stylesheet">
 
 <!-- css 파일 -->
-<link rel="stylesheet" href="./assets/css/mypage.css">
+<link rel="stylesheet" href="./assets/css/mypage.css?ver=0.9.0.7">
 
 
 
@@ -128,10 +127,10 @@
 											<c:choose>
 												<c:when test="${empty sm.picAddress}">
 													<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-														 class='rounded-circle img-thumbnail feed img-fluid float-start'>
+														 class='rounded-circle img-thumbnail feed float-start'>
 												</c:when>
 												<c:otherwise>
-													<img src='${sm.picAddress}' class='rounded-circle img-thumbnail float-start'>
+													<img src='${sm.picAddress}' class='rounded-circle img-thumbnail feed float-start'>
 												</c:otherwise>
 											</c:choose>
 										</a>
