@@ -12,7 +12,6 @@ import com.kittypuppy.model.MemberDAO;
 import com.kittypuppy.model.MemberDTO;
 
 public class MUpdateCon implements iCommand {
-	MemberDAO dao = new MemberDAO();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
