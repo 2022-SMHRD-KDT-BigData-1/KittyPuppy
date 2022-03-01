@@ -56,27 +56,6 @@
 </head>
 <body>
     
-    <!-- 키티퍼피 로고 -->
-    <div class="header-logo">
-        <i class="bi bi-exclamation-octagon-fill hidden"></i>
-        <h1 class="text-center">KittyPuppy</h1>
-        <a href ='lostAniReport.html'><i class="bi bi-exclamation-octagon-fill report"></i></a>
-    </div>
-        
-    <br>
-    <!-- 상단 고정된 메뉴바 -->
-    <div class='text-center banner header-menu'>
-        <a href="feed.jsp"><i class = "bi bi-phone icon"></i></a>
-
-        <a href="lostAniBoard.jsp"><i class="bi bi-megaphone icon"></i></a>
-
-        <a href="maps.jsp"><i class="bi bi-geo-alt icon"></i></a>
-
-        <a href="mypage.jsp"><i class="bi bi-person icon"></i></a>
-
-        <a href="dmList.jsp"><i class = "bi bi-chat-dots icon"></i></a>
-    </div>
-    
     <%
     	// 다른사람의 프로필 이미지를 눌렀을때 get방식으로 담겨오는 nick을 받아주는 것
     	String nick = request.getParameter("nick");

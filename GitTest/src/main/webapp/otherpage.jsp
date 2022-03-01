@@ -89,6 +89,8 @@
        	int endNum = startNum+2;
    		FeedDAO feed = new FeedDAO();
    		ArrayList<FeedDTO> feedList = feed.feedSelectLimit3(otherNick, startNum, endNum);
+   		int feedCnt = feed.feedCountAllByNick(otherNick);
+   		pageContext.setAttribute("feedCnt",feedCnt);
    		
    		// 현재 로그인중인 회원
    		MemberDTO member = (MemberDTO)session.getAttribute("member");
@@ -135,7 +137,7 @@
            
             <!-- <div class="container profile-in text-center"> -->
                 <div class="item post">
-                    ${feedList.size()}<br>
+                    ${feedCnt}<br>
                     게시물
                 </div>
 
@@ -784,7 +786,7 @@
 						num1 += 3;
 						if(result >= num1){
 							console.log(num1);
-							$(".tab-content").append("<div id = 'load"+num1+"''></div>");
+							$(".container.out").append("<div id = 'load"+num1+"''></div>");
 							$("#load"+num1).load("otherpageSub.jsp #reload",{nick: nick1, otherNick: nick2, startNum: num1});
 						}
 					},

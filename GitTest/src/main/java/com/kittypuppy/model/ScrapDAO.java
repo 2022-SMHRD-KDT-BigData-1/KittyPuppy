@@ -85,6 +85,27 @@ public class ScrapDAO {
 		return feedList;
 	}
 	
+	// 개수 세기
+	public int scrapCount(String sNick) {
+		
+		int cnt= 0;
+		connect();
+		try {
+			String sql = "select count(feedno) from feed_scrap_view where snick = ? order by scrapdate desc";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, sNick);
+			rs =  psmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
 	// scrap한 feed 3개씩 보여주기
 	public ArrayList<FeedDTO> scrapShowLimit3(String sNick,int startNum, int endNum) {
 		

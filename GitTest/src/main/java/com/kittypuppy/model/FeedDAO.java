@@ -87,6 +87,27 @@ public class FeedDAO {
 		return feedList;
 	}
 	
+	// 개수세기 >>
+	
+	public int feedCountAll(){
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "select count(feedno) from feed order by feeddate desc";
+			psmt = conn.prepareStatement(sql);
+			rs =  psmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
 	// 모든 회원의 피드 3개씩 보여주기 (팔로우하고 있는 회원이 없을 때)
 	public ArrayList<FeedDTO> feedShowAllLimit3(int startNum, int endNum){
 		
@@ -144,6 +165,38 @@ public class FeedDAO {
 		return feedList;
 	}
 	
+	// 개수세기 >>
+	
+		public int feedCountAllByFollow(ArrayList<String> followingList){
+			
+			int cnt = 0;
+			connect();
+			try {
+				String sql = "select count(feedno) from feed where nick IN (";
+				for (int i = 0; i < followingList.size();i++) {
+					if (i == followingList.size() - 1) {
+						sql += "?";
+					} else {
+						sql += "?,";
+					}
+				}
+				sql += ")order by feeddate desc";
+				psmt = conn.prepareStatement(sql);
+				for (int i = 0; i < followingList.size();i++) {
+					psmt.setString(i+1, followingList.get(i));
+				}
+				rs =  psmt.executeQuery();
+				if (rs.next()) {
+					cnt = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			return cnt;
+		}
+		
 	// 내가 팔로우 하고 있는 회원들의 피드 3개씩 보여주기
 	public ArrayList<FeedDTO> feedShowLimit3(ArrayList<String> followingList, int startNum, int endNum) {
 		
@@ -200,6 +253,27 @@ public class FeedDAO {
 			close();
 		}
 		return feedList;
+	}
+	
+	// 개수 세기 >>
+	public int feedCountAllByNick(String nick){
+		
+		int cnt = 0;
+		connect();
+		try {
+			String sql = "select count(feedno) from feed where nick = ? order by feeddate desc";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, nick);
+			rs =  psmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
 	
 	// 특정 회원의 피드 3개씩 보여주기

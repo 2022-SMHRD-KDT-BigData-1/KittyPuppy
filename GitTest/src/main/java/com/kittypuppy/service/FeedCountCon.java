@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.FeedDAO;
-import com.kittypuppy.model.FeedDTO;
 import com.kittypuppy.model.FollowDAO;
 
 public class FeedCountCon implements iCommand{
@@ -23,16 +22,14 @@ public class FeedCountCon implements iCommand{
 		FeedDAO fdao = new FeedDAO();
     	FollowDAO fwdao = new FollowDAO();
     	
-		ArrayList<FeedDTO> feedList = null;
+    	int result = 0;
     	ArrayList<String> followList = fwdao.followingShow(nick);
     	
         if (followList.size() == 0) {
-    		feedList = fdao.feedShowAll();
+        	result = fdao.feedCountAll();
     	} else {
-    		feedList = fdao.feedShow(followList);
+    		result = fdao.feedCountAllByFollow(followList);
     	}
-        
-        int result = feedList.size();
         
         PrintWriter out = response.getWriter();
         out.print(result);

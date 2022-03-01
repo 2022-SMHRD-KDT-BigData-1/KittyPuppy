@@ -93,22 +93,26 @@
 					<table>
 						<tr>
 							<td rowspan=3 style = "text-align:center; vertical-align :top;">
-								<c:choose>
-									<c:when test="${empty cm.picAddress}">
-										<img
-											src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-											style = "width:40px; height:40px;"
-											class='rounded-circle img-tn float-start'>
-									</c:when>
-									<c:otherwise>
-										<img src='${cm.picAddress}'
-											style = "width:40px; height:40px;"
-											class='rounded-circle img-tn float-start'>
-									</c:otherwise>
-								</c:choose>
+								<a href = "otherpage.jsp?nick=${com.nick}">
+									<c:choose>
+										<c:when test="${empty cm.picAddress}">
+											<img
+												src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+												style = "width:40px; height:40px;"
+												class='rounded-circle img-tn float-start'>
+										</c:when>
+										<c:otherwise>
+											<img src='${cm.picAddress}'
+												style = "width:40px; height:40px;"
+												class='rounded-circle img-tn float-start'>
+										</c:otherwise>
+									</c:choose>
+								</a>
 							</td>
 							<td>
-								<strong> ${com.nick}</strong>
+								<a href = "otherpage.jsp?nick=${com.nick}">
+									<strong> ${com.nick}</strong>
+								</a>
 								<button type='button' data-bs-toggle="collapse" style = "background-color:#ffffff; outline:0; border:0px;"
 									data-bs-target="#coCom${com.fcNo}" aria-expanded="false">
 									<i class="bi bi-reply" style='font-size: 15px;'></i>
@@ -159,22 +163,26 @@
 						<table>
 							<tr>
 								<td rowspan=3 style = "text-align:center; vertical-align :top;">
-									<c:choose>
-										<c:when test="${empty ccm.picAddress}">
-											<img
-												src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-												style = "width:40px; height:40px;"
-												class='rounded-circle img-tn float-start'>
-										</c:when>
-										<c:otherwise>
-											<img src='${ccm.picAddress}'
-												style = "width:40px; height:40px;"
-												class='rounded-circle img-tn float-start'>
-										</c:otherwise>
-									</c:choose>
+									<a href = "otherpage.jsp?nick=${cocom.nick}">
+										<c:choose>
+											<c:when test="${empty ccm.picAddress}">
+												<img
+													src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+													style = "width:40px; height:40px;"
+													class='rounded-circle img-tn float-start'>
+											</c:when>
+											<c:otherwise>
+												<img src='${ccm.picAddress}'
+													style = "width:40px; height:40px;"
+													class='rounded-circle img-tn float-start'>
+											</c:otherwise>
+										</c:choose>
+									</a>
 								</td>
 								<td>
-									<strong> ${cocom.nick}</strong>
+									<a href = "otherpage.jsp?nick=${cocom.nick}">
+										<strong> ${cocom.nick}</strong>
+									</a>
 									<c:choose>
 										<c:when test="${nick == cocom.nick}">
 											<button onclick='' style = "background-color:#ffffff; outline:0; border:0px;">

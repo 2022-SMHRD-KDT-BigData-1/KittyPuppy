@@ -86,7 +86,9 @@
 	FeedDAO feed = new FeedDAO();
 	// 내가 게시한 피드
 	ArrayList<FeedDTO> feedList = feed.feedSelectLimit3(nick, startNum, endNum);
-
+	int feedCnt = feed.feedCountAllByNick(nick);
+	pageContext.setAttribute("feedCnt",feedCnt);
+	
 	FollowDAO follow = new FollowDAO();
 	// 나를 팔로우 하는 사람들
 	ArrayList<String> followerList = follow.followerShow(nick);
@@ -160,7 +162,7 @@
 			<!-- <div class="container profile-in text-center"> -->
 			<div class="item post">
 				<!-- 게시물의 갯수 -->
-				${feedList.size()}<br> 게시물
+				${feedCnt}<br> 게시물
 			</div>
 
 			<div class="item follower">
@@ -270,17 +272,15 @@
 								%>
 								<div>
 									<!-- 게시자 썸네일 -->
-									<a href='otherpage.jsp?nick=${feed.nick}'> 
-										<c:choose>
-											<c:when test="${empty fm.picAddress}">
-												<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
-													 class='rounded-circle img-thumbnail float-start'>
-											</c:when>
-											<c:otherwise>
-												<img src='${fm.picAddress}' class='rounded-circle img-thumbnail feed float-start'>
-											</c:otherwise>
-										</c:choose>
-									</a>
+									<c:choose>
+										<c:when test="${empty fm.picAddress}">
+											<img src='https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png'
+												 class='rounded-circle img-thumbnail float-start'>
+										</c:when>
+										<c:otherwise>
+											<img src='${fm.picAddress}' class='rounded-circle img-thumbnail feed float-start'>
+										</c:otherwise>
+									</c:choose>
 									<!-- 마이 피드-삭제 아이콘 -->
 									<div style="float: right;">
 										<button class="feed-bt" onclick="location.href='FeedDeleteCon.do?feedNo=${fdn}' ">
@@ -289,9 +289,8 @@
 									</div>
 									<!-- 닉네임, 게시 날짜 -->
 									<div align='left' class="otherPageNick">
-										<a href='otherpage.jsp?nick=${feed.nick}'> <br /> <strong>${feed.nick}</strong><br />
-											${fn:substring(feed.feedDate,0,10)}
-										</a>
+										<br/> <strong>${feed.nick}</strong><br />
+										${fn:substring(feed.feedDate,0,10)}
 									</div>
 								</div>
 	

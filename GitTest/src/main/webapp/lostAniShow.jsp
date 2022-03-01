@@ -244,7 +244,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 							</button>
 						</div>
 						<c:if test="${member.getNick() == lostAni.nick}">
-							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}"><button
+							<a href="LostAniUpdateCon.do?lostNo=${lostAni.lostNo}" style = 'text-decoration-line: none;'><button
 									class='btn update-btn b' type='button'>
 									<i class="bi bi-vector-pen">글 수정</i>
 								</button></a>

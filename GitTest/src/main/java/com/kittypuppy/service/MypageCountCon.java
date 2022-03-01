@@ -2,14 +2,12 @@ package com.kittypuppy.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kittypuppy.model.FeedDAO;
-import com.kittypuppy.model.FeedDTO;
 import com.kittypuppy.model.ScrapDAO;
 
 public class MypageCountCon implements iCommand{
@@ -24,13 +22,12 @@ public class MypageCountCon implements iCommand{
 		FeedDAO fdao = new FeedDAO();
 		ScrapDAO sdao = new ScrapDAO();
     	
-		ArrayList<FeedDTO> feedList = null;
+		int result = 0;
 		if (type.equals("feed")) {
-			feedList = fdao.feedSelect(nick);
+			result = fdao.feedCountAllByNick(nick);
 		} else {
-			feedList = sdao.scrapShow(nick);
+			result = sdao.scrapCount(nick);
 		}
-        int result = feedList.size();
         
         PrintWriter out = response.getWriter();
         out.print(result);
