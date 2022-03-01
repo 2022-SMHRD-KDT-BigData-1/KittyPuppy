@@ -34,7 +34,6 @@ public class AniJoinCon implements iCommand {
 				String animalSex = multi.getParameter("animalSex");
 				int animalAge = Integer.parseInt(multi.getParameter("animalAge"));
 				String animalProfile = multi.getParameter("animalProfile");
-				
 				String animalPic = multi.getFilesystemName("animalPic");
 				if(animalPic != null) {
 					System.out.println(animalPic);

@@ -167,37 +167,38 @@ pageContext.setAttribute("lostList", lostList);
 						</div>
 						<div class="item searchPage b">Search</div>
 						<div class="item submit b">
-							<button type="submit" class="btn">검색</button>
+							<button type="submit" class="btn2 btn">검색</button>
 						</div>
 					</header>
 
 					<!-- section1 박스: 게시글 등록유형~ 성별까지 다단 나눈 8개, 4줄 -->
 					<section class="container-section1 b">
 						<select id="laType" class="form-select item1" name="laType">
-							<option value="목격" selected>목격</option>
+							<option value="" selected>유형</option>
+							<option value="목격">목격</option>
 							<option value="실종">실종</option>
 							<option value="보호중">보호중</option>
 							<option value="완료">완료</option>
 						</select> <input type="text" name="aniName" id="input_aniName"
 							class="form-control item1" placeholder="반려동물 이름"> <select
 							id="laUpkind" class="form-select item1" name="upKind">
-							<option value="null" selected>반려동물 대분류</option>
+							<option value="" selected>반려동물 대분류</option>
 							<option value="개">개</option>
 							<option value="고양이">고양이</option>
 							<option value="기타">다른 동물</option>
 						</select> <input type="text" name="kind" id="input_kind"
 							class="form-control item1" placeholder="반려동물 소분류"> <select
 							id="laSize" class="form-select item1" name="aniSize">
-							<option value="null" selected>크기</option>
+							<option value="" selected>크기</option>
 							<option value="대형">대형</option>
 							<option value="중형">중형</option>
 							<option value="소형">소형</option>
 						</select> <select id="isTag" class="form-select item1" name="isTag">
-							<option value="null" selected>인식표 여부</option>
+							<option value="" selected>인식표 여부</option>
 							<option value="true">인식표 있음</option>
 							<option value="false">인식표 없음</option>
 						</select> <select id="sex" class="form-select item1" name="sex">
-							<option value="null" selected>성별</option>
+							<option value="" selected>성별</option>
 							<option value="수컷">수컷</option>
 							<option value="암컷">암컷</option>
 						</select>
@@ -206,7 +207,7 @@ pageContext.setAttribute("lostList", lostList);
 					<!-- section2 박스: 게시글 내용, 장소 자동 채워지는 place, 2개 2줄-->
 					<section class="container-section2 b">
 						<div class="item2">
-							<textarea class="form-control item2" name="feature" 
+							<textarea class="form-control item2" name="feature"
 								id="exampleFormControlTextarea1" rows="5" placeholder="특징 및 내용 "></textarea>
 						</div>
 						<input type="text" name="place" id="input_place"
