@@ -55,6 +55,7 @@ public class FrontController extends HttpServlet {
 		map.put("/LostCommentCreateCon.do", new LostCommentCreateCon());
 		map.put("/LostCommentDeleteCon.do", new LostCommentDeleteCon());
 		map.put("/LostCommentUpdateCon.do", new LostCommentUpdateCon());
+		map.put("/LostCommentCountCon.do", new LostCommentCountCon());
 		map.put("/MLoginCon.do", new MLoginCon());
 		map.put("/MJoinCon.do", new MJoinCon());
 		map.put("/MUpdateCon.do", new MUpdateCon());

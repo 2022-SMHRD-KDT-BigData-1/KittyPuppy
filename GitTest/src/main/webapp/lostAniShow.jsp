@@ -279,6 +279,22 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
     -->
 
 	<script>
+	//댓글 수 보이기
+	function feedComCount(lostNo) {
+			$.ajax({
+				url: "LostCommentCountCon.do",
+				type: "post",
+				data: {lostNo: lostNo},
+				dataType: 'json',
+				success: function(result) {
+					$("#lostComCnt").html("댓글 "+result);
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
+		};
+		
 	// 댓글 삭제 버튼		
 	function locDelete(locNo, del_id, lostNo, nick) {
 				
@@ -287,9 +303,10 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        data: { locNo: locNo },
 		    url: "LostCommentDeleteCon.do",
 	        dataType : 'json',
-	        success: function(result) {
+	        success: function(cnt) {
 				if(result > 0){
 	        		alert("success");
+	        		feedComCount(lostNo)
 	        		lostComLoad(lostNo, nick);
 	        	}else{
 	        		alert("con-댓글삭제 실패");
@@ -310,9 +327,10 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        data: { coNo: coNo },
 		    url: "LostCoCommentDeleteCon.do",
 	        dataType : 'json',
-	        success: function(result) {
+	        success: function(cnt) {
 				if(result > 0){
 	        		alert("success");
+	        		feedComCount(lostNo)
 	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con-대댓글삭제 실패");
@@ -340,6 +358,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function (result) {
 	        	if(result > 0){
 	        		alert("success");
+	        		feedComCount(lostNo)
 	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con 댓글 작성 실패");
@@ -365,6 +384,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		        success: function (result) {
 		        	if(result > 0){
 		        		alert("success");
+		        		feedComCount(lostNo)
 		        		lostComLoad(lostNo,nick);
 		        	}else{
 		        		alert("con 대댓글 작성 실패");
@@ -374,6 +394,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		        }
 		    });
 		}
+	
 		
 	// 댓글 보이기
 	function lostComLoad(lostNo,nick) {
