@@ -303,7 +303,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        data: { locNo: locNo },
 		    url: "LostCommentDeleteCon.do",
 	        dataType : 'json',
-	        success: function(cnt) {
+	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
 	        		feedComCount(lostNo)
@@ -327,7 +327,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        data: { coNo: coNo },
 		    url: "LostCoCommentDeleteCon.do",
 	        dataType : 'json',
-	        success: function(cnt) {
+	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
 	        		feedComCount(lostNo)
