@@ -21,81 +21,49 @@ public class LostAniFilterCon implements iCommand {
 
 		// 입력값 post 방식으로 받음
 		request.setCharacterEncoding("utf-8");
-		String laType = request.getParameter("laType");
-		String aniName = request.getParameter("aniName");
-		String upKind = request.getParameter("upKind");
-		String kind = request.getParameter("kind");
-		String sex = request.getParameter("sex");
-		String aniSize = request.getParameter("aniSize");
-		String isTag = request.getParameter("isTag");
-		String feature = request.getParameter("feature");
-		String place = request.getParameter("place");
-
-		// 공백 값으로 올 경우 DAO null 검사에서 확인이 안 됨. null로 변환
-		if (aniName.length() == 0)
-			aniName = null;
-		if (kind.length() == 0)
-			kind = null;
-		if (feature.length() == 0)
-			feature = null;
-		if (place.length() == 0)
-			place = null;
-
-		LostAniDTO dto = new LostAniDTO(0, laType, null, aniName, null, upKind, kind, sex, null, aniSize, isTag,
-				feature, place, null, null);
-		// 입력값 확인용
-		System.out.println(dto.toString());
-
-		String addSql = " is not null";
-
-		if (laType == null || laType == "" || laType.equals("null")) {
-		} else {
-			addSql += " and latype = '" + laType + "' ";
+		String laType = "";
+		if (!request.getParameter("laType").equals("")) {
+			laType  = " and latype = '"+request.getParameter("laType")+"'";
 		}
-
-		if (aniName == null || aniName == "" || aniName.equals("null")) {
-		} else {
-			addSql += " and animalname like '%" + aniName + "%' ";
+		String aniName = "";
+		if (!request.getParameter("aniName").equals("")) {
+			aniName  = " and animalname = '"+request.getParameter("aniName")+"'";
 		}
-		if (upKind == null || upKind == "" || upKind.equals("null")) {
-		} else {
-			addSql += " and upkind = '" + upKind + "' ";
+		String upKind = "";
+		if (!request.getParameter("upKind").equals("")) {
+			upKind  = " and upkind = '"+request.getParameter("upKind")+"'";
 		}
-
-		if (kind == null || kind == "" || sex.equals("null")) {
-		} else {
-			addSql += " and kind = '" + kind + "' ";
+		String kind = "";
+		if (!request.getParameter("kind").equals("")) {
+			kind  = " and kind = '"+request.getParameter("kind")+"'";
 		}
-
-		if (sex == null || sex == "" || sex.equals("null")) {
-		} else {
-			addSql += " and sex = '" + sex + "' ";
+		String sex = "";
+		if (!request.getParameter("sex").equals("")) {
+			sex  = " and sex = '"+request.getParameter("sex")+"'";
 		}
-
-		if (aniSize == null || aniSize == "" || aniSize.equals("null")) {
-		} else {
-			addSql += " and animalsize = '" + aniSize + "' ";
+		String aniSize = "";
+		if (!request.getParameter("aniSize").equals("")) {
+			aniSize  = " and animalsize = '"+request.getParameter("aniSize")+"'";
 		}
-
-		if (isTag == null || isTag == "" || isTag.equals("null")) {
-		} else {
-			addSql += " and istag = '" + isTag + "' ";
+		String isTag = "";
+		if (!request.getParameter("isTag").equals("")) {
+			isTag  = " and istag = '"+request.getParameter("isTag")+"'";
 		}
-
-		if (feature == null || feature == "" || feature.equals("null")) {
-		} else {
-			addSql += " and feature like '%" + feature + "%' ";
+		String feature = "";
+		if (!request.getParameter("feature").equals("")) {
+			feature  = " and feature = '"+request.getParameter("feature")+"'";
 		}
-
-		if (place == null || place == "" || place.equals("null")) {
-		} else {
-			addSql += " and place like '%" + place + "%' ";
+		String place = "";
+		if (!request.getParameter("place").equals("")) {
+			place  = " and place = '"+request.getParameter("place")+"'";
 		}
+		
+		String addSql = " is not null" + laType + aniName + upKind + kind + sex + aniSize + isTag + feature + place;
 
 		System.out.print(addSql);
 
 		// 일단 검색 가능할 것 같은 내용 넣어둠
-		lostAniFilter = dao.lostAniFilter(dto, addSql);
+		lostAniFilter = dao.lostAniFilter(addSql);
 
 		request.setAttribute("lostAniFilter", lostAniFilter);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("lostAniFilterResult.jsp");

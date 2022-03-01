@@ -171,7 +171,7 @@ public class LostAniDAO {
 
 	}
 
-	public ArrayList<LostAniDTO> lostAniFilter(LostAniDTO lostAniFilter, String addSql) {
+	public ArrayList<LostAniDTO> lostAniFilter(String addSql) {
 
 		ArrayList<LostAniDTO> lostList = new ArrayList<LostAniDTO>();
 		LostAniDTO lostAni = null;

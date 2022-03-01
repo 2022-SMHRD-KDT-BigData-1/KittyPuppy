@@ -199,7 +199,7 @@
                         <!--  퍼피유에 여아 남아로 되어 있음 -->
                     </select>
                 </div>
-				<textarea class="form-control mb-3" name="animalAge">${ani.animalAge }</textarea>
+				<textarea class="form-control mb-3" id = 'inputPhone' name="animalAge">${ani.animalAge }</textarea>
 				<c:choose>
 					<c:when test="${ani.animalProfile eq 'null'}">
 						<textarea class="form-control mb-3" name="animalProfile">   </textarea>
@@ -240,7 +240,25 @@
 			$("#animalSex").val("암").prop("selected",true);
 		}
 		
-	
+	    // 숫자가 아닌 값 지우기
+	    var replaceNotInt = /[^0-9]/gi;
+	    
+	    $(document).ready(function(){
+	        
+	        $("#inputPhone").on("focusout", function() {
+	            var x = $(this).val();
+	            if (x.length > 0) {
+	                if (x.match(replaceNotInt)) {
+	                   x = x.replace(replaceNotInt, "");
+	                }
+	                $(this).val(x);
+	            }
+	        }).on("keyup", function() {
+	            $(this).val($(this).val().replace(replaceNotInt, ""));
+	        });
+	 
+	    });
+	 
 	</script>
 
 </body>
