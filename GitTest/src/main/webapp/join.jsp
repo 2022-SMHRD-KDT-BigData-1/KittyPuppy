@@ -159,42 +159,37 @@ html, body {
 						})
 	</script>
 	<script type="text/javascript">
-		$('#nick')
-				.focusout(
-						function() {
-							let nick = $('#nick').val();
-
-							$
-									.ajax({
+		$('#nick').focusout(function() {
+								let nick = $('#nick').val();
+								console.log(nick);
+								if (nick != "") {
+									$.ajax({
 										url : "MJoinNickCheckCon.do",
 										type : "post",
-										data : {
-											nick : nick
-										},
+										data : {nick : nick},
 										dataType : 'json',
 										success : function(result) {
 											if (result == 0) {
-												document
-														.getElementById('checkNick').style.display = 'block';
-												$("#checkNick").html(
-														'사용할 수 없는 닉네임입니다');
-												$("#checkNick").css('color',
-														'red');
-
+												document.getElementById('checkNick').style.display = 'block';
+												$("#checkNick").html('사용할 수 없는 닉네임입니다');
+												$("#checkNick").css('color','red');
+	
 											} else {
-												document
-														.getElementById('checkNick').style.display = 'block';
-												$("#checkNick").html(
-														'사용할 수 있는 닉네임입니다');
-												$("#checkNick").css('color',
-														'green');
+												document.getElementById('checkNick').style.display = 'block';
+												$("#checkNick").html('사용할 수 있는 닉네임입니다');
+												$("#checkNick").css('color','green');
 											}
 										},
 										error : function() {
 											alert("nick서버요청실패")
 										}
 									})
-						})
+								} else {
+									document.getElementById('checkNick').style.display = 'block';
+									$("#checkNick").html('사용할 수 없는 닉네임입니다');
+									$("#checkNick").css('color','red');
+								}
+							})
 	</script>
 
 
