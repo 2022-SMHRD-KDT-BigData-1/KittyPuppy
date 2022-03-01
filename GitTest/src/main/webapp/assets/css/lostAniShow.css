@@ -240,6 +240,10 @@ img {
 	padding-left: 3rem;
 }
 
+
+#delete{
+	float:right;
+}
 /* **** 이상 댓글 대댓글 배치 관련 flex 설정******/
 
 /* grid 구분 확인을 위한 css 설정

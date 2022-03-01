@@ -85,7 +85,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 <link href="narrow-jumbotron.css" rel="stylesheet">
 
 <!-- lostAniShow.css -->
-<link rel="stylesheet" href="./assets/css/lostAniShow.css?ver=0.9.0.1">
+<link rel="stylesheet" href="./assets/css/lostAniShow.css?ver=0.9.0.2">
 
 
 </head>
@@ -208,6 +208,9 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 						</c:choose>
 						<span>[${lostAni.getUpKind()}] </span><span>${lostAni.kind}</span>
 						<span>${lostAni.aniName}</span>
+						<c:if test="${member.getNick() == lostAni.nick}">
+							<a href="LostAniDeleteCon.do?lostNo=${lostAni.lostNo}" ><span id="delete" class="bi">X</span></a>
+						</c:if>
 					</div>
 					<div class="subTitle h5">
 						<span>${lostAni.sex} </span>
@@ -245,7 +248,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 						</div>
 						<c:if test="${member.getNick() == lostAni.nick}">
 						<%-- LostAniUpdate.jsp?lostNo=${lostAni.lostNo} --%>
-							<a href="#" style = 'text-decoration-line: none;'><button
+							<a href="LostAniBoard.jsp" style = 'text-decoration-line: none;'><button
 									class='btn update-btn b' type='button'>
 									<i class="bi bi-vector-pen">글 수정</i>
 								</button></a>
