@@ -85,7 +85,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 <title>lostTemp</title>
 </head>
 <body>
-
+<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 	<div class="laDetail b">
 		<span class="h5"> 날짜 : ${lostAni.laDate}</span><br /> <span
 			class="h5"> 장소: ${lostAni.place}</span><br /> <span class="h5">
@@ -124,7 +124,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 							</button> <c:if test="${member.getNick() == loc.nick}">
 								<button id="loc${loc.locNo}" class="loc-delete-btn btn"
 									type="button"
-									onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}')">
+									onclick="locDelete(${loc.locNo}, '#aComment-box${loc.locNo}',${lostAni.lostNo},${loc_m.nick})">
 									<i class="bi bi-trash" style='font-size: 15px;'></i>
 								</button>
 							</c:if></td>
@@ -166,7 +166,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 												<button id="lcoco${lcoco.coNo}" class="lcoco-delete-btn b"
 													type="button"
 													style="background-color: #ffffff; outline: 0; border: 0;"
-													onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}')">
+													onclick="lcocoDelete(${lcoco.coNo}, '#lcoco-Comment-box${lcoco.coNo}',${lostAni.lostNo},${lcoco_m.nick})">
 													<i class="bi bi-trash" style='font-size: 15px;'></i>
 												</button>
 											</c:if></td>
@@ -217,8 +217,6 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		</div>
 		<!-- 댓글 작성 창 구현 : 종료 -->
 	</div>
-
-
 
 </body>
 </html>

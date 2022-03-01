@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix='fn' uri="http://java.sun.com/jsp/jstl/functions"%>
 
+
 <%
 // 로그인 회원정보 저장
 MemberDTO member = (MemberDTO) session.getAttribute("member");
@@ -277,24 +278,8 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
-
+<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 	<script>
-	//댓글 수 보이기
-	function feedComCount(lostNo) {
-			$.ajax({
-				url: "LostCommentCountCon.do",
-				type: "post",
-				data: {lostNo: lostNo},
-				dataType: 'json',
-				success: function(result) {
-					$("#lostComCnt").html("댓글 "+result);
-				},
-				error: function(){
-					console.log("err");
-				}
-			});
-		};
-		
 	// 댓글 삭제 버튼		
 	function locDelete(locNo, del_id, lostNo, nick) {
 				
@@ -306,7 +291,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
-	        		feedComCount(lostNo)
+	        		losComCount(lostNo);
 	        		lostComLoad(lostNo, nick);
 	        	}else{
 	        		alert("con-댓글삭제 실패");
@@ -330,7 +315,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function(result) {
 				if(result > 0){
 	        		alert("success");
-	        		feedComCount(lostNo)
+	        		losComCount(lostNo);
 	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con-대댓글삭제 실패");
@@ -342,7 +327,21 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		});
 		$(del_id).remove();
 	}
-	
+	//댓글 수 보이기
+	function losComCount(lostNo) {
+			$.ajax({
+				url: "LostCommentCountCon.do",
+				type: "post",
+				data: {lostNo: lostNo},
+				dataType: 'json',
+				success: function(result) {
+					$("#lostComCnt").html("댓글 "+result);
+				},
+				error: function(){
+					console.log("err");
+				}
+			});
+		};
 	
 	// 댓글 등록 버튼 > db 등록 > 페이지 새로고침;	
 	function locSubmit(lostNo,nick) {
@@ -358,7 +357,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 	        success: function (result) {
 	        	if(result > 0){
 	        		alert("success");
-	        		feedComCount(lostNo)
+	        		losComCount(lostNo)
 	        		lostComLoad(lostNo,nick);
 	        	}else{
 	        		alert("con 댓글 작성 실패");
@@ -384,7 +383,7 @@ pageContext.setAttribute("Commentcnt", Commentcnt);
 		        success: function (result) {
 		        	if(result > 0){
 		        		alert("success");
-		        		feedComCount(lostNo)
+		        		losComCount(lostNo)
 		        		lostComLoad(lostNo,nick);
 		        	}else{
 		        		alert("con 대댓글 작성 실패");

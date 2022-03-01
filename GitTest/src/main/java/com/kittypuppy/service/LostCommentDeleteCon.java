@@ -18,6 +18,7 @@ public class LostCommentDeleteCon implements iCommand{
 		
 		// 쿼리스트링으로 locNo 받음
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
+;
 
 		int cnt = dao.lostCommentDelete(locNo);
 		response.setContentType("text/html; charset=utf-8");
