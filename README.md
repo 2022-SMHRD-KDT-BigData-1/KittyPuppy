@@ -1,5 +1,5 @@
 ![로고](https://user-images.githubusercontent.com/95062638/156505973-babe0ed0-33d6-44dd-bb50-8367988cbd47.png)
-# <h1>KittyPuppy(핵심 융합 프로젝트)</h1>
+# :cat2:KittyPuppy(핵심 융합 프로젝트):dog2:
 - 잃어버린 반려동물을 찾도록 도와주는 반려동물 SNS
 - 하이퍼로컬 기반 반려동물 SNS
 ## 주요 활용 기술
@@ -34,3 +34,6 @@
 ![활용이미지](https://user-images.githubusercontent.com/95062638/156506007-4efd8fc3-9b86-4e58-8304-1716074e2a14.png)
 ## 서비스 URL
 http://localhost:8081/GitTest/login.jsp
+## 팀원 소개
+![image](https://user-images.githubusercontent.com/95062638/156507705-298e40f9-aebb-4ed3-bc04-120bf0845d0f.png)
+
