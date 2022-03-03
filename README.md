@@ -18,7 +18,7 @@
   - 유실한 반려 동물이나 유기 동물을 제보할 수 있는 기능
 - 로그인, 회원가입 기능
 ## 유스케이스
-![image](https://user-images.githubusercontent.com/95062638/156504405-738332e3-d4f8-48a8-aa65-5fa19e1596ae.png)
+![유스케이스](https://user-images.githubusercontent.com/95062638/156508723-7dd91d07-1b84-4883-b917-17a6adfa4667.png)
 ## 개발환경
 - 사용언어 : Java / HTML / CSS / Javascript
 - 라이브러리 : ajax / jQuery
