@@ -28,7 +28,7 @@
 - 빌드도구 : maven
 - 일정관리 : notion, GitHub
 ## 대표 이미지
-![로고](https://user-images.githubusercontent.com/95062638/156505611-c80ab865-d856-41f0-8426-70513fbf3d80.png)
+![로고](https://user-images.githubusercontent.com/95062638/156505702-a2b68943-c0d4-441c-9633-52c7c2731c47.png)
 ## 개발 기간
 ![image](https://user-images.githubusercontent.com/95062638/156504648-8b355ba9-5e2a-4e3d-a6b2-f240a8f589c6.png)
 ## 활용 사진 예시
