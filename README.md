@@ -1,4 +1,5 @@
-## KittyPuppy(핵심 융합 프로젝트)
+![로고](https://user-images.githubusercontent.com/95062638/156505973-babe0ed0-33d6-44dd-bb50-8367988cbd47.png)
+# KittyPuppy(핵심 융합 프로젝트)
 - 잃어버린 반려동물을 찾도록 도와주는 반려동물 SNS
 - 하이퍼로컬 기반 반려동물 SNS
 ## 주요 활용 기술
@@ -27,8 +28,6 @@
 - 데이터베이스 : oracle
 - 빌드도구 : maven
 - 일정관리 : notion, GitHub
-## 대표 이미지
-![로고](https://user-images.githubusercontent.com/95062638/156505973-babe0ed0-33d6-44dd-bb50-8367988cbd47.png)
 ## 개발 기간
 ![image](https://user-images.githubusercontent.com/95062638/156504648-8b355ba9-5e2a-4e3d-a6b2-f240a8f589c6.png)
 ## 활용 사진 예시
